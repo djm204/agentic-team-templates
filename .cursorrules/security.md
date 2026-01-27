@@ -1,0 +1,73 @@
+# Security Requirements
+
+## Authentication Flow
+
+1. User clicks "Sign In with Google"
+2. OAuth flow initiated with `state` parameter (CSRF protection)
+3. Google redirects to `/api/auth/callback`
+4. Server validates:
+   - `state` parameter matches session
+   - Email is EXACTLY `me@davidmendez.dev`
+   - Token signature is valid
+5. Set HTTP-only, Secure, SameSite=Strict cookie
+6. Redirect to admin dashboard
+
+## Input Sanitization
+
+All inputs must be validated with Zod and sanitized:
+
+```typescript
+import { z } from 'zod';
+import DOMPurify from 'isomorphic-dompurify';
+
+// All inputs validated with Zod
+const ProjectSchema = z.object({
+  title: z.string().min(1).max(200),
+  description: z.string().max(5000),
+  tags: z.array(z.string().max(50)).max(20),
+  metrics: z.record(z.string(), z.union([z.string(), z.number()])),
+});
+
+// All MDX content sanitized before storage
+const sanitizeMDX = (content: string): string =>
+  DOMPurify.sanitize(content, {
+    ALLOWED_TAGS: ['p', 'h1', 'h2', 'h3', 'code', 'pre', 'ul', 'ol', 'li', 'a', 'strong', 'em'],
+    ALLOWED_ATTR: ['href', 'class'],
+  });
+```
+
+## Rate Limiting
+
+- **Read Operations**: 100 requests/minute per IP
+- **Write Operations**: 10 requests/minute per authenticated user
+- **Auth Attempts**: 5 attempts/hour per IP
+
+## Content Security Policy
+
+Set via middleware:
+
+```typescript
+const csp = [
+  "default-src 'self'",
+  "script-src 'self' 'unsafe-inline'", // Next.js requires unsafe-inline
+  "style-src 'self' 'unsafe-inline'", // Tailwind requires unsafe-inline
+  "img-src 'self' data: https:",
+  "connect-src 'self' https://accounts.google.com",
+  "frame-ancestors 'none'",
+  "base-uri 'self'",
+  "form-action 'self'",
+].join('; ');
+```
+
+## Security Checklist
+
+Before any code that handles user input or authentication:
+
+- [ ] Input validated with Zod schema
+- [ ] MDX content sanitized with DOMPurify
+- [ ] Auth checks are server-side only
+- [ ] Email validation is exact match (`===`)
+- [ ] Rate limiting applied to mutations
+- [ ] CSP headers set correctly
+- [ ] No secrets in client-side code
+- [ ] CSRF protection via state parameter

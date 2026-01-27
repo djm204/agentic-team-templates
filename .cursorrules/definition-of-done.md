@@ -1,0 +1,38 @@
+# Definition of Done
+
+A task is complete when:
+
+- [ ] Code written and reviewed
+- [ ] Tests written and passing (80%+ coverage)
+- [ ] TypeScript strict mode compliant
+- [ ] ESLint and Prettier passing
+- [ ] Accessibility tested (keyboard + screen reader)
+- [ ] Security reviewed (input validation, auth checks)
+- [ ] Performance benchmarked (no regressions)
+- [ ] Documentation updated
+- [ ] Committed with conventional commit message
+- [ ] PR approved and merged
+- [ ] Deployed to production
+- [ ] Verified working in production
+
+## Brutal Honesty Checklist
+
+Before saying you're done:
+
+- [ ] Did you actually run the tests?
+- [ ] Did they actually pass?
+- [ ] Did you test the happy path AND error cases?
+- [ ] Did you check for XSS vulnerabilities?
+- [ ] Did you verify auth checks are server-side?
+- [ ] Would you ship this code to production?
+- [ ] Would you be proud to show this in a code review?
+
+## Remember
+
+- **Security is not optional** - It's the foundation
+- **Tests are not optional** - They're the safety net
+- **Types are not optional** - They're the guardrails
+- **Accessibility is not optional** - It's basic human decency
+- **Clean code is not optional** - It's professional respect
+
+Build it right, or don't build it at all.

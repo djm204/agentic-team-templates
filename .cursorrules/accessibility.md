@@ -1,0 +1,36 @@
+# Accessibility Requirements
+
+## WCAG 2.1 Level AA Compliance
+
+- [ ] Semantic HTML5 elements
+- [ ] ARIA labels where needed
+- [ ] Keyboard navigation support
+- [ ] Focus indicators visible
+- [ ] Color contrast ratio ≥ 4.5:1
+- [ ] Screen reader tested (NVDA/JAWS)
+- [ ] Skip to main content link
+- [ ] Form labels and error messages
+
+## Testing
+
+```bash
+# Automated accessibility testing
+npm run test:a11y
+
+# Manual testing
+# 1. Navigate entire site with keyboard only
+# 2. Test with screen reader
+# 3. Check color contrast with browser DevTools
+```
+
+## Accessibility Checklist
+
+Before marking code complete:
+
+- [ ] All interactive elements keyboard accessible
+- [ ] Focus indicators visible
+- [ ] ARIA labels on icon-only buttons
+- [ ] Form inputs have associated labels
+- [ ] Color contrast meets WCAG AA standards
+- [ ] Screen reader tested
+- [ ] No accessibility violations in automated tests
