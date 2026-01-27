@@ -7,12 +7,14 @@
 
 ![Cursor](https://img.shields.io/badge/Cursor_IDE-black?style=flat&logo=cursor)
 ![Claude Code](https://img.shields.io/badge/Claude_Code-cc785c?style=flat&logo=anthropic)
+![GitHub Copilot](https://img.shields.io/badge/GitHub_Copilot-000?style=flat&logo=githubcopilot)
 
-AI coding assistant templates for Cursor IDE and Claude Code. Pre-configured rules and guidelines that help AI assistants write better code in your projects.
+AI coding assistant templates for Cursor IDE, Claude Code, and GitHub Copilot. Pre-configured rules and guidelines that help AI assistants write better code in your projects.
 
-**Installs:**
+**Installs (configurable via `--ide`):**
 - **`CLAUDE.md`** - Development guide for Claude-based assistants (Claude Code, Cursor with Claude)
 - **`.cursorrules/`** - Rule files for Cursor IDE
+- **`.github/copilot-instructions.md`** - Instructions for GitHub Copilot
 
 > **Disclaimer:** This project is provided for **educational and experimental purposes only**. The author takes no responsibility for any actions, outputs, or consequences resulting from an LLM or AI assistant following these rules. Use at your own risk. Always review AI-generated code before deploying to production.
 
@@ -73,14 +75,33 @@ Re-run with `@latest` to get updated templates:
 npx cursor-templates@latest web-frontend
 ```
 
+### Install for Specific IDE
+
+By default, templates install for both Cursor and Claude. Use `--ide` to target specific tools:
+
+```bash
+# Install only for Cursor IDE
+npx cursor-templates web-frontend --ide=cursor
+
+# Install only for Claude Code
+npx cursor-templates web-frontend --ide=claude
+
+# Install only for GitHub Copilot
+npx cursor-templates web-frontend --ide=codex
+
+# Install for multiple IDEs
+npx cursor-templates web-frontend --ide=cursor --ide=codex
+```
+
 ### CLI Options
 
 | Option | Description |
 |--------|-------------|
+| `--ide=<name>` | Target IDE: `cursor`, `claude`, or `codex` (can be used multiple times) |
 | `--list`, `-l` | List all available templates |
-| `--dry-run`, `-d` | Preview changes without writing files |
+| `--dry-run` | Preview changes without writing files |
+| `--force`, `-f` | Overwrite existing files |
 | `--help`, `-h` | Show help message |
-| `--version`, `-v` | Show version number |
 
 ## Available Templates
 
@@ -131,7 +152,10 @@ After running `npx cursor-templates web-frontend`:
 ```
 your-project/
 ├── CLAUDE.md                              # Development guide (Claude Code, Cursor)
-└── .cursorrules/                          # Rule files (Cursor IDE)
+├── .cursorrules/                          # Rule files (Cursor IDE)
+│   └── ...
+└── .github/
+    └── copilot-instructions.md            # Instructions (GitHub Copilot)
     ├── core-principles.md                 # Shared
     ├── code-quality.md                    # Shared
     ├── security-fundamentals.md           # Shared
@@ -206,6 +230,7 @@ npx cursor-templates ml-ai data-engineering
 - **Supported IDEs/Tools**:
   - Cursor IDE (any version with `.cursorrules/` support)
   - Claude Code (reads `CLAUDE.md` automatically)
+  - GitHub Copilot (reads `.github/copilot-instructions.md`)
 
 ## How to Contribute
 

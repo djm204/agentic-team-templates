@@ -50,6 +50,10 @@ const SHARED_RULES = [
   'security-fundamentals.md'
 ];
 
+// Supported IDEs/tools
+const SUPPORTED_IDES = ['cursor', 'claude', 'codex'];
+const DEFAULT_IDES = ['cursor', 'claude']; // Default when --ide not specified
+
 // Colors
 const colors = {
   red: (s) => `\x1b[31m${s}\x1b[0m`,
@@ -69,19 +73,27 @@ function printBanner() {
 
 function printHelp() {
   console.log(`${colors.yellow('Usage:')}
-  npx cursor-templates <templates...>
+  npx cursor-templates <templates...> [options]
 
 ${colors.yellow('Options:')}
+  --ide=<name>   Install for specific IDE (cursor, claude, codex)
+                 Can be specified multiple times: --ide=cursor --ide=claude
+                 Default: cursor,claude (both)
   --list, -l     List available templates
   --help, -h     Show this help message
   --dry-run      Show what would be installed
   --force, -f    Overwrite existing files (default: skip)
 
+${colors.yellow('IDE Targets:')}
+  cursor         .cursorrules/ directory (Cursor IDE)
+  claude         CLAUDE.md file (Claude Code, Cursor with Claude)
+  codex          .github/copilot-instructions.md (GitHub Copilot)
+
 ${colors.yellow('Examples:')}
   npx cursor-templates web-frontend
-  npx cursor-templates web-frontend web-backend
-  npx cursor-templates fullstack
-  npx cursor-templates mobile utility-agent
+  npx cursor-templates web-frontend --ide=cursor
+  npx cursor-templates web-frontend --ide=claude --ide=codex
+  npx cursor-templates fullstack --ide=codex
   npx cursor-templates web-backend --force
 
 ${colors.dim('Shared rules (code-quality, security, git-workflow, etc.) are always included.')}
@@ -469,146 +481,291 @@ function generateClaudeMdToPath(targetDir, installedTemplates, destPath) {
   fs.writeFileSync(destPath, content);
 }
 
-function install(targetDir, templates, dryRun = false, force = false) {
-  const cursorrules = path.join(targetDir, '.cursorrules');
-  
-  if (!dryRun && !fs.existsSync(cursorrules)) {
-    fs.mkdirSync(cursorrules, { recursive: true });
-  }
+/**
+ * Generate content for GitHub Copilot instructions file
+ */
+function generateCopilotInstructionsContent(installedTemplates) {
+  const templateList = installedTemplates
+    .map(t => `- ${t}: ${TEMPLATES[t].description}`)
+    .join('\n');
 
-  console.log(`${colors.blue('Installing to:')} ${targetDir}`);
-  if (!force) {
-    console.log(colors.dim('(identical files skipped, modified files preserved with ours saved as *-1.md)'));
-    console.log(colors.dim('(CLAUDE.md: missing sections merged intelligently)'));
-  }
-  console.log();
+  // Read and concatenate all shared rules
+  const sharedRulesContent = SHARED_RULES.map(rule => {
+    const rulePath = path.join(TEMPLATES_DIR, '_shared', rule);
+    try {
+      return fs.readFileSync(rulePath, 'utf8');
+    } catch {
+      return '';
+    }
+  }).filter(Boolean).join('\n\n---\n\n');
 
+  // Read and concatenate template-specific rules
+  const templateRulesContent = installedTemplates.map(template => {
+    return TEMPLATES[template].rules.map(rule => {
+      const rulePath = path.join(TEMPLATES_DIR, template, '.cursorrules', rule);
+      try {
+        return fs.readFileSync(rulePath, 'utf8');
+      } catch {
+        return '';
+      }
+    }).filter(Boolean).join('\n\n');
+  }).join('\n\n---\n\n');
+
+  return `# Copilot Instructions
+
+This file provides coding guidelines for GitHub Copilot in this project.
+
+## Project Configuration
+
+**Installed Templates:** ${installedTemplates.join(', ')}
+
+${templateList}
+
+---
+
+## Core Principles
+
+### Honesty Over Output
+- If something doesn't work, say it doesn't work
+- If you don't know, say you don't know
+- Never hide errors or suppress warnings
+
+### Security First
+- Zero trust: Every input is hostile until proven otherwise
+- Validate and sanitize all inputs
+- No secrets in code or logs
+
+### Tests Are Required
+- No feature is complete without tests
+- Test behavior, not implementation
+
+### Code Quality
+- SOLID principles
+- DRY (Don't Repeat Yourself)
+- Explicit over implicit
+
+---
+
+## Shared Guidelines
+
+${sharedRulesContent}
+
+---
+
+## Template-Specific Guidelines
+
+${templateRulesContent}
+
+---
+
+## Definition of Done
+
+A feature is complete when:
+- [ ] Code written and reviewed
+- [ ] Tests written and passing
+- [ ] No linting errors
+- [ ] Security reviewed
+- [ ] Documentation updated
+`;
+}
+
+function install(targetDir, templates, dryRun = false, force = false, ides = DEFAULT_IDES) {
   const stats = { copied: 0, skipped: 0, updated: 0, renamed: 0 };
   const renamedFiles = [];
+  const installedFor = [];
 
-  // 1. Install shared rules
-  console.log(colors.green('► Installing shared rules...'));
-  for (const rule of SHARED_RULES) {
-    const src = path.join(TEMPLATES_DIR, '_shared', rule);
-    const dest = path.join(cursorrules, rule);
-    
-    if (dryRun) {
-      const exists = fs.existsSync(dest);
-      if (!exists) {
-        console.log(`  ${colors.dim('[copy]')} ${rule}`);
-      } else if (force) {
-        console.log(`  ${colors.dim('[update]')} ${rule}`);
-      } else if (filesMatch(src, dest)) {
-        console.log(`  ${colors.yellow('[skip]')} ${rule} (identical)`);
-      } else {
-        const altName = path.basename(getAlternateFilename(dest));
-        console.log(`  ${colors.blue('[rename]')} ${rule} → ${altName}`);
-      }
-    } else {
-      const result = copyFile(src, dest, force);
-      stats[result.status]++;
-      if (result.status === 'skipped') {
-        console.log(`  ${colors.yellow('[skip]')} ${rule} (identical)`);
-      } else if (result.status === 'renamed') {
-        const altName = path.basename(result.destFile);
-        renamedFiles.push({ original: rule, renamed: altName });
-        console.log(`  ${colors.blue('[rename]')} ${rule} → ${altName}`);
-      } else {
-        console.log(`  ${colors.dim(`[${result.status}]`)} ${rule}`);
-      }
-    }
+  console.log(`${colors.blue('Installing to:')} ${targetDir}`);
+  console.log(`${colors.blue('Target IDEs:')} ${ides.join(', ')}`);
+  if (!force) {
+    console.log(colors.dim('(identical files skipped, modified files preserved with ours saved as *-1.md)'));
   }
   console.log();
 
-  // 2. Install template-specific rules
-  for (const template of templates) {
-    console.log(colors.green(`► Installing ${template} template...`));
+  // 1. Install .cursorrules/ for Cursor IDE
+  if (ides.includes('cursor')) {
+    installedFor.push('cursor');
+    const cursorrules = path.join(targetDir, '.cursorrules');
     
-    for (const rule of TEMPLATES[template].rules) {
-      const src = path.join(TEMPLATES_DIR, template, '.cursorrules', rule);
-      const dest = path.join(cursorrules, `${template}-${rule}`);
-      const destName = `${template}-${rule}`;
+    if (!dryRun && !fs.existsSync(cursorrules)) {
+      fs.mkdirSync(cursorrules, { recursive: true });
+    }
+
+    // Install shared rules
+    console.log(colors.green('► Installing shared rules (.cursorrules/)...'));
+    for (const rule of SHARED_RULES) {
+      const src = path.join(TEMPLATES_DIR, '_shared', rule);
+      const dest = path.join(cursorrules, rule);
       
       if (dryRun) {
         const exists = fs.existsSync(dest);
         if (!exists) {
-          console.log(`  ${colors.dim('[copy]')} ${destName}`);
+          console.log(`  ${colors.dim('[copy]')} ${rule}`);
         } else if (force) {
-          console.log(`  ${colors.dim('[update]')} ${destName}`);
+          console.log(`  ${colors.dim('[update]')} ${rule}`);
         } else if (filesMatch(src, dest)) {
-          console.log(`  ${colors.yellow('[skip]')} ${destName} (identical)`);
+          console.log(`  ${colors.yellow('[skip]')} ${rule} (identical)`);
         } else {
           const altName = path.basename(getAlternateFilename(dest));
-          console.log(`  ${colors.blue('[rename]')} ${destName} → ${altName}`);
+          console.log(`  ${colors.blue('[rename]')} ${rule} → ${altName}`);
         }
       } else {
         const result = copyFile(src, dest, force);
         stats[result.status]++;
         if (result.status === 'skipped') {
-          console.log(`  ${colors.yellow('[skip]')} ${destName} (identical)`);
+          console.log(`  ${colors.yellow('[skip]')} ${rule} (identical)`);
         } else if (result.status === 'renamed') {
           const altName = path.basename(result.destFile);
-          renamedFiles.push({ original: destName, renamed: altName });
-          console.log(`  ${colors.blue('[rename]')} ${destName} → ${altName}`);
+          renamedFiles.push({ original: rule, renamed: altName });
+          console.log(`  ${colors.blue('[rename]')} ${rule} → ${altName}`);
         } else {
-          console.log(`  ${colors.dim(`[${result.status}]`)} ${destName}`);
+          console.log(`  ${colors.dim(`[${result.status}]`)} ${rule}`);
         }
+      }
+    }
+    console.log();
+
+    // Install template-specific rules
+    for (const template of templates) {
+      console.log(colors.green(`► Installing ${template} template (.cursorrules/)...`));
+      
+      for (const rule of TEMPLATES[template].rules) {
+        const src = path.join(TEMPLATES_DIR, template, '.cursorrules', rule);
+        const dest = path.join(cursorrules, `${template}-${rule}`);
+        const destName = `${template}-${rule}`;
+        
+        if (dryRun) {
+          const exists = fs.existsSync(dest);
+          if (!exists) {
+            console.log(`  ${colors.dim('[copy]')} ${destName}`);
+          } else if (force) {
+            console.log(`  ${colors.dim('[update]')} ${destName}`);
+          } else if (filesMatch(src, dest)) {
+            console.log(`  ${colors.yellow('[skip]')} ${destName} (identical)`);
+          } else {
+            const altName = path.basename(getAlternateFilename(dest));
+            console.log(`  ${colors.blue('[rename]')} ${destName} → ${altName}`);
+          }
+        } else {
+          const result = copyFile(src, dest, force);
+          stats[result.status]++;
+          if (result.status === 'skipped') {
+            console.log(`  ${colors.yellow('[skip]')} ${destName} (identical)`);
+          } else if (result.status === 'renamed') {
+            const altName = path.basename(result.destFile);
+            renamedFiles.push({ original: destName, renamed: altName });
+            console.log(`  ${colors.blue('[rename]')} ${destName} → ${altName}`);
+          } else {
+            console.log(`  ${colors.dim(`[${result.status}]`)} ${destName}`);
+          }
+        }
+      }
+      console.log();
+    }
+  }
+
+  // 2. Generate CLAUDE.md for Claude Code
+  if (ides.includes('claude')) {
+    installedFor.push('claude');
+    const claudePath = path.join(targetDir, 'CLAUDE.md');
+    const claudeExists = fs.existsSync(claudePath);
+    const templateContent = generateClaudeMdContent(templates);
+    
+    console.log(colors.green('► Generating CLAUDE.md (Claude Code)...'));
+    if (dryRun) {
+      if (!claudeExists) {
+        console.log(`  ${colors.dim('[copy]')} CLAUDE.md`);
+      } else if (force) {
+        console.log(`  ${colors.dim('[update]')} CLAUDE.md`);
+      } else {
+        const existingContent = fs.readFileSync(claudePath, 'utf8');
+        const { missing } = findMissingSections(existingContent, templateContent);
+        if (missing.length === 0) {
+          console.log(`  ${colors.yellow('[skip]')} CLAUDE.md (all sections present)`);
+        } else {
+          console.log(`  ${colors.blue('[merge]')} CLAUDE.md (would add ${missing.length} section(s))`);
+          for (const section of missing) {
+            console.log(`    ${colors.dim('+')} ${section.heading}`);
+          }
+        }
+      }
+    } else if (!claudeExists) {
+      fs.writeFileSync(claudePath, templateContent);
+      console.log(`  ${colors.dim('[copied]')} CLAUDE.md`);
+      stats.copied++;
+    } else if (force) {
+      fs.writeFileSync(claudePath, templateContent);
+      console.log(`  ${colors.dim('[updated]')} CLAUDE.md`);
+      stats.updated++;
+    } else {
+      const existingContent = fs.readFileSync(claudePath, 'utf8');
+      const { merged, addedSections } = mergeClaudeContent(existingContent, templateContent);
+      
+      if (addedSections.length === 0) {
+        console.log(`  ${colors.yellow('[skip]')} CLAUDE.md (all sections present)`);
+        stats.skipped++;
+      } else {
+        fs.writeFileSync(claudePath, merged);
+        console.log(`  ${colors.blue('[merged]')} CLAUDE.md`);
+        console.log(`    ${colors.green('Added sections:')}`);
+        for (const heading of addedSections) {
+          console.log(`      ${colors.dim('+')} ${heading}`);
+        }
+        stats.updated++;
       }
     }
     console.log();
   }
 
-  // 3. Generate CLAUDE.md
-  const claudePath = path.join(targetDir, 'CLAUDE.md');
-  const claudeExists = fs.existsSync(claudePath);
-  const templateContent = generateClaudeMdContent(templates);
-  
-  console.log(colors.green('► Generating CLAUDE.md...'));
-  if (dryRun) {
-    if (!claudeExists) {
-      console.log(`  ${colors.dim('[copy]')} CLAUDE.md`);
-    } else if (force) {
-      console.log(`  ${colors.dim('[update]')} CLAUDE.md`);
-    } else {
-      // Check what would be merged
-      const existingContent = fs.readFileSync(claudePath, 'utf8');
-      const { missing } = findMissingSections(existingContent, templateContent);
-      if (missing.length === 0) {
-        console.log(`  ${colors.yellow('[skip]')} CLAUDE.md (all sections present)`);
+  // 3. Generate .github/copilot-instructions.md for GitHub Copilot (Codex)
+  if (ides.includes('codex')) {
+    installedFor.push('codex');
+    const githubDir = path.join(targetDir, '.github');
+    const copilotPath = path.join(githubDir, 'copilot-instructions.md');
+    const copilotExists = fs.existsSync(copilotPath);
+    const copilotContent = generateCopilotInstructionsContent(templates);
+    
+    if (!dryRun && !fs.existsSync(githubDir)) {
+      fs.mkdirSync(githubDir, { recursive: true });
+    }
+    
+    console.log(colors.green('► Generating .github/copilot-instructions.md (GitHub Copilot)...'));
+    if (dryRun) {
+      if (!copilotExists) {
+        console.log(`  ${colors.dim('[copy]')} .github/copilot-instructions.md`);
+      } else if (force) {
+        console.log(`  ${colors.dim('[update]')} .github/copilot-instructions.md`);
       } else {
-        console.log(`  ${colors.blue('[merge]')} CLAUDE.md (would add ${missing.length} section(s))`);
-        for (const section of missing) {
-          console.log(`    ${colors.dim('+')} ${section.heading}`);
+        const existingContent = fs.readFileSync(copilotPath, 'utf8');
+        const { missing } = findMissingSections(existingContent, copilotContent);
+        if (missing.length === 0) {
+          console.log(`  ${colors.yellow('[skip]')} .github/copilot-instructions.md (all sections present)`);
+        } else {
+          console.log(`  ${colors.blue('[merge]')} .github/copilot-instructions.md (would add ${missing.length} section(s))`);
         }
       }
-    }
-  } else if (!claudeExists) {
-    fs.writeFileSync(claudePath, templateContent);
-    console.log(`  ${colors.dim('[copied]')} CLAUDE.md`);
-    stats.copied++;
-  } else if (force) {
-    fs.writeFileSync(claudePath, templateContent);
-    console.log(`  ${colors.dim('[updated]')} CLAUDE.md`);
-    stats.updated++;
-  } else {
-    // Intelligent merge: append only missing sections
-    const existingContent = fs.readFileSync(claudePath, 'utf8');
-    const { merged, addedSections } = mergeClaudeContent(existingContent, templateContent);
-    
-    if (addedSections.length === 0) {
-      console.log(`  ${colors.yellow('[skip]')} CLAUDE.md (all sections present)`);
-      stats.skipped++;
-    } else {
-      fs.writeFileSync(claudePath, merged);
-      console.log(`  ${colors.blue('[merged]')} CLAUDE.md`);
-      console.log(`    ${colors.green('Added sections:')}`);
-      for (const heading of addedSections) {
-        console.log(`      ${colors.dim('+')} ${heading}`);
-      }
+    } else if (!copilotExists) {
+      fs.writeFileSync(copilotPath, copilotContent);
+      console.log(`  ${colors.dim('[copied]')} .github/copilot-instructions.md`);
+      stats.copied++;
+    } else if (force) {
+      fs.writeFileSync(copilotPath, copilotContent);
+      console.log(`  ${colors.dim('[updated]')} .github/copilot-instructions.md`);
       stats.updated++;
+    } else {
+      const existingContent = fs.readFileSync(copilotPath, 'utf8');
+      const { merged, addedSections } = mergeClaudeContent(existingContent, copilotContent);
+      
+      if (addedSections.length === 0) {
+        console.log(`  ${colors.yellow('[skip]')} .github/copilot-instructions.md (all sections present)`);
+        stats.skipped++;
+      } else {
+        fs.writeFileSync(copilotPath, merged);
+        console.log(`  ${colors.blue('[merged]')} .github/copilot-instructions.md`);
+        stats.updated++;
+      }
     }
+    console.log();
   }
-  console.log();
 
   // Summary
   console.log(colors.green('════════════════════════════════════════════════════════════'));
@@ -627,7 +784,18 @@ function install(targetDir, templates, dryRun = false, force = false) {
   }
   console.log();
   
-  console.log(colors.yellow('Templates installed:'));
+  console.log(colors.yellow('Installed for:'));
+  for (const ide of installedFor) {
+    const ideInfo = {
+      cursor: '.cursorrules/ (Cursor IDE)',
+      claude: 'CLAUDE.md (Claude Code)',
+      codex: '.github/copilot-instructions.md (GitHub Copilot)'
+    };
+    console.log(`  - ${ideInfo[ide]}`);
+  }
+  console.log();
+  
+  console.log(colors.yellow('Templates:'));
   console.log('  - _shared (always included)');
   for (const template of templates) {
     console.log(`  - ${template}`);
@@ -645,45 +813,52 @@ function install(targetDir, templates, dryRun = false, force = false) {
   }
   
   console.log(colors.blue('Next steps:'));
-  console.log('  1. Review CLAUDE.md for any customization');
-  console.log('  2. Commit the new files to your repository');
+  if (installedFor.includes('claude')) {
+    console.log('  1. Review CLAUDE.md for any customization');
+  }
+  if (installedFor.includes('codex')) {
+    console.log('  2. Review .github/copilot-instructions.md');
+  }
+  console.log('  3. Commit the new files to your repository');
   console.log();
 }
 
 export function run(args) {
   const templates = [];
+  const ides = [];
   let dryRun = false;
   let force = false;
 
   // Parse arguments
   for (const arg of args) {
-    switch (arg) {
-      case '--list':
-      case '-l':
-        printBanner();
-        printTemplates();
-        process.exit(0);
-        break;
-      case '--help':
-      case '-h':
-        printBanner();
-        printHelp();
-        process.exit(0);
-        break;
-      case '--dry-run':
-        dryRun = true;
-        break;
-      case '--force':
-      case '-f':
-        force = true;
-        break;
-      default:
-        if (arg.startsWith('-')) {
-          console.error(colors.red(`Error: Unknown option '${arg}'`));
-          printHelp();
-          process.exit(1);
-        }
-        templates.push(arg);
+    if (arg === '--list' || arg === '-l') {
+      printBanner();
+      printTemplates();
+      process.exit(0);
+    } else if (arg === '--help' || arg === '-h') {
+      printBanner();
+      printHelp();
+      process.exit(0);
+    } else if (arg === '--dry-run') {
+      dryRun = true;
+    } else if (arg === '--force' || arg === '-f') {
+      force = true;
+    } else if (arg.startsWith('--ide=')) {
+      const ide = arg.slice(6).toLowerCase();
+      if (!SUPPORTED_IDES.includes(ide)) {
+        console.error(colors.red(`Error: Unknown IDE '${ide}'`));
+        console.error(colors.dim(`Supported: ${SUPPORTED_IDES.join(', ')}`));
+        process.exit(1);
+      }
+      if (!ides.includes(ide)) {
+        ides.push(ide);
+      }
+    } else if (arg.startsWith('-')) {
+      console.error(colors.red(`Error: Unknown option '${arg}'`));
+      printHelp();
+      process.exit(1);
+    } else {
+      templates.push(arg);
     }
   }
 
@@ -704,6 +879,9 @@ export function run(args) {
     }
   }
 
+  // Use default IDEs if none specified
+  const targetIdes = ides.length > 0 ? ides : DEFAULT_IDES;
+
   if (dryRun) {
     console.log(colors.yellow('DRY RUN - No changes will be made\n'));
   }
@@ -713,5 +891,5 @@ export function run(args) {
   }
 
   // Install to current directory
-  install(process.cwd(), templates, dryRun, force);
+  install(process.cwd(), templates, dryRun, force, targetIdes);
 }
