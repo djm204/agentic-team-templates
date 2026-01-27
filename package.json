@@ -1,0 +1,47 @@
+{
+  "name": "cursor-templates",
+  "version": "0.1.0",
+  "description": "AI coding assistant templates for Cursor IDE. Pre-configured rules and guidelines that help AI assistants write better code. - use at your own risk",
+  "keywords": [
+    "cursor",
+    "cursor-ide",
+    "ai",
+    "templates",
+    "coding-assistant",
+    "cursorrules",
+    "claude",
+    "llm",
+    "developer-tools",
+    "code-quality"
+  ],
+  "author": "David Josef Mendez <desiratech@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/djm204/cursor-templates.git"
+  },
+  "homepage": "https://github.com/djm204/cursor-templates#readme",
+  "bugs": {
+    "url": "https://github.com/djm204/cursor-templates/issues"
+  },
+  "bin": {
+    "cursor-templates": "./bin/cli.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "templates",
+    "README.md"
+  ],
+  "type": "module",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "test": "node --test src/*.test.js"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^19.0.0",
+    "@commitlint/config-conventional": "^19.0.0"
+  }
+}
