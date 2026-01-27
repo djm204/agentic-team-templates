@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.4.2](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.4.1...agentic-team-templates-v0.4.2) (2026-01-27)
+
+
+### Documentation
+
+* add compatibility badges for Cursor IDE and Claude Code ([82a58ed](https://github.com/djm204/agentic-team-templates/commit/82a58ed4f586cbd6a451ab51a1407b97850586ef))
+* add compatibility badges for Cursor IDE and Claude Code ([93b2c07](https://github.com/djm204/agentic-team-templates/commit/93b2c07131754a223275eb7fe1649d149b0d7d32))
+
 ## [0.4.1](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.4.0...agentic-team-templates-v0.4.1) (2026-01-27)
 
 
