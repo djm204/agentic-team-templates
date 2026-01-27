@@ -14,15 +14,15 @@
     "developer-tools",
     "code-quality"
   ],
-  "author": "David Josef Mendez <desiratech@gmail.com>",
+  "author": "David Josef Mendez <me@davidmendez.dev>",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/djm204/cursor-templates.git"
+    "url": "git+https://github.com/djm204/agentic-team-templates.git"
   },
-  "homepage": "https://github.com/djm204/cursor-templates#readme",
+  "homepage": "https://github.com/djm204/agentic-team-templates#readme",
   "bugs": {
-    "url": "https://github.com/djm204/cursor-templates/issues"
+    "url": "https://github.com/djm204/agentic-team-templates/issues"
   },
   "bin": {
     "cursor-templates": "./bin/cli.js"

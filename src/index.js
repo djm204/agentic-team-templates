@@ -86,6 +86,7 @@ ${colors.yellow('Examples:')}
 
 ${colors.dim('Shared rules (code-quality, security, git-workflow, etc.) are always included.')}
 ${colors.dim('Identical files are skipped. Modified files are preserved; ours saved as *-1.md.')}
+${colors.dim('CLAUDE.md: missing sections are intelligently merged (not overwritten).')}
 `);
 }
 
@@ -115,6 +116,179 @@ function filesMatch(file1, file2) {
   } catch {
     return false;
   }
+}
+
+/**
+ * Parse markdown content into sections by ## headings
+ * @param {string} content - Markdown content
+ * @returns {Array<{heading: string, content: string, signature: string}>}
+ */
+function parseMarkdownSections(content) {
+  const lines = content.split('\n');
+  const sections = [];
+  let currentSection = null;
+  let preamble = [];
+
+  for (const line of lines) {
+    if (line.startsWith('## ')) {
+      // Save previous section
+      if (currentSection) {
+        currentSection.content = currentSection.lines.join('\n');
+        currentSection.signature = generateSectionSignature(currentSection.heading, currentSection.lines);
+        delete currentSection.lines;
+        sections.push(currentSection);
+      }
+      // Start new section
+      currentSection = {
+        heading: line.slice(3).trim(),
+        lines: []
+      };
+    } else if (currentSection) {
+      currentSection.lines.push(line);
+    } else {
+      // Content before first ## heading (preamble)
+      preamble.push(line);
+    }
+  }
+
+  // Don't forget the last section
+  if (currentSection) {
+    currentSection.content = currentSection.lines.join('\n');
+    currentSection.signature = generateSectionSignature(currentSection.heading, currentSection.lines);
+    delete currentSection.lines;
+    sections.push(currentSection);
+  }
+
+  return { preamble: preamble.join('\n'), sections };
+}
+
+/**
+ * Generate a signature for a section based on heading + first meaningful lines
+ * Used for matching sections even if heading text differs slightly
+ * @param {string} heading
+ * @param {string[]} lines
+ * @returns {string}
+ */
+function generateSectionSignature(heading, lines) {
+  // Normalize heading: lowercase, remove special chars, collapse whitespace
+  const normalizedHeading = heading.toLowerCase()
+    .replace(/[^a-z0-9\s]/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+  // Get first 3 non-empty, non-heading lines for content signature
+  const meaningfulLines = lines
+    .filter(l => l.trim() && !l.startsWith('#') && !l.startsWith('|') && !l.startsWith('-'))
+    .slice(0, 3)
+    .map(l => l.toLowerCase().replace(/[^a-z0-9\s]/g, '').replace(/\s+/g, ' ').trim())
+    .join(' ');
+
+  return `${normalizedHeading}::${meaningfulLines.slice(0, 100)}`;
+}
+
+/**
+ * Find sections from template that are missing in existing content
+ * @param {string} existingContent
+ * @param {string} templateContent
+ * @returns {{missing: Array<{heading: string, content: string}>, matchedCount: number}}
+ */
+function findMissingSections(existingContent, templateContent) {
+  const existing = parseMarkdownSections(existingContent);
+  const template = parseMarkdownSections(templateContent);
+
+  const existingSignatures = new Set(existing.sections.map(s => s.signature));
+  const existingHeadings = new Set(existing.sections.map(s => s.heading.toLowerCase()));
+
+  const missing = [];
+  let matchedCount = 0;
+
+  for (const section of template.sections) {
+    // Check by signature first (heading + content), then by heading alone
+    const signatureMatch = existingSignatures.has(section.signature);
+    const headingMatch = existingHeadings.has(section.heading.toLowerCase());
+
+    if (signatureMatch || headingMatch) {
+      matchedCount++;
+    } else {
+      missing.push(section);
+    }
+  }
+
+  return { missing, matchedCount };
+}
+
+/**
+ * Merge template sections into existing content, inserting missing sections in template order
+ * @param {string} existingContent
+ * @param {string} templateContent
+ * @returns {{merged: string, addedSections: string[]}}
+ */
+function mergeClaudeContent(existingContent, templateContent) {
+  const existing = parseMarkdownSections(existingContent);
+  const template = parseMarkdownSections(templateContent);
+  const { missing } = findMissingSections(existingContent, templateContent);
+
+  if (missing.length === 0) {
+    return { merged: existingContent, addedSections: [] };
+  }
+
+  // Build a map of existing sections by normalized heading for insertion point lookup
+  const existingByHeading = new Map();
+  existing.sections.forEach((s, i) => {
+    existingByHeading.set(s.heading.toLowerCase(), i);
+  });
+
+  // Find template section order and determine where to insert missing sections
+  const templateOrder = template.sections.map(s => s.heading.toLowerCase());
+  
+  // For each missing section, find the best insertion point based on template order
+  const insertions = []; // { afterIndex: number, section: section }
+  
+  for (const missingSection of missing) {
+    const missingIndex = templateOrder.indexOf(missingSection.heading.toLowerCase());
+    
+    // Find the closest preceding section that exists in the existing content
+    let insertAfterIndex = -1; // -1 means insert at beginning (after preamble)
+    
+    for (let i = missingIndex - 1; i >= 0; i--) {
+      const precedingHeading = templateOrder[i];
+      if (existingByHeading.has(precedingHeading)) {
+        insertAfterIndex = existingByHeading.get(precedingHeading);
+        break;
+      }
+    }
+    
+    insertions.push({ afterIndex: insertAfterIndex, section: missingSection });
+  }
+
+  // Sort insertions by afterIndex (descending) so we insert from bottom to top
+  // This preserves indices as we insert
+  insertions.sort((a, b) => b.afterIndex - a.afterIndex);
+
+  // Build the merged content
+  const mergedSections = [...existing.sections];
+  const addedSections = [];
+
+  for (const { afterIndex, section } of insertions) {
+    const insertAt = afterIndex + 1;
+    mergedSections.splice(insertAt, 0, section);
+    addedSections.push(section.heading);
+  }
+
+  // Reconstruct the markdown
+  let merged = existing.preamble;
+  if (merged && !merged.endsWith('\n\n')) {
+    merged = merged.trimEnd() + '\n\n';
+  }
+
+  for (const section of mergedSections) {
+    merged += `## ${section.heading}\n${section.content}\n`;
+  }
+
+  // addedSections is in reverse order due to sorting, reverse it back
+  addedSections.reverse();
+
+  return { merged: merged.trimEnd() + '\n', addedSections };
 }
 
 /**
@@ -305,6 +479,7 @@ function install(targetDir, templates, dryRun = false, force = false) {
   console.log(`${colors.blue('Installing to:')} ${targetDir}`);
   if (!force) {
     console.log(colors.dim('(identical files skipped, modified files preserved with ours saved as *-1.md)'));
+    console.log(colors.dim('(CLAUDE.md: missing sections merged intelligently)'));
   }
   console.log();
 
@@ -386,6 +561,7 @@ function install(targetDir, templates, dryRun = false, force = false) {
   // 3. Generate CLAUDE.md
   const claudePath = path.join(targetDir, 'CLAUDE.md');
   const claudeExists = fs.existsSync(claudePath);
+  const templateContent = generateClaudeMdContent(templates);
   
   console.log(colors.green('► Generating CLAUDE.md...'));
   if (dryRun) {
@@ -394,23 +570,43 @@ function install(targetDir, templates, dryRun = false, force = false) {
     } else if (force) {
       console.log(`  ${colors.dim('[update]')} CLAUDE.md`);
     } else {
-      console.log(`  ${colors.blue('[rename]')} CLAUDE.md → CLAUDE-1.md`);
+      // Check what would be merged
+      const existingContent = fs.readFileSync(claudePath, 'utf8');
+      const { missing } = findMissingSections(existingContent, templateContent);
+      if (missing.length === 0) {
+        console.log(`  ${colors.yellow('[skip]')} CLAUDE.md (all sections present)`);
+      } else {
+        console.log(`  ${colors.blue('[merge]')} CLAUDE.md (would add ${missing.length} section(s))`);
+        for (const section of missing) {
+          console.log(`    ${colors.dim('+')} ${section.heading}`);
+        }
+      }
     }
   } else if (!claudeExists) {
-    generateClaudeMd(targetDir, templates);
+    fs.writeFileSync(claudePath, templateContent);
     console.log(`  ${colors.dim('[copied]')} CLAUDE.md`);
     stats.copied++;
   } else if (force) {
-    generateClaudeMd(targetDir, templates);
+    fs.writeFileSync(claudePath, templateContent);
     console.log(`  ${colors.dim('[updated]')} CLAUDE.md`);
     stats.updated++;
   } else {
-    // Save ours as CLAUDE-1.md
-    const altClaudePath = path.join(targetDir, 'CLAUDE-1.md');
-    generateClaudeMdToPath(targetDir, templates, altClaudePath);
-    renamedFiles.push({ original: 'CLAUDE.md', renamed: 'CLAUDE-1.md' });
-    console.log(`  ${colors.blue('[rename]')} CLAUDE.md → CLAUDE-1.md`);
-    stats.renamed++;
+    // Intelligent merge: append only missing sections
+    const existingContent = fs.readFileSync(claudePath, 'utf8');
+    const { merged, addedSections } = mergeClaudeContent(existingContent, templateContent);
+    
+    if (addedSections.length === 0) {
+      console.log(`  ${colors.yellow('[skip]')} CLAUDE.md (all sections present)`);
+      stats.skipped++;
+    } else {
+      fs.writeFileSync(claudePath, merged);
+      console.log(`  ${colors.blue('[merged]')} CLAUDE.md`);
+      console.log(`    ${colors.green('Added sections:')}`);
+      for (const heading of addedSections) {
+        console.log(`      ${colors.dim('+')} ${heading}`);
+      }
+      stats.updated++;
+    }
   }
   console.log();
 

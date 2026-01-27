@@ -277,4 +277,4 @@ Changes to shared rules affect all templates, so be thoughtful with modification
 
 ## License
 
-MIT © [David Mendez](https://github.com/desiratech)
+MIT © [David Mendez](https://github.com/djm204)
