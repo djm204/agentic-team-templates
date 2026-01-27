@@ -29,7 +29,7 @@ jobs:
     if: ${{ needs.release-please.outputs.release_created }}
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       id-token: write
     steps:
       - name: Checkout
@@ -43,6 +43,16 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Create package tarball
+        run: npm pack
+
+      - name: Upload tarball to GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TARBALL=$(ls *.tgz)
+          gh release upload ${{ needs.release-please.outputs.tag_name }} "$TARBALL" --clobber
 
       - name: Publish to npm
         run: npm publish --provenance --access public
