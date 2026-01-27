@@ -3,7 +3,16 @@
 [![npm version](https://img.shields.io/npm/v/cursor-templates.svg)](https://www.npmjs.com/package/cursor-templates)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-AI coding assistant templates for Cursor IDE. Pre-configured rules and guidelines that help AI assistants write better code in your projects.
+**Compatible with:**
+
+![Cursor](https://img.shields.io/badge/Cursor_IDE-black?style=flat&logo=cursor)
+![Claude Code](https://img.shields.io/badge/Claude_Code-cc785c?style=flat&logo=anthropic)
+
+AI coding assistant templates for Cursor IDE and Claude Code. Pre-configured rules and guidelines that help AI assistants write better code in your projects.
+
+**Installs:**
+- **`CLAUDE.md`** - Development guide for Claude-based assistants (Claude Code, Cursor with Claude)
+- **`.cursorrules/`** - Rule files for Cursor IDE
 
 > **Disclaimer:** This project is provided for **educational and experimental purposes only**. The author takes no responsibility for any actions, outputs, or consequences resulting from an LLM or AI assistant following these rules. Use at your own risk. Always review AI-generated code before deploying to production.
 
@@ -32,9 +41,7 @@ Navigate to your project directory and run:
 npx cursor-templates web-frontend
 ```
 
-This installs two things in your project:
-- **`CLAUDE.md`** - Main development guide for the AI assistant
-- **`.cursorrules/`** - Directory containing domain-specific coding rules
+This installs the template rules in your project directory.
 
 ### Install Multiple Templates
 
@@ -123,8 +130,8 @@ After running `npx cursor-templates web-frontend`:
 
 ```
 your-project/
-├── CLAUDE.md                              # AI development guide
-└── .cursorrules/                          # Rule files
+├── CLAUDE.md                              # Development guide (Claude Code, Cursor)
+└── .cursorrules/                          # Rule files (Cursor IDE)
     ├── core-principles.md                 # Shared
     ├── code-quality.md                    # Shared
     ├── security-fundamentals.md           # Shared
@@ -155,7 +162,7 @@ All API calls go through `/lib/api.ts`...
 
 ### Modify Existing Rules
 
-Edit any file in `.cursorrules/` directly. Changes take effect immediately in Cursor.
+Edit any file in `.cursorrules/` or `CLAUDE.md` directly. Changes take effect immediately.
 
 ### Combine with Existing Rules
 
@@ -196,7 +203,9 @@ npx cursor-templates ml-ai data-engineering
 ## Requirements
 
 - **Node.js**: 18.0.0 or higher
-- **Cursor IDE**: Any version with rules support
+- **Supported IDEs/Tools**:
+  - Cursor IDE (any version with `.cursorrules/` support)
+  - Claude Code (reads `CLAUDE.md` automatically)
 
 ## How to Contribute
 
