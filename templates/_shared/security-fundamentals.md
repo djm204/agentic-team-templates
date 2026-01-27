@@ -1,0 +1,173 @@
+# Security Fundamentals
+
+Universal security practices applicable to all software development.
+
+## Core Security Principles
+
+### 1. Zero Trust
+Every input is hostile until proven otherwise.
+
+### 2. Defense in Depth
+Multiple layers of security, never rely on a single control.
+
+### 3. Least Privilege
+Grant minimum permissions necessary for the task.
+
+### 4. Fail Secure
+When something fails, fail to a secure state.
+
+## Input Validation
+
+### Validate Everything
+
+All external input must be validated:
+- User input (forms, URL parameters, headers)
+- API requests
+- File uploads
+- Environment variables at startup
+- Configuration files
+
+```
+// Good: Validate at system boundaries
+function createUser(input: unknown): Result<User, ValidationError> {
+  const parsed = UserSchema.safeParse(input);
+  if (!parsed.success) {
+    return err(new ValidationError(parsed.error));
+  }
+  return ok(processUser(parsed.data));
+}
+
+// Bad: Trust input
+function createUser(input: any): User {
+  return processUser(input);  // What if input is malicious?
+}
+```
+
+### Sanitize Output
+
+Always sanitize data before rendering or returning:
+- HTML encode for web display
+- Parameterize database queries
+- Encode for the target context (URL, JSON, XML, etc.)
+
+## Common Vulnerabilities (OWASP Top 10)
+
+### Injection (SQL, Command, etc.)
+
+❌ **Vulnerable:**
+```
+const query = `SELECT * FROM users WHERE id = ${userId}`;
+exec(`convert ${filename} output.pdf`);
+```
+
+✅ **Secure:**
+```
+const query = 'SELECT * FROM users WHERE id = ?';
+db.query(query, [userId]);
+
+// Use libraries that handle escaping
+execFile('convert', [sanitizedFilename, 'output.pdf']);
+```
+
+### Cross-Site Scripting (XSS)
+
+❌ **Vulnerable:**
+```
+element.innerHTML = userInput;
+```
+
+✅ **Secure:**
+```
+element.textContent = userInput;
+// Or use a sanitization library for HTML
+element.innerHTML = DOMPurify.sanitize(userInput);
+```
+
+### Broken Authentication
+
+- Use established authentication libraries
+- Implement proper session management
+- Use secure, HTTP-only, SameSite cookies
+- Implement rate limiting on auth endpoints
+- Use CSRF tokens for state-changing operations
+
+### Sensitive Data Exposure
+
+- Never log sensitive data (passwords, tokens, PII)
+- Use HTTPS everywhere
+- Encrypt sensitive data at rest
+- Use secure password hashing (bcrypt, argon2)
+
+## Secrets Management
+
+### Never Commit Secrets
+
+- No API keys in code
+- No passwords in configuration files
+- No tokens in version control
+- Use `.gitignore` for sensitive files
+
+### Environment Variables
+
+```
+# .env.local (never committed)
+DATABASE_URL=postgres://...
+API_KEY=sk_live_...
+
+# .env.example (committed, no real values)
+DATABASE_URL=postgres://user:pass@localhost/db
+API_KEY=your_api_key_here
+```
+
+### Secret Rotation
+
+- Support secret rotation without downtime
+- Have a plan for compromised credentials
+- Audit secret access
+
+## Error Handling for Security
+
+### Don't Leak Information
+
+❌ **Leaky:**
+```
+catch (e) {
+  res.status(500).json({ error: e.stack });  // Reveals internals
+}
+
+// Login error
+res.json({ error: 'Password incorrect for user admin' });  // Confirms username exists
+```
+
+✅ **Secure:**
+```
+catch (e) {
+  logger.error('Internal error', { error: e, requestId });
+  res.status(500).json({ error: 'Internal server error', requestId });
+}
+
+// Login error
+res.json({ error: 'Invalid credentials' });  // Generic message
+```
+
+## Dependency Security
+
+- Keep dependencies updated
+- Audit dependencies regularly (`npm audit`, `pip-audit`, etc.)
+- Review new dependencies before adding
+- Prefer well-maintained, widely-used packages
+- Lock dependency versions
+
+## Security Checklist
+
+Before deployment:
+- [ ] All inputs validated
+- [ ] Outputs properly encoded
+- [ ] Authentication implemented correctly
+- [ ] Authorization checked on all protected resources
+- [ ] Secrets not in code or logs
+- [ ] HTTPS enforced
+- [ ] Security headers set (CSP, HSTS, etc.)
+- [ ] Dependencies audited
+- [ ] Rate limiting in place
+- [ ] Logging (without sensitive data) enabled
