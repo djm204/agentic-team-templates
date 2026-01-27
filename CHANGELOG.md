@@ -1,5 +1,29 @@
 # Changelog
 
+## [0.4.0](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.3.0...agentic-team-templates-v0.4.0) (2026-01-27)
+
+
+### Features
+
+* **cli:** intelligently merge claude.md sections instead of overwriting ([7ca293c](https://github.com/djm204/agentic-team-templates/commit/7ca293cd1f3a8c5cae1833b7de6ad6c6a9ac9a1b))
+
+
+### Bug Fixes
+
+* combine claude.md when almost the same ([0d98141](https://github.com/djm204/agentic-team-templates/commit/0d98141957770043b46444a708c7e2781533c22c))
+* update repository URLs to match actual repo name ([96a3235](https://github.com/djm204/agentic-team-templates/commit/96a323518152b9fb8f178a26892f58c75b33b6d8))
+
+
+### Miscellaneous
+
+* **lint:** allow any case in commit subjects ([c4d7388](https://github.com/djm204/agentic-team-templates/commit/c4d73887021946db2e3e67953e1fdfc3baebd83c))
+* update author email and github username ([9190dbd](https://github.com/djm204/agentic-team-templates/commit/9190dbd84cc59d45a91078cca2186f12775bffeb))
+
+
+### CI/CD
+
+* **release:** upload npm tarball to github release ([f26ce6c](https://github.com/djm204/agentic-team-templates/commit/f26ce6cdf70e8469b69378da0f6c89860b52af39))
+
 ## [0.3.0](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.2.0...agentic-team-templates-v0.3.0) (2026-01-27)
 
 
