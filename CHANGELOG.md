@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.5.0](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.4.2...agentic-team-templates-v0.5.0) (2026-01-27)
+
+
+### Features
+
+* **cli:** add --ide parameter for selective installation ([f16cb57](https://github.com/djm204/agentic-team-templates/commit/f16cb57450d351cb096d77d1bad3b7ecb196943c))
+* **cli:** add --ide parameter for selective installation ([15a2a7c](https://github.com/djm204/agentic-team-templates/commit/15a2a7c3444c1e14c00e5fbccbb4da6db0f807f3))
+
 ## [0.4.2](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.4.1...agentic-team-templates-v0.4.2) (2026-01-27)
 
 
