@@ -93,6 +93,42 @@ npx cursor-templates web-frontend --ide=codex
 npx cursor-templates web-frontend --ide=cursor --ide=codex
 ```
 
+### Remove Specific Templates
+
+Remove templates you no longer need while keeping shared rules and other templates:
+
+```bash
+# Remove a single template
+npx cursor-templates --remove web-frontend
+
+# Remove multiple templates
+npx cursor-templates --remove web-frontend web-backend
+
+# Remove from specific IDE only
+npx cursor-templates --remove web-frontend --ide=cursor
+
+# Skip confirmation prompt
+npx cursor-templates --remove web-frontend --yes
+```
+
+### Reset (Remove Everything)
+
+Remove all installed content (shared rules, templates, generated files):
+
+```bash
+# Reset all installed content
+npx cursor-templates --reset
+
+# Reset for specific IDE only
+npx cursor-templates --reset --ide=cursor
+
+# Skip confirmation prompt
+npx cursor-templates --reset --yes
+
+# Force remove modified files
+npx cursor-templates --reset --force
+```
+
 ### CLI Options
 
 | Option | Description |
@@ -100,7 +136,10 @@ npx cursor-templates web-frontend --ide=cursor --ide=codex
 | `--ide=<name>` | Target IDE: `cursor`, `claude`, or `codex` (can be used multiple times) |
 | `--list`, `-l` | List all available templates |
 | `--dry-run` | Preview changes without writing files |
-| `--force`, `-f` | Overwrite existing files |
+| `--force`, `-f` | Overwrite/remove even if files were modified |
+| `--remove` | Remove specified templates |
+| `--reset` | Remove ALL installed content |
+| `--yes`, `-y` | Skip confirmation prompt (for `--remove` and `--reset`) |
 | `--help`, `-h` | Show help message |
 
 ## Available Templates

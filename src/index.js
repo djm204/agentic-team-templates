@@ -74,6 +74,8 @@ function printBanner() {
 function printHelp() {
   console.log(`${colors.yellow('Usage:')}
   npx cursor-templates <templates...> [options]
+  npx cursor-templates --remove <templates...> [options]
+  npx cursor-templates --reset [options]
 
 ${colors.yellow('Options:')}
   --ide=<name>   Install for specific IDE (cursor, claude, codex)
@@ -81,8 +83,13 @@ ${colors.yellow('Options:')}
                  Default: all (cursor, claude, codex)
   --list, -l     List available templates
   --help, -h     Show this help message
-  --dry-run      Show what would be installed
-  --force, -f    Overwrite existing files (default: skip)
+  --dry-run      Show what would be changed
+  --force, -f    Overwrite/remove even if files were modified
+  --yes, -y      Skip confirmation prompt (for --remove and --reset)
+
+${colors.yellow('Removal Options:')}
+  --remove       Remove specified templates (keeps shared rules and other templates)
+  --reset        Remove ALL installed content (shared rules, templates, generated files)
 
 ${colors.yellow('IDE Targets:')}
   cursor         .cursorrules/ directory (Cursor IDE)
@@ -95,6 +102,14 @@ ${colors.yellow('Examples:')}
   npx cursor-templates web-frontend --ide=claude --ide=codex
   npx cursor-templates fullstack --ide=codex
   npx cursor-templates web-backend --force
+
+${colors.yellow('Removal Examples:')}
+  npx cursor-templates --remove web-frontend
+  npx cursor-templates --remove web-frontend web-backend
+  npx cursor-templates --remove web-frontend --ide=cursor
+  npx cursor-templates --reset
+  npx cursor-templates --reset --ide=cursor
+  npx cursor-templates --reset --yes
 
 ${colors.dim('Shared rules (code-quality, security, git-workflow, etc.) are always included.')}
 ${colors.dim('Identical files are skipped. Modified files are preserved; ours saved as *-1.md.')}
@@ -823,11 +838,382 @@ function install(targetDir, templates, dryRun = false, force = false, ides = DEF
   console.log();
 }
 
-export function run(args) {
+/**
+ * Prompt user for confirmation
+ * @param {string} message - The prompt message
+ * @returns {Promise<boolean>}
+ */
+async function confirm(message) {
+  const readline = await import('readline');
+  const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+  });
+
+  return new Promise((resolve) => {
+    rl.question(`${message} [y/N] `, (answer) => {
+      rl.close();
+      resolve(answer.toLowerCase() === 'y' || answer.toLowerCase() === 'yes');
+    });
+  });
+}
+
+/**
+ * Check if a file was created by our installer (matches template content)
+ * @param {string} filePath - Path to the file
+ * @param {string} templatePath - Path to the template file
+ * @returns {boolean}
+ */
+function isOurFile(filePath, templatePath) {
+  if (!fs.existsSync(filePath)) return false;
+  if (!fs.existsSync(templatePath)) return true; // No template to compare, assume ours
+  return filesMatch(filePath, templatePath);
+}
+
+/**
+ * Remove specific templates from the installation
+ */
+async function remove(targetDir, templates, dryRun = false, force = false, skipConfirm = false, ides = DEFAULT_IDES) {
+  const stats = { removed: 0, skipped: 0, notFound: 0 };
+  const filesToRemove = [];
+  const modifiedFiles = [];
+
+  console.log(`${colors.blue('Removing from:')} ${targetDir}`);
+  console.log(`${colors.blue('Target IDEs:')} ${ides.join(', ')}`);
+  console.log(`${colors.blue('Templates:')} ${templates.join(', ')}`);
+  console.log();
+
+  // 1. Collect files to remove from .cursorrules/
+  if (ides.includes('cursor')) {
+    const cursorrules = path.join(targetDir, '.cursorrules');
+    
+    if (fs.existsSync(cursorrules)) {
+      for (const template of templates) {
+        console.log(colors.yellow(`► Scanning ${template} template files...`));
+        
+        for (const rule of TEMPLATES[template].rules) {
+          const destName = `${template}-${rule}`;
+          const destPath = path.join(cursorrules, destName);
+          const srcPath = path.join(TEMPLATES_DIR, template, '.cursorrules', rule);
+          
+          if (!fs.existsSync(destPath)) {
+            console.log(`  ${colors.dim('[not found]')} ${destName}`);
+            stats.notFound++;
+            continue;
+          }
+          
+          const isUnmodified = isOurFile(destPath, srcPath);
+          
+          if (!isUnmodified && !force) {
+            console.log(`  ${colors.yellow('[modified]')} ${destName} (use --force to remove)`);
+            modifiedFiles.push(destName);
+            stats.skipped++;
+          } else {
+            console.log(`  ${colors.red('[remove]')} ${destName}${!isUnmodified ? ' (modified, --force)' : ''}`);
+            filesToRemove.push({ path: destPath, name: destName });
+          }
+        }
+        
+        // Also check for -1 variant files
+        for (const rule of TEMPLATES[template].rules) {
+          const altName = `${template}-${rule.replace('.md', '-1.md')}`;
+          const altPath = path.join(cursorrules, altName);
+          
+          if (fs.existsSync(altPath)) {
+            console.log(`  ${colors.red('[remove]')} ${altName} (alternate file)`);
+            filesToRemove.push({ path: altPath, name: altName });
+          }
+        }
+        
+        console.log();
+      }
+    } else {
+      console.log(colors.dim('No .cursorrules/ directory found.\n'));
+    }
+  }
+
+  // 2. Note about CLAUDE.md and copilot-instructions.md
+  // These are regenerated, not patched, so we can't easily remove just one template's content
+  // We'll warn the user about this
+  if (ides.includes('claude') || ides.includes('codex')) {
+    console.log(colors.yellow('Note: CLAUDE.md and copilot-instructions.md contain merged content.'));
+    console.log(colors.dim('To update these files, re-run the installer with the remaining templates.\n'));
+  }
+
+  if (filesToRemove.length === 0) {
+    console.log(colors.yellow('Nothing to remove.\n'));
+    return;
+  }
+
+  // Confirmation
+  if (!dryRun && !skipConfirm) {
+    console.log(colors.yellow(`\nAbout to remove ${filesToRemove.length} file(s).`));
+    const confirmed = await confirm(colors.red('Proceed with removal?'));
+    if (!confirmed) {
+      console.log(colors.dim('\nAborted.\n'));
+      return;
+    }
+    console.log();
+  }
+
+  // Execute removal
+  if (dryRun) {
+    console.log(colors.yellow('DRY RUN - No files were removed.\n'));
+  } else {
+    for (const file of filesToRemove) {
+      try {
+        fs.unlinkSync(file.path);
+        stats.removed++;
+      } catch (err) {
+        console.error(colors.red(`Failed to remove ${file.name}: ${err.message}`));
+      }
+    }
+  }
+
+  // Summary
+  console.log(colors.green('════════════════════════════════════════════════════════════'));
+  console.log(colors.green(`✓ Removal complete!\n`));
+  
+  console.log(colors.yellow('Summary:'));
+  console.log(`  - ${stats.removed} files removed`);
+  if (stats.skipped > 0) {
+    console.log(`  - ${stats.skipped} files skipped (modified, use --force)`);
+  }
+  if (stats.notFound > 0) {
+    console.log(`  - ${stats.notFound} files not found`);
+  }
+  console.log();
+
+  if (modifiedFiles.length > 0) {
+    console.log(colors.yellow('Modified files preserved:'));
+    for (const file of modifiedFiles) {
+      console.log(`  - ${file}`);
+    }
+    console.log(colors.dim('\nUse --force to remove modified files.\n'));
+  }
+}
+
+/**
+ * Reset - remove all installed content
+ */
+async function reset(targetDir, dryRun = false, force = false, skipConfirm = false, ides = DEFAULT_IDES) {
+  const stats = { removed: 0, skipped: 0 };
+  const filesToRemove = [];
+  const modifiedFiles = [];
+  const dirsToRemove = [];
+
+  console.log(`${colors.blue('Resetting:')} ${targetDir}`);
+  console.log(`${colors.blue('Target IDEs:')} ${ides.join(', ')}`);
+  console.log();
+
+  // 1. Remove .cursorrules/ contents for Cursor
+  if (ides.includes('cursor')) {
+    const cursorrules = path.join(targetDir, '.cursorrules');
+    
+    if (fs.existsSync(cursorrules)) {
+      console.log(colors.yellow('► Scanning .cursorrules/ directory...'));
+      
+      // Check shared rules
+      for (const rule of SHARED_RULES) {
+        const destPath = path.join(cursorrules, rule);
+        const srcPath = path.join(TEMPLATES_DIR, '_shared', rule);
+        
+        if (!fs.existsSync(destPath)) continue;
+        
+        const isUnmodified = isOurFile(destPath, srcPath);
+        
+        if (!isUnmodified && !force) {
+          console.log(`  ${colors.yellow('[modified]')} ${rule} (use --force to remove)`);
+          modifiedFiles.push(rule);
+          stats.skipped++;
+        } else {
+          console.log(`  ${colors.red('[remove]')} ${rule}${!isUnmodified ? ' (modified, --force)' : ''}`);
+          filesToRemove.push({ path: destPath, name: rule });
+        }
+        
+        // Check for -1 variant
+        const altPath = path.join(cursorrules, rule.replace('.md', '-1.md'));
+        if (fs.existsSync(altPath)) {
+          console.log(`  ${colors.red('[remove]')} ${rule.replace('.md', '-1.md')} (alternate file)`);
+          filesToRemove.push({ path: altPath, name: rule.replace('.md', '-1.md') });
+        }
+      }
+      
+      // Check template-specific rules
+      for (const [templateName, templateInfo] of Object.entries(TEMPLATES)) {
+        for (const rule of templateInfo.rules) {
+          const destName = `${templateName}-${rule}`;
+          const destPath = path.join(cursorrules, destName);
+          const srcPath = path.join(TEMPLATES_DIR, templateName, '.cursorrules', rule);
+          
+          if (!fs.existsSync(destPath)) continue;
+          
+          const isUnmodified = isOurFile(destPath, srcPath);
+          
+          if (!isUnmodified && !force) {
+            console.log(`  ${colors.yellow('[modified]')} ${destName} (use --force to remove)`);
+            modifiedFiles.push(destName);
+            stats.skipped++;
+          } else {
+            console.log(`  ${colors.red('[remove]')} ${destName}${!isUnmodified ? ' (modified, --force)' : ''}`);
+            filesToRemove.push({ path: destPath, name: destName });
+          }
+          
+          // Check for -1 variant
+          const altName = destName.replace('.md', '-1.md');
+          const altPath = path.join(cursorrules, altName);
+          if (fs.existsSync(altPath)) {
+            console.log(`  ${colors.red('[remove]')} ${altName} (alternate file)`);
+            filesToRemove.push({ path: altPath, name: altName });
+          }
+        }
+      }
+      
+      // Check if we should remove the directory itself (only if it would be empty)
+      const remainingFiles = fs.readdirSync(cursorrules).filter(f => {
+        const fullPath = path.join(cursorrules, f);
+        const willBeRemoved = filesToRemove.some(fr => fr.path === fullPath);
+        return !willBeRemoved;
+      });
+      
+      if (remainingFiles.length === 0 || force) {
+        console.log(`  ${colors.red('[remove]')} .cursorrules/ directory`);
+        dirsToRemove.push(cursorrules);
+      } else if (remainingFiles.length > 0) {
+        console.log(colors.dim(`  .cursorrules/ will be kept (${remainingFiles.length} non-template file(s) remain)`));
+      }
+      
+      console.log();
+    } else {
+      console.log(colors.dim('No .cursorrules/ directory found.\n'));
+    }
+  }
+
+  // 2. Remove CLAUDE.md for Claude
+  if (ides.includes('claude')) {
+    const claudePath = path.join(targetDir, 'CLAUDE.md');
+    
+    if (fs.existsSync(claudePath)) {
+      console.log(colors.yellow('► Checking CLAUDE.md...'));
+      
+      // Check if it contains our signature content
+      const content = fs.readFileSync(claudePath, 'utf8');
+      const isOurs = content.includes('# CLAUDE.md - Development Guide') && 
+                     content.includes('Cursor Templates');
+      
+      if (!isOurs && !force) {
+        console.log(`  ${colors.yellow('[modified]')} CLAUDE.md (doesn't match template, use --force)`);
+        modifiedFiles.push('CLAUDE.md');
+        stats.skipped++;
+      } else {
+        console.log(`  ${colors.red('[remove]')} CLAUDE.md${!isOurs ? ' (modified, --force)' : ''}`);
+        filesToRemove.push({ path: claudePath, name: 'CLAUDE.md' });
+      }
+      console.log();
+    }
+  }
+
+  // 3. Remove .github/copilot-instructions.md for Codex
+  if (ides.includes('codex')) {
+    const copilotPath = path.join(targetDir, '.github', 'copilot-instructions.md');
+    
+    if (fs.existsSync(copilotPath)) {
+      console.log(colors.yellow('► Checking .github/copilot-instructions.md...'));
+      
+      // Check if it contains our signature content
+      const content = fs.readFileSync(copilotPath, 'utf8');
+      const isOurs = content.includes('# Copilot Instructions') && 
+                     content.includes('Installed Templates:');
+      
+      if (!isOurs && !force) {
+        console.log(`  ${colors.yellow('[modified]')} .github/copilot-instructions.md (doesn't match template, use --force)`);
+        modifiedFiles.push('.github/copilot-instructions.md');
+        stats.skipped++;
+      } else {
+        console.log(`  ${colors.red('[remove]')} .github/copilot-instructions.md${!isOurs ? ' (modified, --force)' : ''}`);
+        filesToRemove.push({ path: copilotPath, name: '.github/copilot-instructions.md' });
+      }
+      console.log();
+    }
+  }
+
+  if (filesToRemove.length === 0 && dirsToRemove.length === 0) {
+    console.log(colors.yellow('Nothing to remove.\n'));
+    return;
+  }
+
+  // Confirmation
+  if (!dryRun && !skipConfirm) {
+    const totalItems = filesToRemove.length + dirsToRemove.length;
+    console.log(colors.yellow(`\nAbout to remove ${totalItems} item(s).`));
+    const confirmed = await confirm(colors.red('Proceed with reset?'));
+    if (!confirmed) {
+      console.log(colors.dim('\nAborted.\n'));
+      return;
+    }
+    console.log();
+  }
+
+  // Execute removal
+  if (dryRun) {
+    console.log(colors.yellow('DRY RUN - No files were removed.\n'));
+  } else {
+    // Remove files first
+    for (const file of filesToRemove) {
+      try {
+        fs.unlinkSync(file.path);
+        stats.removed++;
+      } catch (err) {
+        console.error(colors.red(`Failed to remove ${file.name}: ${err.message}`));
+      }
+    }
+    
+    // Then remove directories
+    for (const dir of dirsToRemove) {
+      try {
+        // Check if directory is now empty
+        const remaining = fs.existsSync(dir) ? fs.readdirSync(dir) : [];
+        if (remaining.length === 0) {
+          fs.rmdirSync(dir);
+          stats.removed++;
+        } else if (force) {
+          fs.rmSync(dir, { recursive: true });
+          stats.removed++;
+        }
+      } catch (err) {
+        console.error(colors.red(`Failed to remove directory: ${err.message}`));
+      }
+    }
+  }
+
+  // Summary
+  console.log(colors.green('════════════════════════════════════════════════════════════'));
+  console.log(colors.green(`✓ Reset complete!\n`));
+  
+  console.log(colors.yellow('Summary:'));
+  console.log(`  - ${stats.removed} items removed`);
+  if (stats.skipped > 0) {
+    console.log(`  - ${stats.skipped} files skipped (modified, use --force)`);
+  }
+  console.log();
+
+  if (modifiedFiles.length > 0) {
+    console.log(colors.yellow('Modified files preserved:'));
+    for (const file of modifiedFiles) {
+      console.log(`  - ${file}`);
+    }
+    console.log(colors.dim('\nUse --force to remove modified files.\n'));
+  }
+}
+
+export async function run(args) {
   const templates = [];
   const ides = [];
   let dryRun = false;
   let force = false;
+  let skipConfirm = false;
+  let removeMode = false;
+  let resetMode = false;
 
   // Parse arguments
   for (const arg of args) {
@@ -843,6 +1229,12 @@ export function run(args) {
       dryRun = true;
     } else if (arg === '--force' || arg === '-f') {
       force = true;
+    } else if (arg === '--yes' || arg === '-y') {
+      skipConfirm = true;
+    } else if (arg === '--remove') {
+      removeMode = true;
+    } else if (arg === '--reset') {
+      resetMode = true;
     } else if (arg.startsWith('--ide=')) {
       const ide = arg.slice(6).toLowerCase();
       if (!SUPPORTED_IDES.includes(ide)) {
@@ -864,7 +1256,61 @@ export function run(args) {
 
   printBanner();
 
-  // Validate
+  // Use default IDEs if none specified
+  const targetIdes = ides.length > 0 ? ides : DEFAULT_IDES;
+
+  // Handle reset mode
+  if (resetMode) {
+    if (removeMode) {
+      console.error(colors.red('Error: Cannot use --remove and --reset together\n'));
+      process.exit(1);
+    }
+    if (templates.length > 0) {
+      console.error(colors.red('Error: --reset does not accept template arguments\n'));
+      console.error(colors.dim('Use --remove <templates...> to remove specific templates.\n'));
+      process.exit(1);
+    }
+
+    if (dryRun) {
+      console.log(colors.yellow('DRY RUN - No changes will be made\n'));
+    }
+    if (force) {
+      console.log(colors.yellow('FORCE MODE - Modified files will be removed\n'));
+    }
+
+    await reset(process.cwd(), dryRun, force, skipConfirm, targetIdes);
+    return;
+  }
+
+  // Handle remove mode
+  if (removeMode) {
+    if (templates.length === 0) {
+      console.error(colors.red('Error: No templates specified for removal\n'));
+      console.error(colors.dim('Usage: npx cursor-templates --remove <templates...>\n'));
+      printTemplates();
+      process.exit(1);
+    }
+
+    for (const template of templates) {
+      if (!TEMPLATES[template]) {
+        console.error(colors.red(`Error: Unknown template '${template}'\n`));
+        printTemplates();
+        process.exit(1);
+      }
+    }
+
+    if (dryRun) {
+      console.log(colors.yellow('DRY RUN - No changes will be made\n'));
+    }
+    if (force) {
+      console.log(colors.yellow('FORCE MODE - Modified files will be removed\n'));
+    }
+
+    await remove(process.cwd(), templates, dryRun, force, skipConfirm, targetIdes);
+    return;
+  }
+
+  // Install mode (default)
   if (templates.length === 0) {
     console.error(colors.red('Error: No templates specified\n'));
     printHelp();
@@ -878,9 +1324,6 @@ export function run(args) {
       process.exit(1);
     }
   }
-
-  // Use default IDEs if none specified
-  const targetIdes = ides.length > 0 ? ides : DEFAULT_IDES;
 
   if (dryRun) {
     console.log(colors.yellow('DRY RUN - No changes will be made\n'));
