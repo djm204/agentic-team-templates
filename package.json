@@ -38,10 +38,13 @@
     "node": ">=18.0.0"
   },
   "scripts": {
-    "test": "echo \"No tests required - template library\""
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.0.0",
-    "@commitlint/config-conventional": "^19.0.0"
+    "@commitlint/config-conventional": "^19.0.0",
+    "vitest": "^4.0.18"
   }
 }

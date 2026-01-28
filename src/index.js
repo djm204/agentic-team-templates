@@ -1099,7 +1099,7 @@ async function reset(targetDir, dryRun = false, force = false, skipConfirm = fal
       // Check if it contains our signature content
       const content = fs.readFileSync(claudePath, 'utf8');
       const isOurs = content.includes('# CLAUDE.md - Development Guide') && 
-                     content.includes('Cursor Templates');
+                     content.includes('.cursorrules/');
       
       if (!isOurs && !force) {
         console.log(`  ${colors.yellow('[modified]')} CLAUDE.md (doesn't match template, use --force)`);
@@ -1336,3 +1336,24 @@ export async function run(args) {
   // Install to current directory
   install(process.cwd(), templates, dryRun, force, targetIdes);
 }
+
+// Export internals for testing
+export const _internals = {
+  TEMPLATES,
+  SHARED_RULES,
+  SUPPORTED_IDES,
+  DEFAULT_IDES,
+  filesMatch,
+  parseMarkdownSections,
+  generateSectionSignature,
+  findMissingSections,
+  mergeClaudeContent,
+  getAlternateFilename,
+  copyFile,
+  generateClaudeMdContent,
+  generateCopilotInstructionsContent,
+  isOurFile,
+  install,
+  remove,
+  reset,
+};

@@ -1,0 +1,947 @@
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
+import fs from 'fs';
+import path from 'path';
+import os from 'os';
+import { run, _internals } from './index.js';
+
+const {
+  TEMPLATES,
+  SHARED_RULES,
+  SUPPORTED_IDES,
+  DEFAULT_IDES,
+  filesMatch,
+  parseMarkdownSections,
+  generateSectionSignature,
+  findMissingSections,
+  mergeClaudeContent,
+  getAlternateFilename,
+  copyFile,
+  generateClaudeMdContent,
+  generateCopilotInstructionsContent,
+  isOurFile,
+  install,
+  remove,
+  reset,
+} = _internals;
+
+// ============================================================================
+// Constants & Configuration Tests
+// ============================================================================
+
+describe('Constants', () => {
+  describe('TEMPLATES', () => {
+    it('should have all expected templates', () => {
+      const expectedTemplates = [
+        'blockchain',
+        'cli-tools',
+        'documentation',
+        'fullstack',
+        'mobile',
+        'utility-agent',
+        'web-backend',
+        'web-frontend',
+      ];
+      
+      expect(Object.keys(TEMPLATES).sort()).toEqual(expectedTemplates.sort());
+    });
+
+    it('each template should have description and rules array', () => {
+      for (const [name, template] of Object.entries(TEMPLATES)) {
+        expect(template).toHaveProperty('description');
+        expect(typeof template.description).toBe('string');
+        expect(template.description.length).toBeGreaterThan(0);
+        
+        expect(template).toHaveProperty('rules');
+        expect(Array.isArray(template.rules)).toBe(true);
+        expect(template.rules.length).toBeGreaterThan(0);
+      }
+    });
+
+    it('each template should have overview.md in rules', () => {
+      for (const [name, template] of Object.entries(TEMPLATES)) {
+        expect(template.rules).toContain('overview.md');
+      }
+    });
+  });
+
+  describe('SHARED_RULES', () => {
+    it('should have expected shared rules', () => {
+      expect(SHARED_RULES).toContain('code-quality.md');
+      expect(SHARED_RULES).toContain('communication.md');
+      expect(SHARED_RULES).toContain('core-principles.md');
+      expect(SHARED_RULES).toContain('git-workflow.md');
+      expect(SHARED_RULES).toContain('security-fundamentals.md');
+    });
+
+    it('all rules should end with .md', () => {
+      for (const rule of SHARED_RULES) {
+        expect(rule).toMatch(/\.md$/);
+      }
+    });
+  });
+
+  describe('SUPPORTED_IDES', () => {
+    it('should contain cursor, claude, and codex', () => {
+      expect(SUPPORTED_IDES).toContain('cursor');
+      expect(SUPPORTED_IDES).toContain('claude');
+      expect(SUPPORTED_IDES).toContain('codex');
+    });
+  });
+
+  describe('DEFAULT_IDES', () => {
+    it('should default to all supported IDEs', () => {
+      expect(DEFAULT_IDES).toEqual(SUPPORTED_IDES);
+    });
+  });
+});
+
+// ============================================================================
+// Utility Functions Tests
+// ============================================================================
+
+describe('Utility Functions', () => {
+  describe('getAlternateFilename', () => {
+    it('should add -1 suffix before extension', () => {
+      expect(getAlternateFilename('/path/to/file.md')).toBe('/path/to/file-1.md');
+      expect(getAlternateFilename('/path/to/code-quality.md')).toBe('/path/to/code-quality-1.md');
+    });
+
+    it('should handle files without directory', () => {
+      expect(getAlternateFilename('file.md')).toBe('file-1.md');
+    });
+
+    it('should handle different extensions', () => {
+      expect(getAlternateFilename('/path/to/file.txt')).toBe('/path/to/file-1.txt');
+      expect(getAlternateFilename('/path/to/file.json')).toBe('/path/to/file-1.json');
+    });
+  });
+
+  describe('filesMatch', () => {
+    let tempDir;
+    
+    beforeEach(() => {
+      tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cursor-templates-test-'));
+    });
+    
+    afterEach(() => {
+      fs.rmSync(tempDir, { recursive: true, force: true });
+    });
+
+    it('should return true for identical files', () => {
+      const file1 = path.join(tempDir, 'file1.md');
+      const file2 = path.join(tempDir, 'file2.md');
+      const content = '# Test Content\n\nSome text here.';
+      
+      fs.writeFileSync(file1, content);
+      fs.writeFileSync(file2, content);
+      
+      expect(filesMatch(file1, file2)).toBe(true);
+    });
+
+    it('should return false for different files', () => {
+      const file1 = path.join(tempDir, 'file1.md');
+      const file2 = path.join(tempDir, 'file2.md');
+      
+      fs.writeFileSync(file1, '# Content A');
+      fs.writeFileSync(file2, '# Content B');
+      
+      expect(filesMatch(file1, file2)).toBe(false);
+    });
+
+    it('should return false if file does not exist', () => {
+      const file1 = path.join(tempDir, 'exists.md');
+      const file2 = path.join(tempDir, 'not-exists.md');
+      
+      fs.writeFileSync(file1, '# Content');
+      
+      expect(filesMatch(file1, file2)).toBe(false);
+    });
+  });
+
+  describe('isOurFile', () => {
+    let tempDir;
+    
+    beforeEach(() => {
+      tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cursor-templates-test-'));
+    });
+    
+    afterEach(() => {
+      fs.rmSync(tempDir, { recursive: true, force: true });
+    });
+
+    it('should return false if file does not exist', () => {
+      const filePath = path.join(tempDir, 'nonexistent.md');
+      const templatePath = path.join(tempDir, 'template.md');
+      
+      expect(isOurFile(filePath, templatePath)).toBe(false);
+    });
+
+    it('should return true if template does not exist (assume ours)', () => {
+      const filePath = path.join(tempDir, 'file.md');
+      const templatePath = path.join(tempDir, 'nonexistent-template.md');
+      
+      fs.writeFileSync(filePath, '# Content');
+      
+      expect(isOurFile(filePath, templatePath)).toBe(true);
+    });
+
+    it('should return true if files match', () => {
+      const filePath = path.join(tempDir, 'file.md');
+      const templatePath = path.join(tempDir, 'template.md');
+      const content = '# Same Content';
+      
+      fs.writeFileSync(filePath, content);
+      fs.writeFileSync(templatePath, content);
+      
+      expect(isOurFile(filePath, templatePath)).toBe(true);
+    });
+
+    it('should return false if files differ', () => {
+      const filePath = path.join(tempDir, 'file.md');
+      const templatePath = path.join(tempDir, 'template.md');
+      
+      fs.writeFileSync(filePath, '# Modified Content');
+      fs.writeFileSync(templatePath, '# Original Template');
+      
+      expect(isOurFile(filePath, templatePath)).toBe(false);
+    });
+  });
+});
+
+// ============================================================================
+// Markdown Parsing Tests
+// ============================================================================
+
+describe('Markdown Parsing', () => {
+  describe('parseMarkdownSections', () => {
+    it('should parse sections with ## headings', () => {
+      const content = `# Title
+
+Some preamble text.
+
+## Section One
+
+Content for section one.
+
+## Section Two
+
+Content for section two.
+`;
+      const result = parseMarkdownSections(content);
+      
+      expect(result.preamble).toContain('# Title');
+      expect(result.preamble).toContain('Some preamble text.');
+      expect(result.sections).toHaveLength(2);
+      expect(result.sections[0].heading).toBe('Section One');
+      expect(result.sections[1].heading).toBe('Section Two');
+    });
+
+    it('should handle content with no sections', () => {
+      const content = '# Just a title\n\nSome content without sections.';
+      const result = parseMarkdownSections(content);
+      
+      expect(result.sections).toHaveLength(0);
+      expect(result.preamble).toContain('# Just a title');
+    });
+
+    it('should preserve section content', () => {
+      const content = `## My Section
+
+Line 1
+Line 2
+Line 3
+`;
+      const result = parseMarkdownSections(content);
+      
+      expect(result.sections[0].content).toContain('Line 1');
+      expect(result.sections[0].content).toContain('Line 2');
+      expect(result.sections[0].content).toContain('Line 3');
+    });
+
+    it('should generate signatures for sections', () => {
+      const content = `## Test Section
+
+Some meaningful content here.
+`;
+      const result = parseMarkdownSections(content);
+      
+      expect(result.sections[0]).toHaveProperty('signature');
+      expect(typeof result.sections[0].signature).toBe('string');
+      expect(result.sections[0].signature.length).toBeGreaterThan(0);
+    });
+  });
+
+  describe('generateSectionSignature', () => {
+    it('should normalize heading to lowercase', () => {
+      const sig1 = generateSectionSignature('My Heading', ['content']);
+      const sig2 = generateSectionSignature('my heading', ['content']);
+      
+      expect(sig1).toBe(sig2);
+    });
+
+    it('should remove special characters from heading', () => {
+      const sig1 = generateSectionSignature('Heading: With (Special) Chars!', ['content']);
+      const sig2 = generateSectionSignature('Heading With Special Chars', ['content']);
+      
+      expect(sig1).toBe(sig2);
+    });
+
+    it('should include content in signature', () => {
+      const sig1 = generateSectionSignature('Heading', ['Line A']);
+      const sig2 = generateSectionSignature('Heading', ['Line B']);
+      
+      expect(sig1).not.toBe(sig2);
+    });
+
+    it('should filter out empty lines and special lines', () => {
+      const sig = generateSectionSignature('Heading', [
+        '',
+        '# Subheading',
+        '| table |',
+        '- list item',
+        'Meaningful content',
+      ]);
+      
+      expect(sig).toContain('meaningful content');
+    });
+  });
+
+  describe('findMissingSections', () => {
+    it('should find sections in template that are missing from existing', () => {
+      const existing = `## Section A
+
+Content A
+
+## Section B
+
+Content B
+`;
+      const template = `## Section A
+
+Content A
+
+## Section B
+
+Content B
+
+## Section C
+
+Content C
+`;
+      const result = findMissingSections(existing, template);
+      
+      expect(result.missing).toHaveLength(1);
+      expect(result.missing[0].heading).toBe('Section C');
+      expect(result.matchedCount).toBe(2);
+    });
+
+    it('should return empty array when all sections present', () => {
+      const content = `## Section A
+
+Content
+
+## Section B
+
+Content
+`;
+      const result = findMissingSections(content, content);
+      
+      expect(result.missing).toHaveLength(0);
+      expect(result.matchedCount).toBe(2);
+    });
+
+    it('should match by heading regardless of case', () => {
+      const existing = '## SECTION A\n\nContent';
+      const template = '## Section A\n\nContent';
+      
+      const result = findMissingSections(existing, template);
+      
+      expect(result.missing).toHaveLength(0);
+      expect(result.matchedCount).toBe(1);
+    });
+  });
+
+  describe('mergeClaudeContent', () => {
+    it('should merge missing sections into existing content', () => {
+      const existing = `# Title
+
+## Section A
+
+Content A
+`;
+      const template = `# Title
+
+## Section A
+
+Content A
+
+## Section B
+
+Content B
+`;
+      const result = mergeClaudeContent(existing, template);
+      
+      expect(result.merged).toContain('## Section A');
+      expect(result.merged).toContain('## Section B');
+      expect(result.addedSections).toContain('Section B');
+    });
+
+    it('should return unchanged content when nothing to merge', () => {
+      const content = `## Section A
+
+Content
+`;
+      const result = mergeClaudeContent(content, content);
+      
+      expect(result.merged).toBe(content);
+      expect(result.addedSections).toHaveLength(0);
+    });
+
+    it('should preserve preamble', () => {
+      const existing = `# My Title
+
+Introduction paragraph.
+
+## Existing Section
+
+Content
+`;
+      const template = `## Existing Section
+
+Content
+
+## New Section
+
+New content
+`;
+      const result = mergeClaudeContent(existing, template);
+      
+      expect(result.merged).toContain('# My Title');
+      expect(result.merged).toContain('Introduction paragraph');
+    });
+  });
+});
+
+// ============================================================================
+// Content Generation Tests
+// ============================================================================
+
+describe('Content Generation', () => {
+  describe('generateClaudeMdContent', () => {
+    it('should generate valid markdown', () => {
+      const content = generateClaudeMdContent(['web-frontend']);
+      
+      expect(content).toContain('# CLAUDE.md - Development Guide');
+      expect(content).toContain('web-frontend');
+    });
+
+    it('should include template description', () => {
+      const content = generateClaudeMdContent(['web-frontend']);
+      
+      expect(content).toContain(TEMPLATES['web-frontend'].description);
+    });
+
+    it('should include multiple templates', () => {
+      const content = generateClaudeMdContent(['web-frontend', 'web-backend']);
+      
+      expect(content).toContain('web-frontend');
+      expect(content).toContain('web-backend');
+      expect(content).toContain(TEMPLATES['web-frontend'].description);
+      expect(content).toContain(TEMPLATES['web-backend'].description);
+    });
+
+    it('should include shared rules table', () => {
+      const content = generateClaudeMdContent(['web-frontend']);
+      
+      expect(content).toContain('core-principles.md');
+      expect(content).toContain('code-quality.md');
+      expect(content).toContain('security-fundamentals.md');
+    });
+
+    it('should include development principles', () => {
+      const content = generateClaudeMdContent(['web-frontend']);
+      
+      expect(content).toContain('Honesty Over Output');
+      expect(content).toContain('Security First');
+      expect(content).toContain('Tests Are Required');
+    });
+
+    it('should include definition of done', () => {
+      const content = generateClaudeMdContent(['web-frontend']);
+      
+      expect(content).toContain('Definition of Done');
+      expect(content).toContain('Code written and reviewed');
+      expect(content).toContain('Tests written and passing');
+    });
+  });
+
+  describe('generateCopilotInstructionsContent', () => {
+    it('should generate valid markdown', () => {
+      const content = generateCopilotInstructionsContent(['web-frontend']);
+      
+      expect(content).toContain('# Copilot Instructions');
+      expect(content).toContain('web-frontend');
+    });
+
+    it('should include installed templates list', () => {
+      const content = generateCopilotInstructionsContent(['web-frontend', 'web-backend']);
+      
+      expect(content).toContain('**Installed Templates:** web-frontend, web-backend');
+    });
+
+    it('should include core principles', () => {
+      const content = generateCopilotInstructionsContent(['web-frontend']);
+      
+      expect(content).toContain('Honesty Over Output');
+      expect(content).toContain('Security First');
+      expect(content).toContain('Tests Are Required');
+    });
+  });
+});
+
+// ============================================================================
+// File Operations Tests
+// ============================================================================
+
+describe('File Operations', () => {
+  let tempDir;
+  
+  beforeEach(() => {
+    tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cursor-templates-test-'));
+  });
+  
+  afterEach(() => {
+    fs.rmSync(tempDir, { recursive: true, force: true });
+  });
+
+  describe('copyFile', () => {
+    it('should copy file to new location', () => {
+      const src = path.join(tempDir, 'source.md');
+      const dest = path.join(tempDir, 'dest.md');
+      const content = '# Test Content';
+      
+      fs.writeFileSync(src, content);
+      
+      const result = copyFile(src, dest);
+      
+      expect(result.status).toBe('copied');
+      expect(result.destFile).toBe(dest);
+      expect(fs.readFileSync(dest, 'utf8')).toBe(content);
+    });
+
+    it('should create destination directory if needed', () => {
+      const src = path.join(tempDir, 'source.md');
+      const dest = path.join(tempDir, 'subdir', 'dest.md');
+      
+      fs.writeFileSync(src, '# Content');
+      
+      const result = copyFile(src, dest);
+      
+      expect(result.status).toBe('copied');
+      expect(fs.existsSync(dest)).toBe(true);
+    });
+
+    it('should skip identical files', () => {
+      const src = path.join(tempDir, 'source.md');
+      const dest = path.join(tempDir, 'dest.md');
+      const content = '# Same Content';
+      
+      fs.writeFileSync(src, content);
+      fs.writeFileSync(dest, content);
+      
+      const result = copyFile(src, dest);
+      
+      expect(result.status).toBe('skipped');
+      expect(result.destFile).toBe(dest);
+    });
+
+    it('should rename to -1 when destination differs', () => {
+      const src = path.join(tempDir, 'source.md');
+      const dest = path.join(tempDir, 'dest.md');
+      
+      fs.writeFileSync(src, '# New Content');
+      fs.writeFileSync(dest, '# Existing Different Content');
+      
+      const result = copyFile(src, dest, false);
+      
+      expect(result.status).toBe('renamed');
+      expect(result.destFile).toBe(path.join(tempDir, 'dest-1.md'));
+      expect(fs.existsSync(path.join(tempDir, 'dest-1.md'))).toBe(true);
+      // Original should be preserved
+      expect(fs.readFileSync(dest, 'utf8')).toBe('# Existing Different Content');
+    });
+
+    it('should overwrite with force flag', () => {
+      const src = path.join(tempDir, 'source.md');
+      const dest = path.join(tempDir, 'dest.md');
+      
+      fs.writeFileSync(src, '# New Content');
+      fs.writeFileSync(dest, '# Old Content');
+      
+      const result = copyFile(src, dest, true);
+      
+      expect(result.status).toBe('updated');
+      expect(fs.readFileSync(dest, 'utf8')).toBe('# New Content');
+    });
+  });
+});
+
+// ============================================================================
+// Install/Remove/Reset Integration Tests
+// ============================================================================
+
+describe('Install/Remove/Reset Operations', () => {
+  let tempDir;
+  let originalCwd;
+  let consoleLogSpy;
+  
+  beforeEach(() => {
+    tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cursor-templates-test-'));
+    originalCwd = process.cwd();
+    // Suppress console output during tests
+    consoleLogSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+  });
+  
+  afterEach(() => {
+    process.chdir(originalCwd);
+    fs.rmSync(tempDir, { recursive: true, force: true });
+    vi.restoreAllMocks();
+  });
+
+  describe('install', () => {
+    it('should create .cursorrules directory', () => {
+      install(tempDir, ['web-frontend'], false, false, ['cursor']);
+      
+      expect(fs.existsSync(path.join(tempDir, '.cursorrules'))).toBe(true);
+    });
+
+    it('should install shared rules', () => {
+      install(tempDir, ['web-frontend'], false, false, ['cursor']);
+      
+      for (const rule of SHARED_RULES) {
+        expect(fs.existsSync(path.join(tempDir, '.cursorrules', rule))).toBe(true);
+      }
+    });
+
+    it('should install template-specific rules with prefix', () => {
+      install(tempDir, ['web-frontend'], false, false, ['cursor']);
+      
+      for (const rule of TEMPLATES['web-frontend'].rules) {
+        const prefixedName = `web-frontend-${rule}`;
+        expect(fs.existsSync(path.join(tempDir, '.cursorrules', prefixedName))).toBe(true);
+      }
+    });
+
+    it('should create CLAUDE.md for claude IDE', () => {
+      install(tempDir, ['web-frontend'], false, false, ['claude']);
+      
+      expect(fs.existsSync(path.join(tempDir, 'CLAUDE.md'))).toBe(true);
+      const content = fs.readFileSync(path.join(tempDir, 'CLAUDE.md'), 'utf8');
+      expect(content).toContain('# CLAUDE.md - Development Guide');
+    });
+
+    it('should create copilot-instructions.md for codex IDE', () => {
+      install(tempDir, ['web-frontend'], false, false, ['codex']);
+      
+      expect(fs.existsSync(path.join(tempDir, '.github', 'copilot-instructions.md'))).toBe(true);
+    });
+
+    it('should install for all IDEs by default', () => {
+      install(tempDir, ['web-frontend'], false, false, DEFAULT_IDES);
+      
+      expect(fs.existsSync(path.join(tempDir, '.cursorrules'))).toBe(true);
+      expect(fs.existsSync(path.join(tempDir, 'CLAUDE.md'))).toBe(true);
+      expect(fs.existsSync(path.join(tempDir, '.github', 'copilot-instructions.md'))).toBe(true);
+    });
+
+    it('should not write files in dry-run mode', () => {
+      install(tempDir, ['web-frontend'], true, false, ['cursor']);
+      
+      expect(fs.existsSync(path.join(tempDir, '.cursorrules'))).toBe(false);
+    });
+
+    it('should install multiple templates', () => {
+      install(tempDir, ['web-frontend', 'web-backend'], false, false, ['cursor']);
+      
+      // Check web-frontend rules
+      expect(fs.existsSync(path.join(tempDir, '.cursorrules', 'web-frontend-overview.md'))).toBe(true);
+      // Check web-backend rules
+      expect(fs.existsSync(path.join(tempDir, '.cursorrules', 'web-backend-overview.md'))).toBe(true);
+    });
+  });
+
+  describe('remove', () => {
+    beforeEach(() => {
+      // First install a template
+      install(tempDir, ['web-frontend'], false, false, ['cursor']);
+    });
+
+    it('should remove template-specific files', async () => {
+      await remove(tempDir, ['web-frontend'], false, false, true, ['cursor']);
+      
+      for (const rule of TEMPLATES['web-frontend'].rules) {
+        const prefixedName = `web-frontend-${rule}`;
+        expect(fs.existsSync(path.join(tempDir, '.cursorrules', prefixedName))).toBe(false);
+      }
+    });
+
+    it('should keep shared rules when removing template', async () => {
+      await remove(tempDir, ['web-frontend'], false, false, true, ['cursor']);
+      
+      for (const rule of SHARED_RULES) {
+        expect(fs.existsSync(path.join(tempDir, '.cursorrules', rule))).toBe(true);
+      }
+    });
+
+    it('should not remove files in dry-run mode', async () => {
+      await remove(tempDir, ['web-frontend'], true, false, true, ['cursor']);
+      
+      // Files should still exist
+      expect(fs.existsSync(path.join(tempDir, '.cursorrules', 'web-frontend-overview.md'))).toBe(true);
+    });
+
+    it('should skip modified files without force', async () => {
+      // Modify a file
+      const filePath = path.join(tempDir, '.cursorrules', 'web-frontend-overview.md');
+      fs.writeFileSync(filePath, '# Modified content');
+      
+      await remove(tempDir, ['web-frontend'], false, false, true, ['cursor']);
+      
+      // Modified file should still exist
+      expect(fs.existsSync(filePath)).toBe(true);
+      expect(fs.readFileSync(filePath, 'utf8')).toBe('# Modified content');
+    });
+
+    it('should remove modified files with force', async () => {
+      // Modify a file
+      const filePath = path.join(tempDir, '.cursorrules', 'web-frontend-overview.md');
+      fs.writeFileSync(filePath, '# Modified content');
+      
+      await remove(tempDir, ['web-frontend'], false, true, true, ['cursor']);
+      
+      // Modified file should be removed
+      expect(fs.existsSync(filePath)).toBe(false);
+    });
+  });
+
+  describe('reset', () => {
+    beforeEach(() => {
+      // Install templates
+      install(tempDir, ['web-frontend', 'web-backend'], false, false, DEFAULT_IDES);
+    });
+
+    it('should remove all template files from .cursorrules', async () => {
+      await reset(tempDir, false, false, true, ['cursor']);
+      
+      // Template files should be removed
+      expect(fs.existsSync(path.join(tempDir, '.cursorrules', 'web-frontend-overview.md'))).toBe(false);
+      expect(fs.existsSync(path.join(tempDir, '.cursorrules', 'web-backend-overview.md'))).toBe(false);
+    });
+
+    it('should remove shared rules', async () => {
+      await reset(tempDir, false, false, true, ['cursor']);
+      
+      for (const rule of SHARED_RULES) {
+        expect(fs.existsSync(path.join(tempDir, '.cursorrules', rule))).toBe(false);
+      }
+    });
+
+    it('should remove CLAUDE.md', async () => {
+      await reset(tempDir, false, false, true, ['claude']);
+      
+      expect(fs.existsSync(path.join(tempDir, 'CLAUDE.md'))).toBe(false);
+    });
+
+    it('should remove copilot-instructions.md', async () => {
+      await reset(tempDir, false, false, true, ['codex']);
+      
+      expect(fs.existsSync(path.join(tempDir, '.github', 'copilot-instructions.md'))).toBe(false);
+    });
+
+    it('should not remove files in dry-run mode', async () => {
+      await reset(tempDir, true, false, true, DEFAULT_IDES);
+      
+      // All files should still exist
+      expect(fs.existsSync(path.join(tempDir, '.cursorrules'))).toBe(true);
+      expect(fs.existsSync(path.join(tempDir, 'CLAUDE.md'))).toBe(true);
+    });
+
+    it('should remove empty .cursorrules directory', async () => {
+      await reset(tempDir, false, false, true, ['cursor']);
+      
+      expect(fs.existsSync(path.join(tempDir, '.cursorrules'))).toBe(false);
+    });
+
+    it('should keep .cursorrules if non-template files remain', async () => {
+      // Add a custom file
+      fs.writeFileSync(path.join(tempDir, '.cursorrules', 'my-custom-rules.md'), '# Custom');
+      
+      await reset(tempDir, false, false, true, ['cursor']);
+      
+      // Directory should still exist with custom file
+      expect(fs.existsSync(path.join(tempDir, '.cursorrules'))).toBe(true);
+      expect(fs.existsSync(path.join(tempDir, '.cursorrules', 'my-custom-rules.md'))).toBe(true);
+    });
+  });
+});
+
+// ============================================================================
+// CLI Argument Parsing Tests
+// ============================================================================
+
+describe('CLI Argument Parsing', () => {
+  let originalCwd;
+  let tempDir;
+  let exitSpy;
+  let consoleLogSpy;
+  let consoleErrorSpy;
+  
+  beforeEach(() => {
+    tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cursor-templates-test-'));
+    originalCwd = process.cwd();
+    process.chdir(tempDir);
+    
+    // Mock process.exit to prevent test from exiting
+    exitSpy = vi.spyOn(process, 'exit').mockImplementation(() => {
+      throw new Error('process.exit called');
+    });
+    
+    consoleLogSpy = vi.spyOn(console, 'log').mockImplementation(() => {});
+    consoleErrorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
+  });
+  
+  afterEach(() => {
+    process.chdir(originalCwd);
+    fs.rmSync(tempDir, { recursive: true, force: true });
+    vi.restoreAllMocks();
+  });
+
+  it('should show help with --help', async () => {
+    await expect(run(['--help'])).rejects.toThrow('process.exit');
+    
+    expect(exitSpy).toHaveBeenCalledWith(0);
+    expect(consoleLogSpy).toHaveBeenCalled();
+  });
+
+  it('should show help with -h', async () => {
+    await expect(run(['-h'])).rejects.toThrow('process.exit');
+    
+    expect(exitSpy).toHaveBeenCalledWith(0);
+  });
+
+  it('should list templates with --list', async () => {
+    await expect(run(['--list'])).rejects.toThrow('process.exit');
+    
+    expect(exitSpy).toHaveBeenCalledWith(0);
+  });
+
+  it('should list templates with -l', async () => {
+    await expect(run(['-l'])).rejects.toThrow('process.exit');
+    
+    expect(exitSpy).toHaveBeenCalledWith(0);
+  });
+
+  it('should error on unknown option', async () => {
+    await expect(run(['--unknown-option'])).rejects.toThrow('process.exit');
+    
+    expect(exitSpy).toHaveBeenCalledWith(1);
+    expect(consoleErrorSpy).toHaveBeenCalled();
+  });
+
+  it('should error when no templates specified', async () => {
+    await expect(run([])).rejects.toThrow('process.exit');
+    
+    expect(exitSpy).toHaveBeenCalledWith(1);
+  });
+
+  it('should error on unknown template', async () => {
+    await expect(run(['nonexistent-template'])).rejects.toThrow('process.exit');
+    
+    expect(exitSpy).toHaveBeenCalledWith(1);
+  });
+
+  it('should error on unknown IDE', async () => {
+    await expect(run(['web-frontend', '--ide=unknown'])).rejects.toThrow('process.exit');
+    
+    expect(exitSpy).toHaveBeenCalledWith(1);
+  });
+
+  it('should accept valid template', async () => {
+    await run(['web-frontend', '--dry-run']);
+    
+    // Should not exit with error
+    expect(exitSpy).not.toHaveBeenCalled();
+  });
+
+  it('should accept multiple templates', async () => {
+    await run(['web-frontend', 'web-backend', '--dry-run']);
+    
+    expect(exitSpy).not.toHaveBeenCalled();
+  });
+
+  it('should accept valid IDE option', async () => {
+    await run(['web-frontend', '--ide=cursor', '--dry-run']);
+    
+    expect(exitSpy).not.toHaveBeenCalled();
+  });
+
+  it('should accept multiple IDE options', async () => {
+    await run(['web-frontend', '--ide=cursor', '--ide=claude', '--dry-run']);
+    
+    expect(exitSpy).not.toHaveBeenCalled();
+  });
+
+  it('should error when using --remove and --reset together', async () => {
+    await expect(run(['--remove', '--reset'])).rejects.toThrow('process.exit');
+    
+    expect(exitSpy).toHaveBeenCalledWith(1);
+  });
+
+  it('should error when --reset has template arguments', async () => {
+    await expect(run(['--reset', 'web-frontend'])).rejects.toThrow('process.exit');
+    
+    expect(exitSpy).toHaveBeenCalledWith(1);
+  });
+
+  it('should error when --remove has no templates', async () => {
+    await expect(run(['--remove'])).rejects.toThrow('process.exit');
+    
+    expect(exitSpy).toHaveBeenCalledWith(1);
+  });
+
+  it('should accept --remove with valid template', async () => {
+    // First install, then remove
+    await run(['web-frontend']);
+    await run(['--remove', 'web-frontend', '--yes']);
+    
+    expect(exitSpy).not.toHaveBeenCalled();
+  });
+
+  it('should accept --reset with --yes', async () => {
+    // First install, then reset
+    await run(['web-frontend']);
+    await run(['--reset', '--yes']);
+    
+    expect(exitSpy).not.toHaveBeenCalled();
+  });
+
+  it('should accept --force flag', async () => {
+    await run(['web-frontend', '--force', '--dry-run']);
+    
+    expect(exitSpy).not.toHaveBeenCalled();
+  });
+
+  it('should accept -f shorthand for force', async () => {
+    await run(['web-frontend', '-f', '--dry-run']);
+    
+    expect(exitSpy).not.toHaveBeenCalled();
+  });
+
+  it('should accept -y shorthand for yes', async () => {
+    await run(['web-frontend']);
+    await run(['--reset', '-y']);
+    
+    expect(exitSpy).not.toHaveBeenCalled();
+  });
+});
