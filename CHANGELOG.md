@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.6.0](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.5.0...agentic-team-templates-v0.6.0) (2026-01-28)
+
+
+### Features
+
+* **cli:** add --remove and --reset commands for template removal ([#12](https://github.com/djm204/agentic-team-templates/issues/12)) ([4293ebc](https://github.com/djm204/agentic-team-templates/commit/4293ebc23bea4b408d91d3b60926339d518fedc0))
+* **templates:** add comprehensive testing template ([#11](https://github.com/djm204/agentic-team-templates/issues/11)) ([cc0ece6](https://github.com/djm204/agentic-team-templates/commit/cc0ece672782d215f2d5b341225d3f42f30679e6))
+
 ## [0.5.0](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.4.2...agentic-team-templates-v0.5.0) (2026-01-27)
 
 
