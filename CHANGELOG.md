@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.2](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.8.1...agentic-team-templates-v0.8.2) (2026-01-28)
+
+
+### Bug Fixes
+
+* **docs:** add blank lines and language specs to README code blocks ([#22](https://github.com/djm204/agentic-team-templates/issues/22)) ([164a003](https://github.com/djm204/agentic-team-templates/commit/164a003bc0cef7fc461bace9861430dc34837cee))
+
 ## [0.8.1](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.8.0...agentic-team-templates-v0.8.1) (2026-01-28)
 
 
