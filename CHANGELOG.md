@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.0](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.7.0...agentic-team-templates-v0.8.0) (2026-01-28)
+
+
+### Features
+
+* **cli:** add changelog link to version output ([#17](https://github.com/djm204/agentic-team-templates/issues/17)) ([d3945ff](https://github.com/djm204/agentic-team-templates/commit/d3945ff713c4c67e7f98bf042cff3f268689d966))
+
 ## [0.7.0](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.6.1...agentic-team-templates-v0.7.0) (2026-01-28)
 
 
