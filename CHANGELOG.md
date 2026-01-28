@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.8.3](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.8.2...agentic-team-templates-v0.8.3) (2026-01-28)
+
+
+### Bug Fixes
+
+* **ci:** quote if expression to fix YAML parsing error ([#24](https://github.com/djm204/agentic-team-templates/issues/24)) ([5038e63](https://github.com/djm204/agentic-team-templates/commit/5038e63707d7fc9bf67c7d9666d3b5fafd198b58))
+
 ## [0.8.2](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.8.1...agentic-team-templates-v0.8.2) (2026-01-28)
 
 
