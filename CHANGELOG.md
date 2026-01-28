@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.0](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.8.3...agentic-team-templates-v0.9.0) (2026-01-28)
+
+
+### Features
+
+* **templates:** add product-manager and qa-engineering templates ([#26](https://github.com/djm204/agentic-team-templates/issues/26)) ([9980299](https://github.com/djm204/agentic-team-templates/commit/99802991f0e7bd6baa857fe11b2f64847dedb60b))
+
 ## [0.8.3](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.8.2...agentic-team-templates-v0.8.3) (2026-01-28)
 
 
