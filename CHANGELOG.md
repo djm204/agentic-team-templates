@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.6.1](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.6.0...agentic-team-templates-v0.6.1) (2026-01-28)
+
+
+### Tests
+
+* add comprehensive unit tests and CI pipeline ([#14](https://github.com/djm204/agentic-team-templates/issues/14)) ([2b9e62c](https://github.com/djm204/agentic-team-templates/commit/2b9e62c1cb44beb4124fc200c5ea0607978d5e82))
+
 ## [0.6.0](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.5.0...agentic-team-templates-v0.6.0) (2026-01-28)
 
 
