@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.9.1](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.9.0...agentic-team-templates-v0.9.1) (2026-01-28)
+
+
+### Bug Fixes
+
+* **ci:** enable auto-merge directly in release-please workflow ([#28](https://github.com/djm204/agentic-team-templates/issues/28)) ([64e1c5d](https://github.com/djm204/agentic-team-templates/commit/64e1c5d79a57720cd8042bca5bf5ca3263f3450e))
+
 ## [0.9.0](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.8.3...agentic-team-templates-v0.9.0) (2026-01-28)
 
 
