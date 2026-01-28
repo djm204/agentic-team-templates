@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.7.0](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.6.1...agentic-team-templates-v0.7.0) (2026-01-28)
+
+
+### Features
+
+* **cli:** add version checking and troubleshooting docs ([8c590a0](https://github.com/djm204/agentic-team-templates/commit/8c590a0bc9ba93857cbf0a20a856e427b6cd60c6))
+
+
+### Documentation
+
+* fix file structure diagram in README ([ec9baad](https://github.com/djm204/agentic-team-templates/commit/ec9baad41eb37820536ab35055e9ce2a05229f82))
+* update README to use correct package name ([07ee097](https://github.com/djm204/agentic-team-templates/commit/07ee0979706a48d7b32902de0ac07fb973b07114))
+
 ## [0.6.1](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.6.0...agentic-team-templates-v0.6.1) (2026-01-28)
 
 
