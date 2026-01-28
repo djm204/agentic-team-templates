@@ -12,6 +12,7 @@
 AI coding assistant templates for Cursor IDE, Claude Code, and GitHub Copilot. Pre-configured rules and guidelines that help AI assistants write better code in your projects.
 
 **Installs (configurable via `--ide`):**
+
 - **`CLAUDE.md`** - Development guide for Claude-based assistants (Claude Code, Cursor with Claude)
 - **`.cursorrules/`** - Rule files for Cursor IDE
 - **`.github/copilot-instructions.md`** - Instructions for GitHub Copilot
@@ -188,7 +189,7 @@ Each template adds domain-specific rules. For example, `web-frontend` includes:
 
 After running `npx agentic-team-templates web-frontend`:
 
-```
+```text
 your-project/
 ├── CLAUDE.md                              # Development guide (Claude Code, Cursor)
 ├── .cursorrules/                          # Rule files (Cursor IDE)
@@ -296,7 +297,8 @@ npx agentic-team-templates --version
 ```
 
 Output:
-```
+
+```text
 agentic-team-templates v0.7.0
 Changelog: https://github.com/djm204/agentic-team-templates/releases/tag/agentic-team-templates-v0.7.0
 ```
@@ -325,7 +327,7 @@ We welcome contributions! Here's how to add new templates or improve existing on
 
 1. **Create the template directory structure:**
 
-```
+```text
 templates/your-template/
 ├── CLAUDE.md                 # Main development guide (required)
 └── .cursorrules/
@@ -348,6 +350,7 @@ templates/your-template/
 ### Template Guidelines
 
 **CLAUDE.md should include:**
+
 - Overview and scope
 - Key principles (3-5 bullet points)
 - Technology stack table
@@ -356,6 +359,7 @@ templates/your-template/
 - Common pitfalls with good/bad examples
 
 **Rule files should:**
+
 - Focus on one topic (e.g., testing, security, performance)
 - Be actionable with concrete code examples
 - Include both "do" and "don't" examples
@@ -366,10 +370,12 @@ templates/your-template/
 1. Fork the repository
 2. Make your changes
 3. Test locally:
+
    ```bash
    # From repo root, test installation
    node bin/cli.js your-template --dry-run
    ```
+
 4. Submit a PR with:
    - Clear description of changes
    - Rationale for additions/modifications
