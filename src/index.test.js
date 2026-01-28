@@ -5,10 +5,13 @@ import os from 'os';
 import { run, _internals } from './index.js';
 
 const {
+  PACKAGE_NAME,
+  CURRENT_VERSION,
   TEMPLATES,
   SHARED_RULES,
   SUPPORTED_IDES,
   DEFAULT_IDES,
+  compareVersions,
   filesMatch,
   parseMarkdownSections,
   generateSectionSignature,
@@ -27,6 +30,44 @@ const {
 // ============================================================================
 // Constants & Configuration Tests
 // ============================================================================
+
+describe('Package Info', () => {
+  it('should have a valid package name', () => {
+    expect(PACKAGE_NAME).toBe('agentic-team-templates');
+  });
+
+  it('should have a valid semver version', () => {
+    expect(CURRENT_VERSION).toMatch(/^\d+\.\d+\.\d+/);
+  });
+});
+
+describe('Version Comparison', () => {
+  describe('compareVersions', () => {
+    it('should return 0 for equal versions', () => {
+      expect(compareVersions('1.0.0', '1.0.0')).toBe(0);
+      expect(compareVersions('2.5.3', '2.5.3')).toBe(0);
+    });
+
+    it('should return -1 when first version is lower', () => {
+      expect(compareVersions('1.0.0', '1.0.1')).toBe(-1);
+      expect(compareVersions('1.0.0', '1.1.0')).toBe(-1);
+      expect(compareVersions('1.0.0', '2.0.0')).toBe(-1);
+      expect(compareVersions('0.6.1', '0.7.0')).toBe(-1);
+    });
+
+    it('should return 1 when first version is higher', () => {
+      expect(compareVersions('1.0.1', '1.0.0')).toBe(1);
+      expect(compareVersions('1.1.0', '1.0.0')).toBe(1);
+      expect(compareVersions('2.0.0', '1.0.0')).toBe(1);
+      expect(compareVersions('0.7.0', '0.6.1')).toBe(1);
+    });
+
+    it('should handle missing patch versions', () => {
+      expect(compareVersions('1.0', '1.0.0')).toBe(0);
+      expect(compareVersions('1.0.0', '1.0')).toBe(0);
+    });
+  });
+});
 
 describe('Constants', () => {
   describe('TEMPLATES', () => {
@@ -838,6 +879,19 @@ describe('CLI Argument Parsing', () => {
 
   it('should list templates with -l', async () => {
     await expect(run(['-l'])).rejects.toThrow('process.exit');
+    
+    expect(exitSpy).toHaveBeenCalledWith(0);
+  });
+
+  it('should show version with --version', async () => {
+    await expect(run(['--version'])).rejects.toThrow('process.exit');
+    
+    expect(exitSpy).toHaveBeenCalledWith(0);
+    expect(consoleLogSpy).toHaveBeenCalledWith(expect.stringContaining('agentic-team-templates'));
+  });
+
+  it('should show version with -v', async () => {
+    await expect(run(['-v'])).rejects.toThrow('process.exit');
     
     expect(exitSpy).toHaveBeenCalledWith(0);
   });

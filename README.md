@@ -270,6 +270,41 @@ npx cursor-templates ml-ai data-engineering
   - Claude Code (reads `CLAUDE.md` automatically)
   - GitHub Copilot (reads `.github/copilot-instructions.md`)
 
+## Troubleshooting
+
+### "Unknown option" or Missing Features
+
+If you're getting errors for options that should exist (like `--reset`), you may have a cached old version:
+
+```bash
+# Force latest version (recommended)
+npx agentic-team-templates@latest <command>
+
+# Clear npx cache
+npx clear-npx-cache
+
+# Or manually clear npm cache
+npm cache clean --force
+```
+
+### Verify Your Version
+
+Check which version you're running:
+
+```bash
+npx agentic-team-templates@latest --help
+```
+
+The CLI will notify you if a newer version is available.
+
+### Update Global Installation
+
+If installed globally:
+
+```bash
+npm update -g agentic-team-templates
+```
+
 ## How to Contribute
 
 We welcome contributions! Here's how to add new templates or improve existing ones.

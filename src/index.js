@@ -1,10 +1,20 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { exec } from 'child_process';
+import { promisify } from 'util';
+
+const execAsync = promisify(exec);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const TEMPLATES_DIR = path.join(__dirname, '..', 'templates');
+
+// Read package.json for version info
+const packageJsonPath = path.join(__dirname, '..', 'package.json');
+const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+const PACKAGE_NAME = packageJson.name;
+const CURRENT_VERSION = packageJson.version;
 
 // Available templates
 const TEMPLATES = {
@@ -61,7 +71,49 @@ const colors = {
   yellow: (s) => `\x1b[33m${s}\x1b[0m`,
   blue: (s) => `\x1b[34m${s}\x1b[0m`,
   dim: (s) => `\x1b[2m${s}\x1b[0m`,
+  cyan: (s) => `\x1b[36m${s}\x1b[0m`,
 };
+
+/**
+ * Compare two semver version strings
+ * @returns {number} -1 if a < b, 0 if a === b, 1 if a > b
+ */
+function compareVersions(a, b) {
+  const partsA = a.split('.').map(Number);
+  const partsB = b.split('.').map(Number);
+  
+  for (let i = 0; i < 3; i++) {
+    const numA = partsA[i] || 0;
+    const numB = partsB[i] || 0;
+    if (numA < numB) return -1;
+    if (numA > numB) return 1;
+  }
+  return 0;
+}
+
+/**
+ * Check npm for the latest version and notify if update available
+ * Fails silently on network errors
+ */
+async function checkForUpdates() {
+  try {
+    const { stdout } = await execAsync(`npm view ${PACKAGE_NAME} version`, {
+      timeout: 5000, // 5 second timeout
+    });
+    const latestVersion = stdout.trim();
+    
+    if (compareVersions(CURRENT_VERSION, latestVersion) < 0) {
+      console.log(colors.cyan(`
+┌────────────────────────────────────────────────────────────┐
+│  Update available: ${CURRENT_VERSION} → ${latestVersion}                              │
+│  Run: npx ${PACKAGE_NAME}@latest                │
+└────────────────────────────────────────────────────────────┘
+`));
+    }
+  } catch {
+    // Silently ignore network errors or timeouts
+  }
+}
 
 function printBanner() {
   console.log(colors.blue(`
@@ -83,6 +135,7 @@ ${colors.yellow('Options:')}
                  Default: all (cursor, claude, codex)
   --list, -l     List available templates
   --help, -h     Show this help message
+  --version, -v  Show version number
   --dry-run      Show what would be changed
   --force, -f    Overwrite/remove even if files were modified
   --yes, -y      Skip confirmation prompt (for --remove and --reset)
@@ -1225,6 +1278,9 @@ export async function run(args) {
       printBanner();
       printHelp();
       process.exit(0);
+    } else if (arg === '--version' || arg === '-v') {
+      console.log(`${PACKAGE_NAME} v${CURRENT_VERSION}`);
+      process.exit(0);
     } else if (arg === '--dry-run') {
       dryRun = true;
     } else if (arg === '--force' || arg === '-f') {
@@ -1255,6 +1311,9 @@ export async function run(args) {
   }
 
   printBanner();
+  
+  // Check for updates (non-blocking, fails silently)
+  await checkForUpdates();
 
   // Use default IDEs if none specified
   const targetIdes = ides.length > 0 ? ides : DEFAULT_IDES;
@@ -1339,10 +1398,14 @@ export async function run(args) {
 
 // Export internals for testing
 export const _internals = {
+  PACKAGE_NAME,
+  CURRENT_VERSION,
   TEMPLATES,
   SHARED_RULES,
   SUPPORTED_IDES,
   DEFAULT_IDES,
+  compareVersions,
+  checkForUpdates,
   filesMatch,
   parseMarkdownSections,
   generateSectionSignature,
