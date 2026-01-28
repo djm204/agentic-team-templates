@@ -24,6 +24,30 @@ jobs:
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
 
+      # Generate GitHub App token for auto-approve (can't use GITHUB_TOKEN to approve own PRs)
+      - name: Generate GitHub App Token
+        id: app-token
+        if: ${{ steps.release.outputs.prs_created == 'true' }}
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
+      # Auto-approve and enable auto-merge on release PRs
+      - name: Auto-approve and merge release PR
+        if: ${{ steps.release.outputs.prs_created == 'true' }}
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          # Find the release PR with autorelease label
+          PR_NUMBER=$(gh pr list --label "autorelease: pending" --json number --jq '.[0].number')
+          if [ -n "$PR_NUMBER" ]; then
+            echo "Approving PR #$PR_NUMBER"
+            gh pr review "$PR_NUMBER" --approve
+            echo "Enabling auto-merge for PR #$PR_NUMBER"
+            gh pr merge "$PR_NUMBER" --auto --squash
+          fi
+
   publish:
     needs: release-please
     if: ${{ needs.release-please.outputs.release_created }}

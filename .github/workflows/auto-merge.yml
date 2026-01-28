@@ -17,14 +17,22 @@ jobs:
     runs-on: ubuntu-latest
     if: "${{ contains(github.event.pull_request.labels.*.name, 'autorelease: pending') }}"
     steps:
+      # Generate GitHub App token for auto-approve (can't use GITHUB_TOKEN to approve own PRs)
+      - name: Generate GitHub App Token
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.APP_ID }}
+          private-key: ${{ secrets.APP_PRIVATE_KEY }}
+
       - name: Enable auto-merge
         uses: peter-evans/enable-pull-request-automerge@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ steps.app-token.outputs.token }}
           pull-request-number: ${{ github.event.pull_request.number }}
           merge-method: squash
 
       - name: Auto-approve
         uses: hmarr/auto-approve-action@v4
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ steps.app-token.outputs.token }}
