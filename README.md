@@ -21,127 +21,94 @@ AI coding assistant templates for Cursor IDE, Claude Code, and GitHub Copilot. P
 
 ## Installation
 
-No installation required. Run directly with `npx`:
+Pick the install method for your environment:
 
-```bash
-npx agentic-team-templates [template-name]
-```
+| Ecosystem | Install |
+|-----------|---------|
+| **Node (CLI)** | `npx agentic-team-templates [template-name]` — or `npm install -g agentic-team-templates` then `agentic-team-templates [template-name]` |
+| **Go** | `go get github.com/djm204/agentic-team-templates@latest` |
+| **Python** | `pip install git+https://github.com/djm204/agentic-team-templates.git` |
+| **Rust** | `cargo add agentic-team-templates --git https://github.com/djm204/agentic-team-templates` |
+| **Swift** | In `Package.swift`: `.package(url: "https://github.com/djm204/agentic-team-templates", from: "0.9.1")` |
+| **Any** | Download [Source code (zip)](https://github.com/djm204/agentic-team-templates/releases) and unpack the `templates/` directory |
 
-Or install globally:
-
-```bash
-npm install -g agentic-team-templates
-agentic-team-templates [template-name]
-```
+Pin to a version with `@vX.Y.Z` (Go, pip) or `from: "X.Y.Z"` (Swift); see [Releases](https://github.com/djm204/agentic-team-templates/releases).
 
 ## How to Use
 
-### Basic Usage
+You can use the templates in two ways:
 
-Navigate to your project directory and run:
+1. **CLI (Node)** — Run the tool to install rules into your project (writes `CLAUDE.md`, `.cursorrules/`, `.github/copilot-instructions.md`).
+2. **From your language** — Use the package to get the template path or embedded files, then copy or read the markdown you need.
+
+### Option 1: CLI (Node)
+
+If you installed via Node, run the CLI from your project directory:
 
 ```bash
+# Install one template
 npx agentic-team-templates web-frontend
-```
 
-This installs the template rules in your project directory.
-
-### Install Multiple Templates
-
-Combine templates for projects that span multiple domains:
-
-```bash
+# Multiple templates
 npx agentic-team-templates web-frontend web-backend
-```
 
-### List All Available Templates
-
-```bash
+# List available templates
 npx agentic-team-templates --list
-```
 
-### Preview Before Installing (Dry Run)
-
-See what files will be created without making changes:
-
-```bash
+# Preview without writing (dry run)
 npx agentic-team-templates web-frontend --dry-run
-```
 
-### Update to Latest Rules
-
-Re-run with `@latest` to get updated templates:
-
-```bash
-npx agentic-team-templates@latest web-frontend
-```
-
-### Install for Specific IDE
-
-By default, templates install for all supported IDEs (Cursor, Claude, Copilot). Use `--ide` to target specific tools:
-
-```bash
-# Install only for Cursor IDE
+# Target specific IDE (cursor, claude, codex)
 npx agentic-team-templates web-frontend --ide=cursor
 
-# Install only for Claude Code
-npx agentic-team-templates web-frontend --ide=claude
-
-# Install only for GitHub Copilot
-npx agentic-team-templates web-frontend --ide=codex
-
-# Install for multiple IDEs
-npx agentic-team-templates web-frontend --ide=cursor --ide=codex
-```
-
-### Remove Specific Templates
-
-Remove templates you no longer need while keeping shared rules and other templates:
-
-```bash
-# Remove a single template
+# Remove or reset
 npx agentic-team-templates --remove web-frontend
-
-# Remove multiple templates
-npx agentic-team-templates --remove web-frontend web-backend
-
-# Remove from specific IDE only
-npx agentic-team-templates --remove web-frontend --ide=cursor
-
-# Skip confirmation prompt
-npx agentic-team-templates --remove web-frontend --yes
-```
-
-### Reset (Remove Everything)
-
-Remove all installed content (shared rules, templates, generated files):
-
-```bash
-# Reset all installed content
 npx agentic-team-templates --reset
-
-# Reset for specific IDE only
-npx agentic-team-templates --reset --ide=cursor
-
-# Skip confirmation prompt
-npx agentic-team-templates --reset --yes
-
-# Force remove modified files
-npx agentic-team-templates --reset --force
 ```
 
-### CLI Options
+**CLI options:** `--ide`, `--list` / `-l`, `--dry-run`, `--force` / `-f`, `--remove`, `--reset`, `--yes` / `-y`, `--help` / `-h`.
 
-| Option | Description |
-|--------|-------------|
-| `--ide=[name]` | Target IDE: `cursor`, `claude`, or `codex` (can be used multiple times) |
-| `--list`, `-l` | List all available templates |
-| `--dry-run` | Preview changes without writing files |
-| `--force`, `-f` | Overwrite/remove even if files were modified |
-| `--remove` | Remove specified templates |
-| `--reset` | Remove ALL installed content |
-| `--yes`, `-y` | Skip confirmation prompt (for `--remove` and `--reset`) |
-| `--help`, `-h` | Show help message |
+### Option 2: Use templates from your language
+
+If you installed via Go, Python, Rust, Swift, or a source archive, use the templates in code:
+
+**Go** — Embedded `FS`; paths under `templates/` (e.g. `templates/web-frontend/CLAUDE.md`):
+
+```go
+import (
+    "io/fs"
+    "github.com/djm204/agentic-team-templates"
+)
+data, _ := fs.ReadFile(templates.FS, "templates/web-frontend/CLAUDE.md")
+```
+
+**Python** — Path to the bundled `templates/` directory:
+
+```python
+from pathlib import Path
+from agentic_team_templates import get_templates_dir
+
+templates_dir = get_templates_dir()
+claude_md = (templates_dir / "web-frontend" / "CLAUDE.md").read_text()
+```
+
+**Rust** — Embedded `Dir`; paths like `web-frontend/CLAUDE.md`:
+
+```rust
+use agentic_team_templates::TEMPLATES;
+
+let file = TEMPLATES.get_file("web-frontend/CLAUDE.md").unwrap();
+let contents = file.contents_utf8().unwrap();
+```
+
+**Swift** — Resources in the module bundle:
+
+```swift
+import AgenticTeamTemplates
+// Use Bundle.module to locate resources under "templates/"
+```
+
+**Files on disk** — If you unpacked the release zip, copy from the `templates/<name>/` and `templates/_shared/` directories into your project.
 
 ## Available Templates
 
@@ -189,7 +156,7 @@ Each template adds domain-specific rules. For example, `web-frontend` includes:
 
 ## File Structure
 
-After running `npx agentic-team-templates web-frontend`:
+After installing the **web-frontend** template (via CLI or by copying from your language’s package), your project gets:
 
 ```text
 your-project/
@@ -235,87 +202,53 @@ Templates merge with your existing `.cursorrules/` directory. Existing files are
 
 ## Examples
 
-### New React Project
+Install the templates you need for your stack. Use the CLI (Node) or your language’s API to copy/read the same files.
+
+| Project type | Templates | CLI (Node) | From your language |
+|--------------|-----------|------------|--------------------|
+| **React / SPA** | `web-frontend` | `npx agentic-team-templates web-frontend` | Copy from `templates/web-frontend/` and `templates/_shared/` |
+| **Full-stack (Next.js, etc.)** | `fullstack` | `npx agentic-team-templates fullstack` | Same; use `fullstack` instead of `web-frontend` |
+| **Backend / microservices** | `web-backend`, `devops-sre` | `npx agentic-team-templates web-backend devops-sre` | Copy from both template dirs + `_shared` |
+| **ML / data** | `ml-ai`, `data-engineering` | `npx agentic-team-templates ml-ai data-engineering` | Same; use `get_templates_dir()` / `TEMPLATES` / `FS` and copy |
+
+**CLI example (Node):**
 
 ```bash
-mkdir my-react-app && cd my-react-app
-npm create vite@latest . -- --template react-ts
+cd my-project
 npx agentic-team-templates web-frontend
 ```
 
-### Full-Stack Next.js Project
-
-```bash
-npx create-next-app@latest my-app
-cd my-app
-npx agentic-team-templates fullstack
-```
-
-### Microservices Backend
-
-```bash
-cd my-api-service
-npx agentic-team-templates web-backend devops-sre
-```
-
-### ML/AI Project
-
-```bash
-cd my-ml-project
-npx agentic-team-templates ml-ai data-engineering
-```
+**Library example (any language):** Use your package’s API (see [Option 2: Use templates from your language](#option-2-use-templates-from-your-language)) to read or copy files from `templates/<name>/` and `templates/_shared/` into your project.
 
 ## Requirements
 
-- **Node.js**: 18.0.0 or higher
-- **Supported IDEs/Tools**:
-  - Cursor IDE (any version with `.cursorrules/` support)
-  - Claude Code (reads `CLAUDE.md` automatically)
-  - GitHub Copilot (reads `.github/copilot-instructions.md`)
+- **CLI (Node):** Node.js 18.0.0 or higher.
+- **Library / files:** None; use the package from Go, Python, Rust, Swift, or the unpacked `templates/` directory.
+- **Supported IDEs/Tools:** Cursor IDE (`.cursorrules/`), Claude Code (`CLAUDE.md`), GitHub Copilot (`.github/copilot-instructions.md`).
 
-## Troubleshooting
+## Troubleshooting (CLI / Node)
 
-### "Unknown option" or Missing Features
+These apply only if you use the Node CLI (`npx agentic-team-templates` or a global install).
 
-If you're getting errors for options that should exist (like `--reset`), you may have a cached old version:
+### "Unknown option" or missing features
+
+You may be on a cached old version. Use the latest:
 
 ```bash
-# Force latest version (recommended)
 npx agentic-team-templates@latest [command]
-
-# Clear npx cache
-npx clear-npx-cache
-
-# Or manually clear npm cache
-npm cache clean --force
 ```
 
-### Verify Your Version
+Or clear caches: `npx clear-npx-cache` or `npm cache clean --force`.
 
-Check which version you're running:
+### Check CLI version
 
 ```bash
 npx agentic-team-templates --version
 ```
 
-Output:
+Use `--help` or `npx agentic-team-templates@latest --help` to see options and get update hints.
 
-```text
-agentic-team-templates v0.7.0
-Changelog: https://github.com/djm204/agentic-team-templates/releases/tag/agentic-team-templates-v0.7.0
-```
-
-Or use `--help` which also checks for updates:
-
-```bash
-npx agentic-team-templates@latest --help
-```
-
-The CLI will notify you if a newer version is available.
-
-### Update Global Installation
-
-If installed globally:
+### Update global install
 
 ```bash
 npm update -g agentic-team-templates
@@ -371,10 +304,9 @@ templates/your-template/
 
 1. Fork the repository
 2. Make your changes
-3. Test locally:
+3. Test locally (Node CLI from repo root):
 
    ```bash
-   # From repo root, test installation
    node bin/cli.js your-template --dry-run
    ```
 
@@ -401,6 +333,17 @@ Changes to shared rules affect all templates, so be thoughtful with modification
 - Code examples should be copy-pasteable
 - Prefer concrete examples over abstract guidelines
 - Keep formatting consistent with existing templates
+
+## Buy me a beer?
+
+If this project helped you, you can tip:
+
+| Network | Address |
+|---------|---------|
+| **BTC** | `bc1qq65ywtyfmwg0l6xgchp8284tnls23mla76w4ww` |
+| **ETH** | `0xFc486346e43eFE2a4ABe71E81d786c0ccbc5A778` |
+| **SOL** | `tcgbwbFaQjsZG5qVsqkqKnNc68H3Mh4TpxA7qEfe82N` |
+| **Base** | `0xFc486346e43eFE2a4ABe71E81d786c0ccbc5A778` |
 
 ## License
 
