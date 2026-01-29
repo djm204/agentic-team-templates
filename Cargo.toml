@@ -1,0 +1,15 @@
+[package]
+name = "agentic-team-templates"
+version = "0.9.1"
+edition = "2021"
+description = "AI coding assistant templates for Cursor IDE, Claude Code, and GitHub Copilot."
+license = "MIT"
+repository = "https://github.com/djm204/agentic-team-templates"
+keywords = ["cursor", "ai", "templates", "coding-assistant", "cursorrules"]
+authors = ["David Josef Mendez <me@davidmendez.dev>"]
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]
+include_dir = "0.7"
