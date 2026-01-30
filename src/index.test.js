@@ -79,6 +79,7 @@ describe('Constants', () => {
         'devops-sre',
         'documentation',
         'fullstack',
+        'golang-expert',
         'javascript-expert',
         'ml-ai',
         'mobile',

@@ -44,6 +44,10 @@ const TEMPLATES = {
     description: 'Full-stack web applications (Next.js, Nuxt, SvelteKit, Remix)',
     rules: ['api-contracts.md', 'architecture.md', 'overview.md', 'shared-types.md', 'testing.md']
   },
+  'golang-expert': {
+    description: 'Principal-level Go engineering (concurrency, stdlib, production patterns, testing)',
+    rules: ['concurrency.md', 'error-handling.md', 'interfaces-and-types.md', 'overview.md', 'performance.md', 'production-patterns.md', 'stdlib-and-tooling.md', 'testing.md']
+  },
   'javascript-expert': {
     description: 'Principal-level JavaScript engineering across Node.js, React, vanilla JS, and testing',
     rules: ['language-deep-dive.md', 'node-patterns.md', 'overview.md', 'performance.md', 'react-patterns.md', 'testing.md', 'tooling.md']
