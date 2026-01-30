@@ -82,6 +82,7 @@ describe('Constants', () => {
         'data-engineering',
         'devops-sre',
         'documentation',
+        'educator',
         'fullstack',
         'golang-expert',
         'java-expert',
