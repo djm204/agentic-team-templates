@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.12.1](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.12.0...agentic-team-templates-v0.12.1) (2026-01-30)
+
+
+### Documentation
+
+* **readme:** align available templates table with CLI ([#39](https://github.com/djm204/agentic-team-templates/issues/39)) ([e4f2f5b](https://github.com/djm204/agentic-team-templates/commit/e4f2f5b0139af007c0aa15d25b0f57cb5358be79))
+
 ## [0.12.0](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.11.0...agentic-team-templates-v0.12.0) (2026-01-30)
 
 
