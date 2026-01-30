@@ -8,10 +8,12 @@ const {
   PACKAGE_NAME,
   CURRENT_VERSION,
   TEMPLATES,
+  TEMPLATE_ALIASES,
   SHARED_RULES,
   SUPPORTED_IDES,
   DEFAULT_IDES,
   compareVersions,
+  resolveTemplateAlias,
   filesMatch,
   parseMarkdownSections,
   generateSectionSignature,
@@ -148,6 +150,50 @@ describe('Constants', () => {
   describe('DEFAULT_IDES', () => {
     it('should default to all supported IDEs', () => {
       expect(DEFAULT_IDES).toEqual(SUPPORTED_IDES);
+    });
+  });
+
+  describe('TEMPLATE_ALIASES', () => {
+    it('all alias values should be valid TEMPLATES keys', () => {
+      for (const [alias, canonical] of Object.entries(TEMPLATE_ALIASES)) {
+        expect(TEMPLATES).toHaveProperty(canonical,
+          expect.anything(),
+        );
+      }
+    });
+
+    it('should include expected shorthand aliases', () => {
+      expect(TEMPLATE_ALIASES['js']).toBe('javascript-expert');
+      expect(TEMPLATE_ALIASES['ts']).toBe('javascript-expert');
+      expect(TEMPLATE_ALIASES['go']).toBe('golang-expert');
+      expect(TEMPLATE_ALIASES['py']).toBe('python-expert');
+      expect(TEMPLATE_ALIASES['rs']).toBe('rust-expert');
+      expect(TEMPLATE_ALIASES['kt']).toBe('kotlin-expert');
+    });
+  });
+
+  describe('resolveTemplateAlias', () => {
+    it('should resolve known aliases to canonical names', () => {
+      expect(resolveTemplateAlias('js')).toBe('javascript-expert');
+      expect(resolveTemplateAlias('typescript')).toBe('javascript-expert');
+      expect(resolveTemplateAlias('go')).toBe('golang-expert');
+      expect(resolveTemplateAlias('golang')).toBe('golang-expert');
+      expect(resolveTemplateAlias('py')).toBe('python-expert');
+      expect(resolveTemplateAlias('rs')).toBe('rust-expert');
+      expect(resolveTemplateAlias('kotlin')).toBe('kotlin-expert');
+      expect(resolveTemplateAlias('kt')).toBe('kotlin-expert');
+    });
+
+    it('should pass through unknown names unchanged', () => {
+      expect(resolveTemplateAlias('web-frontend')).toBe('web-frontend');
+      expect(resolveTemplateAlias('blockchain')).toBe('blockchain');
+      expect(resolveTemplateAlias('nonexistent')).toBe('nonexistent');
+    });
+
+    it('should pass through canonical template names unchanged', () => {
+      expect(resolveTemplateAlias('javascript-expert')).toBe('javascript-expert');
+      expect(resolveTemplateAlias('golang-expert')).toBe('golang-expert');
+      expect(resolveTemplateAlias('python-expert')).toBe('python-expert');
     });
   });
 });
@@ -1019,7 +1065,50 @@ describe('CLI Argument Parsing', () => {
   it('should accept -y shorthand for yes', async () => {
     await run(['web-frontend']);
     await run(['--reset', '-y']);
-    
+
+    expect(exitSpy).not.toHaveBeenCalled();
+  });
+
+  it('should resolve shorthand alias "js" to javascript-expert', async () => {
+    await run(['js', '--dry-run']);
+
+    expect(exitSpy).not.toHaveBeenCalled();
+  });
+
+  it('should resolve shorthand alias "go" to golang-expert', async () => {
+    await run(['go', '--dry-run']);
+
+    expect(exitSpy).not.toHaveBeenCalled();
+  });
+
+  it('should resolve shorthand alias "py" to python-expert', async () => {
+    await run(['py', '--dry-run']);
+
+    expect(exitSpy).not.toHaveBeenCalled();
+  });
+
+  it('should resolve shorthand alias "rs" to rust-expert', async () => {
+    await run(['rs', '--dry-run']);
+
+    expect(exitSpy).not.toHaveBeenCalled();
+  });
+
+  it('should resolve shorthand alias "kt" to kotlin-expert', async () => {
+    await run(['kt', '--dry-run']);
+
+    expect(exitSpy).not.toHaveBeenCalled();
+  });
+
+  it('should resolve aliases in --remove mode', async () => {
+    await run(['go']);
+    await run(['--remove', 'go', '--yes']);
+
+    expect(exitSpy).not.toHaveBeenCalled();
+  });
+
+  it('should still accept canonical template names', async () => {
+    await run(['javascript-expert', '--dry-run']);
+
     expect(exitSpy).not.toHaveBeenCalled();
   });
 });

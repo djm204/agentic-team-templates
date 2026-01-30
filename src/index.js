@@ -118,6 +118,36 @@ const TEMPLATES = {
   }
 };
 
+// Shorthand aliases for language expert templates
+const TEMPLATE_ALIASES = {
+  'js': 'javascript-expert',
+  'javascript': 'javascript-expert',
+  'ts': 'javascript-expert',
+  'typescript': 'javascript-expert',
+  'go': 'golang-expert',
+  'golang': 'golang-expert',
+  'py': 'python-expert',
+  'python': 'python-expert',
+  'rs': 'rust-expert',
+  'rust': 'rust-expert',
+  'swift': 'swift-expert',
+  'kotlin': 'kotlin-expert',
+  'kt': 'kotlin-expert',
+  'java': 'java-expert',
+  'cpp': 'cpp-expert',
+  'csharp': 'csharp-expert',
+  'cs': 'csharp-expert',
+};
+
+/**
+ * Resolve a template alias to its canonical name
+ * @param {string} name - Template name or alias
+ * @returns {string} Canonical template name
+ */
+function resolveTemplateAlias(name) {
+  return TEMPLATE_ALIASES[name] || name;
+}
+
 const SHARED_RULES = [
   'code-quality.md',
   'communication.md', 
@@ -215,7 +245,19 @@ ${colors.yellow('IDE Targets:')}
   claude         CLAUDE.md file (Claude Code, Cursor with Claude)
   codex          .github/copilot-instructions.md (GitHub Copilot)
 
+${colors.yellow('Shorthand Aliases:')}
+  js, ts, javascript, typescript → javascript-expert
+  go, golang                     → golang-expert
+  py, python                     → python-expert
+  rs, rust                       → rust-expert
+  swift                          → swift-expert
+  kotlin, kt                     → kotlin-expert
+  java                           → java-expert
+  cpp                            → cpp-expert
+  csharp, cs                     → csharp-expert
+
 ${colors.yellow('Examples:')}
+  npx cursor-templates js
   npx cursor-templates web-frontend
   npx cursor-templates web-frontend --ide=cursor
   npx cursor-templates web-frontend --ide=claude --ide=codex
@@ -237,13 +279,24 @@ ${colors.dim('CLAUDE.md: missing sections are intelligently merged (not overwrit
 }
 
 function printTemplates() {
+  // Build reverse map: canonical name -> list of aliases
+  const aliasesByTemplate = {};
+  for (const [alias, canonical] of Object.entries(TEMPLATE_ALIASES)) {
+    if (!aliasesByTemplate[canonical]) {
+      aliasesByTemplate[canonical] = [];
+    }
+    aliasesByTemplate[canonical].push(alias);
+  }
+
   console.log(colors.yellow('Available Templates:\n'));
-  
+
   for (const [name, info] of Object.entries(TEMPLATES)) {
-    console.log(`  ${colors.green(name)}`);
+    const aliases = aliasesByTemplate[name];
+    const aliasSuffix = aliases ? ` ${colors.dim(`(aliases: ${aliases.join(', ')})`)}` : '';
+    console.log(`  ${colors.green(name)}${aliasSuffix}`);
     console.log(`    ${info.description}\n`);
   }
-  
+
   console.log(colors.blue('Shared rules (always included):'));
   for (const rule of SHARED_RULES) {
     console.log(`  - ${rule.replace('.md', '')}`);
@@ -1378,9 +1431,12 @@ export async function run(args) {
   }
 
   printBanner();
-  
+
   // Check for updates (non-blocking, fails silently)
   await checkForUpdates();
+
+  // Resolve template aliases to canonical names
+  const resolvedTemplates = templates.map(resolveTemplateAlias);
 
   // Use default IDEs if none specified
   const targetIdes = ides.length > 0 ? ides : DEFAULT_IDES;
@@ -1391,7 +1447,7 @@ export async function run(args) {
       console.error(colors.red('Error: Cannot use --remove and --reset together\n'));
       process.exit(1);
     }
-    if (templates.length > 0) {
+    if (resolvedTemplates.length > 0) {
       console.error(colors.red('Error: --reset does not accept template arguments\n'));
       console.error(colors.dim('Use --remove <templates...> to remove specific templates.\n'));
       process.exit(1);
@@ -1410,14 +1466,14 @@ export async function run(args) {
 
   // Handle remove mode
   if (removeMode) {
-    if (templates.length === 0) {
+    if (resolvedTemplates.length === 0) {
       console.error(colors.red('Error: No templates specified for removal\n'));
       console.error(colors.dim('Usage: npx cursor-templates --remove <templates...>\n'));
       printTemplates();
       process.exit(1);
     }
 
-    for (const template of templates) {
+    for (const template of resolvedTemplates) {
       if (!TEMPLATES[template]) {
         console.error(colors.red(`Error: Unknown template '${template}'\n`));
         printTemplates();
@@ -1432,18 +1488,18 @@ export async function run(args) {
       console.log(colors.yellow('FORCE MODE - Modified files will be removed\n'));
     }
 
-    await remove(process.cwd(), templates, dryRun, force, skipConfirm, targetIdes);
+    await remove(process.cwd(), resolvedTemplates, dryRun, force, skipConfirm, targetIdes);
     return;
   }
 
   // Install mode (default)
-  if (templates.length === 0) {
+  if (resolvedTemplates.length === 0) {
     console.error(colors.red('Error: No templates specified\n'));
     printHelp();
     process.exit(1);
   }
 
-  for (const template of templates) {
+  for (const template of resolvedTemplates) {
     if (!TEMPLATES[template]) {
       console.error(colors.red(`Error: Unknown template '${template}'\n`));
       printTemplates();
@@ -1460,7 +1516,7 @@ export async function run(args) {
   }
 
   // Install to current directory
-  install(process.cwd(), templates, dryRun, force, targetIdes);
+  install(process.cwd(), resolvedTemplates, dryRun, force, targetIdes);
 }
 
 // Export internals for testing
@@ -1470,11 +1526,13 @@ export const _internals = {
   REPO_URL,
   CHANGELOG_URL,
   TEMPLATES,
+  TEMPLATE_ALIASES,
   SHARED_RULES,
   SUPPORTED_IDES,
   DEFAULT_IDES,
   compareVersions,
   checkForUpdates,
+  resolveTemplateAlias,
   filesMatch,
   parseMarkdownSections,
   generateSectionSignature,
