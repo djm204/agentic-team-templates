@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.13.2](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.13.1...agentic-team-templates-v0.13.2) (2026-01-30)
+
+
+### CI/CD
+
+* **release:** GitHub generate release notes + workflow lint ([#44](https://github.com/djm204/agentic-team-templates/issues/44)) ([84afff8](https://github.com/djm204/agentic-team-templates/commit/84afff81f5dd7c4ee426d8a30d1828e3345cdd44))
+
 ## [0.13.1](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.13.0...agentic-team-templates-v0.13.1) (2026-01-30)
 
 
