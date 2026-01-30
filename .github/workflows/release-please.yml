@@ -75,8 +75,19 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          TARBALL=$(ls *.tgz)
+          TARBALL=$(ls ./*.tgz)
           gh release upload ${{ needs.release-please.outputs.tag_name }} "$TARBALL" --clobber
+
+      - name: Update release with GitHub-generated notes
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="${{ needs.release-please.outputs.tag_name }}"
+          gh api POST /repos/${{ github.repository }}/releases/generate-notes \
+            -f tag_name="$TAG" \
+            -f target_commitish=main \
+            | jq -r .body > release_notes.md
+          gh release edit "$TAG" --notes-file release_notes.md
 
       - name: Publish to npm
         run: npm publish --provenance --access public
