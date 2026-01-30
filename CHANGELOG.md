@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.12.0](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.11.0...agentic-team-templates-v0.12.0) (2026-01-30)
+
+
+### Features
+
+* **templates:** add golang-expert template ([#34](https://github.com/djm204/agentic-team-templates/issues/34)) ([5f46bb8](https://github.com/djm204/agentic-team-templates/commit/5f46bb8cecfda3fab25e011c89115c1d1b726970))
+
 ## [0.11.0](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.10.0...agentic-team-templates-v0.11.0) (2026-01-30)
 
 
