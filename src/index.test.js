@@ -82,6 +82,7 @@ describe('Constants', () => {
         'javascript-expert',
         'ml-ai',
         'mobile',
+        'rust-expert',
         'platform-engineering',
         'product-manager',
         'qa-engineering',
