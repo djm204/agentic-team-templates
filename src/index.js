@@ -52,6 +52,10 @@ const TEMPLATES = {
     description: 'Principal-level Go engineering (concurrency, stdlib, production patterns, testing)',
     rules: ['concurrency.md', 'error-handling.md', 'interfaces-and-types.md', 'overview.md', 'performance.md', 'production-patterns.md', 'stdlib-and-tooling.md', 'testing.md']
   },
+  'java-expert': {
+    description: 'Principal-level Java engineering (JVM, Spring Boot, concurrency, JPA, testing)',
+    rules: ['concurrency.md', 'error-handling.md', 'modern-java.md', 'overview.md', 'performance.md', 'persistence.md', 'spring-boot.md', 'testing.md', 'tooling.md']
+  },
   'javascript-expert': {
     description: 'Principal-level JavaScript engineering across Node.js, React, vanilla JS, and testing',
     rules: ['language-deep-dive.md', 'node-patterns.md', 'overview.md', 'performance.md', 'react-patterns.md', 'testing.md', 'tooling.md']

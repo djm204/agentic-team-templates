@@ -155,6 +155,7 @@ npx agentic-team-templates --reset --force
 | `documentation` | Technical documentation standards (READMEs, API docs, ADRs, code comments) |
 | `fullstack` | Full-stack web applications (Next.js, Nuxt, SvelteKit, Remix) |
 | `golang-expert` | Principal-level Go engineering (concurrency, stdlib, production patterns, testing) |
+| `java-expert` | Principal-level Java engineering (JVM, Spring Boot, concurrency, JPA, testing) |
 | `javascript-expert` | Principal-level JavaScript engineering across Node.js, React, vanilla JS, and testing |
 | `ml-ai` | Machine learning and AI systems (model development, deployment, monitoring) |
 | `mobile` | Mobile applications (React Native, Flutter, native iOS/Android) |
