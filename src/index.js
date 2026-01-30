@@ -40,6 +40,10 @@ const TEMPLATES = {
     description: 'Mobile applications (React Native, Flutter, native iOS/Android)',
     rules: ['navigation.md', 'offline-first.md', 'overview.md', 'performance.md', 'testing.md']
   },
+  'rust-expert': {
+    description: 'Principal-level Rust engineering (ownership, concurrency, unsafe, traits, async)',
+    rules: ['concurrency.md', 'ecosystem-and-tooling.md', 'error-handling.md', 'overview.md', 'ownership-and-borrowing.md', 'performance-and-unsafe.md', 'testing.md', 'traits-and-generics.md']
+  },
   'utility-agent': {
     description: 'AI agent utilities with context management and hallucination prevention',
     rules: ['action-control.md', 'context-management.md', 'hallucination-prevention.md', 'overview.md', 'token-optimization.md']

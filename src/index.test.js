@@ -78,6 +78,7 @@ describe('Constants', () => {
         'documentation',
         'fullstack',
         'mobile',
+        'rust-expert',
         'utility-agent',
         'web-backend',
         'web-frontend',
