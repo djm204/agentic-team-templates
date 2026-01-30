@@ -28,6 +28,14 @@ const TEMPLATES = {
     description: 'Command-line applications and developer tools (Cobra, Commander, Click)',
     rules: ['architecture.md', 'arguments.md', 'distribution.md', 'error-handling.md', 'overview.md', 'testing.md', 'user-experience.md']
   },
+  'data-engineering': {
+    description: 'Data platforms and pipelines (ETL, data modeling, data quality)',
+    rules: ['data-modeling.md', 'data-quality.md', 'overview.md', 'performance.md', 'pipeline-design.md', 'security.md', 'testing.md']
+  },
+  'devops-sre': {
+    description: 'DevOps and SRE practices (incident management, observability, SLOs, chaos engineering)',
+    rules: ['capacity-planning.md', 'change-management.md', 'chaos-engineering.md', 'disaster-recovery.md', 'incident-management.md', 'observability.md', 'overview.md', 'postmortems.md', 'runbooks.md', 'slo-sli.md', 'toil-reduction.md']
+  },
   'documentation': {
     description: 'Technical documentation standards (READMEs, API docs, ADRs, code comments)',
     rules: ['adr.md', 'api-documentation.md', 'code-comments.md', 'maintenance.md', 'overview.md', 'readme-standards.md']
@@ -40,9 +48,37 @@ const TEMPLATES = {
     description: 'Principal-level Go engineering (concurrency, stdlib, production patterns, testing)',
     rules: ['concurrency.md', 'error-handling.md', 'interfaces-and-types.md', 'overview.md', 'performance.md', 'production-patterns.md', 'stdlib-and-tooling.md', 'testing.md']
   },
+  'javascript-expert': {
+    description: 'Principal-level JavaScript engineering across Node.js, React, vanilla JS, and testing',
+    rules: ['language-deep-dive.md', 'node-patterns.md', 'overview.md', 'performance.md', 'react-patterns.md', 'testing.md', 'tooling.md']
+  },
+  'ml-ai': {
+    description: 'Machine learning and AI systems (model development, deployment, monitoring)',
+    rules: ['data-engineering.md', 'deployment.md', 'model-development.md', 'monitoring.md', 'overview.md', 'security.md', 'testing.md']
+  },
   'mobile': {
     description: 'Mobile applications (React Native, Flutter, native iOS/Android)',
     rules: ['navigation.md', 'offline-first.md', 'overview.md', 'performance.md', 'testing.md']
+  },
+  'rust-expert': {
+    description: 'Principal-level Rust engineering (ownership, concurrency, unsafe, traits, async)',
+    rules: ['concurrency.md', 'ecosystem-and-tooling.md', 'error-handling.md', 'overview.md', 'ownership-and-borrowing.md', 'performance-and-unsafe.md', 'testing.md', 'traits-and-generics.md']
+  },
+  'platform-engineering': {
+    description: 'Internal developer platforms, infrastructure automation, and reliability engineering',
+    rules: ['ci-cd.md', 'developer-experience.md', 'infrastructure-as-code.md', 'kubernetes.md', 'observability.md', 'overview.md', 'security.md', 'testing.md']
+  },
+  'product-manager': {
+    description: 'Product management with customer-centric discovery, prioritization, and execution',
+    rules: ['communication.md', 'discovery.md', 'metrics.md', 'overview.md', 'prioritization.md', 'requirements.md']
+  },
+  'qa-engineering': {
+    description: 'Quality assurance programs for confident, rapid software delivery',
+    rules: ['automation.md', 'metrics.md', 'overview.md', 'quality-gates.md', 'test-design.md', 'test-strategy.md']
+  },
+  'testing': {
+    description: 'Comprehensive testing practices (TDD, test design, CI/CD integration, performance testing)',
+    rules: ['advanced-techniques.md', 'ci-cd-integration.md', 'overview.md', 'performance-testing.md', 'quality-metrics.md', 'reliability.md', 'tdd-methodology.md', 'test-data.md', 'test-design.md', 'test-types.md']
   },
   'utility-agent': {
     description: 'AI agent utilities with context management and hallucination prevention',

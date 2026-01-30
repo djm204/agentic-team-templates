@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.10.0](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.9.2...agentic-team-templates-v0.10.0) (2026-01-30)
+
+
+### Features
+
+* **templates:** add javascript-expert template and register missing templates ([#33](https://github.com/djm204/agentic-team-templates/issues/33)) ([fce118d](https://github.com/djm204/agentic-team-templates/commit/fce118d9ee39731f91fa6b92065b65764bee26ed))
+
 ## [0.9.2](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.9.1...agentic-team-templates-v0.9.2) (2026-01-30)
 
 
