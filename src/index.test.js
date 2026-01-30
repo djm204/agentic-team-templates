@@ -77,6 +77,7 @@ describe('Constants', () => {
         'cli-tools',
         'documentation',
         'fullstack',
+        'golang-expert',
         'mobile',
         'utility-agent',
         'web-backend',
