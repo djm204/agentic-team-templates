@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.11.0](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.10.0...agentic-team-templates-v0.11.0) (2026-01-30)
+
+
+### Features
+
+* **templates:** add rust-expert template ([#35](https://github.com/djm204/agentic-team-templates/issues/35)) ([8bc4786](https://github.com/djm204/agentic-team-templates/commit/8bc47863b43f472153960ad3dd5f08e9adc7b67e))
+
 ## [0.10.0](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.9.2...agentic-team-templates-v0.10.0) (2026-01-30)
 
 
