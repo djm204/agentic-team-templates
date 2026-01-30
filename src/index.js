@@ -24,6 +24,14 @@ const TEMPLATES = {
     description: 'Smart contracts, DeFi protocols, and Web3 applications (Solidity, Foundry, Viem)',
     rules: ['defi-patterns.md', 'gas-optimization.md', 'overview.md', 'security.md', 'smart-contracts.md', 'testing.md', 'web3-integration.md']
   },
+  'cpp-expert': {
+    description: 'Principal-level C++ engineering (modern C++, RAII, concurrency, templates, performance)',
+    rules: ['concurrency.md', 'error-handling.md', 'memory-and-ownership.md', 'modern-cpp.md', 'overview.md', 'performance.md', 'testing.md', 'tooling.md']
+  },
+  'csharp-expert': {
+    description: 'Principal-level C# engineering (async, DI, EF Core, ASP.NET Core, testing)',
+    rules: ['aspnet-core.md', 'async-patterns.md', 'dependency-injection.md', 'error-handling.md', 'language-features.md', 'overview.md', 'performance.md', 'testing.md', 'tooling.md']
+  },
   'cli-tools': {
     description: 'Command-line applications and developer tools (Cobra, Commander, Click)',
     rules: ['architecture.md', 'arguments.md', 'distribution.md', 'error-handling.md', 'overview.md', 'testing.md', 'user-experience.md']
@@ -48,9 +56,13 @@ const TEMPLATES = {
     description: 'Principal-level Go engineering (concurrency, stdlib, production patterns, testing)',
     rules: ['concurrency.md', 'error-handling.md', 'interfaces-and-types.md', 'overview.md', 'performance.md', 'production-patterns.md', 'stdlib-and-tooling.md', 'testing.md']
   },
+  'java-expert': {
+    description: 'Principal-level Java engineering (JVM, Spring Boot, concurrency, JPA, testing)',
+    rules: ['concurrency.md', 'error-handling.md', 'modern-java.md', 'overview.md', 'performance.md', 'persistence.md', 'spring-boot.md', 'testing.md', 'tooling.md']
+  },
   'javascript-expert': {
-    description: 'Principal-level JavaScript engineering across Node.js, React, vanilla JS, and testing',
-    rules: ['language-deep-dive.md', 'node-patterns.md', 'overview.md', 'performance.md', 'react-patterns.md', 'testing.md', 'tooling.md']
+    description: 'Principal-level JavaScript & TypeScript engineering (Node.js, React, type system, testing)',
+    rules: ['language-deep-dive.md', 'node-patterns.md', 'overview.md', 'performance.md', 'react-patterns.md', 'testing.md', 'tooling.md', 'typescript-deep-dive.md']
   },
   'kotlin-expert': {
     description: 'Principal-level Kotlin engineering (coroutines, multiplatform, Ktor, Spring Boot, testing)',

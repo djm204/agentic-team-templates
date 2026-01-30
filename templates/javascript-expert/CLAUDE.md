@@ -1,6 +1,8 @@
-# JavaScript Expert Development Guide
+# JavaScript & TypeScript Expert Development Guide
 
-Comprehensive guidelines for principal-level JavaScript engineering across all runtimes, frameworks, and paradigms.
+Comprehensive guidelines for principal-level JavaScript and TypeScript engineering across all runtimes, frameworks, and paradigms.
+
+**This template covers both JavaScript and TypeScript.** TypeScript is the default — all code is written in strict TypeScript. Advanced type system patterns (conditional types, mapped types, generics, runtime validation) are included.
 
 ---
 
@@ -10,7 +12,7 @@ This guide applies to:
 - Node.js services, CLIs, and tooling
 - React, Vue, Angular, Svelte, and other UI frameworks
 - Vanilla JavaScript and Web APIs
-- TypeScript (strict mode, always)
+- TypeScript (strict mode, always) — including advanced type system patterns
 - Build tools, bundlers, and transpilers
 - Testing at every level (unit, integration, E2E, performance)
 
@@ -74,6 +76,35 @@ type UserId = string & { readonly __brand: unique symbol };
 // Const assertions and template literal types
 const EVENTS = ['click', 'keydown', 'submit'] as const;
 type EventName = (typeof EVENTS)[number];
+```
+
+### TypeScript Deep Dive
+
+Advanced type system patterns beyond the basics:
+
+```typescript
+// Conditional types
+type Awaited<T> = T extends Promise<infer U> ? Awaited<U> : T;
+
+// Mapped types with key remapping
+type Getters<T> = {
+  [K in keyof T as `get${Capitalize<string & K>}`]: () => T[K];
+};
+
+// Template literal type extraction
+type ExtractParams<T extends string> =
+  T extends `${string}:${infer Param}/${infer Rest}`
+    ? Param | ExtractParams<`/${Rest}`>
+    : T extends `${string}:${infer Param}` ? Param : never;
+
+// satisfies — validate without widening
+const config = { port: 3000, host: 'localhost' } satisfies Record<string, string | number>;
+// config.port is still number, not string | number
+
+// Runtime boundary validation with Zod
+const UserSchema = z.object({ id: z.string().uuid(), email: z.string().email() });
+type User = z.infer<typeof UserSchema>;
+// Types disappear at runtime — validate at every I/O boundary
 ```
 
 ### Functional Patterns

@@ -1,6 +1,8 @@
-# JavaScript Expert
+# JavaScript & TypeScript Expert
 
-Guidelines for principal-level JavaScript engineering across all runtimes, frameworks, and paradigms.
+Guidelines for principal-level JavaScript and TypeScript engineering across all runtimes, frameworks, and paradigms.
+
+**This template covers both JavaScript and TypeScript.** TypeScript is the default — all code is written in strict TypeScript. The advanced type system is covered in `typescript-deep-dive.md`.
 
 ## Scope
 
@@ -8,7 +10,7 @@ This ruleset applies to:
 - Node.js services, CLIs, and tooling
 - React, Vue, Angular, Svelte, and other UI frameworks
 - Vanilla JavaScript and Web APIs
-- TypeScript (strict mode, always)
+- TypeScript (strict mode, always — see `typescript-deep-dive.md` for advanced patterns)
 - Build tools, bundlers, and transpilers
 - Testing at every level (unit, integration, E2E, performance)
 
