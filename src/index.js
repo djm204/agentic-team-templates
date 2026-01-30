@@ -24,6 +24,10 @@ const TEMPLATES = {
     description: 'Smart contracts, DeFi protocols, and Web3 applications (Solidity, Foundry, Viem)',
     rules: ['defi-patterns.md', 'gas-optimization.md', 'overview.md', 'security.md', 'smart-contracts.md', 'testing.md', 'web3-integration.md']
   },
+  'csharp-expert': {
+    description: 'Principal-level C# engineering (async, DI, EF Core, ASP.NET Core, testing)',
+    rules: ['aspnet-core.md', 'async-patterns.md', 'dependency-injection.md', 'error-handling.md', 'language-features.md', 'overview.md', 'performance.md', 'testing.md', 'tooling.md']
+  },
   'cli-tools': {
     description: 'Command-line applications and developer tools (Cobra, Commander, Click)',
     rules: ['architecture.md', 'arguments.md', 'distribution.md', 'error-handling.md', 'overview.md', 'testing.md', 'user-experience.md']
