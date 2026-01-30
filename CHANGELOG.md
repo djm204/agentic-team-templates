@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.16.0](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.15.0...agentic-team-templates-v0.16.0) (2026-01-30)
+
+
+### Features
+
+* **templates:** add educator template ([#54](https://github.com/djm204/agentic-team-templates/issues/54)) ([f1f2f1f](https://github.com/djm204/agentic-team-templates/commit/f1f2f1f099426e0f7f5acab4c43213d06809e0b1))
+
 ## [0.15.0](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.14.0...agentic-team-templates-v0.15.0) (2026-01-30)
 
 
