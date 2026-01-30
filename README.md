@@ -166,6 +166,7 @@ npx agentic-team-templates --reset --force
 | `python-expert` | Principal-level Python engineering (type system, async, testing, FastAPI, Django) |
 | `qa-engineering` | Quality assurance programs for confident, rapid software delivery |
 | `rust-expert` | Principal-level Rust engineering (ownership, concurrency, unsafe, traits, async) |
+| `swift-expert` | Principal-level Swift engineering (concurrency, SwiftUI, protocols, testing, Apple platforms) |
 | `testing` | Comprehensive testing practices (TDD, test design, CI/CD integration, performance testing) |
 | `utility-agent` | AI agent utilities with context management and hallucination prevention |
 | `web-backend` | Backend APIs and services (REST, GraphQL, microservices) |

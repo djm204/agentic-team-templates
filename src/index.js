@@ -96,6 +96,10 @@ const TEMPLATES = {
     description: 'Principal-level Rust engineering (ownership, concurrency, unsafe, traits, async)',
     rules: ['concurrency.md', 'ecosystem-and-tooling.md', 'error-handling.md', 'overview.md', 'ownership-and-borrowing.md', 'performance-and-unsafe.md', 'testing.md', 'traits-and-generics.md']
   },
+  'swift-expert': {
+    description: 'Principal-level Swift engineering (concurrency, SwiftUI, protocols, testing, Apple platforms)',
+    rules: ['concurrency.md', 'error-handling.md', 'language-features.md', 'overview.md', 'performance.md', 'swiftui.md', 'testing.md', 'tooling.md']
+  },
   'testing': {
     description: 'Comprehensive testing practices (TDD, test design, CI/CD integration, performance testing)',
     rules: ['advanced-techniques.md', 'ci-cd-integration.md', 'overview.md', 'performance-testing.md', 'quality-metrics.md', 'reliability.md', 'tdd-methodology.md', 'test-data.md', 'test-design.md', 'test-types.md']
