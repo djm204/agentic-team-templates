@@ -48,6 +48,10 @@ const TEMPLATES = {
     description: 'Technical documentation standards (READMEs, API docs, ADRs, code comments)',
     rules: ['adr.md', 'api-documentation.md', 'code-comments.md', 'maintenance.md', 'overview.md', 'readme-standards.md']
   },
+  'educator': {
+    description: 'World-class pedagogy with evidence-based teaching, learning retention, gamification, and assessment design',
+    rules: ['accessibility.md', 'assessment.md', 'curriculum.md', 'engagement.md', 'instructional-design.md', 'overview.md', 'retention.md']
+  },
   'fullstack': {
     description: 'Full-stack web applications (Next.js, Nuxt, SvelteKit, Remix)',
     rules: ['api-contracts.md', 'architecture.md', 'overview.md', 'shared-types.md', 'testing.md']
@@ -137,6 +141,8 @@ const TEMPLATE_ALIASES = {
   'cpp': 'cpp-expert',
   'csharp': 'csharp-expert',
   'cs': 'csharp-expert',
+  'teach': 'educator',
+  'teacher': 'educator',
 };
 
 /**
@@ -255,6 +261,7 @@ ${colors.yellow('Shorthand Aliases:')}
   java                           → java-expert
   cpp                            → cpp-expert
   csharp, cs                     → csharp-expert
+  teach, teacher                 → educator
 
 ${colors.yellow('Examples:')}
   npx cursor-templates js
