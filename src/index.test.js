@@ -84,6 +84,7 @@ describe('Constants', () => {
         'golang-expert',
         'java-expert',
         'javascript-expert',
+        'kotlin-expert',
         'ml-ai',
         'mobile',
         'platform-engineering',

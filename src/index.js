@@ -64,6 +64,10 @@ const TEMPLATES = {
     description: 'Principal-level JavaScript & TypeScript engineering (Node.js, React, type system, testing)',
     rules: ['language-deep-dive.md', 'node-patterns.md', 'overview.md', 'performance.md', 'react-patterns.md', 'testing.md', 'tooling.md', 'typescript-deep-dive.md']
   },
+  'kotlin-expert': {
+    description: 'Principal-level Kotlin engineering (coroutines, multiplatform, Ktor, Spring Boot, testing)',
+    rules: ['coroutines.md', 'error-handling.md', 'frameworks.md', 'language-features.md', 'overview.md', 'performance.md', 'testing.md', 'tooling.md']
+  },
   'ml-ai': {
     description: 'Machine learning and AI systems (model development, deployment, monitoring)',
     rules: ['data-engineering.md', 'deployment.md', 'model-development.md', 'monitoring.md', 'overview.md', 'security.md', 'testing.md']
