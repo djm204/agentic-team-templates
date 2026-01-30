@@ -164,7 +164,7 @@ async function checkForUpdates() {
 function printBanner() {
   console.log(colors.blue(`
 ╔═══════════════════════════════════════════════════════════╗
-║              Cursor Templates Installer                   ║
+║           Agentic Team Templates Installer                ║
 ╚═══════════════════════════════════════════════════════════╝
 `));
 }
