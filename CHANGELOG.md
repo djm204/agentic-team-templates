@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.19.0](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.18.0...agentic-team-templates-v0.19.0) (2026-01-31)
+
+
+### Features
+
+* **templates:** organize templates into category subdirectories ([#62](https://github.com/djm204/agentic-team-templates/issues/62)) ([7d7389c](https://github.com/djm204/agentic-team-templates/commit/7d7389c6204c72377080e2a660d8c8513f0ba103))
+
+
+### Bug Fixes
+
+* **cursor:** copy legacy .cursorrules/ files to .cursor/rules/ before removing directory ([#61](https://github.com/djm204/agentic-team-templates/issues/61)) ([b78f12c](https://github.com/djm204/agentic-team-templates/commit/b78f12c2145aaaf1633c6bb61882da6770f15e67))
+
 ## [0.18.0](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.17.0...agentic-team-templates-v0.18.0) (2026-01-31)
 
 
