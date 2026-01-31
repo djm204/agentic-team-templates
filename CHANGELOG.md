@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.19.1](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.19.0...agentic-team-templates-v0.19.1) (2026-01-31)
+
+
+### Miscellaneous
+
+* update CLAUDE.md and release-please.yml ([#64](https://github.com/djm204/agentic-team-templates/issues/64)) ([48a488e](https://github.com/djm204/agentic-team-templates/commit/48a488e2812672a4c36a4e7744eef9c4da16e285))
+
 ## [0.19.0](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.18.0...agentic-team-templates-v0.19.0) (2026-01-31)
 
 
