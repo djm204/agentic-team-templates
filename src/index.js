@@ -886,6 +886,23 @@ async function install(targetDir, templates, dryRun = false, force = false, ides
         );
 
         if (shouldCleanup) {
+          // Copy legacy rule files to .cursor/rules/ before removing (don't overwrite existing)
+          const legacyEntries = fs.readdirSync(legacyDir, { withFileTypes: true });
+          let copiedCount = 0;
+          for (const entry of legacyEntries) {
+            if (!entry.isFile()) continue;
+            const name = entry.name;
+            const legacyPath = path.join(legacyDir, name);
+            const destPath = path.join(cursorRulesDir, name);
+            if (!fs.existsSync(destPath)) {
+              fs.copyFileSync(legacyPath, destPath);
+              console.log(colors.dim(`  ${colors.green('[migrated]')} ${name} → ${CURSOR_RULES_DIR}/`));
+              copiedCount++;
+            }
+          }
+          if (copiedCount > 0) {
+            console.log(colors.green(`  ✓ Migrated ${copiedCount} file(s) from ${LEGACY_CURSORRULES_DIR}/ to ${CURSOR_RULES_DIR}/.`));
+          }
           fs.rmSync(legacyDir, { recursive: true });
           console.log(colors.green(`  ✓ Removed deprecated ${LEGACY_CURSORRULES_DIR}/ directory.`));
         } else {

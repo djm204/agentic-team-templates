@@ -777,23 +777,35 @@ describe('Install/Remove/Reset Operations', () => {
       expect(fs.existsSync(path.join(tempDir, '.cursor', 'rules', 'web-backend-overview.md'))).toBe(true);
     });
 
-    it('should detect legacy .cursorrules/ and create notice when cleanup declined', async () => {
-      // Create a legacy .cursorrules/ directory
+    it('should copy legacy .cursorrules/ files to .cursor/rules/ then remove legacy dir when cleanup confirmed', async () => {
       const legacyDir = path.join(tempDir, LEGACY_CURSORRULES_DIR);
+      const cursorRulesDir = path.join(tempDir, '.cursor', 'rules');
       fs.mkdirSync(legacyDir, { recursive: true });
       fs.writeFileSync(path.join(legacyDir, 'old-rule.md'), '# Old rule');
+      fs.writeFileSync(path.join(legacyDir, 'custom-guide.md'), '# Custom guide');
 
-      // Install with skipConfirm=false but mock stdin to decline
-      // Since we can't easily mock stdin, use the fact that confirm defaults to 'N'
-      // We'll test the --yes path which auto-cleans, and also the notice path
-      // For the notice path, install without skipConfirm - the confirm() will fail in test env
-      // Actually, let's just test the --yes (skipConfirm) paths
-
-      // Test: skipConfirm=true should remove legacy dir
       await install(tempDir, ['web-frontend'], false, false, ['cursor'], true);
 
       expect(fs.existsSync(legacyDir)).toBe(false);
       expect(fs.existsSync(path.join(tempDir, '.cursor', 'rules', 'web-frontend-overview.md'))).toBe(true);
+      expect(fs.existsSync(path.join(cursorRulesDir, 'old-rule.md'))).toBe(true);
+      expect(fs.readFileSync(path.join(cursorRulesDir, 'old-rule.md'), 'utf8')).toBe('# Old rule');
+      expect(fs.existsSync(path.join(cursorRulesDir, 'custom-guide.md'))).toBe(true);
+      expect(fs.readFileSync(path.join(cursorRulesDir, 'custom-guide.md'), 'utf8')).toBe('# Custom guide');
+    });
+
+    it('should not overwrite existing .cursor/rules/ files when migrating legacy', async () => {
+      const legacyDir = path.join(tempDir, LEGACY_CURSORRULES_DIR);
+      const cursorRulesDir = path.join(tempDir, '.cursor', 'rules');
+      fs.mkdirSync(cursorRulesDir, { recursive: true });
+      fs.writeFileSync(path.join(cursorRulesDir, 'my-rule.md'), '# New structure content');
+      fs.mkdirSync(legacyDir, { recursive: true });
+      fs.writeFileSync(path.join(legacyDir, 'my-rule.md'), '# Legacy content');
+
+      await install(tempDir, ['web-frontend'], false, false, ['cursor'], true);
+
+      expect(fs.readFileSync(path.join(cursorRulesDir, 'my-rule.md'), 'utf8')).toBe('# New structure content');
+      expect(fs.existsSync(legacyDir)).toBe(false);
     });
 
     it('should show legacy warning in dry-run mode without prompting', async () => {
