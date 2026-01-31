@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.17.0](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.16.0...agentic-team-templates-v0.17.0) (2026-01-31)
+
+
+### Features
+
+* **templates:** add ux-designer template ([#57](https://github.com/djm204/agentic-team-templates/issues/57)) ([bf9489f](https://github.com/djm204/agentic-team-templates/commit/bf9489f97215328e91065c4f6649f95af79beaa0))
+
 ## [0.16.0](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.15.0...agentic-team-templates-v0.16.0) (2026-01-30)
 
 
