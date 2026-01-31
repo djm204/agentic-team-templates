@@ -10,6 +10,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const TEMPLATES_DIR = path.join(__dirname, '..', 'templates');
 
+// Cursor rules directory paths
+const CURSOR_RULES_DIR = '.cursor/rules';          // New path (Cursor IDE)
+const LEGACY_CURSORRULES_DIR = '.cursorrules';      // Deprecated path
+
 // Read package.json for version info
 const packageJsonPath = path.join(__dirname, '..', 'package.json');
 const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
@@ -255,7 +259,7 @@ ${colors.yellow('Removal Options:')}
   --reset        Remove ALL installed content (shared rules, templates, generated files)
 
 ${colors.yellow('IDE Targets:')}
-  cursor         .cursorrules/ directory (Cursor IDE)
+  cursor         .cursor/rules/ directory (Cursor IDE)
   claude         CLAUDE.md file (Claude Code, Cursor with Claude)
   codex          .github/copilot-instructions.md (GitHub Copilot)
 
@@ -574,7 +578,7 @@ ${rules}`;
 
   return `# CLAUDE.md - Development Guide
 
-This project uses AI-assisted development with Cursor. The rules in \`.cursorrules/\` provide domain-specific guidance for the AI assistant.
+This project uses AI-assisted development with Cursor. The rules in \`.cursor/rules/\` provide domain-specific guidance for the AI assistant.
 
 ---
 
@@ -587,7 +591,7 @@ ${templateList}
 
 ### Rule Files
 
-All rules are in \`.cursorrules/\`. The AI assistant automatically reads these when working on your project.
+All rules are in \`.cursor/rules/\`. The AI assistant automatically reads these when working on your project.
 
 #### Shared Rules (Apply to All Code)
 
@@ -650,13 +654,13 @@ A feature is complete when:
 
 ### Adding Project-Specific Rules
 
-1. Create new \`.md\` files in \`.cursorrules/\`
+1. Create new \`.md\` files in \`.cursor/rules/\`
 2. Follow the existing naming convention
 3. Include clear examples and anti-patterns
 
 ### Modifying Existing Rules
 
-Edit files directly in \`.cursorrules/\`. Changes take effect immediately.
+Edit files directly in \`.cursor/rules/\`. Changes take effect immediately.
 
 ### Updating Templates
 
@@ -705,7 +709,7 @@ function generateCopilotInstructionsContent(installedTemplates) {
   // Read and concatenate template-specific rules
   const templateRulesContent = installedTemplates.map(template => {
     return TEMPLATES[template].rules.map(rule => {
-      const rulePath = path.join(TEMPLATES_DIR, template, '.cursorrules', rule);
+      const rulePath = path.join(TEMPLATES_DIR, template, '.cursor', 'rules', rule);
       try {
         return fs.readFileSync(rulePath, 'utf8');
       } catch {
@@ -772,7 +776,7 @@ A feature is complete when:
 `;
 }
 
-function install(targetDir, templates, dryRun = false, force = false, ides = DEFAULT_IDES) {
+async function install(targetDir, templates, dryRun = false, force = false, ides = DEFAULT_IDES, skipConfirm = false) {
   const stats = { copied: 0, skipped: 0, updated: 0, renamed: 0 };
   const renamedFiles = [];
   const installedFor = [];
@@ -784,20 +788,20 @@ function install(targetDir, templates, dryRun = false, force = false, ides = DEF
   }
   console.log();
 
-  // 1. Install .cursorrules/ for Cursor IDE
+  // 1. Install .cursor/rules/ for Cursor IDE
   if (ides.includes('cursor')) {
     installedFor.push('cursor');
-    const cursorrules = path.join(targetDir, '.cursorrules');
-    
-    if (!dryRun && !fs.existsSync(cursorrules)) {
-      fs.mkdirSync(cursorrules, { recursive: true });
+    const cursorRulesDir = path.join(targetDir, CURSOR_RULES_DIR);
+
+    if (!dryRun && !fs.existsSync(cursorRulesDir)) {
+      fs.mkdirSync(cursorRulesDir, { recursive: true });
     }
 
     // Install shared rules
-    console.log(colors.green('► Installing shared rules (.cursorrules/)...'));
+    console.log(colors.green(`► Installing shared rules (${CURSOR_RULES_DIR}/)...`));
     for (const rule of SHARED_RULES) {
       const src = path.join(TEMPLATES_DIR, '_shared', rule);
-      const dest = path.join(cursorrules, rule);
+      const dest = path.join(cursorRulesDir, rule);
       
       if (dryRun) {
         const exists = fs.existsSync(dest);
@@ -829,11 +833,11 @@ function install(targetDir, templates, dryRun = false, force = false, ides = DEF
 
     // Install template-specific rules
     for (const template of templates) {
-      console.log(colors.green(`► Installing ${template} template (.cursorrules/)...`));
-      
+      console.log(colors.green(`► Installing ${template} template (${CURSOR_RULES_DIR}/)...`));
+
       for (const rule of TEMPLATES[template].rules) {
-        const src = path.join(TEMPLATES_DIR, template, '.cursorrules', rule);
-        const dest = path.join(cursorrules, `${template}-${rule}`);
+        const src = path.join(TEMPLATES_DIR, template, '.cursor', 'rules', rule);
+        const dest = path.join(cursorRulesDir, `${template}-${rule}`);
         const destName = `${template}-${rule}`;
         
         if (dryRun) {
@@ -861,6 +865,46 @@ function install(targetDir, templates, dryRun = false, force = false, ides = DEF
             console.log(`  ${colors.dim(`[${result.status}]`)} ${destName}`);
           }
         }
+      }
+      console.log();
+    }
+
+    // Legacy .cursorrules/ detection and cleanup
+    const legacyDir = path.join(targetDir, LEGACY_CURSORRULES_DIR);
+    if (fs.existsSync(legacyDir)) {
+      console.log(colors.yellow(`⚠  Deprecated ${LEGACY_CURSORRULES_DIR}/ directory detected.`));
+      console.log(colors.yellow(`   Cursor now uses ${CURSOR_RULES_DIR}/ for rule files.`));
+      console.log(colors.yellow(`   New rules have been installed to ${CURSOR_RULES_DIR}/.`));
+      console.log();
+      console.log(colors.yellow(`   Your existing ${LEGACY_CURSORRULES_DIR}/ files are still present.`));
+      console.log(colors.yellow(`   Support for ${LEGACY_CURSORRULES_DIR}/ will be removed in a future version.`));
+      console.log();
+
+      if (!dryRun) {
+        const shouldCleanup = skipConfirm || await confirm(
+          colors.yellow(`? Would you like to remove the deprecated ${LEGACY_CURSORRULES_DIR}/ directory?`)
+        );
+
+        if (shouldCleanup) {
+          fs.rmSync(legacyDir, { recursive: true });
+          console.log(colors.green(`  ✓ Removed deprecated ${LEGACY_CURSORRULES_DIR}/ directory.`));
+        } else {
+          // Create reference file so Cursor AI knows about legacy rules
+          const noticePath = path.join(cursorRulesDir, 'legacy-cursorrules-notice.md');
+          const noticeContent = `# Legacy Rules Notice
+
+This project contains additional rule files in the deprecated \`.cursorrules/\` directory
+at the project root. Those rules are still active and should be consulted alongside the
+rules in this directory.
+
+The \`.cursorrules/\` directory will be removed in a future version.
+To clean up manually, move any custom rules to \`.cursor/rules/\` and delete \`.cursorrules/\`.
+`;
+          fs.writeFileSync(noticePath, noticeContent);
+          console.log(colors.dim(`  Created ${CURSOR_RULES_DIR}/legacy-cursorrules-notice.md as a reference.`));
+        }
+      } else {
+        console.log(colors.dim('  (dry-run: skipping cleanup prompt)'));
       }
       console.log();
     }
@@ -990,7 +1034,7 @@ function install(targetDir, templates, dryRun = false, force = false, ides = DEF
   console.log(colors.yellow('Installed for:'));
   for (const ide of installedFor) {
     const ideInfo = {
-      cursor: '.cursorrules/ (Cursor IDE)',
+      cursor: '.cursor/rules/ (Cursor IDE)',
       claude: 'CLAUDE.md (Claude Code)',
       codex: '.github/copilot-instructions.md (GitHub Copilot)'
     };
@@ -1071,52 +1115,76 @@ async function remove(targetDir, templates, dryRun = false, force = false, skipC
   console.log(`${colors.blue('Templates:')} ${templates.join(', ')}`);
   console.log();
 
-  // 1. Collect files to remove from .cursorrules/
+  // 1. Collect files to remove from .cursor/rules/ (and legacy .cursorrules/)
   if (ides.includes('cursor')) {
-    const cursorrules = path.join(targetDir, '.cursorrules');
-    
-    if (fs.existsSync(cursorrules)) {
+    const cursorRulesDir = path.join(targetDir, CURSOR_RULES_DIR);
+    const legacyDir = path.join(targetDir, LEGACY_CURSORRULES_DIR);
+    const dirsToScan = [];
+
+    if (fs.existsSync(cursorRulesDir)) dirsToScan.push({ dir: cursorRulesDir, label: CURSOR_RULES_DIR });
+    if (fs.existsSync(legacyDir)) dirsToScan.push({ dir: legacyDir, label: LEGACY_CURSORRULES_DIR });
+
+    if (dirsToScan.length > 0) {
       for (const template of templates) {
         console.log(colors.yellow(`► Scanning ${template} template files...`));
-        
+
+        for (const { dir, label } of dirsToScan) {
+          for (const rule of TEMPLATES[template].rules) {
+            const destName = `${template}-${rule}`;
+            const destPath = path.join(dir, destName);
+            const srcPath = path.join(TEMPLATES_DIR, template, '.cursor', 'rules', rule);
+
+            if (!fs.existsSync(destPath)) {
+              continue;
+            }
+
+            const isUnmodified = isOurFile(destPath, srcPath);
+            const displayName = `${destName} (${label}/)`;
+
+            if (!isUnmodified && !force) {
+              console.log(`  ${colors.yellow('[modified]')} ${displayName} (use --force to remove)`);
+              modifiedFiles.push(displayName);
+              stats.skipped++;
+            } else {
+              console.log(`  ${colors.red('[remove]')} ${displayName}${!isUnmodified ? ' (modified, --force)' : ''}`);
+              filesToRemove.push({ path: destPath, name: displayName });
+            }
+          }
+
+          // Also check for -1 variant files
+          for (const rule of TEMPLATES[template].rules) {
+            const altName = `${template}-${rule.replace('.md', '-1.md')}`;
+            const altPath = path.join(dir, altName);
+
+            if (fs.existsSync(altPath)) {
+              console.log(`  ${colors.red('[remove]')} ${altName} (${label}/, alternate file)`);
+              filesToRemove.push({ path: altPath, name: altName });
+            }
+          }
+        }
+
+        // Check for legacy-cursorrules-notice.md in new dir
+        const noticePath = path.join(cursorRulesDir, 'legacy-cursorrules-notice.md');
+        if (fs.existsSync(noticePath)) {
+          console.log(`  ${colors.red('[remove]')} legacy-cursorrules-notice.md`);
+          filesToRemove.push({ path: noticePath, name: 'legacy-cursorrules-notice.md' });
+        }
+
+        // Log not-found for templates that weren't in either dir
         for (const rule of TEMPLATES[template].rules) {
           const destName = `${template}-${rule}`;
-          const destPath = path.join(cursorrules, destName);
-          const srcPath = path.join(TEMPLATES_DIR, template, '.cursorrules', rule);
-          
-          if (!fs.existsSync(destPath)) {
+          const inNew = fs.existsSync(path.join(cursorRulesDir, destName));
+          const inLegacy = fs.existsSync(path.join(legacyDir, destName));
+          if (!inNew && !inLegacy) {
             console.log(`  ${colors.dim('[not found]')} ${destName}`);
             stats.notFound++;
-            continue;
-          }
-          
-          const isUnmodified = isOurFile(destPath, srcPath);
-          
-          if (!isUnmodified && !force) {
-            console.log(`  ${colors.yellow('[modified]')} ${destName} (use --force to remove)`);
-            modifiedFiles.push(destName);
-            stats.skipped++;
-          } else {
-            console.log(`  ${colors.red('[remove]')} ${destName}${!isUnmodified ? ' (modified, --force)' : ''}`);
-            filesToRemove.push({ path: destPath, name: destName });
           }
         }
-        
-        // Also check for -1 variant files
-        for (const rule of TEMPLATES[template].rules) {
-          const altName = `${template}-${rule.replace('.md', '-1.md')}`;
-          const altPath = path.join(cursorrules, altName);
-          
-          if (fs.existsSync(altPath)) {
-            console.log(`  ${colors.red('[remove]')} ${altName} (alternate file)`);
-            filesToRemove.push({ path: altPath, name: altName });
-          }
-        }
-        
+
         console.log();
       }
     } else {
-      console.log(colors.dim('No .cursorrules/ directory found.\n'));
+      console.log(colors.dim(`No ${CURSOR_RULES_DIR}/ or ${LEGACY_CURSORRULES_DIR}/ directory found.\n`));
     }
   }
 
@@ -1194,86 +1262,105 @@ async function reset(targetDir, dryRun = false, force = false, skipConfirm = fal
   console.log(`${colors.blue('Target IDEs:')} ${ides.join(', ')}`);
   console.log();
 
-  // 1. Remove .cursorrules/ contents for Cursor
+  // 1. Remove .cursor/rules/ and legacy .cursorrules/ contents for Cursor
   if (ides.includes('cursor')) {
-    const cursorrules = path.join(targetDir, '.cursorrules');
-    
-    if (fs.existsSync(cursorrules)) {
-      console.log(colors.yellow('► Scanning .cursorrules/ directory...'));
-      
-      // Check shared rules
-      for (const rule of SHARED_RULES) {
-        const destPath = path.join(cursorrules, rule);
-        const srcPath = path.join(TEMPLATES_DIR, '_shared', rule);
-        
-        if (!fs.existsSync(destPath)) continue;
-        
-        const isUnmodified = isOurFile(destPath, srcPath);
-        
-        if (!isUnmodified && !force) {
-          console.log(`  ${colors.yellow('[modified]')} ${rule} (use --force to remove)`);
-          modifiedFiles.push(rule);
-          stats.skipped++;
-        } else {
-          console.log(`  ${colors.red('[remove]')} ${rule}${!isUnmodified ? ' (modified, --force)' : ''}`);
-          filesToRemove.push({ path: destPath, name: rule });
-        }
-        
-        // Check for -1 variant
-        const altPath = path.join(cursorrules, rule.replace('.md', '-1.md'));
-        if (fs.existsSync(altPath)) {
-          console.log(`  ${colors.red('[remove]')} ${rule.replace('.md', '-1.md')} (alternate file)`);
-          filesToRemove.push({ path: altPath, name: rule.replace('.md', '-1.md') });
-        }
-      }
-      
-      // Check template-specific rules
-      for (const [templateName, templateInfo] of Object.entries(TEMPLATES)) {
-        for (const rule of templateInfo.rules) {
-          const destName = `${templateName}-${rule}`;
-          const destPath = path.join(cursorrules, destName);
-          const srcPath = path.join(TEMPLATES_DIR, templateName, '.cursorrules', rule);
-          
+    const cursorRulesDir = path.join(targetDir, CURSOR_RULES_DIR);
+    const legacyDir = path.join(targetDir, LEGACY_CURSORRULES_DIR);
+    const dirsToScan = [];
+
+    if (fs.existsSync(cursorRulesDir)) dirsToScan.push({ dir: cursorRulesDir, label: CURSOR_RULES_DIR });
+    if (fs.existsSync(legacyDir)) dirsToScan.push({ dir: legacyDir, label: LEGACY_CURSORRULES_DIR });
+
+    if (dirsToScan.length > 0) {
+      for (const { dir, label } of dirsToScan) {
+        console.log(colors.yellow(`► Scanning ${label}/ directory...`));
+
+        // Check shared rules
+        for (const rule of SHARED_RULES) {
+          const destPath = path.join(dir, rule);
+          const srcPath = path.join(TEMPLATES_DIR, '_shared', rule);
+
           if (!fs.existsSync(destPath)) continue;
-          
+
           const isUnmodified = isOurFile(destPath, srcPath);
-          
+
           if (!isUnmodified && !force) {
-            console.log(`  ${colors.yellow('[modified]')} ${destName} (use --force to remove)`);
-            modifiedFiles.push(destName);
+            console.log(`  ${colors.yellow('[modified]')} ${rule} (use --force to remove)`);
+            modifiedFiles.push(`${rule} (${label}/)`);
             stats.skipped++;
           } else {
-            console.log(`  ${colors.red('[remove]')} ${destName}${!isUnmodified ? ' (modified, --force)' : ''}`);
-            filesToRemove.push({ path: destPath, name: destName });
+            console.log(`  ${colors.red('[remove]')} ${rule}${!isUnmodified ? ' (modified, --force)' : ''}`);
+            filesToRemove.push({ path: destPath, name: `${rule} (${label}/)` });
           }
-          
+
           // Check for -1 variant
-          const altName = destName.replace('.md', '-1.md');
-          const altPath = path.join(cursorrules, altName);
+          const altPath = path.join(dir, rule.replace('.md', '-1.md'));
           if (fs.existsSync(altPath)) {
-            console.log(`  ${colors.red('[remove]')} ${altName} (alternate file)`);
-            filesToRemove.push({ path: altPath, name: altName });
+            console.log(`  ${colors.red('[remove]')} ${rule.replace('.md', '-1.md')} (alternate file)`);
+            filesToRemove.push({ path: altPath, name: rule.replace('.md', '-1.md') });
           }
         }
+
+        // Check template-specific rules
+        for (const [templateName, templateInfo] of Object.entries(TEMPLATES)) {
+          for (const rule of templateInfo.rules) {
+            const destName = `${templateName}-${rule}`;
+            const destPath = path.join(dir, destName);
+            const srcPath = path.join(TEMPLATES_DIR, templateName, '.cursor', 'rules', rule);
+
+            if (!fs.existsSync(destPath)) continue;
+
+            const isUnmodified = isOurFile(destPath, srcPath);
+
+            if (!isUnmodified && !force) {
+              console.log(`  ${colors.yellow('[modified]')} ${destName} (use --force to remove)`);
+              modifiedFiles.push(`${destName} (${label}/)`);
+              stats.skipped++;
+            } else {
+              console.log(`  ${colors.red('[remove]')} ${destName}${!isUnmodified ? ' (modified, --force)' : ''}`);
+              filesToRemove.push({ path: destPath, name: `${destName} (${label}/)` });
+            }
+
+            // Check for -1 variant
+            const altName = destName.replace('.md', '-1.md');
+            const altPath = path.join(dir, altName);
+            if (fs.existsSync(altPath)) {
+              console.log(`  ${colors.red('[remove]')} ${altName} (alternate file)`);
+              filesToRemove.push({ path: altPath, name: altName });
+            }
+          }
+        }
+
+        // Check for legacy-cursorrules-notice.md
+        const noticePath = path.join(dir, 'legacy-cursorrules-notice.md');
+        if (fs.existsSync(noticePath)) {
+          console.log(`  ${colors.red('[remove]')} legacy-cursorrules-notice.md`);
+          filesToRemove.push({ path: noticePath, name: 'legacy-cursorrules-notice.md' });
+        }
+
+        // Check if we should remove the directory itself (only if it would be empty)
+        const remainingFiles = fs.readdirSync(dir).filter(f => {
+          const fullPath = path.join(dir, f);
+          const willBeRemoved = filesToRemove.some(fr => fr.path === fullPath);
+          return !willBeRemoved;
+        });
+
+        if (remainingFiles.length === 0 || force) {
+          console.log(`  ${colors.red('[remove]')} ${label}/ directory`);
+          dirsToRemove.push(dir);
+          // If removing .cursor/rules/, also check if .cursor/ would be empty
+          if (label === CURSOR_RULES_DIR) {
+            const cursorDir = path.join(targetDir, '.cursor');
+            dirsToRemove.push(cursorDir);
+          }
+        } else if (remainingFiles.length > 0) {
+          console.log(colors.dim(`  ${label}/ will be kept (${remainingFiles.length} non-template file(s) remain)`));
+        }
+
+        console.log();
       }
-      
-      // Check if we should remove the directory itself (only if it would be empty)
-      const remainingFiles = fs.readdirSync(cursorrules).filter(f => {
-        const fullPath = path.join(cursorrules, f);
-        const willBeRemoved = filesToRemove.some(fr => fr.path === fullPath);
-        return !willBeRemoved;
-      });
-      
-      if (remainingFiles.length === 0 || force) {
-        console.log(`  ${colors.red('[remove]')} .cursorrules/ directory`);
-        dirsToRemove.push(cursorrules);
-      } else if (remainingFiles.length > 0) {
-        console.log(colors.dim(`  .cursorrules/ will be kept (${remainingFiles.length} non-template file(s) remain)`));
-      }
-      
-      console.log();
     } else {
-      console.log(colors.dim('No .cursorrules/ directory found.\n'));
+      console.log(colors.dim(`No ${CURSOR_RULES_DIR}/ or ${LEGACY_CURSORRULES_DIR}/ directory found.\n`));
     }
   }
 
@@ -1286,8 +1373,8 @@ async function reset(targetDir, dryRun = false, force = false, skipConfirm = fal
       
       // Check if it contains our signature content
       const content = fs.readFileSync(claudePath, 'utf8');
-      const isOurs = content.includes('# CLAUDE.md - Development Guide') && 
-                     content.includes('.cursorrules/');
+      const isOurs = content.includes('# CLAUDE.md - Development Guide') &&
+                     (content.includes('.cursor/rules/') || content.includes('.cursorrules/'));
       
       if (!isOurs && !force) {
         console.log(`  ${colors.yellow('[modified]')} CLAUDE.md (doesn't match template, use --force)`);
@@ -1532,7 +1619,7 @@ export async function run(args) {
   }
 
   // Install to current directory
-  install(process.cwd(), resolvedTemplates, dryRun, force, targetIdes);
+  await install(process.cwd(), resolvedTemplates, dryRun, force, targetIdes, skipConfirm);
 }
 
 // Export internals for testing
@@ -1541,6 +1628,8 @@ export const _internals = {
   CURRENT_VERSION,
   REPO_URL,
   CHANGELOG_URL,
+  CURSOR_RULES_DIR,
+  LEGACY_CURSORRULES_DIR,
   TEMPLATES,
   TEMPLATE_ALIASES,
   SHARED_RULES,

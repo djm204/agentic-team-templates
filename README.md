@@ -14,7 +14,7 @@ AI coding assistant templates for Cursor IDE, Claude Code, and GitHub Copilot. P
 **Installs (configurable via `--ide`):**
 
 - **`CLAUDE.md`** - Development guide for Claude-based assistants (Claude Code, Cursor with Claude)
-- **`.cursorrules/`** - Rule files for Cursor IDE
+- **`.cursor/rules/`** - Rule files for Cursor IDE
 - **`.github/copilot-instructions.md`** - Instructions for GitHub Copilot
 
 > **Disclaimer:** This project is provided for **educational and experimental purposes only**. The author takes no responsibility for any actions, outputs, or consequences resulting from an LLM or AI assistant following these rules. Use at your own risk. Always review AI-generated code before deploying to production.
@@ -204,19 +204,20 @@ After running `npx agentic-team-templates web-frontend`:
 ```text
 your-project/
 ├── CLAUDE.md                              # Development guide (Claude Code, Cursor)
-├── .cursorrules/                          # Rule files (Cursor IDE)
-│   ├── core-principles.md                 # Shared
-│   ├── code-quality.md                    # Shared
-│   ├── security-fundamentals.md           # Shared
-│   ├── git-workflow.md                    # Shared
-│   ├── communication.md                   # Shared
-│   ├── web-frontend-overview.md           # Template-specific
-│   ├── web-frontend-accessibility.md      # Template-specific
-│   ├── web-frontend-component-patterns.md # Template-specific
-│   ├── web-frontend-performance.md        # Template-specific
-│   ├── web-frontend-state-management.md   # Template-specific
-│   ├── web-frontend-styling.md            # Template-specific
-│   └── web-frontend-testing.md            # Template-specific
+├── .cursor/
+│   └── rules/                             # Rule files (Cursor IDE)
+│       ├── core-principles.md                 # Shared
+│       ├── code-quality.md                    # Shared
+│       ├── security-fundamentals.md           # Shared
+│       ├── git-workflow.md                    # Shared
+│       ├── communication.md                   # Shared
+│       ├── web-frontend-overview.md           # Template-specific
+│       ├── web-frontend-accessibility.md      # Template-specific
+│       ├── web-frontend-component-patterns.md # Template-specific
+│       ├── web-frontend-performance.md        # Template-specific
+│       ├── web-frontend-state-management.md   # Template-specific
+│       ├── web-frontend-styling.md            # Template-specific
+│       └── web-frontend-testing.md            # Template-specific
 └── .github/
     └── copilot-instructions.md            # Instructions (GitHub Copilot)
 ```
@@ -225,7 +226,7 @@ your-project/
 
 ### Add Project-Specific Rules
 
-Create new `.md` files in `.cursorrules/`:
+Create new `.md` files in `.cursor/rules/`:
 
 ```markdown
 # my-project-conventions.md
@@ -237,11 +238,15 @@ All API calls go through `/lib/api.ts`...
 
 ### Modify Existing Rules
 
-Edit any file in `.cursorrules/` or `CLAUDE.md` directly. Changes take effect immediately.
+Edit any file in `.cursor/rules/` or `CLAUDE.md` directly. Changes take effect immediately.
 
 ### Combine with Existing Rules
 
-Templates merge with your existing `.cursorrules/` directory. Existing files are preserved unless they have the same name.
+Templates merge with your existing `.cursor/rules/` directory. Existing files are preserved unless they have the same name.
+
+### Migrating from `.cursorrules/`
+
+If your project uses the older `.cursorrules/` directory, the installer will detect it and offer to clean it up automatically. Cursor now uses `.cursor/rules/` for rule files. Support for `.cursorrules/` will be removed in a future version.
 
 ## Examples
 
@@ -279,7 +284,7 @@ npx agentic-team-templates ml-ai data-engineering
 
 - **Node.js**: 18.0.0 or higher
 - **Supported IDEs/Tools**:
-  - Cursor IDE (any version with `.cursorrules/` support)
+  - Cursor IDE (any version with `.cursor/rules/` support)
   - Claude Code (reads `CLAUDE.md` automatically)
   - GitHub Copilot (reads `.github/copilot-instructions.md`)
 
@@ -342,11 +347,12 @@ We welcome contributions! Here's how to add new templates or improve existing on
 ```text
 templates/your-template/
 ├── CLAUDE.md                 # Main development guide (required)
-└── .cursorrules/
-    ├── overview.md           # Scope and core principles (required)
-    ├── topic-one.md          # Domain-specific rules
-    ├── topic-two.md
-    └── ...
+└── .cursor/
+    └── rules/
+        ├── overview.md           # Scope and core principles (required)
+        ├── topic-one.md          # Domain-specific rules
+        ├── topic-two.md
+        └── ...
 ```
 
 2. **Follow the existing patterns:**
@@ -357,7 +363,7 @@ templates/your-template/
 
 3. **Required files:**
    - `CLAUDE.md` - Comprehensive guide with overview, tech stack, patterns, and examples
-   - `.cursorrules/overview.md` - Scope, core principles, and project structure
+   - `.cursor/rules/overview.md` - Scope, core principles, and project structure
 
 ### Template Guidelines
 
