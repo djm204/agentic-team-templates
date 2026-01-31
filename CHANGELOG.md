@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.18.0](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.17.0...agentic-team-templates-v0.18.0) (2026-01-31)
+
+
+### Features
+
+* **cli:** migrate Cursor rules from .cursorrules/ to .cursor/rules/ ([#59](https://github.com/djm204/agentic-team-templates/issues/59)) ([5518171](https://github.com/djm204/agentic-team-templates/commit/551817101dbb1c8362d5e7f229939f0790f93dc8))
+
 ## [0.17.0](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.16.0...agentic-team-templates-v0.17.0) (2026-01-31)
 
 
