@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.20.0](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.19.1...agentic-team-templates-v0.20.0) (2026-02-01)
+
+
+### Features
+
+* **templates:** add project-manager, supply-chain, executive-assistant, grant-writer templates ([#66](https://github.com/djm204/agentic-team-templates/issues/66)) ([aae6243](https://github.com/djm204/agentic-team-templates/commit/aae62431c5f677adce3ba0d009f9ced89ba0728f))
+
 ## [0.19.1](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.19.0...agentic-team-templates-v0.19.1) (2026-01-31)
 
 

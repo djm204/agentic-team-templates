@@ -1,6 +1,6 @@
 {
   "name": "agentic-team-templates",
-  "version": "0.19.1",
+  "version": "0.20.0",
   "description": "AI coding assistant templates for Cursor IDE. Pre-configured rules and guidelines that help AI assistants write better code. - use at your own risk",
   "keywords": [
     "cursor",
