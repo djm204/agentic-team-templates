@@ -75,10 +75,20 @@ const TEMPLATES = {
     description: 'World-class pedagogy with evidence-based teaching, learning retention, gamification, and assessment design',
     rules: ['accessibility.md', 'assessment.md', 'curriculum.md', 'engagement.md', 'instructional-design.md', 'overview.md', 'retention.md']
   },
+  'executive-assistant': {
+    category: 'professional',
+    description: 'Executive support with calendar optimization, communication management, meeting coordination, and priority triage',
+    rules: ['calendar.md', 'confidentiality.md', 'email.md', 'meetings.md', 'overview.md', 'prioritization.md', 'stakeholder-management.md', 'travel.md']
+  },
   'fullstack': {
     category: 'engineering',
     description: 'Full-stack web applications (Next.js, Nuxt, SvelteKit, Remix)',
     rules: ['api-contracts.md', 'architecture.md', 'overview.md', 'shared-types.md', 'testing.md']
+  },
+  'grant-writer': {
+    category: 'professional',
+    description: 'Grant writing with proposal development, budget justification, compliance management, and post-award stewardship',
+    rules: ['budgets.md', 'compliance.md', 'funding-research.md', 'narrative.md', 'overview.md', 'post-award.md', 'review-criteria.md', 'sustainability.md']
   },
   'golang-expert': {
     category: 'languages',
@@ -120,6 +130,11 @@ const TEMPLATES = {
     description: 'Product management with customer-centric discovery, prioritization, and execution',
     rules: ['communication.md', 'discovery.md', 'metrics.md', 'overview.md', 'prioritization.md', 'requirements.md']
   },
+  'project-manager': {
+    category: 'business',
+    description: 'Project management with WBS planning, risk management, status reporting, and change control',
+    rules: ['overview.md', 'reporting.md', 'risk-management.md', 'scheduling.md', 'scope-management.md', 'stakeholder-management.md']
+  },
   'python-expert': {
     category: 'languages',
     description: 'Principal-level Python engineering (type system, async, testing, FastAPI, Django)',
@@ -134,6 +149,11 @@ const TEMPLATES = {
     category: 'languages',
     description: 'Principal-level Rust engineering (ownership, concurrency, unsafe, traits, async)',
     rules: ['concurrency.md', 'ecosystem-and-tooling.md', 'error-handling.md', 'overview.md', 'ownership-and-borrowing.md', 'performance-and-unsafe.md', 'testing.md', 'traits-and-generics.md']
+  },
+  'supply-chain': {
+    category: 'business',
+    description: 'Supply chain management with inventory optimization, demand forecasting, supplier evaluation, and logistics',
+    rules: ['cost-modeling.md', 'demand-forecasting.md', 'inventory-management.md', 'logistics.md', 'overview.md', 'supplier-evaluation.md']
   },
   'swift-expert': {
     category: 'languages',
