@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.21.0](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.20.0...agentic-team-templates-v0.21.0) (2026-02-01)
+
+
+### Features
+
+* **templates:** add 16 new agentic archetype templates ([#69](https://github.com/djm204/agentic-team-templates/issues/69)) ([6587ce2](https://github.com/djm204/agentic-team-templates/commit/6587ce2d6ec2afcc3b9a7fb19e13e60c0c8f608c))
+
 ## [0.20.0](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.19.1...agentic-team-templates-v0.20.0) (2026-02-01)
 
 
