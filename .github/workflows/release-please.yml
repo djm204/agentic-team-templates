@@ -87,7 +87,13 @@ jobs:
             -f tag_name="$TAG" \
             -f target_commitish=main \
             | jq -r .body > release_notes.md
-          gh release edit "$TAG" --notes-file release_notes.md
+          # Only overwrite release body if GitHub returned non-empty notes
+          # (generate-notes can be empty for first release or when no previous tag exists)
+          if [ -s release_notes.md ]; then
+            gh release edit "$TAG" --notes-file release_notes.md
+          else
+            echo "Generate-notes returned empty body; keeping existing release description."
+          fi
 
       - name: Publish to npm
         run: npm publish --provenance --access public

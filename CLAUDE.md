@@ -1,5 +1,70 @@
 # CLAUDE.md - Development Guide
 
+## Development Principles
+
+### 1. Honesty Over Output
+
+- If something doesn't work, say it doesn't work
+- If you don't know, say you don't know
+- Never hide errors or suppress warnings
+- Admit mistakes early
+
+### 2. Security First
+
+- Zero trust: Every input is hostile until proven otherwise
+- Validate and sanitize all inputs
+- No secrets in code or logs
+- Least privilege principle
+
+### 3. Tests Are Required
+
+- No feature is complete without tests
+- Green CI or it didn't happen
+- Test behavior, not implementation
+
+### 4. Code Quality
+
+- SOLID principles
+- DRY (Don't Repeat Yourself)
+- Functional programming bias
+- Explicit over implicit
+
+---
+
+## Quick Reference
+
+### Installed Templates
+
+- **Shared** (always included): Core principles, code quality, security, git workflow, communication
+- **documentation**: Technical documentation standards (READMEs, API docs, ADRs, code comments)
+
+### Rule Files
+
+All rules are in `.cursorrules/`. The AI assistant automatically reads these when working on your project.
+
+#### Shared Rules (Apply to All Code)
+
+| Rule | Purpose |
+|------|---------|
+| `core-principles.md` | Honesty, simplicity, testing requirements |
+| `code-quality.md` | SOLID, DRY, clean code patterns |
+| `security-fundamentals.md` | Zero trust, input validation, secrets |
+| `git-workflow.md` | Commits, branches, PRs, safety |
+| `communication.md` | Direct, objective, professional |
+
+#### Documentation Rules
+
+| Rule | Purpose |
+|------|---------|
+| `documentation-adr.md` | adr guidelines |
+| `documentation-api-documentation.md` | api documentation guidelines |
+| `documentation-code-comments.md` | code comments guidelines |
+| `documentation-maintenance.md` | maintenance guidelines |
+| `documentation-overview.md` | overview guidelines |
+| `documentation-readme-standards.md` | readme standards guidelines |
+
+---
+
 ## Project Overview
 
 Portfolio site for David Josef Mendez - Staff/Senior Software Engineer with SRE experience.
@@ -785,6 +850,32 @@ A task is complete when:
 - [ ] PR approved and merged
 - [ ] Deployed to production
 - [ ] Verified working in production
+
+## Resources
+
+- [Cursor Documentation](https://cursor.sh/docs)
+
+## Customization
+
+### Adding Project-Specific Rules
+
+1. Create new `.md` files in `.cursorrules/`
+2. Follow the existing naming convention
+3. Include clear examples and anti-patterns
+
+### Modifying Existing Rules
+
+Edit files directly in `.cursorrules/`. Changes take effect immediately.
+
+### Updating Templates
+
+Re-run the installer to update (will overwrite existing rules):
+
+```bash
+npx cursor-templates documentation
+```
+
+---
 
 ## Questions? Stuck?
 
