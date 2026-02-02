@@ -143,106 +143,34 @@ npx agentic-team-templates --reset --force
 | `--yes`, `-y` | Skip confirmation prompt (for `--remove` and `--reset`) |
 | `--help`, `-h` | Show help message |
 
-### Shorthand Aliases
-
-Use shorter names for common templates:
-
-| Alias | Template |
-|-------|----------|
-| `js`, `ts`, `javascript`, `typescript` | `javascript-expert` |
-| `go`, `golang` | `golang-expert` |
-| `py`, `python` | `python-expert` |
-| `rs`, `rust` | `rust-expert` |
-| `swift` | `swift-expert` |
-| `kotlin`, `kt` | `kotlin-expert` |
-| `java` | `java-expert` |
-| `cpp` | `cpp-expert` |
-| `csharp`, `cs` | `csharp-expert` |
-| `unity` | `unity-dev-expert` |
-| `marketing` | `marketing-expert` |
-| `social-media` | `social-media-expert` |
-| `content-creation` | `content-creation-expert` |
-| `teach`, `teacher` | `educator` |
-| `ux`, `uxd`, `design`, `designer` | `ux-designer` |
-
-## Available Templates (42)
-
-### Engineering (13)
+## Available Templates
 
 | Template | Description |
 |----------|-------------|
 | `blockchain` | Smart contracts, DeFi protocols, and Web3 applications (Solidity, Foundry, Viem) |
+| `cpp-expert` | Principal-level C++ engineering (modern C++, RAII, concurrency, templates, performance) |
+| `csharp-expert` | Principal-level C# engineering (async, DI, EF Core, ASP.NET Core, testing) |
 | `cli-tools` | Command-line applications and developer tools (Cobra, Commander, Click) |
 | `data-engineering` | Data platforms and pipelines (ETL, data modeling, data quality) |
 | `devops-sre` | DevOps and SRE practices (incident management, observability, SLOs, chaos engineering) |
+| `documentation` | Technical documentation standards (READMEs, API docs, ADRs, code comments) |
 | `fullstack` | Full-stack web applications (Next.js, Nuxt, SvelteKit, Remix) |
+| `golang-expert` | Principal-level Go engineering (concurrency, stdlib, production patterns, testing) |
+| `kotlin-expert` | Principal-level Kotlin engineering (coroutines, multiplatform, Ktor, Spring Boot, testing) |
+| `javascript-expert` | Principal-level JavaScript & TypeScript engineering (Node.js, React, type system, testing) |
+| `java-expert` | Principal-level Java engineering (JVM, Spring Boot, concurrency, JPA, testing) |
 | `ml-ai` | Machine learning and AI systems (model development, deployment, monitoring) |
 | `mobile` | Mobile applications (React Native, Flutter, native iOS/Android) |
 | `platform-engineering` | Internal developer platforms, infrastructure automation, reliability engineering |
-| `qa-engineering` | Quality assurance programs for confident, rapid software delivery |
-| `testing` | Comprehensive testing practices (TDD, test design, CI/CD integration, performance testing) |
-| `unity-dev-expert` | Unity game development (C#, ECS/DOTS, physics, UI systems, multiplayer, performance) |
-| `web-backend` | Backend APIs and services (REST, GraphQL, microservices) |
-| `web-frontend` | Frontend web applications (SPAs, SSR, static sites, PWAs) |
-
-### Languages (9)
-
-| Template | Description |
-|----------|-------------|
-| `cpp-expert` | Principal-level C++ engineering (modern C++, RAII, concurrency, templates, performance) |
-| `csharp-expert` | Principal-level C# engineering (async, DI, EF Core, ASP.NET Core, testing) |
-| `golang-expert` | Principal-level Go engineering (concurrency, stdlib, production patterns, testing) |
-| `java-expert` | Principal-level Java engineering (JVM, Spring Boot, concurrency, JPA, testing) |
-| `javascript-expert` | Principal-level JavaScript & TypeScript engineering (Node.js, React, type system, testing) |
-| `kotlin-expert` | Principal-level Kotlin engineering (coroutines, multiplatform, Ktor, Spring Boot, testing) |
+| `product-manager` | Product management with customer-centric discovery, prioritization, and execution |
 | `python-expert` | Principal-level Python engineering (type system, async, testing, FastAPI, Django) |
+| `qa-engineering` | Quality assurance programs for confident, rapid software delivery |
 | `rust-expert` | Principal-level Rust engineering (ownership, concurrency, unsafe, traits, async) |
 | `swift-expert` | Principal-level Swift engineering (concurrency, SwiftUI, protocols, testing, Apple platforms) |
-
-### Business (8)
-
-| Template | Description |
-|----------|-------------|
-| `market-intelligence` | Data source aggregation, sentiment analysis, trend detection, and risk signal monitoring |
-| `marketing-expert` | Brand positioning, campaign planning, market analysis, analytics, and growth frameworks |
-| `predictive-maintenance` | Industrial sensor monitoring, failure prediction, maintenance scheduling, and asset lifecycle |
-| `product-manager` | Customer-centric discovery, prioritization, and cross-functional execution |
-| `regulatory-sentinel` | Compliance tracking, impact assessment, monitoring, and risk classification |
-| `resource-allocator` | Demand prediction, scheduling optimization, crisis management, and capacity modeling |
-| `strategic-negotiator` | Game theory, deal structuring, scenario modeling, and contract analysis |
-| `supply-chain-harmonizer` | Disruption response, rerouting, inventory rebalancing, and scenario simulation |
-
-### Creative (6)
-
-| Template | Description |
-|----------|-------------|
-| `brand-guardian` | Brand voice enforcement, visual identity compliance, and content review workflows |
-| `content-creation-expert` | Content strategy, copywriting, SEO content, multimedia production, and editorial ops |
-| `narrative-architect` | World-building, continuity tracking, timeline management, and story bible creation |
-| `social-media-expert` | Platform strategy, content planning, audience growth, community management, and analytics |
-| `trend-forecaster` | Signal detection, cultural analysis, trend lifecycle modeling, and forecasting methods |
-| `ux-designer` | User research, interaction design, design systems, accessibility, and emotional design |
-
-### Professional (4)
-
-| Template | Description |
-|----------|-------------|
-| `documentation` | Technical documentation standards (READMEs, API docs, ADRs, code comments) |
-| `knowledge-synthesis` | Document ingestion, knowledge graphs, search/retrieval, summarization, and research workflows |
-| `life-logistics` | Scheduling optimization, bill negotiation, insurance comparison, and vendor research |
-| `wellness-orchestrator` | Unified wellness planning across fitness, nutrition, sleep, and mental wellness |
-
-### Education (1)
-
-| Template | Description |
-|----------|-------------|
-| `educator` | Evidence-based teaching, learning retention, gamification, and assessment design |
-
-### Agents (1)
-
-| Template | Description |
-|----------|-------------|
+| `testing` | Comprehensive testing practices (TDD, test design, CI/CD integration, performance testing) |
 | `utility-agent` | AI agent utilities with context management and hallucination prevention |
+| `web-backend` | Backend APIs and services (REST, GraphQL, microservices) |
+| `web-frontend` | Frontend web applications (SPAs, SSR, static sites, PWAs) |
 
 ## What Gets Installed
 
@@ -352,20 +280,6 @@ cd my-ml-project
 npx agentic-team-templates ml-ai data-engineering
 ```
 
-### Unity Game Project
-
-```bash
-cd my-unity-game
-npx agentic-team-templates unity
-```
-
-### Marketing Team
-
-```bash
-cd marketing-workspace
-npx agentic-team-templates marketing social-media content-creation
-```
-
 ## Requirements
 
 - **Node.js**: 18.0.0 or higher
@@ -440,7 +354,7 @@ templates/<category>/your-template/
         └── ...
 ```
 
-Categories: `engineering`, `languages`, `creative`, `business`, `professional`, `education`, `agents`
+Categories: `engineering`, `languages`, `creative`, `business`, `marketing`, `professional`, `finance`, `education`, `health`, `home`, `science`, `personal`, `civic`, `trades`, `agents`
 
 2. **Follow the existing patterns:**
    - Look at `templates/engineering/web-frontend/` or `templates/languages/python-expert/` for reference
