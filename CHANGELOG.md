@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.21.1](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.21.0...agentic-team-templates-v0.21.1) (2026-02-02)
+
+
+### Miscellaneous
+
+* **docs:** update readme ([#73](https://github.com/djm204/agentic-team-templates/issues/73)) ([7ac83ae](https://github.com/djm204/agentic-team-templates/commit/7ac83ae8b7dad47744d95f5e558e2ab4e3c547b1))
+
 ## [0.21.0](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.20.0...agentic-team-templates-v0.21.0) (2026-02-01)
 
 
