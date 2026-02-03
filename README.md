@@ -271,6 +271,15 @@ Each template adds domain-specific rules. For example, `web-frontend` includes:
 - `styling.mdc` - CSS architecture, design systems
 - `testing.mdc` - Unit, integration, E2E testing
 
+### Rule file format (.mdc)
+
+All rule files use the **`.mdc`** extension (Cursor MDC format). Templates were migrated from `.md` to `.mdc` for better IDE integration and consistent behavior.
+
+- **Front matter** — Every `.mdc` file has YAML front matter at the top with:
+  - `description`: Short summary of the rule (used by the IDE).
+  - `alwaysApply`: `true` for shared rules (always loaded); `false` for template-specific rules (loaded when relevant).
+- **Short and focused** — Each file covers one topic, with concise sections and clear headings. This keeps rules scannable and gives the AI clear, focused context.
+
 ## File Structure
 
 After running `npx agentic-team-templates web-frontend`:
@@ -300,10 +309,15 @@ your-project/
 
 ### Add Project-Specific Rules
 
-Create new `.mdc` files in `.cursor/rules/`:
+Create new `.mdc` files in `.cursor/rules/`. Include front matter and keep each file focused on one topic:
 
 ```markdown
-# my-project-conventions.mdc
+---
+description: My project API conventions
+alwaysApply: false
+---
+
+# My Project Conventions
 
 ## API Endpoints
 
@@ -316,7 +330,7 @@ Edit any file in `.cursor/rules/` or `CLAUDE.md` directly. Changes take effect i
 
 ### Combine with Existing Rules
 
-Templates merge with your existing `.cursor/rules/` directory. Rule files are installed as `.mdc` (Cursor MDC format with frontmatter). Existing files are preserved unless they have the same name.
+Templates merge with your existing `.cursor/rules/` directory. Rule files are installed as `.mdc` with YAML front matter (`description`, `alwaysApply`) and short, focused content (one topic per file). Existing files are preserved unless they have the same name.
 
 ### Migrating from `.cursorrules/`
 
@@ -446,12 +460,13 @@ Categories: `engineering`, `languages`, `creative`, `business`, `professional`, 
 
 2. **Follow the existing patterns:**
    - Look at `templates/engineering/web-frontend/` or `templates/languages/python-expert/` for reference
-   - Each rule file should be focused on a single topic
+   - Use `.mdc` for all rule files, with YAML front matter (`description`, `alwaysApply`)
+   - Keep each file short and focused on a single topic
    - Include code examples, not just guidelines
-   - Add "Common Pitfalls" and "Definition of Done" sections
+   - Add "Common Pitfalls" and "Definition of Done" sections where appropriate
 
 3. **Required files:**
-   - `.cursor/rules/overview.mdc` - Scope, core principles, and project structure
+   - `.cursor/rules/overview.mdc` - Scope, core principles, and project structure (with front matter)
    - Add a `category` field to the template entry in `src/index.js`
 
 ### Template Guidelines
@@ -465,9 +480,10 @@ Categories: `engineering`, `languages`, `creative`, `business`, `professional`, 
 - Definition of done checklist
 - Common pitfalls with good/bad examples
 
-**Rule files should:**
+**Rule files (.mdc) should:**
 
-- Focus on one topic (e.g., testing, security, performance)
+- Use the `.mdc` extension with YAML front matter: `description` (short summary) and `alwaysApply` (`true` for shared, `false` for template-specific)
+- Focus on one topic (e.g., testing, security, performance)—short and focused
 - Be actionable with concrete code examples
 - Include both "do" and "don't" examples
 - Stay under ~500 lines for readability
@@ -502,10 +518,10 @@ Changes to shared rules affect all templates, so be thoughtful with modification
 
 ### Code Style
 
-- Use Markdown for all documentation
+- Use `.mdc` for all rule files (with YAML front matter); use Markdown for README and CLAUDE.md
 - Code examples should be copy-pasteable
 - Prefer concrete examples over abstract guidelines
-- Keep formatting consistent with existing templates
+- Keep formatting consistent with existing templates; keep rule files short and focused
 
 ## License
 
