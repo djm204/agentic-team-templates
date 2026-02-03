@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.22.0](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.21.1...agentic-team-templates-v0.22.0) (2026-02-03)
+
+
+### Features
+
+* **languages:** add ruby-expert template ([#75](https://github.com/djm204/agentic-team-templates/issues/75)) ([b8aca6e](https://github.com/djm204/agentic-team-templates/commit/b8aca6e9340e7734f5c359d2bc2faea57663c859))
+
 ## [0.21.1](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.21.0...agentic-team-templates-v0.21.1) (2026-02-02)
 
 
