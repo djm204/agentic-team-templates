@@ -1,0 +1,31 @@
+---
+description: Performance requirements - Core Web Vitals targets, optimization strategies. Apply when optimizing performance or reviewing performance-related code.
+alwaysApply: false
+---
+
+# Performance Requirements
+
+## Core Web Vitals
+
+- **LCP** (Largest Contentful Paint): < 2.5s
+- **FID** (First Input Delay): < 100ms
+- **CLS** (Cumulative Layout Shift): < 0.1
+
+## Optimization Strategies
+
+- Image optimization via Next.js `<Image>`
+- Route prefetching on hover
+- Dynamic imports for admin components
+- Edge caching for public pages
+- Incremental Static Regeneration (ISR) for content pages
+
+## Performance Checklist
+
+Before deploying:
+
+- [ ] Images optimized with Next.js `<Image>`
+- [ ] Admin components dynamically imported
+- [ ] No unnecessary re-renders
+- [ ] Large dependencies code-split
+- [ ] Core Web Vitals meet targets
+- [ ] Lighthouse score > 90

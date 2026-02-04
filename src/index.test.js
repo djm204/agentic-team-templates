@@ -110,6 +110,7 @@ describe('Constants', () => {
         'python-expert',
         'qa-engineering',
         'regulatory-sentinel',
+        'research-assistant',
         'resource-allocator',
         'ruby-expert',
         'rust-expert',

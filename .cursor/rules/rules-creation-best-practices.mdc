@@ -1,0 +1,45 @@
+---
+description: Best practices for creating and maintaining Cursor rule files so they stay effective—format, size, application, and when rules get ignored.
+alwaysApply: true
+---
+
+# Rules Creation Best Practices
+
+Guidance for authoring Cursor rule files so the AI applies them consistently.
+
+## Why Rules Stop Working
+
+- **Fetched as tools**: Rules are loaded via tooling; the AI may not fetch them if it prefers to "call tools only when necessary," so relevant rules can be skipped.
+- **Bad structure**: Missing or wrong front matter (`description`, `alwaysApply`, `globs`) can prevent the system from recognizing or applying the file.
+- **Context limits**: Very long files or too many rules compete for context; the model may drop or underweight rule content, especially in long sessions.
+- **Session drift**: Rules are more reliable when re-engaged explicitly (e.g., "use the logging rule") than when relied on to apply automatically.
+- **Model and mode**: Some models or more autonomous modes adhere to rules less consistently.
+
+## Format and Structure
+
+- **Use `.mdc`** with YAML front matter. Plain `.md` in rule directories may not be applied the same way.
+- **Required front matter**:
+  - `description`: Short summary so the IDE and model know when the rule is relevant.
+  - `alwaysApply`: `true` for rules that must always be in context (e.g., core principles); `false` for topic-specific rules.
+  - `globs`: Optional list of path patterns so the rule is applied only for matching files (e.g., `templates/**/*.mdc`).
+
+## Size and Scope
+
+- **Per file**: Keep each rule file under ~500 lines. Larger files are more likely to be partially ignored.
+- **Total context**: Prefer that code plus rules stay within a few thousand lines of critical context so important rules are not dropped.
+- **One topic per file**: Split by concern (e.g., `debugging.mdc`, `formatting.mdc`) instead of one large file. Reference or @-mention specific rules in prompts when needed.
+
+## Reliable Application
+
+- Prefer **`alwaysApply: true`** for rules that must never be skipped (e.g., security, core principles).
+- Use **`alwaysApply: false`** plus **`globs`** for rules that apply only to certain paths.
+- **Mention rules in the prompt** when it matters (e.g., "Follow the logging rule" or "@rule-name").
+- **Start a new chat** after adding or changing rules so the updated set is loaded cleanly.
+
+## Checklist for New Rules
+
+- [ ] File is `.mdc` with valid YAML front matter
+- [ ] `description` is set and concise
+- [ ] `alwaysApply` or `globs` chosen appropriately
+- [ ] Content under ~500 lines and focused on one topic
+- [ ] No duplicate or overlapping guidance across rule files

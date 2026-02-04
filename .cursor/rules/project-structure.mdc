@@ -1,0 +1,82 @@
+---
+description: Project structure and conventions - directory layout, template creation, publishing workflow. Reference for understanding codebase organization.
+globs:
+  - "templates/**/*"
+  - "src/**/*"
+  - "bin/**/*"
+alwaysApply: false
+---
+
+# Project Structure
+
+```
+agentic-team-templates/
+├── bin/
+│   └── cli.js                          # CLI entry point
+├── src/
+│   └── index.js                        # Main installer logic + template registry
+├── templates/
+│   ├── _shared/                        # Shared rules (always installed with any template)
+│   │   ├── code-quality.md
+│   │   ├── communication.md
+│   │   ├── core-principles.md
+│   │   ├── git-workflow.md
+│   │   └── security-fundamentals.md
+│   └── <template-name>/               # One directory per template
+│       ├── CLAUDE.md                   # Generated guide for Claude Code / Cursor + Claude
+│       └── .cursorrules/              # Rule files for Cursor IDE
+│           ├── overview.md            # Required: scope, principles, structure
+│           └── <rule-name>.md         # 2-7 additional domain-specific rules
+├── .cursorrules/                       # Rules for THIS project (meta)
+├── package.json
+└── CLAUDE.md                           # Instructions for working on THIS project
+```
+
+## Key Conventions
+
+- **Template Naming**: lowercase, hyphenated (e.g., `javascript-expert`, `web-frontend`)
+- **Rule Files**: Markdown files in `.cursorrules/`, each covering a single concern
+- **Shared Rules**: `templates/_shared/` is always installed — don't duplicate its content in templates
+- **Template Registry**: All templates must be registered in `src/index.js` in the `TEMPLATES` object
+- **Alphabetical Order**: Templates are listed alphabetically in the `TEMPLATES` object
+
+## How to Create a New Template
+
+### Step 1: Study an Existing Template
+
+Read the rule files of a similar template to understand the format, depth, and tone.
+
+### Step 2: Create the Template Directory
+
+```
+templates/<template-name>/
+├── CLAUDE.md
+└── .cursorrules/
+    ├── overview.md
+    ├── <concern-1>.md
+    └── ...
+```
+
+### Step 3: Write the Rule Files
+
+Each `.cursorrules/*.md` file should:
+- Have a clear `# Title` header
+- Open with a one-line description of its purpose
+- Include a `## Scope` or context section
+- Provide concrete code examples (good and bad patterns)
+- Be self-contained — don't reference other rule files
+
+### Step 4: Register the Template
+
+Add an entry to the `TEMPLATES` object in `src/index.js`.
+
+### Step 5: Verify
+
+- Test the installation locally: `node bin/cli.js <template-name>`
+
+## Publishing
+
+Publishing is automated via GitHub Actions:
+1. Merge PR to `main`
+2. `release-please` creates a release PR with version bump
+3. Merging the release PR triggers npm publish

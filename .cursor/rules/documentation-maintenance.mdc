@@ -1,0 +1,116 @@
+---
+description: Documentation maintenance - keeping docs fresh, same-commit rule, dead doc removal. Apply when reviewing documentation health.
+globs:
+  - "**/*.md"
+  - "**/docs/**/*"
+alwaysApply: false
+---
+
+# Documentation Maintenance
+
+Guidelines for keeping documentation fresh, accurate, and useful.
+
+## Core Principle
+
+> Dead docs are bad. They misinform, they slow down, they incite despair in
+> engineers and laziness in team leads. — Google Documentation Guide
+
+## The Same-Commit Rule
+
+**Documentation changes belong in the same commit as code changes.**
+
+```bash
+# Good: Docs updated with code
+git commit -m "feat: add payment retry logic
+
+- Add exponential backoff for failed payments
+- Update API docs with new retry behavior
+- Add example to README"
+
+# Bad: Docs updated separately (or never)
+git commit -m "feat: add payment retry logic"
+# ... 3 weeks later ...
+git commit -m "docs: update payment docs"  # If remembered at all
+```
+
+## Delete Dead Documentation
+
+### Signs of Dead Docs
+
+- References to removed features
+- Code examples that don't compile
+- Broken links
+- Outdated screenshots
+- Instructions that don't work
+- "TODO: update this" comments
+
+### Deletion Strategy
+
+1. **Default to delete** when uncertain
+2. **Archive important history** in ADRs if needed
+3. **Don't preserve for nostalgia** — that's what git history is for
+
+## Regular Maintenance
+
+### Quarterly Review Checklist
+
+- [ ] All README quick-start instructions work
+- [ ] Code examples compile and run
+- [ ] Links resolve (use `npx linkinator`)
+- [ ] Screenshots match current UI
+- [ ] API docs match implementation
+- [ ] No TODO/FIXME comments older than 90 days
+
+## Preventing Documentation Decay
+
+### Link to Source of Truth
+
+```markdown
+<!-- Bad: Duplicates information that will drift -->
+## Supported Node Versions
+- Node 18
+- Node 20
+- Node 22
+
+<!-- Good: Links to canonical source -->
+## Requirements
+See `engines` field in [package.json](./package.json) for supported versions.
+```
+
+### Generate When Possible
+
+- Generate docs from code annotations when possible
+- Use versioned references that won't break on next release
+
+## Team Documentation Habits
+
+### Code Review Checklist
+
+Reviewers should check:
+- [ ] Docstrings added/updated for changed functions
+- [ ] README reflects new features
+- [ ] API docs updated for endpoint changes
+- [ ] No commented-out documentation
+- [ ] Examples are tested
+
+### Definition of Done
+
+A feature is not complete until:
+- Public APIs are documented
+- README reflects the change (if user-facing)
+- Relevant code comments updated
+- Examples work correctly
+
+## Anti-Patterns
+
+### "We'll Document It Later"
+
+```
+Later === Never
+```
+
+Document as you code. If it's too complex to document, it's too complex.
+
+### Documentation-Only PRs
+
+Large documentation PRs are a smell. They indicate docs weren't updated with code.

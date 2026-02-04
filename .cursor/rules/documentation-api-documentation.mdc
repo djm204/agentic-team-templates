@@ -1,0 +1,127 @@
+---
+description: API documentation standards - OpenAPI, GraphQL, endpoint requirements. Apply when documenting APIs or creating specs.
+globs:
+  - "**/openapi.yaml"
+  - "**/openapi.yml"
+  - "**/swagger.yaml"
+  - "**/swagger.yml"
+  - "**/*.graphql"
+  - "**/api/**/*"
+alwaysApply: false
+---
+
+# API Documentation
+
+Guidelines for documenting APIs, including REST endpoints, GraphQL schemas, and library interfaces.
+
+## Design-First Approach
+
+**Write the API specification before implementation.** This:
+- Catches design issues early
+- Enables parallel frontend/backend development
+- Creates documentation as a natural byproduct
+- Prevents implementation details from leaking into contracts
+
+## Endpoint Documentation Requirements
+
+### Every Endpoint Must Have
+
+1. **Summary** - One-line description
+2. **Description** - Detailed behavior explanation
+3. **Parameters** - All path, query, header parameters
+4. **Request body** - Schema with examples
+5. **Responses** - All possible response codes
+6. **Authentication** - Required auth method
+7. **Examples** - Real-world usage examples
+
+### Response Documentation
+
+Document all response codes:
+
+```yaml
+responses:
+  '200':
+    description: Success
+  '400':
+    description: |
+      Bad Request. Possible reasons:
+      - Missing required field
+      - Invalid field format
+  '401':
+    description: Authentication required
+  '403':
+    description: Not authorized for this resource
+  '404':
+    description: Resource not found
+  '429':
+    description: Rate limit exceeded
+  '500':
+    description: Internal server error
+```
+
+## Documentation Anti-Patterns
+
+### Missing Error Documentation
+
+```yaml
+# Bad: Only documents success
+responses:
+  '200':
+    description: Success
+
+# Good: Documents all outcomes
+responses:
+  '200':
+    description: Success
+  '400':
+    description: Invalid request parameters
+  '401':
+    description: Missing or invalid authentication
+```
+
+### Vague Descriptions
+
+```yaml
+# Bad: Doesn't help the developer
+description: Gets the thing
+
+# Good: Specific and actionable
+description: |
+  Retrieves a user by their unique ID.
+  Returns the full user profile including email and display name.
+```
+
+### No Examples
+
+```yaml
+# Bad: No examples
+schema:
+  type: object
+  properties:
+    status:
+      type: string
+
+# Good: Clear examples
+schema:
+  type: object
+  properties:
+    status:
+      type: string
+      enum: [pending, active, cancelled]
+      example: active
+```
+
+## Keeping API Docs in Sync
+
+### Single Source of Truth
+
+- Generate docs from code annotations when possible
+- Use OpenAPI spec as source, generate code from it
+- Never maintain parallel documentation
+
+### Versioning
+
+- Document version in API path (`/v1/`, `/v2/`)
+- Maintain docs for all supported versions
+- Clearly mark deprecated endpoints
+- Include migration guides for breaking changes

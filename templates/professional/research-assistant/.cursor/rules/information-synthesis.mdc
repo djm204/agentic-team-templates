@@ -1,0 +1,293 @@
+---
+description: Analysis frameworks, pattern recognition, and synthesis techniques for combining research findings
+alwaysApply: false
+---
+
+# Information Synthesis
+
+Techniques for combining disparate findings into coherent, actionable understanding.
+
+## The Synthesis Process
+
+```text
+Information Synthesis Pipeline
+├── 1. Organize Raw Findings
+│   ├── Catalog all sources and key claims
+│   ├── Tag by topic, source type, and credibility
+│   └── Note gaps and contradictions
+├── 2. Identify Patterns
+│   ├── What do multiple sources agree on?
+│   ├── Where do sources diverge?
+│   ├── What themes emerge?
+│   └── What causal relationships appear?
+├── 3. Reconcile Contradictions
+│   ├── Examine methodology differences
+│   ├── Consider context and timing
+│   ├── Assess source quality
+│   └── Flag unresolved conflicts
+├── 4. Build Understanding
+│   ├── Construct narrative from evidence
+│   ├── Test against all available data
+│   ├── Identify remaining uncertainties
+│   └── Form conclusions with confidence levels
+├── 5. Validate
+│   ├── Seek disconfirming evidence
+│   ├── Test with knowledgeable others
+│   ├── Consider alternative explanations
+│   └── Check for logical consistency
+└── 6. Communicate
+    ├── Lead with key insights
+    ├── Provide evidence chain
+    ├── Acknowledge limitations
+    └── Suggest next steps
+```
+
+## Analysis Frameworks
+
+### SWOT Analysis (Strategic Assessment)
+
+| Category | Questions |
+|----------|-----------|
+| **Strengths** | What advantages exist? What works well? What unique resources? |
+| **Weaknesses** | What could be improved? What is lacking? What should be avoided? |
+| **Opportunities** | What good chances are available? What trends could be leveraged? |
+| **Threats** | What obstacles exist? What is competition doing? What could cause trouble? |
+
+### Five Whys (Root Cause Analysis)
+
+When investigating a problem:
+1. State the problem
+2. Ask "Why did this happen?"
+3. For each answer, ask "Why?" again
+4. Repeat until you reach root cause(s)
+5. Typically 5 iterations reveal underlying issues
+
+### Argument Mapping
+
+For evaluating claims and reasoning:
+
+```text
+Main Claim
+├── Supporting Evidence 1
+│   ├── Sub-evidence 1a
+│   └── Sub-evidence 1b
+├── Supporting Evidence 2
+├── Counter-evidence 1
+│   └── Rebuttal to counter-evidence
+└── Counter-evidence 2 (unaddressed)
+```
+
+### Comparative Matrix
+
+For comparing options or sources:
+
+| Factor | Weight | Option A | Option B | Option C |
+|--------|--------|----------|----------|----------|
+| [Factor 1] | [1-5] | [Score] | [Score] | [Score] |
+| [Factor 2] | [1-5] | [Score] | [Score] | [Score] |
+| [Factor 3] | [1-5] | [Score] | [Score] | [Score] |
+| **Weighted Total** | | [Sum] | [Sum] | [Sum] |
+
+### Timeline Analysis
+
+For understanding sequences and causation:
+
+```text
+Timeline: [Topic]
+
+[Date 1] - [Event 1]
+           └── Key actors: [Names]
+           └── Significance: [Why it matters]
+
+[Date 2] - [Event 2]
+           └── Caused by: [Link to prior event]
+           └── Led to: [Subsequent developments]
+```
+
+## Pattern Recognition
+
+### Types of Patterns to Seek
+
+| Pattern Type | Description | Questions to Ask |
+|--------------|-------------|------------------|
+| Convergence | Multiple sources agree | Why do they agree? Same original source? |
+| Divergence | Sources disagree | What explains the difference? |
+| Silence | Expected information missing | Why isn't this discussed? |
+| Anomaly | Unexpected finding | Is this signal or noise? |
+| Trend | Change over time | What's driving the change? |
+| Correlation | Things that co-occur | Is there causation? Confounding? |
+
+### Detecting Hidden Connections
+
+- Map relationships between people, organizations, and events
+- Look for common board members, investors, or advisors
+- Track money flows and financial relationships
+- Identify shared addresses, phone numbers, or domains
+- Note timing coincidences
+
+### Absence as Evidence
+
+Sometimes what's missing is informative:
+- Company doesn't disclose standard metric (hiding weakness?)
+- Expert avoids specific question (uncomfortable topic?)
+- Historical gap in records (something happened?)
+- Source doesn't cite expected authorities (not familiar with field?)
+
+## Handling Contradictions
+
+### Contradiction Resolution Framework
+
+```text
+When sources disagree:
+
+1. Verify you understand each position correctly
+   └── Are they actually saying different things?
+   └── Or using different definitions?
+
+2. Examine methodology
+   └── Different data collection methods?
+   └── Different time periods or populations?
+   └── Different analytical approaches?
+
+3. Consider context
+   └── Has the situation changed over time?
+   └── Different geographic or cultural contexts?
+   └── Different stakeholder perspectives?
+
+4. Assess source quality
+   └── Is one source more authoritative?
+   └── Does one have better evidence?
+   └── Are there conflicts of interest?
+
+5. Seek resolution
+   └── Can both be partially correct?
+   └── Is there a synthesis that explains both?
+   └── Should the disagreement be flagged as unresolved?
+```
+
+### When Contradictions Remain
+
+Not all contradictions can be resolved. Document:
+- The specific points of disagreement
+- The best evidence on each side
+- Why resolution isn't possible
+- What additional information might resolve it
+
+## Confidence Levels
+
+### Confidence Scale
+
+| Level | Definition | Use When |
+|-------|------------|----------|
+| **High** | Very likely true; strong, consistent evidence from multiple credible sources | 3+ independent high-quality sources agree; evidence is direct and verified |
+| **Medium** | Probably true; good evidence but some uncertainty | 2+ sources agree; evidence is solid but indirect or has minor gaps |
+| **Low** | Possibly true; limited or conflicting evidence | Single source; evidence is circumstantial; sources conflict |
+| **Speculative** | Unknown; insufficient evidence to assess | No direct evidence; inference only; significant gaps |
+
+### Communicating Uncertainty
+
+Use precise language:
+- "The evidence strongly suggests..." (High confidence)
+- "It appears likely that..." (Medium confidence)  
+- "Some sources indicate..." (Low confidence)
+- "We cannot determine from available evidence..." (Speculative)
+
+Avoid:
+- Stating speculation as fact
+- Hedging everything equally
+- Failing to distinguish confidence levels
+
+## Synthesis Output Templates
+
+### Research Summary Template
+
+```text
+# Research Summary: [Topic]
+
+## Key Findings
+1. [Finding 1] (Confidence: High/Medium/Low)
+2. [Finding 2] (Confidence: High/Medium/Low)
+3. [Finding 3] (Confidence: High/Medium/Low)
+
+## Evidence Summary
+| Finding | Supporting Sources | Contradicting Sources | Confidence |
+|---------|-------------------|----------------------|------------|
+| [Finding] | [Source list] | [Source list] | [Level] |
+
+## Unresolved Questions
+- [Question 1] - Why unresolved: [Reason]
+- [Question 2] - Why unresolved: [Reason]
+
+## Limitations
+- [Limitation 1]
+- [Limitation 2]
+
+## Recommendations
+1. [Recommendation based on findings]
+2. [Further research if needed]
+
+## Sources
+[Full citation list with credibility assessments]
+```
+
+### Comparative Analysis Template
+
+```text
+# Comparative Analysis: [Topic]
+
+## Executive Summary
+[2-3 sentence summary of key comparison findings]
+
+## Options Evaluated
+- Option A: [Brief description]
+- Option B: [Brief description]
+- Option C: [Brief description]
+
+## Comparison Matrix
+[Weighted scoring table]
+
+## Detailed Analysis
+### Option A
+- Strengths: [List]
+- Weaknesses: [List]
+- Key evidence: [Citations]
+
+### Option B
+[Same structure]
+
+## Recommendation
+[Choice with rationale]
+[Confidence level and caveats]
+```
+
+## Common Synthesis Errors
+
+### Premature Closure
+
+Wrong: Reach conclusion quickly, then only seek confirming evidence.
+
+Right: Keep synthesizing as new information arrives. Actively seek disconfirming evidence until the end.
+
+### Equal Weighting
+
+Wrong: Treat all sources as equally credible.
+
+Right: Weight evidence by source quality, directness, and corroboration.
+
+### Narrative Over Evidence
+
+Wrong: Build a compelling story that doesn't match all the evidence.
+
+Right: Let the evidence drive the narrative. Uncomfortable facts must be addressed, not ignored.
+
+### Overconfidence
+
+Wrong: Present conclusions with more certainty than evidence supports.
+
+Right: Explicitly state confidence levels and what could change your conclusion.
+
+### Missing Alternatives
+
+Wrong: Compare only the obvious options.
+
+Right: Consider null hypothesis, unconventional alternatives, and the option to gather more information.

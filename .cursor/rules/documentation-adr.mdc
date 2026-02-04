@@ -1,0 +1,99 @@
+---
+description: Architecture Decision Records - format, lifecycle, when to write ADRs. Apply when documenting architectural decisions.
+globs:
+  - "**/adr/**/*"
+  - "**/docs/adr/**/*"
+  - "**/ADR*.md"
+  - "**/adr-*.md"
+alwaysApply: false
+---
+
+# Architecture Decision Records (ADRs)
+
+Guidelines for documenting architectural decisions and their rationale.
+
+## Purpose
+
+ADRs capture **architecturally significant decisions** — choices that affect:
+- System structure and organization
+- Non-functional characteristics (performance, security, scalability)
+- External dependencies and integrations
+- Development and deployment approaches
+- Standards and conventions
+
+## Why ADRs Matter
+
+- **Future developers** understand why decisions were made
+- **Prevents rehashing** the same debates
+- **Documents tradeoffs** that aren't obvious from code
+- **Creates accountability** for decisions
+- **Enables learning** from past choices
+
+## ADR Format (MADR Template)
+
+```markdown
+# ADR-001: Use PostgreSQL for Primary Database
+
+## Status
+
+Accepted
+
+## Context
+
+We need to choose a primary database for storing user data.
+
+## Decision
+
+We will use **PostgreSQL** as our primary database.
+
+## Rationale
+
+### Considered Options
+
+#### PostgreSQL
+- **Pros**: ACID compliant, excellent query planner, JSONB support
+- **Cons**: Vertical scaling limits
+
+#### MongoDB
+- **Pros**: Flexible schema, horizontal scaling
+- **Cons**: Eventual consistency concerns
+
+## Consequences
+
+### Positive
+- Strong consistency guarantees
+- Familiar to most team members
+
+### Negative
+- Need to plan for vertical scaling limits
+- Schema migrations required
+```
+
+## When to Write an ADR
+
+### Write an ADR When
+
+- Choosing between multiple valid approaches
+- Making decisions with long-term consequences
+- Introducing new patterns or technologies
+- Deviating from established conventions
+- Multiple team members have different opinions
+
+### Skip the ADR When
+
+- Following established patterns
+- Making easily reversible choices
+- Standard library/framework usage
+- Implementation details (not architecture)
+
+## ADR Lifecycle
+
+| Status | Meaning |
+|--------|---------|
+| **Proposed** | Under discussion, not yet decided |
+| **Accepted** | Decision made, being implemented |
+| **Deprecated** | Still valid but no longer preferred |
+| **Superseded** | Replaced by a newer ADR |
+| **Rejected** | Considered but not accepted |
+
+**Never delete ADRs** — they document the decision history, including mistakes.

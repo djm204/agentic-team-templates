@@ -1,0 +1,104 @@
+---
+description: Commit message standards - conventional commits format, semantic versioning alignment, atomic commits. Apply when creating git commits.
+globs:
+  - ".git/**/*"
+alwaysApply: false
+---
+
+# Commit Standards
+
+High standards for commit messages, structure, and semantic versioning alignment.
+
+## Commit Message Format
+
+### Conventional Commits Specification
+
+All commits must follow the [Conventional Commits](https://www.conventionalcommits.org/) specification:
+
+```
+<type>(<scope>): <subject>
+
+<body>
+
+<footer>
+```
+
+### Type (Required)
+
+- **`feat`**: A new feature (triggers MINOR version bump)
+- **`fix`**: A bug fix (triggers PATCH version bump)
+- **`docs`**: Documentation only changes
+- **`style`**: Code style changes (formatting, no code meaning change)
+- **`refactor`**: Code refactoring (no bug fix or feature)
+- **`perf`**: Performance improvements (triggers PATCH version bump)
+- **`test`**: Adding or updating tests
+- **`chore`**: Build process, dependencies, or auxiliary tools
+- **`ci`**: CI configuration changes
+- **`build`**: Build system or dependency changes
+- **`revert`**: Reverts a previous commit
+
+### Subject (Required)
+
+- Use imperative, present tense: "add" not "added" or "adds"
+- Don't capitalize first letter
+- No period (.) at the end
+- Maximum 72 characters
+
+## Commit Examples
+
+### Good Commits
+
+```bash
+# Feature (MINOR bump)
+feat(auth): add OAuth2 Google provider
+
+# Bug Fix (PATCH bump)
+fix(api): handle null response in user endpoint
+
+# Breaking Change (MAJOR bump)
+feat(api)!: change user endpoint response format
+
+BREAKING CHANGE: User endpoint now returns `{ data: User }` instead of `User` directly.
+```
+
+### Bad Commits
+
+```bash
+# Too vague
+fix: stuff
+
+# Wrong tense
+feat: added login button
+
+# Missing type
+add login button
+```
+
+## Atomic Commits
+
+Each commit should represent **one logical change**:
+
+- One feature, one commit
+- One bug fix, one commit
+- Tests in separate commit from implementation
+- No multiple unrelated changes in one commit
+
+## Semver Alignment
+
+| Commit Type | Semver Bump | Example |
+|------------|-------------|---------|
+| `feat` | MINOR (0.1.0) | New feature |
+| `feat!` | MAJOR (1.0.0) | Breaking change |
+| `fix` | PATCH (0.0.1) | Bug fix |
+| `perf` | PATCH (0.0.1) | Performance improvement |
+| `refactor` | None | Code refactoring |
+| `docs` | None | Documentation |
+
+## What NOT to Commit
+
+- Secrets, API keys, credentials
+- Large binary files
+- Generated files (unless necessary)
+- Temporary files, logs
+- `console.log`, `debugger` statements
+- Commented-out code

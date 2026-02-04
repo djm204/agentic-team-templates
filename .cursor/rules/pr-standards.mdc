@@ -1,0 +1,94 @@
+---
+description: Pull request standards - PR quality, review process, semver compliance. Apply when creating or reviewing PRs.
+globs:
+  - ".github/**/*"
+alwaysApply: false
+---
+
+# Pull Request Standards
+
+High standards for PR quality, review process, and semantic versioning adherence.
+
+## PR Quality Standards
+
+### Mandatory Pre-Submission Checklist
+
+Before creating a PR, **all** of the following must be true:
+
+- [ ] **Tests**: All tests pass locally
+- [ ] **Type Safety**: No TypeScript errors
+- [ ] **Linting**: No linting errors
+- [ ] **Formatting**: Code is formatted
+- [ ] **Coverage**: Test coverage maintained or improved (minimum 80%)
+- [ ] **Documentation**: All public APIs documented
+- [ ] **Breaking Changes**: Breaking changes clearly documented
+- [ ] **Self-Review**: Code reviewed by author before submission
+
+### PR Description Template
+
+```markdown
+## Summary
+Clear, concise one-sentence description.
+
+## Type
+- [ ] Feature (non-breaking)
+- [ ] Bug Fix (non-breaking)
+- [ ] Breaking Change
+- [ ] Documentation
+- [ ] Refactor (non-breaking)
+
+## Changes
+- Specific bullet points of what changed
+
+## Testing
+- How was this tested?
+- What test cases were added/updated?
+
+## Semver Impact
+- [ ] **PATCH** (0.0.1): Bug fix, non-breaking
+- [ ] **MINOR** (0.1.0): New feature, non-breaking
+- [ ] **MAJOR** (1.0.0): Breaking change
+
+## Checklist
+- [ ] Tests added/updated
+- [ ] Documentation updated
+- [ ] CI passes
+```
+
+## Code Review Standards
+
+### Reviewer Responsibilities
+
+1. **Security First**: Verify inputs validated, auth checks present
+2. **Test Quality**: Ensure tests actually test behavior
+3. **Type Safety**: No `any` types, proper TypeScript usage
+4. **Accessibility**: Semantic HTML, ARIA labels
+5. **Performance**: No unnecessary re-renders or expensive operations
+6. **DRY**: No repeated code that should be abstracted
+7. **Semver**: Verify version bump matches change type
+
+### Review Response Time
+
+- **Urgent (security, critical bugs)**: Within 4 hours
+- **Normal (features, fixes)**: Within 24 hours
+- **Non-urgent (docs, refactors)**: Within 48 hours
+
+## PR Size Guidelines
+
+- **Small** (< 200 lines): Ideal, easy to review
+- **Medium** (200-500 lines): Acceptable
+- **Large** (500-1000 lines): Should be split if possible
+- **Very Large** (> 1000 lines): **Must be split**
+
+## PR Rejection Criteria
+
+A PR will be rejected if:
+
+- Fails CI checks
+- Introduces security vulnerabilities
+- Breaks existing functionality without migration path
+- Lacks tests for new functionality
+- Contains `console.log`, `debugger`, or commented code
+- Uses `any` type without justification
+- Incorrect semver version bump
+- Missing documentation for public APIs

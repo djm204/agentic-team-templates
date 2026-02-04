@@ -1,0 +1,127 @@
+---
+description: README file standards - structure, required sections, examples. Apply when creating or updating README files.
+globs:
+  - "**/README.md"
+  - "**/README*"
+alwaysApply: false
+---
+
+# README Standards
+
+Guidelines for writing effective README files that orient users and provide essential information.
+
+## Purpose
+
+A README is the front door to your project. It should:
+- Orient new users immediately
+- Provide essential "getting started" information
+- Link to more detailed documentation
+- Be scannable in under 2 minutes
+
+## File Naming
+
+- **Always name it `README.md`** (case-sensitive)
+- Place in the repository root
+- Each major directory can have its own README
+
+## Required Sections
+
+### Minimum Viable README
+
+Every README must contain:
+
+1. **Project name and one-line description**
+2. **Quick start** (how to install/run)
+3. **Basic usage example**
+
+### Complete README Template
+
+```markdown
+# Project Name
+
+One-line description of what this project does.
+
+## Quick Start
+
+\`\`\`bash
+npm install project-name
+\`\`\`
+
+\`\`\`typescript
+import { something } from 'project-name';
+something.doThing();
+\`\`\`
+
+## Features
+
+- Feature one
+- Feature two
+- Feature three
+
+## Installation
+
+### Prerequisites
+
+- Node.js 18+
+- PostgreSQL 14+
+
+### Setup
+
+\`\`\`bash
+git clone https://github.com/org/project.git
+cd project
+npm install
+cp .env.example .env
+npm run dev
+\`\`\`
+
+## Configuration
+
+| Variable | Description | Default |
+|----------|-------------|---------|
+| `PORT` | Server port | `3000` |
+| `DATABASE_URL` | PostgreSQL connection string | Required |
+
+## License
+
+MIT - see [LICENSE](./LICENSE)
+```
+
+## Anti-Patterns
+
+### Stale Information
+
+```markdown
+<!-- Bad: Will become outdated -->
+## Supported Node Versions
+- Node 14
+- Node 16
+
+<!-- Good: Link to source of truth -->
+## Requirements
+See `engines` field in [package.json](./package.json)
+```
+
+### Wall of Text
+
+```markdown
+<!-- Bad: No one will read this -->
+This project was started in 2019 when we realized that...
+
+<!-- Good: Get to the point -->
+Payment processing library supporting Stripe, PayPal, and Square.
+```
+
+### Missing Examples
+
+```markdown
+<!-- Bad: No examples -->
+## Installation
+Install with npm.
+
+<!-- Good: Copy-pasteable -->
+## Installation
+\`\`\`bash
+npm install payment-gateway
+\`\`\`
+```

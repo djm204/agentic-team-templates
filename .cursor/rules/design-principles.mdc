@@ -1,0 +1,77 @@
+---
+description: Design and UX principles - design philosophy, color palette, typography, component patterns. Apply when designing or reviewing UI/UX.
+globs:
+  - "**/*.tsx"
+  - "**/*.jsx"
+  - "**/*.css"
+  - "**/components/**/*"
+alwaysApply: false
+---
+
+# Design & UX Principles
+
+## Design Philosophy
+
+- **Functional & Clean**: Minimal, purposeful design
+- **Accessibility First**: WCAG 2.1 Level AA compliance is non-negotiable
+- **Composition Over Inheritance**: Build complex components from simple primitives
+- **Pure Components**: No side effects in render, props in, JSX out
+- **Consistent Spacing**: Use Tailwind's spacing scale (4px base unit)
+
+## UX Principles
+
+### 1. User-Centric Design
+
+- Design for the user's goals, not technical constraints
+- Every interaction should have clear feedback
+- Error states should be helpful, not just informative
+
+### 2. Accessibility as Foundation
+
+- **Keyboard Navigation**: All interactions must work via keyboard
+- **Screen Reader Support**: Semantic HTML and ARIA labels where needed
+- **Color Contrast**: Minimum 4.5:1 ratio for all text (WCAG AA)
+- **Focus Indicators**: Visible focus states on all interactive elements
+
+### 3. Performance as UX
+
+- Fast page loads (< 2.5s LCP)
+- Smooth interactions (< 100ms FID)
+- No layout shift (CLS < 0.1)
+
+## Design System
+
+### Color Palette
+
+- **Blue**: Primary actions (`blue-600` buttons, `blue-800` text)
+- **Red**: Errors and destructive actions
+- **Gray**: Text, borders, backgrounds
+
+### Typography Scale
+
+- `text-sm`: 14px - Secondary text, labels
+- `text-base`: 16px - Body text (default)
+- `text-lg`: 18px - Emphasized text
+- `text-xl`: 20px - Card titles
+- `text-2xl+`: Page titles
+
+### Spacing System
+
+Use Tailwind's spacing scale consistently:
+- `p-4`: 16px - Standard padding
+- `p-6`: 24px - Card padding
+- `gap-2`: 8px - Small gaps
+- `gap-4`: 16px - Standard gaps
+
+## Design Checklist
+
+Before marking UI/UX work complete:
+
+- [ ] All interactive elements keyboard accessible
+- [ ] Focus indicators visible on all focusable elements
+- [ ] Color contrast meets WCAG AA (≥ 4.5:1)
+- [ ] Semantic HTML used appropriately
+- [ ] ARIA labels on icon-only buttons
+- [ ] Error states are clear and actionable
+- [ ] Loading states provide feedback
+- [ ] Mobile-responsive design tested

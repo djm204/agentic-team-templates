@@ -1,0 +1,76 @@
+---
+description: Development workflow overview - commit strategy, branching, PR process. Quick reference pointing to detailed standards.
+alwaysApply: false
+---
+
+# Development Workflow
+
+## Overview
+
+This document provides a high-level overview of the development workflow. For detailed standards, see:
+
+- **commit-standards.mdc**: Comprehensive commit message format, semver alignment
+- **pr-standards.mdc**: Detailed PR requirements, review process
+
+## Commit Strategy
+
+### Small, Meaningful Commits
+
+Commits should be atomic and focused:
+
+- One logical change per commit
+- Each commit should compile and pass tests
+- Separate refactoring from feature changes
+- Separate tests from implementation
+
+### Good Commit Examples
+
+- `feat(auth): add login button component`
+- `test(auth): add login button tests`
+- `fix(api): handle rate limit errors`
+- `refactor(utils): extract date formatting`
+
+### Bad Commit Examples
+
+- `WIP` or `fix stuff`
+- `add feature and fix bugs and update tests`
+- Giant commits with 50+ file changes
+
+## Feature Branch Strategy
+
+```bash
+# Create feature branch
+git checkout -b feat/project-cards
+
+# Work in small commits
+git add src/components/features/ProjectCard.tsx
+git commit -m "feat: add ProjectCard component"
+
+git add src/components/features/ProjectCard.test.tsx
+git commit -m "test: add ProjectCard tests"
+
+# Push and create PR
+git push origin feat/project-cards
+```
+
+## PR Requirements
+
+Before submitting a PR, ensure:
+
+- [ ] All tests pass (`npm test`)
+- [ ] No TypeScript errors (`npm run type-check`)
+- [ ] No linting errors (`npm run lint`)
+- [ ] Code formatted (`npm run format`)
+- [ ] Coverage maintained or improved
+- [ ] Documentation updated
+- [ ] Semver version bump determined
+
+## Code Review Checklist
+
+- [ ] Security: All inputs validated and sanitized?
+- [ ] Tests: Meaningful tests that verify behavior?
+- [ ] Types: Proper TypeScript usage with no `any`?
+- [ ] Accessibility: Semantic HTML and ARIA labels?
+- [ ] Performance: No unnecessary re-renders?
+- [ ] DRY: No repeated code?
+- [ ] Semver: Version bump matches change type?
