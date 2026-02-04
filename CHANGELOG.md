@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.22.2](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.22.1...agentic-team-templates-v0.22.2) (2026-02-03)
+
+
+### Miscellaneous
+
+* **templates:** condense oversized .mdc files to under 500 lines ([#80](https://github.com/djm204/agentic-team-templates/issues/80)) ([6f76133](https://github.com/djm204/agentic-team-templates/commit/6f76133cc3c2c6132715182e0b0a96fd47a5e6b5))
+
 ## [0.22.1](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.22.0...agentic-team-templates-v0.22.1) (2026-02-03)
 
 
