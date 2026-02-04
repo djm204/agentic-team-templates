@@ -1,0 +1,226 @@
+---
+description: Advanced search strategies, operators, and techniques for finding hard-to-locate information
+alwaysApply: false
+---
+
+# Search Strategies
+
+Master-level techniques for finding information that others miss.
+
+## Search Operator Mastery
+
+### Google Advanced Operators
+
+| Operator | Purpose | Example |
+|----------|---------|---------|
+| `"exact phrase"` | Match exact words in order | `"supply chain disruption"` |
+| `site:` | Search within specific domain | `site:gov climate data` |
+| `-` | Exclude term | `apple -fruit -cider` |
+| `OR` | Either term | `CEO OR "chief executive"` |
+| `*` | Wildcard for unknown words | `"* is the new *"` |
+| `filetype:` | Specific file format | `filetype:pdf annual report` |
+| `intitle:` | Term in page title | `intitle:methodology` |
+| `inurl:` | Term in URL | `inurl:research` |
+| `before:` / `after:` | Date range | `after:2024-01-01` |
+| `related:` | Similar sites | `related:reuters.com` |
+| `cache:` | Google's cached version | `cache:example.com/page` |
+| `define:` | Dictionary definition | `define:epistemology` |
+
+### Operator Combinations
+
+```text
+# Find PDFs from government sites about a topic
+site:gov filetype:pdf "climate change" "annual report"
+
+# Find academic discussions excluding Wikipedia
+"machine learning" site:edu -site:wikipedia.org
+
+# Find recent news from specific sources
+"company name" (site:reuters.com OR site:bloomberg.com) after:2025-01-01
+
+# Find presentations and slide decks
+"topic" (filetype:ppt OR filetype:pptx OR filetype:pdf) "slide"
+
+# Find data files
+"dataset name" (filetype:csv OR filetype:xlsx OR filetype:json)
+```
+
+## Source-Specific Search Tactics
+
+### Academic Research
+
+| Database | Best For | Access |
+|----------|----------|--------|
+| Google Scholar | Broad academic search, citation tracking | Free |
+| Semantic Scholar | AI/ML papers, citation context | Free |
+| PubMed | Medical and life sciences | Free |
+| JSTOR | Humanities and social sciences | Library access |
+| arXiv | Physics, math, CS preprints | Free |
+| SSRN | Social sciences, economics | Free |
+| IEEE Xplore | Engineering, computer science | Paid/Library |
+| Web of Science | Citation analysis, impact metrics | Paid/Library |
+
+**Academic Search Tips:**
+- Use author name in quotes: `"Smith, J"` or `author:smith`
+- Search by DOI when you have it
+- Use citation tracking to find related work
+- Check if preprints exist on arXiv or SSRN for paywalled papers
+- Request papers directly from authors via ResearchGate or email
+
+### Government and Legal Documents
+
+| Source | Content | URL Pattern |
+|--------|---------|-------------|
+| SEC EDGAR | Corporate filings, 10-K, 8-K | sec.gov/cgi-bin/browse-edgar |
+| PACER | Federal court records | pacer.uscourts.gov |
+| Congress.gov | Legislation, hearings | congress.gov |
+| Federal Register | Regulations, rules | federalregister.gov |
+| USPTO | Patents | patents.google.com, uspto.gov |
+| Data.gov | Government datasets | data.gov |
+| FOIA libraries | Declassified documents | Various agency sites |
+
+**Government Search Tips:**
+- Use `site:gov` to restrict to official sources
+- Check the Wayback Machine for removed pages
+- FOIA requests can take months but yield unique data
+- State-level equivalents exist for most federal databases
+
+### News and Current Events
+
+| Source Type | Examples | Use Case |
+|-------------|----------|----------|
+| Wire services | Reuters, AP, AFP | Breaking news, primary reporting |
+| Quality dailies | NYT, WSJ, FT, Economist | Analysis, investigation |
+| Trade publications | Industry-specific | Specialized knowledge |
+| Local news | Regional papers | Ground-level reporting |
+| News aggregators | Google News, Techmeme | Discovery |
+
+**News Search Tips:**
+- Use date filters aggressively
+- Check multiple ideological perspectives for bias awareness
+- Local news often has details missing from national coverage
+- Trade publications know their industry better than generalists
+- Wayback Machine preserves deleted articles
+
+### Corporate Information
+
+| Source | Information Type |
+|--------|-----------------|
+| SEC filings | Financial statements, risk factors, executive compensation |
+| Company websites | Press releases, investor relations |
+| LinkedIn | Employee counts, growth, key personnel |
+| Glassdoor/Blind | Internal culture, problems |
+| Crunchbase | Funding, investors, acquisitions |
+| Patent databases | R&D direction, technology strategy |
+| Job postings | Strategic priorities, tech stack |
+
+## Hidden Web Techniques
+
+### Beyond Page 1
+
+Most searchers never go past page 1. Deep results often contain:
+- Academic and technical content
+- Older but still relevant sources
+- Niche sites with specialized knowledge
+- Primary sources overlooked by aggregators
+
+### Finding Removed Content
+
+| Tool | Purpose |
+|------|---------|
+| Wayback Machine (archive.org) | Historical snapshots of pages |
+| Google Cache | Recent cached version |
+| archive.today | Alternative web archive |
+| CachedView | Aggregates multiple caches |
+
+### Specialized Search Engines
+
+| Engine | Specialty |
+|--------|-----------|
+| Shodan | Internet-connected devices |
+| Carrot2 | Clustered search results |
+| Wolfram Alpha | Computational knowledge |
+| BoardReader | Forum and message board search |
+| Social Searcher | Social media content |
+
+## Query Iteration Strategy
+
+### Start Broad, Then Narrow
+
+```text
+Iteration 1: [topic]
+Iteration 2: [topic] [specific aspect]
+Iteration 3: "exact phrase" [specific aspect]
+Iteration 4: "exact phrase" site:authoritative-domain.com
+Iteration 5: "exact phrase" filetype:pdf site:edu after:2023
+```
+
+### Synonym Expansion
+
+For any search term, also try:
+- Technical vs. colloquial terms
+- British vs. American spelling
+- Acronyms vs. full names
+- Historical vs. current terminology
+
+### Following Trails
+
+When you find a good source:
+1. Check its references/bibliography
+2. Search for papers that cite it
+3. Find other work by the same author
+4. Search for rebuttals or critiques
+5. Look for subsequent updates or corrections
+
+## Search Documentation
+
+### Query Log Template
+
+```text
+Research Question: [Question being investigated]
+
+Search #1:
+- Query: [exact search string]
+- Engine: [Google/Scholar/etc.]
+- Date: [YYYY-MM-DD]
+- Results reviewed: [First N results]
+- Useful finds: [List with URLs]
+- Dead ends: [What didn't work]
+- Next iteration: [How to refine]
+
+Search #2:
+...
+```
+
+### Why Document Searches?
+
+- Reproducibility: Others can verify your work
+- Efficiency: Avoid repeating failed approaches
+- Completeness: Ensure thorough coverage
+- Transparency: Show how conclusions were reached
+
+## Common Pitfalls
+
+### Over-Reliance on Default Search
+
+Wrong: Type question into Google, accept first answer.
+
+Right: Use multiple search engines, specialized databases, and advanced operators. First results are optimized for clicks, not accuracy.
+
+### Keyword Fixation
+
+Wrong: Keep searching with the same keywords expecting different results.
+
+Right: Vary terminology. Experts use different words than beginners. Academic papers use different terms than news articles.
+
+### Recency Bias in Search
+
+Wrong: Only look at recent results, assuming newer is better.
+
+Right: Historical sources often contain primary evidence or foundational understanding that recent summaries miss.
+
+### Source Monoculture
+
+Wrong: All sources from the same domain, publication type, or perspective.
+
+Right: Deliberately seek diverse source types: academic, journalistic, governmental, industry, international.

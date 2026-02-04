@@ -1,0 +1,279 @@
+---
+description: Citation practices, attribution standards, and plagiarism prevention for research integrity
+alwaysApply: false
+---
+
+# Citation and Attribution
+
+Standards for properly crediting sources and maintaining research integrity.
+
+## Why Citation Matters
+
+### For Credibility
+- Claims without sources are just opinions
+- Readers can verify your work
+- Demonstrates thoroughness and rigor
+- Distinguishes your analysis from others' work
+
+### For Integrity
+- Gives credit where due
+- Avoids plagiarism
+- Enables academic discourse
+- Maintains trust in information ecosystem
+
+### For Utility
+- Readers can explore further
+- Enables reproduction of research
+- Creates knowledge trails
+- Builds on collective understanding
+
+## Citation Principles
+
+### When to Cite
+
+**Always cite:**
+- Direct quotes
+- Paraphrased ideas from specific sources
+- Statistics and data
+- Specific facts not commonly known
+- Images, charts, or media from others
+- Methodologies or frameworks developed by others
+
+**No citation needed:**
+- Common knowledge (Earth orbits the Sun)
+- Your own original analysis
+- General facts in your field's common understanding
+- Your own observations and experiences
+
+### What to Include
+
+Minimum citation elements:
+- Author(s) or organization
+- Title of work
+- Publication date
+- Access date (for web sources)
+- URL or DOI (for online sources)
+- Page numbers (for specific quotes/data)
+
+## Citation Formats
+
+### Quick Reference Formats
+
+**Web Article:**
+```text
+Author Last, First. "Article Title." Publication Name, Date Published. URL. Accessed Date.
+
+Example:
+Smith, John. "Market Trends 2025." Industry Weekly, January 15, 2025. https://example.com/article. Accessed February 3, 2026.
+```
+
+**Academic Paper:**
+```text
+Author Last, First, and Second Author. "Paper Title." Journal Name Vol, no. Issue (Year): Pages. DOI or URL.
+
+Example:
+Chen, Wei, and Sarah Johnson. "Machine Learning in Healthcare." Nature Medicine 15, no. 3 (2024): 234-256. https://doi.org/10.1038/example
+```
+
+**Book:**
+```text
+Author Last, First. Book Title. Publisher, Year.
+
+Example:
+Brown, Michael. Research Methods for Practitioners. Academic Press, 2023.
+```
+
+**Government/Institutional Report:**
+```text
+Organization. "Report Title." Report Number, Date. URL.
+
+Example:
+U.S. Bureau of Labor Statistics. "Employment Situation Summary." USDL-25-0001, February 2025. https://bls.gov/report
+```
+
+**Interview/Personal Communication:**
+```text
+Name, Title at Organization. Interview by [Your Name], Date. [Method: phone, video, in-person].
+
+Example:
+Martinez, Elena, VP of Engineering at TechCorp. Interview by author, January 20, 2026. Video call.
+```
+
+### In-Text Citation Styles
+
+**Direct Quote:**
+> According to Smith, "the market grew by 15% in Q4" (Smith 2025, p. 12).
+
+**Paraphrase:**
+> Market growth accelerated significantly in the final quarter (Smith 2025).
+
+**Multiple Sources:**
+> Several studies support this conclusion (Smith 2025; Jones 2024; Chen et al. 2023).
+
+**Conflicting Sources:**
+> Smith (2025) argues for expansion, while Jones (2024) urges caution.
+
+## Attribution in Practice
+
+### Research Findings Attribution
+
+```text
+# Properly Attributed Finding
+
+**Finding:** Customer acquisition costs increased 23% year-over-year.
+
+**Source:** TechCo Q4 2025 Earnings Report, p. 15. Filed with SEC January 28, 2026.
+**Verification:** Confirmed in analyst reports from Morgan Stanley (Jan 29, 2026) and Goldman Sachs (Jan 30, 2026).
+**Confidence:** High (primary source + independent corroboration)
+```
+
+### Distinguishing Sources of Information
+
+Use clear language to indicate origin:
+- "According to [Source]..." - Direct attribution
+- "Research indicates..." - Multiple sources support this
+- "It has been reported that..." - Secondhand information
+- "In my analysis..." - Your own work
+- "Unverified reports suggest..." - Low-confidence information
+
+### Handling Secondary Sources
+
+When you can't access the original:
+
+```text
+Poor: "Einstein said 'imagination is more important than knowledge.'"
+(Implies you read Einstein's original work)
+
+Better: "Einstein reportedly said 'imagination is more important than knowledge,' as quoted in Smith's biography (Smith 2020, p. 45)."
+(Acknowledges you're citing a secondary source)
+
+Best: Find and cite the original source.
+```
+
+## Plagiarism Prevention
+
+### What Constitutes Plagiarism
+
+| Type | Description | Example |
+|------|-------------|---------|
+| **Direct** | Copying text without quotes or citation | Copying a paragraph verbatim |
+| **Mosaic** | Mixing your words with uncited borrowed phrases | Slight rewording without citation |
+| **Paraphrase** | Rewording ideas without attribution | Restating someone's argument as your own |
+| **Self** | Reusing your own prior work without disclosure | Submitting same analysis twice |
+| **Source** | Citing wrong source or fabricating citations | Citing paper you didn't read |
+
+### Prevention Checklist
+
+Before finalizing any research output:
+
+- [ ] Every quote has quotation marks and citation
+- [ ] Every paraphrase has attribution
+- [ ] Statistics and data points have sources
+- [ ] Borrowed frameworks/methodologies are credited
+- [ ] Secondary sources are identified as such
+- [ ] Your own analysis is clearly distinguished
+- [ ] All citations are accurate and accessible
+
+### Paraphrasing Guidelines
+
+**Acceptable Paraphrase:**
+1. Read and understand the original
+2. Set the original aside
+3. Write the idea in your own words
+4. Compare to original to ensure sufficient difference
+5. Add citation
+
+**Unacceptable Paraphrase:**
+- Changing a few words while keeping structure
+- Using synonyms for key terms
+- Rearranging sentences
+- Combining phrases from original into new sentences
+
+## Source Management
+
+### Reference Management Tools
+
+| Tool | Best For | Features |
+|------|----------|----------|
+| Zotero | Academics, free | Browser capture, PDF storage, citation generation |
+| Mendeley | Researchers, PDF annotation | Social features, PDF reader |
+| EndNote | Institutional use | Comprehensive, expensive |
+| Notion/Obsidian | Flexible workflows | Customizable, links to notes |
+
+### Source Organization System
+
+```text
+Research Source Database
+├── Source ID: [Unique identifier]
+├── Basic Metadata
+│   ├── Title
+│   ├── Author(s)
+│   ├── Publication date
+│   ├── Source type
+│   └── URL/DOI
+├── Access Information
+│   ├── Date accessed
+│   ├── How obtained (public, subscription, request)
+│   └── Archived copy (if applicable)
+├── Quality Assessment
+│   ├── Credibility tier (1-5)
+│   ├── Bias assessment
+│   └── Verification status
+├── Content Summary
+│   ├── Key claims relevant to research
+│   ├── Useful quotes (with page numbers)
+│   └── Data points extracted
+└── Usage Tracking
+    ├── Where cited in your work
+    └── How used (background, key evidence, etc.)
+```
+
+## Citation Ethics
+
+### Accurate Representation
+
+- Don't cite sources you haven't read
+- Don't misrepresent what sources say
+- Include context that might qualify claims
+- Cite the actual source of an idea, not just a convenient one
+
+### Conflict of Interest Disclosure
+
+When citing sources:
+- Note if source has obvious bias relevant to the claim
+- Disclose if you have relationship with author/organization
+- Flag if source is funded by interested parties
+
+### Acknowledging Limitations
+
+In your own work:
+- Note when sources are limited or conflicting
+- Acknowledge gaps in available evidence
+- Be clear about what your sources do and don't support
+
+## Common Citation Errors
+
+### Citation Padding
+
+Wrong: Add citations to appear thorough without actually supporting the claim.
+
+Right: Every citation should directly support the specific claim it's attached to.
+
+### Orphan Statistics
+
+Wrong: "Studies show that 73% of customers prefer..."
+(Which studies? When? What methodology?)
+
+Right: "According to a 2025 McKinsey survey of 1,200 retail customers, 73% preferred..." (McKinsey 2025, p. 8)
+
+### Stale Citations
+
+Wrong: Cite a 2010 source for current market conditions.
+
+Right: Use recent sources for current facts; historical sources only for historical context.
+
+### Access Barrier Ignorance
+
+Wrong: Cite paywalled source knowing readers can't verify.
+
+Right: Note access requirements; prefer open-access when available; archive key sources.

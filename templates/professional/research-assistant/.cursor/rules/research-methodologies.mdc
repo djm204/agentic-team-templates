@@ -1,0 +1,290 @@
+---
+description: Research methodologies for different contexts - academic, investigative, market, competitive, and OSINT
+alwaysApply: false
+---
+
+# Research Methodologies
+
+Systematic approaches for different types of research challenges.
+
+## Methodology Selection
+
+| Research Type | Primary Goal | Key Methods | Typical Sources |
+|---------------|--------------|-------------|-----------------|
+| Academic | Advance knowledge, rigor | Literature review, systematic review | Journals, conferences, preprints |
+| Investigative | Uncover hidden information | Document analysis, source development | Primary documents, interviews, FOIA |
+| Market | Inform business decisions | Surveys, analysis, competitive intel | Industry reports, company filings, experts |
+| Technical | Solve specific problem | Documentation review, experimentation | Docs, code, specs, forums |
+| Due Diligence | Risk assessment | Background checks, verification | Public records, references, filings |
+
+## Academic Research Methodology
+
+### Literature Review Process
+
+```text
+Systematic Literature Review
+├── 1. Define Research Question
+│   ├── PICO format (Population, Intervention, Comparison, Outcome)
+│   └── Scope boundaries
+├── 2. Develop Search Protocol
+│   ├── Database selection
+│   ├── Search terms and Boolean logic
+│   ├── Inclusion/exclusion criteria
+│   └── Date range
+├── 3. Execute Search
+│   ├── Document all queries
+│   ├── Export results to reference manager
+│   └── Remove duplicates
+├── 4. Screen Results
+│   ├── Title/abstract screening
+│   ├── Full-text review
+│   └── Apply inclusion criteria
+├── 5. Extract Data
+│   ├── Standardized extraction form
+│   ├── Key findings per paper
+│   └── Quality assessment
+├── 6. Synthesize
+│   ├── Identify themes
+│   ├── Note contradictions
+│   └── Assess overall evidence quality
+└── 7. Report
+    ├── PRISMA flow diagram
+    ├── Evidence summary tables
+    └── Confidence in conclusions
+```
+
+### Citation Analysis
+
+- **Forward citation**: Find papers that cite a key work
+- **Backward citation**: Review the reference list
+- **Co-citation analysis**: Find papers frequently cited together
+- **Author tracking**: Follow prolific researchers in the field
+
+### Finding Unpublished Work
+
+- Conference presentations and posters
+- Preprint servers (arXiv, SSRN, bioRxiv)
+- Dissertations and theses
+- Working papers
+- Grant databases (NIH Reporter, NSF)
+
+## Investigative Research Methodology
+
+### Document-Centered Investigation
+
+```text
+Document Investigation Flow
+├── 1. Identify Document Universe
+│   ├── What documents should exist?
+│   ├── Who creates and holds them?
+│   └── What legal mechanisms provide access?
+├── 2. Acquire Documents
+│   ├── Public records requests (FOIA, state equivalents)
+│   ├── Court filings and dockets
+│   ├── Regulatory filings
+│   └── Corporate disclosures
+├── 3. Analyze Documents
+│   ├── Timeline reconstruction
+│   ├── Relationship mapping
+│   ├── Pattern identification
+│   └── Contradiction spotting
+├── 4. Fill Gaps
+│   ├── Interview sources
+│   ├── Request additional records
+│   └── Cross-reference with other documents
+└── 5. Verify and Corroborate
+    ├── Multiple independent sources
+    ├── Expert review
+    └── Response from subjects
+```
+
+### OSINT (Open Source Intelligence) Techniques
+
+| Technique | Application | Tools/Resources |
+|-----------|-------------|-----------------|
+| Social media analysis | Track individuals, organizations, events | Native search, social-searcher |
+| Domain/IP research | Identify ownership, infrastructure | WHOIS, Shodan, BuiltWith |
+| Image analysis | Verify photos, find originals | Reverse image search, ExifTool |
+| Geolocation | Verify locations from images/video | Google Earth, SunCalc, shadows |
+| Corporate records | Ownership, registration, officers | State databases, OpenCorporates |
+| Public records | Property, court, vital records | County/state databases |
+| Archive research | Historical content, deleted pages | Wayback Machine, archive.today |
+
+### Interview Research
+
+**Preparation:**
+- Research the subject thoroughly before contact
+- Prepare specific questions, not just topics
+- Know what you need to confirm vs. discover
+- Prepare for reluctance or hostility
+
+**During Interview:**
+- Build rapport before sensitive questions
+- Use silence strategically
+- Ask for documents or other sources
+- Get referrals to other sources
+- Verify claims in real-time when possible
+
+**After Interview:**
+- Document immediately while fresh
+- Verify all claims independently
+- Follow up on leads provided
+- Maintain relationship for future questions
+
+## Market and Competitive Research
+
+### Competitive Intelligence Framework
+
+```text
+Competitor Analysis
+├── Basic Profile
+│   ├── Company overview (size, locations, structure)
+│   ├── Products and services
+│   ├── Target markets
+│   └── Pricing strategy
+├── Financial Analysis
+│   ├── Revenue and growth (public filings, estimates)
+│   ├── Funding history and investors
+│   ├── Cost structure indicators
+│   └── Profitability signals
+├── Strategic Analysis
+│   ├── Stated strategy (investor materials, PR)
+│   ├── Revealed strategy (actual behavior)
+│   ├── Partnerships and alliances
+│   └── M&A activity
+├── Operational Intelligence
+│   ├── Technology stack (job postings, BuiltWith)
+│   ├── Hiring patterns (LinkedIn, job boards)
+│   ├── Patent activity
+│   └── Supply chain relationships
+└── Strengths/Weaknesses
+    ├── Customer reviews and complaints
+    ├── Employee sentiment (Glassdoor, Blind)
+    ├── Product gaps
+    └── Organizational challenges
+```
+
+### Market Sizing
+
+| Approach | Method | Best When |
+|----------|--------|-----------|
+| Top-down | Total market → segment → target | Market data available |
+| Bottom-up | Unit economics × potential customers | Granular data available |
+| Value theory | Value delivered × willingness to pay | Novel markets |
+| Analogous | Similar market × adjustment factors | Limited direct data |
+
+### Expert Networks
+
+When to use expert interviews:
+- Validating market assumptions
+- Understanding industry dynamics
+- Getting insider perspective on companies
+- Technical due diligence
+
+Finding experts:
+- LinkedIn for professional background
+- Conference speaker lists
+- Author searches in trade publications
+- Former employees (via LinkedIn)
+- Industry associations
+
+## Technical Research Methodology
+
+### Technology Assessment
+
+```text
+Technical Evaluation Process
+├── 1. Define Requirements
+│   ├── Functional requirements
+│   ├── Non-functional requirements (performance, security)
+│   └── Constraints (budget, timeline, skills)
+├── 2. Landscape Survey
+│   ├── Identify all plausible options
+│   ├── Categorize by approach
+│   └── Quick viability filter
+├── 3. Deep Evaluation
+│   ├── Documentation quality
+│   ├── Community health (GitHub activity, SO questions)
+│   ├── Maintenance status
+│   ├── Security track record
+│   └── Performance benchmarks
+├── 4. Proof of Concept
+│   ├── Test key requirements
+│   ├── Identify hidden complexity
+│   └── Validate claims
+└── 5. Decision
+    ├── Weighted scoring matrix
+    ├── Risk assessment
+    └── Recommendation with rationale
+```
+
+### Debugging and Troubleshooting Research
+
+1. **Reproduce** - Confirm the exact conditions
+2. **Isolate** - Narrow to smallest failing case
+3. **Search** - Error messages, stack traces, exact symptoms
+4. **Read** - Documentation, source code, issue trackers
+5. **Experiment** - Systematic hypothesis testing
+6. **Ask** - Stack Overflow, forums, colleagues (after researching)
+
+## Due Diligence Research
+
+### Background Check Framework
+
+| Category | Sources | What to Verify |
+|----------|---------|---------------|
+| Identity | Government IDs, records | Name, address, employment history |
+| Criminal | Court records, background services | Convictions, pending cases |
+| Civil litigation | PACER, state courts | Lawsuits, judgments |
+| Financial | Credit reports, bankruptcies | Credit history, liens |
+| Professional | Licenses, certifications | Credentials, disciplinary actions |
+| Education | Universities, registrars | Degrees, attendance |
+| References | Direct contact | Claims about experience |
+
+### Company Due Diligence
+
+```text
+Company Verification
+├── Legal Status
+│   ├── State registration and good standing
+│   ├── Registered agent and address
+│   ├── Officers and directors
+│   └── Subsidiaries and related entities
+├── Financial Health
+│   ├── SEC filings (if public)
+│   ├── Credit reports (D&B, Experian)
+│   ├── UCC filings (liens)
+│   └── Bankruptcy searches
+├── Litigation History
+│   ├── Federal court (PACER)
+│   ├── State courts
+│   ├── Regulatory actions
+│   └── Arbitration awards
+├── Reputation
+│   ├── News coverage
+│   ├── Customer complaints (BBB, reviews)
+│   ├── Employee reviews
+│   └── Industry reputation
+└── Operational Verification
+    ├── Physical presence
+    ├── Website legitimacy
+    ├── Customer references
+    └── Supplier relationships
+```
+
+## Choosing the Right Methodology
+
+**Match methodology to question type:**
+
+- "What is the state of knowledge on X?" → Systematic literature review
+- "What really happened in situation Y?" → Investigative/document research
+- "How big is market Z?" → Market research with multiple sizing approaches
+- "Should we use technology A or B?" → Technical evaluation with POC
+- "Is this person/company legitimate?" → Due diligence framework
+- "What is competitor doing?" → Competitive intelligence
+
+**Match rigor to stakes:**
+
+- Low stakes: Quick search, single source OK
+- Medium stakes: Multiple sources, basic verification
+- High stakes: Systematic methodology, full documentation, expert review

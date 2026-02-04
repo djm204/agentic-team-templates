@@ -1,0 +1,247 @@
+---
+description: Credibility assessment, bias detection, and verification techniques for evaluating sources
+alwaysApply: false
+---
+
+# Source Evaluation
+
+Rigorous techniques for assessing credibility, detecting bias, and verifying claims.
+
+## The CRAAP Test Framework
+
+| Criterion | Questions to Ask | Red Flags |
+|-----------|------------------|-----------|
+| **Currency** | When was it published? Updated? | No date, very old with no updates |
+| **Relevance** | Does it address your question? At what depth? | Tangential, superficial treatment |
+| **Authority** | Who created it? What are their credentials? | Anonymous, no credentials, conflicts of interest |
+| **Accuracy** | Is it supported by evidence? Can you verify claims? | No citations, unverifiable claims, errors |
+| **Purpose** | Why does this exist? Inform, sell, persuade, entertain? | Hidden agenda, emotional manipulation |
+
+## Source Credibility Tiers
+
+### Tier 1: Primary Sources (Highest Credibility)
+
+- Original documents (contracts, transcripts, data)
+- Direct observation or participation
+- Court records, government filings
+- Raw data and datasets
+- Firsthand interviews
+
+### Tier 2: High-Quality Secondary Sources
+
+- Peer-reviewed academic papers
+- Major wire services (Reuters, AP, AFP)
+- Established investigative journalism (with named sources)
+- Official government reports
+- Professional organization publications
+
+### Tier 3: General Secondary Sources
+
+- Quality newspapers and magazines
+- Industry publications and trade press
+- Books from reputable publishers
+- Recognized subject matter experts
+- Institutional research
+
+### Tier 4: User-Generated and Social Content
+
+- Wikipedia (use as starting point, not endpoint)
+- Social media posts
+- Blog posts and opinion pieces
+- Forum discussions
+- Self-published content
+
+### Tier 5: Potentially Unreliable
+
+- Anonymous sources without corroboration
+- Content farms and clickbait sites
+- Heavily biased advocacy content
+- Outdated information on rapidly changing topics
+- AI-generated content without human verification
+
+## Bias Detection
+
+### Types of Bias
+
+| Bias Type | Description | Detection Strategy |
+|-----------|-------------|-------------------|
+| **Selection Bias** | Cherry-picking data or examples | Look for what's omitted |
+| **Confirmation Bias** | Seeking evidence that supports pre-existing beliefs | Search for contrary evidence |
+| **Funding Bias** | Results favor funders | Check who paid for the research |
+| **Publication Bias** | Positive results more likely to be published | Look for null results, replications |
+| **Survivorship Bias** | Only successful examples visible | Ask about failures |
+| **Anchoring Bias** | Over-relying on first information encountered | Seek independent second opinions |
+
+### Bias Indicators
+
+**Language Red Flags:**
+- Loaded or emotional language
+- Absolutist terms (always, never, everyone)
+- Ad hominem attacks on opposing views
+- Missing qualifications or nuance
+- Excessive use of superlatives
+
+**Structural Red Flags:**
+- No counterarguments addressed
+- Sources all from one perspective
+- Data presented without context
+- Conclusions that exceed the evidence
+- Missing methodology description
+
+### Evaluating Author/Publisher
+
+```text
+Author Credibility Check
+├── Credentials
+│   ├── Relevant education or training?
+│   ├── Professional experience in the field?
+│   ├── Institutional affiliation?
+│   └── Other publications on this topic?
+├── Conflicts of Interest
+│   ├── Financial relationships?
+│   ├── Ideological commitments?
+│   ├── Organizational affiliations?
+│   └── Personal stakes in the outcome?
+├── Track Record
+│   ├── Previous work accuracy?
+│   ├── Corrections or retractions?
+│   ├── Peer recognition?
+│   └── Controversial history?
+└── Transparency
+    ├── Methods disclosed?
+    ├── Data available?
+    ├── Funding acknowledged?
+    └── Limitations discussed?
+```
+
+## Verification Techniques
+
+### Claim Verification Checklist
+
+For any significant claim:
+
+1. **Find the original source** - Trace back through citations to the primary source
+2. **Check for corroboration** - At least 2 independent sources confirming
+3. **Look for contradictions** - Actively search for sources that disagree
+4. **Verify quotes** - Check full context, not just excerpts
+5. **Confirm dates and numbers** - Cross-reference statistics and timelines
+6. **Check images** - Reverse image search for manipulation or misattribution
+
+### Fact-Checking Resources
+
+| Resource | Specialty |
+|----------|-----------|
+| Snopes | Rumors, urban legends, viral claims |
+| PolitiFact | Political statements |
+| FactCheck.org | Political claims and policy |
+| Full Fact (UK) | UK-focused fact-checking |
+| AP Fact Check | News and political claims |
+| Science Feedback | Scientific claims |
+| Media Bias/Fact Check | Publication bias ratings |
+
+### Statistical Claim Verification
+
+When encountering statistics:
+
+1. **Find the original study** - Not a summary or media report
+2. **Check sample size** - Is it large enough to be meaningful?
+3. **Understand methodology** - How was data collected?
+4. **Look at confidence intervals** - How certain is the finding?
+5. **Check for cherry-picking** - Is this one data point from a larger set?
+6. **Consider base rates** - Is the comparison appropriate?
+7. **Beware of correlation vs. causation** - Association is not causation
+
+## Source Comparison Matrix
+
+When evaluating multiple sources on the same topic:
+
+```text
+| Source | Date | Author Credentials | Methodology | Conflicts | Conclusion | Notes |
+|--------|------|-------------------|-------------|-----------|------------|-------|
+| Source A | | | | | | |
+| Source B | | | | | | |
+| Source C | | | | | | |
+
+Agreement areas: [List]
+Disagreement areas: [List]
+Information gaps: [List]
+Most credible source for this question: [Choice with reasoning]
+```
+
+## Red Flag Catalog
+
+### Immediate Credibility Concerns
+
+- No author attribution
+- No publication date
+- Broken or circular citations
+- Domain is content farm or known misinformation source
+- Excessive advertising or clickbait design
+- Claims to be "the truth they don't want you to know"
+- No contact information or about page
+- Recently created domain with authoritative-sounding name
+
+### Claims That Require Extra Scrutiny
+
+- "Studies show" without citing specific studies
+- Single study presented as consensus
+- Extraordinary claims (require extraordinary evidence)
+- Claims that align too perfectly with partisan positions
+- Statistics without source or methodology
+- Anecdotes presented as evidence
+- Expert quotes without verifiable attribution
+
+## Documentation Template
+
+For each significant source used:
+
+```text
+Source Evaluation: [Title/URL]
+
+Basic Information:
+- Author: [Name and credentials]
+- Publisher: [Organization]
+- Date: [Published/Updated]
+- Access Date: [When you accessed it]
+
+Credibility Assessment:
+- Tier: [1-5]
+- Authority Score: [1-5]
+- Bias Assessment: [Left/Center/Right, degree]
+- Conflicts of Interest: [None identified / List]
+
+Verification:
+- Claims verified: [Yes/Partially/No]
+- Corroborating sources: [List]
+- Contradicting sources: [List]
+
+Usage Decision:
+- Suitable for: [Background/Key evidence/Citation/Avoid]
+- Caveats: [Any limitations on use]
+```
+
+## Common Evaluation Errors
+
+### Credentialism Fallacy
+
+Wrong: Source is credible because author has a PhD.
+
+Right: Credentials matter but are not sufficient. Check if credentials are relevant to the claim and if the person has conflicts of interest.
+
+### Appeal to Authority
+
+Wrong: Accept claim because it comes from prestigious institution.
+
+Right: Even prestigious sources make errors. Verify the specific claim, not just the source reputation.
+
+### False Balance
+
+Wrong: Treat fringe views as equivalent to scientific consensus.
+
+Right: Weight sources by evidence quality, not just for "balance." One outlier study doesn't equal hundreds of confirming studies.
+
+### Source Laundering
+
+Wrong: Accept claim because multiple outlets report it.
+
+Right: Trace to original source. Multiple outlets may all be citing the same original (unverified) source.

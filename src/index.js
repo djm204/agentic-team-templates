@@ -175,6 +175,11 @@ const TEMPLATES = {
     description: 'Regulatory compliance tracking, impact assessment, monitoring, risk classification, and compliance reporting',
     rules: ['compliance-tracking.mdc', 'impact-assessment.mdc', 'monitoring.mdc', 'overview.mdc', 'reporting.mdc', 'risk-classification.mdc']
   },
+  'research-assistant': {
+    category: 'professional',
+    description: 'World-class research with advanced search strategies, source evaluation, OSINT techniques, and rigorous synthesis',
+    rules: ['citation-attribution.mdc', 'information-synthesis.mdc', 'overview.mdc', 'research-methodologies.mdc', 'search-strategies.mdc', 'source-evaluation.mdc']
+  },
   'resource-allocator': {
     category: 'business',
     description: 'Resource allocation with demand prediction, scheduling optimization, crisis management, and capacity modeling',
@@ -303,6 +308,8 @@ const TEMPLATE_ALIASES = {
   'uxd': 'ux-designer',
   'design': 'ux-designer',
   'designer': 'ux-designer',
+  'research': 'research-assistant',
+  'researcher': 'research-assistant',
 };
 
 /**
