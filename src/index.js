@@ -310,6 +310,53 @@ const TEMPLATE_ALIASES = {
   'designer': 'ux-designer',
   'research': 'research-assistant',
   'researcher': 'research-assistant',
+  // Engineering
+  'frontend': 'web-frontend',
+  'fe': 'web-frontend',
+  'backend': 'web-backend',
+  'api': 'web-backend',
+  'devops': 'devops-sre',
+  'sre': 'devops-sre',
+  'cli': 'cli-tools',
+  'data': 'data-engineering',
+  'dataeng': 'data-engineering',
+  'ml': 'ml-ai',
+  'ai': 'ml-ai',
+  'qa': 'qa-engineering',
+  'test': 'testing',
+  'chain': 'blockchain',
+  'web3': 'blockchain',
+  'platform': 'platform-engineering',
+  'platform-eng': 'platform-engineering',
+  // Professional
+  'docs': 'documentation',
+  'grants': 'grant-writer',
+  'exec': 'executive-assistant',
+  'ea': 'executive-assistant',
+  'knowledge': 'knowledge-synthesis',
+  'wellness': 'wellness-orchestrator',
+  'life': 'life-logistics',
+  'logistics': 'life-logistics',
+  // Business
+  'product': 'product-manager',
+  'project': 'project-manager',
+  'compliance': 'regulatory-sentinel',
+  'regulatory': 'regulatory-sentinel',
+  'allocator': 'resource-allocator',
+  'resources': 'resource-allocator',
+  'market-intel': 'market-intelligence',
+  'supplychain': 'supply-chain',
+  'harmonizer': 'supply-chain-harmonizer',
+  'negotiator': 'strategic-negotiator',
+  'predictive': 'predictive-maintenance',
+  // Creative
+  'brand': 'brand-guardian',
+  'narrative': 'narrative-architect',
+  'story': 'narrative-architect',
+  'trends': 'trend-forecaster',
+  // Agents
+  'agent': 'utility-agent',
+  'utility': 'utility-agent',
 };
 
 /**
@@ -430,18 +477,14 @@ ${colors.yellow('IDE Targets:')}
   codex          .github/copilot-instructions.md (GitHub Copilot)
 
 ${colors.yellow('Shorthand Aliases:')}
-  js, ts, javascript, typescript → javascript-expert
-  go, golang                     → golang-expert
-  py, python                     → python-expert
-  rs, rust                       → rust-expert
-  ruby, rb                       → ruby-expert
-  swift                          → swift-expert
-  kotlin, kt                     → kotlin-expert
-  java                           → java-expert
-  cpp                            → cpp-expert
-  csharp, cs                     → csharp-expert
-  teach, teacher                 → educator
-  ux, uxd, design, designer      → ux-designer
+  Languages:  js, ts, go, py, rs, ruby, rb, swift, kotlin, kt, java, cpp, csharp, cs
+  Engineering: frontend, fe, backend, api, devops, sre, cli, data, ml, ai, qa, test, chain, web3, platform
+  Professional: docs, grants, exec, ea, knowledge, wellness, life, logistics, research
+  Business: product, project, compliance, allocator, market-intel, supplychain, harmonizer, negotiator
+  Creative: ux, design, brand, narrative, story, trends, marketing, social-media, content-creation
+  Other: unity, teach, teacher, agent, utility
+
+  Run --list to see full alias → template mapping.
 
 ${colors.yellow('Examples:')}
   npx cursor-templates js

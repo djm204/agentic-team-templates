@@ -145,7 +145,9 @@ npx agentic-team-templates --reset --force
 
 ### Shorthand Aliases
 
-Use shorter names for common templates:
+You can use short names instead of full template names for both install and remove (`--remove <alias>`). Run `npx agentic-team-templates --list` to see aliases next to each template.
+
+**Languages**
 
 | Alias | Template |
 |-------|----------|
@@ -159,12 +161,67 @@ Use shorter names for common templates:
 | `java` | `java-expert` |
 | `cpp` | `cpp-expert` |
 | `csharp`, `cs` | `csharp-expert` |
+
+**Engineering**
+
+| Alias | Template |
+|-------|----------|
+| `frontend`, `fe` | `web-frontend` |
+| `backend`, `api` | `web-backend` |
+| `devops`, `sre` | `devops-sre` |
+| `cli` | `cli-tools` |
+| `data`, `dataeng` | `data-engineering` |
+| `ml`, `ai` | `ml-ai` |
+| `qa` | `qa-engineering` |
+| `test` | `testing` |
+| `chain`, `web3` | `blockchain` |
+| `platform`, `platform-eng` | `platform-engineering` |
 | `unity` | `unity-dev-expert` |
+
+**Professional**
+
+| Alias | Template |
+|-------|----------|
+| `docs` | `documentation` |
+| `grants` | `grant-writer` |
+| `exec`, `ea` | `executive-assistant` |
+| `knowledge` | `knowledge-synthesis` |
+| `wellness` | `wellness-orchestrator` |
+| `life`, `logistics` | `life-logistics` |
+| `research`, `researcher` | `research-assistant` |
+
+**Business**
+
+| Alias | Template |
+|-------|----------|
+| `product` | `product-manager` |
+| `project` | `project-manager` |
+| `compliance`, `regulatory` | `regulatory-sentinel` |
+| `allocator`, `resources` | `resource-allocator` |
+| `market-intel` | `market-intelligence` |
+| `supplychain` | `supply-chain` |
+| `harmonizer` | `supply-chain-harmonizer` |
+| `negotiator` | `strategic-negotiator` |
+| `predictive` | `predictive-maintenance` |
 | `marketing` | `marketing-expert` |
+
+**Creative**
+
+| Alias | Template |
+|-------|----------|
+| `ux`, `uxd`, `design`, `designer` | `ux-designer` |
+| `brand` | `brand-guardian` |
 | `social-media` | `social-media-expert` |
 | `content-creation` | `content-creation-expert` |
+| `narrative`, `story` | `narrative-architect` |
+| `trends` | `trend-forecaster` |
+
+**Education & agents**
+
+| Alias | Template |
+|-------|----------|
 | `teach`, `teacher` | `educator` |
-| `ux`, `uxd`, `design`, `designer` | `ux-designer` |
+| `agent`, `utility` | `utility-agent` |
 
 ## Available Templates (42)
 
@@ -344,6 +401,8 @@ If your project uses the older `.cursorrules/` directory, the installer will det
 mkdir my-react-app && cd my-react-app
 npm create vite@latest . -- --template react-ts
 npx agentic-team-templates web-frontend
+# or use shorthand:
+npx agentic-team-templates frontend
 ```
 
 ### Full-Stack Next.js Project
@@ -359,6 +418,8 @@ npx agentic-team-templates fullstack
 ```bash
 cd my-api-service
 npx agentic-team-templates web-backend devops-sre
+# or use shorthands:
+npx agentic-team-templates backend devops
 ```
 
 ### ML/AI Project
@@ -366,6 +427,8 @@ npx agentic-team-templates web-backend devops-sre
 ```bash
 cd my-ml-project
 npx agentic-team-templates ml-ai data-engineering
+# or use shorthands:
+npx agentic-team-templates ml data
 ```
 
 ### Unity Game Project
@@ -380,6 +443,12 @@ npx agentic-team-templates unity
 ```bash
 cd marketing-workspace
 npx agentic-team-templates marketing social-media content-creation
+```
+
+### Docs and research
+
+```bash
+npx agentic-team-templates docs research
 ```
 
 ## Requirements

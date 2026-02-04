@@ -211,6 +211,12 @@ describe('Constants', () => {
       expect(TEMPLATE_ALIASES['ruby']).toBe('ruby-expert');
       expect(TEMPLATE_ALIASES['rb']).toBe('ruby-expert');
       expect(TEMPLATE_ALIASES['kt']).toBe('kotlin-expert');
+      expect(TEMPLATE_ALIASES['frontend']).toBe('web-frontend');
+      expect(TEMPLATE_ALIASES['backend']).toBe('web-backend');
+      expect(TEMPLATE_ALIASES['docs']).toBe('documentation');
+      expect(TEMPLATE_ALIASES['devops']).toBe('devops-sre');
+      expect(TEMPLATE_ALIASES['research']).toBe('research-assistant');
+      expect(TEMPLATE_ALIASES['agent']).toBe('utility-agent');
     });
   });
 
@@ -238,6 +244,14 @@ describe('Constants', () => {
       expect(resolveTemplateAlias('javascript-expert')).toBe('javascript-expert');
       expect(resolveTemplateAlias('golang-expert')).toBe('golang-expert');
       expect(resolveTemplateAlias('python-expert')).toBe('python-expert');
+    });
+
+    it('should resolve engineering and professional shorthands', () => {
+      expect(resolveTemplateAlias('frontend')).toBe('web-frontend');
+      expect(resolveTemplateAlias('backend')).toBe('web-backend');
+      expect(resolveTemplateAlias('docs')).toBe('documentation');
+      expect(resolveTemplateAlias('devops')).toBe('devops-sre');
+      expect(resolveTemplateAlias('agent')).toBe('utility-agent');
     });
   });
 });
