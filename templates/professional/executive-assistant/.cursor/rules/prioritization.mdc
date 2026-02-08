@@ -7,104 +7,42 @@ alwaysApply: false
 
 Guidelines for task prioritization, escalation management, and interruption handling.
 
-## Eisenhower Matrix Application
+## Eisenhower Matrix
 
-```text
-                    URGENT              NOT URGENT
-              ┌─────────────────┬─────────────────┐
-  IMPORTANT   │ DO FIRST        │ SCHEDULE         │
-              │                 │                  │
-              │ Crisis response │ Strategic work   │
-              │ Hard deadlines  │ Relationship     │
-              │ Key decisions   │   building       │
-              │ Client emergenc-│ Long-term        │
-              │   ies           │   planning       │
-              ├─────────────────┼─────────────────┤
-  NOT         │ DELEGATE        │ ELIMINATE        │
-  IMPORTANT   │                 │                  │
-              │ Most emails     │ Time-wasters     │
-              │ Some meetings   │ Unnecessary      │
-              │ Routine tasks   │   reports        │
-              │ Information     │ Low-value        │
-              │   requests      │   meetings       │
-              └─────────────────┴─────────────────┘
-```
+- **Urgent + Important** (Do First): Crisis response, hard deadlines, key decisions, client emergencies
+- **Not Urgent + Important** (Schedule): Strategic work, relationship building, long-term planning
+- **Urgent + Not Important** (Delegate): Most emails, some meetings, routine tasks, info requests
+- **Not Urgent + Not Important** (Eliminate): Time-wasters, unnecessary reports, low-value meetings
 
 ## Daily Priority Planning
 
-### Template
-
-```markdown
-### Top 3 Priorities (Must complete today)
-1. [Priority 1] - [Why today] - [Time needed]
-2. [Priority 2] - [Why today] - [Time needed]
-3. [Priority 3] - [Why today] - [Time needed]
-
-### Secondary Tasks (Should complete today)
-- [ ] [Task] - [Est. time]
-- [ ] [Task] - [Est. time]
-
-### Delegated/Monitoring
-- [Task] → [Person] - Check by [time]
-- [Task] → [Person] - Check by [time]
-
-### Tomorrow's Prep
-- [ ] [What needs to be ready for tomorrow]
-```
+- **Top 3 Priorities** (must complete today): Each with rationale and time estimate
+- **Secondary Tasks** (should complete today): With time estimates
+- **Delegated/Monitoring**: Task → Person, check-by time
+- **Tomorrow's Prep**: What needs to be ready
 
 ## Escalation Criteria
 
 | Signal | Response | Timeline |
 |--------|----------|----------|
-| Board member request | Immediate executive notification | Within 30 minutes |
+| Board member request | Immediate executive notification | Within 30 min |
 | Client escalation (key account) | Assess and brief executive | Within 1 hour |
-| Media inquiry | Route to communications team + notify executive | Within 1 hour |
+| Media inquiry | Route to comms + notify executive | Within 1 hour |
 | Legal/compliance issue | Notify executive + legal team | Within 2 hours |
-| Internal team conflict | Assess severity, brief executive if P1 | Within 4 hours |
+| Internal team conflict | Assess severity, brief if P1 | Within 4 hours |
 | Routine stakeholder request | Queue for daily review | Within 24 hours |
 
 ## Gatekeeping Framework
 
-### Who Gets Through Immediately
+**Immediate access:** Board chair/members, CEO, executive's manager, family (emergency), pre-approved VIP list.
 
-- Board chair/members
-- CEO (if executive is not CEO)
-- Executive's direct manager
-- Family (emergency)
-- Pre-approved VIP list
+**Scheduled time:** Direct reports (unless emergency), peer executives, external partners (unless contractual deadline).
 
-### Who Waits for Scheduled Time
+**Redirect:** Vendor sales → Procurement, HR matters → HR partner, IT issues → Help desk, general inquiries → appropriate department.
 
-- Direct reports (unless emergency)
-- Peer executives (unless cross-dependent deadline)
-- External partners (unless contractual deadline)
+**Script:** "[Executive] is currently unavailable. I can: 1) Schedule time to connect, 2) Pass along a message, 3) Connect you with someone who can help now."
 
-### Who Gets Redirected
+## Anti-Patterns
 
-- Vendor sales calls → Procurement
-- Routine HR matters → HR business partner
-- IT issues → Help desk
-- General inquiries → Appropriate department
-
-### Scripting
-
-When redirecting or deferring:
-
-> "[Executive] is currently unavailable. I can:
-> 1. Schedule time for you to connect
-> 2. Pass along a message for their review
-> 3. Connect you with [alternative person] who can help now"
-
-## Common Pitfalls
-
-### Treating All Requests Equally
-
-Wrong: Process every request in the order received.
-
-Right: Triage by urgency, importance, and source. The board chair's request and a newsletter subscription are not equal.
-
-### Neglecting Self-Management
-
-Wrong: Become so consumed with the executive's schedule that your own tasks pile up.
-
-Right: Block your own admin time, maintain your own priority system, set boundaries.
+- **Treating all requests equally** — Triage by urgency, importance, and source
+- **Neglecting self-management** — Block your own admin time and maintain your own priority system

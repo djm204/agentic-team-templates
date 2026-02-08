@@ -7,29 +7,14 @@ alwaysApply: false
 
 Guidelines for managing executive relationships, contact tracking, and communication cadence.
 
-## Stakeholder Map
+## Stakeholder Mapping
 
-```text
-                    HIGH INFLUENCE
-                         │
-         ┌───────────────┼───────────────┐
-         │ KEEP SATISFIED │ MANAGE CLOSELY│
-         │               │               │
-         │ Board members │ CEO, C-Suite  │
-         │ Investors     │ Key clients   │
-         │ Regulators    │ Direct        │
-         │               │   reports     │
-LOW ─────┼───────────────┼───────────────┼───── HIGH
-INTEREST │ MONITOR       │ KEEP INFORMED │ INTEREST
-         │               │               │
-         │ General       │ Team members  │
-         │   vendors     │ Partners      │
-         │ Peripheral    │ Cross-func    │
-         │   contacts    │   leads       │
-         └───────────────┼───────────────┘
-                         │
-                    LOW INFLUENCE
-```
+Categorize stakeholders on two axes — **Influence** and **Interest**:
+
+- **High Influence + High Interest** (Manage Closely): CEO, C-Suite, key clients, direct reports
+- **High Influence + Low Interest** (Keep Satisfied): Board members, investors, regulators
+- **Low Influence + High Interest** (Keep Informed): Team members, partners, cross-functional leads
+- **Low Influence + Low Interest** (Monitor): General vendors, peripheral contacts
 
 ## Relationship Maintenance Cadence
 
@@ -42,54 +27,24 @@ INTEREST │ MONITOR       │ KEEP INFORMED │ INTEREST
 
 ## Personal Touch System
 
-Track for each key stakeholder:
+Track for each key stakeholder: preferred communication style, preferred meeting times, key dates (birthday, work anniversary), dietary preferences, hobbies/interests mentioned, recent wins or challenges.
 
-- Preferred communication style (email, phone, in-person)
-- Preferred meeting times
-- Key dates (birthday, work anniversary)
-- Family details they have shared
-- Dietary preferences/restrictions
-- Hobbies and interests mentioned
-- Recent wins or challenges
+## Relationship Building
 
-## Relationship Building Actions
+**Proactive:** Congratulations on milestones, share relevant articles, acknowledge personal events, facilitate introductions, send thank-you notes.
 
-### Proactive Touches
-
-- Send congratulations on professional milestones
-- Share relevant articles or industry news
-- Remember and acknowledge personal events
-- Facilitate introductions when mutually beneficial
-- Send thank-you notes after significant interactions
-
-### Reactive Touches
-
-- Respond promptly to requests from high-tier stakeholders
-- Provide follow-up within committed timeframes
-- Acknowledge receipt of important communications
-- Offer alternatives when unable to fulfill a request
+**Reactive:** Respond promptly to high-tier requests, follow up within committed timeframes, acknowledge receipt of important communications, offer alternatives when unable to fulfill.
 
 ## Communication Matching
-
-### Reading the Relationship
 
 | Signal | Interpretation | Adjust Communication |
 |--------|---------------|---------------------|
 | Short, direct emails | Values brevity | Keep messages concise |
 | Detailed responses | Values thoroughness | Provide comprehensive context |
 | Prefers phone calls | Values personal connection | Schedule calls over emails |
-| Delayed responses | May be overwhelmed or low priority | Follow up gently, adjust expectations |
+| Delayed responses | May be overwhelmed | Follow up gently, adjust expectations |
 
-## Common Pitfalls
+## Anti-Patterns
 
-### Neglecting Lower-Tier Contacts
-
-Wrong: Focus exclusively on Tier 1 stakeholders.
-
-Right: Maintain baseline relationships across all tiers. Today's Tier 3 contact may be tomorrow's Tier 1.
-
-### Inconsistent Follow-Through
-
-Wrong: Promise to send information and forget.
-
-Right: Track every commitment in your follow-up system. Deliver on time, every time.
+- **Neglecting lower-tier contacts** — Maintain baseline relationships across all tiers; today's Tier 3 may be tomorrow's Tier 1
+- **Inconsistent follow-through** — Track every commitment; deliver on time, every time

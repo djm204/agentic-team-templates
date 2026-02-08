@@ -5,81 +5,43 @@ alwaysApply: false
 
 # Task Management and Delegation
 
-Guidelines for classifying, automating, tracking, and delegating recurring and one-time life logistics tasks.
+Guidelines for classifying, automating, tracking, and delegating life logistics tasks.
 
-## Task Management Principles
+## Core Principles
 
-1. **Systematize before delegating** - A task without a documented process cannot be delegated reliably
-2. **Calendar is the single source of truth** - Every deadline, renewal, and recurring task must exist in the calendar with appropriate lead-time reminders
-3. **Batch similar tasks** - Group phone calls, errands, and administrative work into dedicated blocks rather than scattering them throughout the week
-4. **Redundant reminders for high-stakes items** - Insurance deadlines, tax filings, and legal due dates get reminders at 60, 30, 14, and 3 days before
-5. **Review and prune regularly** - Audit automated systems and recurring tasks quarterly to remove obsolete items and update changed processes
+- **Systematize before delegating** — A task without a documented process cannot be delegated reliably
+- **Calendar is source of truth** — Every deadline, renewal, and recurring task must exist in the calendar with lead-time reminders
+- **Batch similar tasks** — Group calls, errands, and admin work into dedicated blocks
+- **Redundant reminders for high-stakes items** — Insurance, tax, legal deadlines get reminders at 60, 30, 14, and 3 days
+- **Review quarterly** — Audit automated systems and recurring tasks; remove obsolete items
 
 ## Task Classification
 
-Every task should be classified along two axes:
+**By recurrence:** Fixed schedule (automate or calendar), event-triggered (set monitoring alerts), one-time (track to completion and archive).
 
-### By Recurrence
-- **Fixed schedule**: Occurs on a predictable cadence (monthly bill, annual renewal). Automate or calendar.
-- **Event-triggered**: Occurs in response to a specific condition (rate increase letter, appliance failure). Set monitoring alerts.
-- **One-time**: Occurs once (initial provider research, new account setup). Track to completion and archive.
-
-### By Handling Method
-- **Fully automated**: Autopay, auto-refill, auto-renewal with periodic verification checks
-- **Calendar-driven manual**: Requires human action but is triggered by a calendar reminder with a checklist
-- **Delegatable**: Can be handed off to another person or service with a clear brief
-- **Personal only**: Requires your specific presence, judgment, or authorization
+**By handling:** Fully automated (autopay with verification), calendar-driven manual (reminder + checklist), delegatable (clear brief needed), personal only (requires your judgment/presence).
 
 ## Automation Standards
 
-For any task set to autopay or auto-renewal:
-
-1. Verify the funding source has sufficient balance or credit
-2. Set a calendar reminder on the expected processing date to verify the charge
-3. Review automated charges quarterly to catch rate changes or unauthorized modifications
-4. Maintain a master list of all autopay arrangements with the payment method used
-5. When changing payment methods (new card, new bank account), update all autopay links immediately
-
-## Deadline and Renewal Tracking
-
-Maintain a centralized renewal tracker (template in CLAUDE.md) with:
-
-- Item name and provider
-- Renewal or deadline date
-- Required action and decision authority
-- Lead time needed for research or comparison shopping
-- Current status (pending, in-progress, completed)
-
-Review the tracker at the start of each month. Flag any items with deadlines in the next 60 days that have not been started.
+For any autopay/auto-renewal: verify funding source balance, set calendar reminder on processing date, review charges quarterly for rate changes, maintain master autopay list, update all links immediately when payment methods change.
 
 ## Delegation Protocol
 
-When delegating a task:
+Every delegated task includes:
+1. Clear description of what, why, and when
+2. Decision boundaries (independent vs. approval needed)
+3. Context (account numbers, contacts, budget, preferences)
+4. Deliverable definition and report-back format
+5. Intermediate check-in point for longer tasks
 
-1. **Define the task clearly**: What needs to be done, why it matters, and when it is due
-2. **Set boundaries**: What decisions can be made independently versus what requires approval
-3. **Provide context**: Relevant account numbers, provider contacts, budget limits, and preferences
-4. **Specify deliverables**: What the completed task looks like and how results should be reported back
-5. **Set a check-in point**: For longer tasks, define an intermediate check-in before the final deadline
+## Deadline and Renewal Tracking
 
-Use the delegation handoff template in CLAUDE.md for any task that involves provider interaction, financial decisions, or scheduling on someone's behalf.
-
-## Household Management Integration
-
-Household maintenance tasks follow the same classification and tracking system:
-
-- Monthly, quarterly, biannual, and annual maintenance items each get calendar entries
-- Service provider appointments are booked with the scheduling rules from the scheduling guide
-- Home inventory is updated whenever items are purchased, replaced, or disposed of
-- Warranty information is tracked with expiration dates in the renewal tracker
+Maintain centralized tracker: item/provider, date, required action, lead time needed, current status. Review at start of each month; flag items due within 60 days that haven't been started.
 
 ## Quarterly Review Checklist
 
-Every quarter, review the entire task management system:
-
-- [ ] Are all autopay arrangements still on the correct payment method?
-- [ ] Have any recurring tasks become obsolete or changed in frequency?
-- [ ] Are there any deadlines in the next 90 days without assigned action plans?
-- [ ] Has any provider changed their billing, scheduling, or service terms?
-- [ ] Are delegation handoffs being completed on time and to standard?
-- [ ] Does the home maintenance calendar reflect actual conditions (new appliances, completed repairs)?
+- Autopay arrangements on correct payment method?
+- Any recurring tasks obsolete or changed frequency?
+- Deadlines in next 90 days without action plans?
+- Provider terms changed?
+- Delegation handoffs completing on time?

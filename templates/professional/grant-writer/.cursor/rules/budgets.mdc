@@ -17,95 +17,39 @@ Guidelines for creating defensible grant budgets with clear justification narrat
 | Equipment | Items over $5,000 | Specialized equipment only |
 | Supplies | Consumable items | Office supplies, curriculum materials |
 | Contractual | Subcontracts, consultants | Evaluators, trainers, IT services |
-| Construction | Building/renovation | Rare in most grants |
 | Other | Miscellaneous costs | Rent, utilities, printing, postage |
 | Indirect Costs | Overhead rate | Negotiated IDC rate or de minimis 10% |
 
-## Budget Justification Narrative
+## Budget Justification Pattern
 
-Every line item needs justification following this pattern:
+Every line item needs: **what** (role/item), **how much** (calculation showing rate x quantity), **why** (how it serves the project), and **basis** (source for rate/cost, e.g., BLS median, GSA schedule, organizational pay scale).
 
-```markdown
-### Personnel
-**Project Director (1.0 FTE) - $75,000**
-The Project Director will oversee all program activities, supervise
-staff, manage partner relationships, ensure compliance with grant
-requirements, and lead evaluation efforts. Salary is based on the
-organization's established pay scale for this position level and
-is consistent with Bureau of Labor Statistics median salary for
-comparable positions in this region ($72,000-$78,000).
+## Cost Share / Match
 
-### Fringe Benefits
-**Fringe Rate: 28% of Salaries - $21,000**
-Fringe benefits include FICA (7.65%), health insurance (14.5%),
-retirement contribution (3%), workers' compensation (1.85%), and
-unemployment insurance (1%). Rate is based on the organization's
-current actual fringe benefit costs as documented in the most
-recent audit.
-```
-
-## Multi-Year Budget Template
-
-| Line Item | Year 1 | Year 2 | Year 3 | Total |
-|-----------|--------|--------|--------|-------|
-| Personnel | $X | $X (+3% COLA) | $X (+3% COLA) | $X |
-| Fringe | $X | $X | $X | $X |
-| Travel | $X | $X | $X | $X |
-| Supplies | $X | $X | $X | $X |
-| Contractual | $X | $X | $X | $X |
-| Other | $X | $X | $X | $X |
-| **Direct Costs** | **$X** | **$X** | **$X** | **$X** |
-| Indirect (10%) | $X | $X | $X | $X |
-| **Total** | **$X** | **$X** | **$X** | **$X** |
-
-## Cost Share / Match Requirements
-
-### Cash Match
-
-| Source | Amount | Status | Documentation |
-|--------|--------|--------|---------------|
-| Organization general funds | $X | Committed | Board resolution |
-| Partner contribution | $X | Committed | MOU |
-
-### In-Kind Match
-
-| Source | Description | Valuation Method | Amount |
-|--------|-------------|------------------|--------|
-| Volunteer hours | 500 hrs x $29.95/hr | Independent Sector rate | $14,975 |
-| Donated space | 2,000 sq ft x $12/sq ft | Fair market value appraisal | $24,000 |
+- **Cash match:** Source, amount, status (committed/pending), documentation (board resolution, MOU)
+- **In-Kind match:** Source, description, valuation method (Independent Sector rate, fair market appraisal), amount
 
 ## Budget Modification Rules
 
-| Modification Type | Threshold | Approval Required |
-|-------------------|-----------|-------------------|
+| Modification | Threshold | Approval |
+|--------------|-----------|----------|
 | Line item reallocation | < 10% of total | Usually internal |
-| Line item reallocation | > 10% of total | Prior approval from funder |
+| Line item reallocation | > 10% of total | Prior funder approval |
 | Scope change | Any | Prior approval required |
-| No-cost extension | N/A | Written request, usually 90 days before end |
+| No-cost extension | N/A | Written request ~90 days before end |
 | Key personnel change | Any | Prior approval required |
 
-## Budget Quality Checks
+## Quality Checks Before Submission
 
-Before submission, verify:
-
-- All math is correct (totals, percentages, multi-year calculations)
+- All math correct (totals, percentages, multi-year calculations)
 - Fringe rate matches organizational documentation
 - Travel costs align with federal per diem rates
-- Consultant rates are justified and reasonable
-- Indirect cost rate matches negotiated agreement or uses de minimis 10%
-- Match/cost share meets minimum requirements
-- Budget aligns with narrative (activities described have corresponding costs)
+- Consultant rates justified and reasonable
+- IDC rate matches negotiated agreement or uses de minimis 10%
+- Match meets minimum requirements
+- Budget aligns with narrative (every described activity has corresponding costs)
 
-## Common Pitfalls
+## Anti-Patterns
 
-### Unsupported Budget Items
-
-Wrong: "Consultant - $50,000"
-
-Right: "External Evaluator (Dr. Smith, PhD) - 200 hours at $250/hour = $50,000. Rate based on GSA schedule and comparable evaluator rates in the region. See attached CV and scope of work."
-
-### Budget-Narrative Mismatch
-
-Wrong: Narrative describes five staff positions; budget shows three.
-
-Right: Every position, activity, and deliverable in the narrative has a corresponding budget line item.
+- **Unsupported items** — "Consultant - $50,000" vs. "200 hours x $250/hr, rate per GSA schedule, see CV"
+- **Budget-narrative mismatch** — Every position, activity, and deliverable in narrative needs a budget line

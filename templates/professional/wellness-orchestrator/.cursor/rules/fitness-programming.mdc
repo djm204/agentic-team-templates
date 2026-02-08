@@ -5,123 +5,62 @@ alwaysApply: false
 
 # Fitness Programming
 
-Guidelines for exercise prescription, periodization, recovery protocols, and injury prevention within a whole-person wellness framework.
+Guidelines for exercise prescription, periodization, recovery, and injury prevention.
 
-## Programming Principles
+## Principles
 
-- **Readiness before intensity** - Always check the daily readiness score before prescribing workout intensity; never program a hard session on a low-readiness day
-- **Progressive overload with guardrails** - Increase training stress by no more than 10% week-over-week for volume or load; larger jumps invite injury
-- **Minimum effective dose** - Prescribe the least amount of training that produces measurable progress; more is not always better
-- **Movement quality before load** - Technique mastery at lighter loads precedes heavy loading; form breakdown under fatigue is a signal to stop the set
-- **Recovery is part of the program** - Deload weeks, rest days, and active recovery sessions are planned and scheduled, not reactive
+- **Readiness before intensity** — Check daily readiness score before prescribing intensity
+- **Progressive overload with guardrails** — Max 10% week-over-week increase in volume or load
+- **Minimum effective dose** — Prescribe least training that produces measurable progress
+- **Movement quality before load** — Technique mastery at lighter loads precedes heavy loading
+- **Recovery is part of the program** — Deloads, rest days, active recovery are planned, not reactive
 
-## Exercise Prescription Framework
+## Exercise Prescription
 
-| Parameter | Beginner (0-12 months) | Intermediate (1-3 years) | Advanced (3+ years) |
-|-----------|----------------------|------------------------|-------------------|
-| Weekly frequency | 2-3 full body sessions | 3-5 sessions (split) | 4-6 sessions (specialized split) |
-| Intensity (RPE) | 5-6 / 10 | 6-8 / 10 | 7-10 / 10 (periodized) |
-| Sets per muscle group per week | 6-10 | 10-16 | 14-22 |
-| Rep ranges | 8-15 (technique focus) | 6-12 (hypertrophy) + 3-6 (strength) | Mixed (periodized phases) |
-| Progression model | Add reps first, then load | Wave loading, double progression | Block periodization, conjugate methods |
+| Parameter | Beginner | Intermediate | Advanced |
+|-----------|----------|-------------|---------|
+| Frequency | 2-3 full body | 3-5 split | 4-6 specialized |
+| Intensity (RPE) | 5-6 | 6-8 | 7-10 (periodized) |
+| Sets/muscle/week | 6-10 | 10-16 | 14-22 |
 | Deload frequency | Every 6-8 weeks | Every 4-6 weeks | Every 3-5 weeks |
 
 ## Readiness-Based Session Selection
 
-| Readiness Score | Session Type | Volume Adjustment | Intensity Adjustment |
-|----------------|-------------|-------------------|---------------------|
-| 85-100 (Peak) | Heavy compounds, PR attempts, high-intensity intervals | 100% planned | 100% planned |
-| 70-84 (Good) | Normal training session as programmed | 100% planned | 100% planned |
-| 55-69 (Moderate) | Technique work, moderate loads, steady-state cardio | Reduce 20-30% | Reduce 10-20% |
-| 40-54 (Low) | Active recovery, mobility, light cardio | Reduce 50-60% | Cap at RPE 5 |
-| Below 40 (Rest) | Full rest day or gentle walk | No structured training | No structured training |
+| Readiness | Session Type | Adjustment |
+|-----------|-------------|------------|
+| 85-100 | Heavy compounds, PR attempts, HIIT | Full planned volume/intensity |
+| 70-84 | Normal training as programmed | Full planned |
+| 55-69 | Technique work, moderate loads | Reduce 20-30% volume |
+| 40-54 | Active recovery, mobility, light cardio | Reduce 50-60%, cap RPE 5 |
+| Below 40 | Full rest day or gentle walk | No structured training |
 
-## Periodization Structure
+## Periodization
 
-```text
-Mesocycle Rotation (typical annual plan)
-├── Accumulation Block (3-5 weeks)
-│   ├── Higher volume, moderate intensity
-│   ├── Build work capacity and muscle
-│   └── RPE 6-8 target
-├── Intensification Block (3-4 weeks)
-│   ├── Lower volume, higher intensity
-│   ├── Build maximal strength
-│   └── RPE 8-9 target
-├── Realization/Peak Block (1-2 weeks)
-│   ├── Low volume, high intensity
-│   ├── Test or compete
-│   └── RPE 9-10 on key lifts
-├── Deload (1 week between each block)
-│   ├── Volume at 40-60% of previous block
-│   ├── Intensity at 70-80% of previous block
-│   └── Focus: recovery, mobility, technique
-└── Active Recovery Phase (1-2 weeks annually)
-    ├── Unstructured movement and play
-    ├── Address accumulated imbalances
-    └── Mental refresh from structured training
-```
+- **Accumulation (3-5 wk):** Higher volume, moderate intensity (RPE 6-8)
+- **Intensification (3-4 wk):** Lower volume, higher intensity (RPE 8-9)
+- **Realization (1-2 wk):** Low volume, peak intensity (RPE 9-10)
+- **Deload (1 wk between blocks):** Volume 40-60%, intensity 70-80%, focus on recovery/mobility
 
-## Cardiovascular Training Integration
+## Recovery Triggers
 
-| Training Goal | Cardio Type | Frequency | Duration | Intensity |
-|--------------|------------|-----------|----------|-----------|
-| General health | Mixed (walk, bike, swim) | 3-5x/week | 20-40 min | Zone 2 (conversational pace) |
-| Fat loss support | Low-impact steady state | 2-4x/week | 30-45 min | Zone 2, post-resistance training |
-| Endurance building | Progressive long sessions | 3-5x/week | 30-90 min | Zone 2 base + Zone 4 intervals |
-| Strength athlete (minimize interference) | Walking, cycling | 2-3x/week | 20-30 min | Zone 1-2 only |
-| HIIT (conditioning) | Intervals (bike, row, sled) | 1-2x/week | 15-25 min | Zone 4-5 work, Zone 1-2 recovery |
+| Signal | Response |
+|--------|----------|
+| Readiness < 50 for 2+ days | Mandatory deload or rest until > 60 |
+| Soreness > 72 hours | Avoid loading that group; add foam rolling |
+| Resting HR elevated > 5 bpm for 3+ days | Reduce volume 50%, prioritize sleep |
+| HRV declining 5+ days | Active recovery only until baseline |
+| Joint pain (sharp, not DOMS) | Stop loading; seek professional assessment |
 
-## Recovery Protocol Triggers
+## Injury Prevention
 
-| Signal | Protocol | Duration |
-|--------|----------|----------|
-| Readiness score below 50 for 2+ days | Mandatory deload or rest days | Until readiness returns above 60 |
-| Persistent soreness in a muscle group > 72 hours | Avoid loading that group; add foam rolling and light stretching | Until soreness resolves to 3/10 or below |
-| Resting HR elevated > 5 bpm above baseline for 3+ days | Reduce all training volume 50%; prioritize sleep | 3-5 days minimum |
-| HRV trend declining for 5+ days | Switch to active recovery sessions only | Until HRV stabilizes at baseline |
-| Joint pain (sharp, not muscular DOMS) | Stop loading that joint; seek professional assessment | Until cleared |
-| Mood and motivation declining alongside training metrics | Full deload week with emphasis on enjoyable, unstructured movement | 5-7 days |
+- 5-10 min progressive warm-up every session
+- Track push/pull volume parity within 10% weekly
+- Include posterior chain work every training day
+- Mobility work minimum 3x/week targeting restrictions
+- Stay within 10% weekly volume increase; use RPE to auto-regulate
 
-## Injury Prevention Guidelines
+## Anti-Patterns
 
-| Area | Strategy | Frequency |
-|------|----------|-----------|
-| Warm-up | 5-10 min progressive: general movement, specific activation, ramp-up sets | Every session |
-| Push/pull balance | Track weekly volume parity between pushing and pulling movements within 10% | Weekly audit |
-| Posterior chain work | Include glute, hamstring, and upper back exercises every training day | Every session |
-| Mobility work | Target individual restrictions (hip, thoracic spine, ankle, shoulder) | Minimum 3x/week |
-| Load management | Stay within 10% weekly volume increase; use RPE to auto-regulate | Per session |
-| Cool-down | 5 min light movement + static stretching for worked muscle groups | Every session |
-
-## Common Pitfalls
-
-### 1. Program Hopping
-
-Wrong: Switch training programs every 2-3 weeks because progress is not immediately visible.
-
-Right: Commit to a well-designed program for a minimum of 6-8 weeks before evaluating effectiveness. Adaptation takes time.
-
-### 2. Ignoring Readiness Signals
-
-Wrong: Follow the program exactly as written regardless of sleep quality, stress, or soreness.
-
-Right: Use readiness scores to auto-regulate daily intensity. The program is a plan, not a contract. Adjust based on the body's signals.
-
-### 3. Skipping Deloads
-
-Wrong: Train at maximum intensity for 12+ weeks without a planned recovery week.
-
-Right: Schedule deload weeks every 4-8 weeks depending on training experience. Fitness is built during recovery, not during the workout.
-
-### 4. Cardio as Punishment
-
-Wrong: Add extra cardio sessions as punishment for dietary lapses or to "earn" food.
-
-Right: Program cardio for cardiovascular health, endurance, and recovery. Separate exercise from food morality entirely.
-
-### 5. Neglecting Movement Quality
-
-Wrong: Add weight to the bar when the current load produces compensatory movement patterns.
-
-Right: Film key lifts periodically. Only progress load when form is consistent across all working sets. Technique is a long-term investment in injury-free training.
+- **Program hopping** — Commit minimum 6-8 weeks before evaluating
+- **Ignoring readiness** — The program is a plan, not a contract; adjust based on signals
+- **Skipping deloads** — Fitness is built during recovery, not the workout

@@ -9,87 +9,53 @@ Rules for creating, layering, and maintaining summaries across the knowledge bas
 
 ## Summarization Pyramid
 
-Summaries exist at five levels. Each level compresses the one below it:
-
 | Level | Name | Scope | Target Length |
 |-------|------|-------|---------------|
 | 0 | Raw Source | Full original text | Unmodified |
-| 1 | Extracted Notes | Key passages and quotes per source | 10-20% of original |
-| 2 | Atomic Summaries | One-paragraph summary per concept | 50-150 words |
-| 3 | Topic Summaries | Multi-source synthesis per topic | 1-2 pages |
-| 4 | Domain Overviews | Comprehensive survey of a research area | 5-10 pages |
-| 5 | Executive Brief | Cross-domain strategic summary | 1 page max |
+| 1 | Extracted Notes | Key passages per source | 10-20% of original |
+| 2 | Atomic Summaries | One-paragraph per concept | 50-150 words |
+| 3 | Topic Summaries | Multi-source synthesis | 1-2 pages |
+| 4 | Domain Overviews | Research area survey | 5-10 pages |
+| 5 | Executive Brief | Cross-domain strategic | 1 page max |
 
-## Progressive Summarization Process
+## Progressive Summarization
 
-Apply layers sequentially. Do not skip levels.
+Apply layers sequentially (do not skip):
+1. **Capture** — Save full source unmodified
+2. **Bold** — Mark most important passages (10-20%)
+3. **Highlight** — Within bolded, highlight core insight (2-5%)
+4. **Summary** — Write 2-3 sentence summary in own words
+5. **Remix** — Combine with other notes into original output
 
-1. **Layer 0 - Capture**: Save the full source. No modification.
-2. **Layer 1 - Bold**: Mark the most important passages (10-20% of text).
-3. **Layer 2 - Highlight**: Within bolded passages, highlight the core insight (2-5%).
-4. **Layer 3 - Summary**: Write a 2-3 sentence summary in your own words.
-5. **Layer 4 - Remix**: Combine with other notes into original output.
-
-Not every source needs all layers. Apply deeper layers only when you return to a source repeatedly.
+Not every source needs all layers. Go deeper only when you return to a source repeatedly.
 
 ## Quality Criteria
 
-Every summary must satisfy:
-
-- [ ] **Accurate** - No factual errors. Verify against source.
-- [ ] **Complete** - All key claims from the source are represented.
-- [ ] **Concise** - Within target word count. No redundancy.
-- [ ] **Attributed** - Every claim traceable to a specific source and location.
-- [ ] **Neutral** - No opinion injected unless explicitly labeled as commentary.
-- [ ] **Coherent** - Reads logically from start to finish.
-
-## Topic Summary Template
-
-```
-## Topic Summary: [Name]
-
-Last Updated: [YYYY-MM-DD]
-Sources Synthesized: [count]
-Confidence: [High / Medium / Low]
-
-### Definition
-[2-3 sentences defining the topic]
-
-### Key Claims
-1. [Claim] - supported by [sources]
-2. [Claim] - challenged by [sources]
-
-### Open Questions
-- [Unresolved question]
-
-### Related Topics
-- [[Topic A]] - [relationship]
-
-### Change Log
-| Date | Change | Trigger |
-|------|--------|---------|
-```
+- **Accurate** — No factual errors; verify against source
+- **Complete** — All key claims preserved
+- **Concise** — Within target word count, no redundancy
+- **Attributed** — Every claim traceable to source and location
+- **Neutral** — No opinion unless explicitly labeled
+- **Coherent** — Logical flow, no non sequiturs
 
 ## When to Summarize
 
-- **On ingestion**: Create Level 1 (extracted notes) for every new source
-- **On second encounter**: Promote to Level 2 (atomic summary)
-- **On third encounter or deliberate review**: Create Level 3 (topic summary)
-- **On project kickoff**: Build Level 4 (domain overview) for the project's domain
-- **On request**: Generate Level 5 (executive brief) for stakeholder communication
+- **On ingestion:** Level 1 (extracted notes) for every new source
+- **On second encounter:** Promote to Level 2 (atomic summary)
+- **On third encounter:** Create Level 3 (topic summary)
+- **On project kickoff:** Build Level 4 (domain overview)
+- **On request:** Generate Level 5 (executive brief)
 
-## Maintenance Rules
+## Maintenance
 
-- Update topic summaries when any underlying source is added or revised
-- Mark summaries with a "stale" flag if underlying notes changed and summary has not
+- Update topic summaries when underlying sources change
+- Flag summaries as "stale" if underlying notes changed
 - Re-verify accuracy of summaries older than 6 months
-- Never delete a summary; supersede it and link to the replacement
-- Track summary freshness: `last_updated` vs `latest_source_change`
+- Never delete a summary; supersede and link to replacement
 
-## Summarization Anti-Patterns
+## Anti-Patterns
 
 - Summarizing without reading the full source first
-- Using the source's exact words instead of paraphrasing
-- Creating a summary that cannot stand alone without the source
-- Omitting contradictory evidence to make the summary cleaner
-- Failing to update summaries when new evidence arrives
+- Using source's exact words instead of paraphrasing
+- Creating summaries that can't stand alone without the source
+- Omitting contradictory evidence to make summaries cleaner

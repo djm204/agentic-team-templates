@@ -7,79 +7,41 @@ alwaysApply: false
 
 Guidelines for researching, evaluating, and tracking grant opportunities.
 
-## Research Strategy
+## Research Sources
 
-```text
-Funding Landscape Analysis
-├── Federal Grants
-│   ├── Grants.gov (primary database)
-│   ├── Federal Register notices
-│   ├── Agency-specific portals (NIH Reporter, NSF Award Search)
-│   └── Sam.gov (entity registration)
-├── State and Local Grants
-│   ├── State grant portals
-│   ├── Municipal RFPs
-│   └── Regional planning commissions
-├── Foundation Grants
-│   ├── Foundation Directory Online
-│   ├── Candid/GuideStar
-│   ├── 990 Finder (tax return analysis)
-│   └── Funder websites and annual reports
-└── Corporate Grants
-    ├── Corporate giving programs
-    ├── CSR reports
-    └── Industry-specific programs
-```
+- **Federal:** Grants.gov, Federal Register, agency portals (NIH Reporter, NSF Award Search), Sam.gov
+- **State/Local:** State grant portals, municipal RFPs, regional planning commissions
+- **Foundation:** Foundation Directory Online, Candid/GuideStar, 990 Finder, funder websites/annual reports
+- **Corporate:** Corporate giving programs, CSR reports, industry-specific programs
 
-## Funder Alignment Assessment
+## Funder Alignment Scorecard
 
-Use a scorecard to evaluate fit before investing time in a proposal:
+Evaluate fit before investing time in a proposal (score each 1-5):
 
-| Criterion | Score (1-5) | Notes |
-|-----------|-------------|-------|
-| Mission alignment | | |
-| Geographic focus match | | |
-| Population served match | | |
-| Funding range appropriate | | |
-| Eligible applicant type | | |
-| Timeline feasibility | | |
-| Capacity to meet requirements | | |
-| Past relationship with funder | | |
+- Mission alignment
+- Geographic focus match
+- Population served match
+- Funding range appropriate
+- Eligible applicant type
+- Timeline feasibility
+- Capacity to meet requirements
+- Past relationship with funder
 
-**Scoring Guide:**
-- 32-40: Strong fit - prioritize
-- 24-31: Good fit - pursue if capacity allows
-- 16-23: Marginal fit - consider carefully
-- Below 16: Poor fit - do not pursue
+**Scoring:** 32-40 strong fit (prioritize), 24-31 good fit (pursue if capacity allows), 16-23 marginal (consider carefully), below 16 poor fit (skip).
 
-## Funding Calendar
+## Funding Pipeline Tracker
 
-Maintain a pipeline tracker:
-
-| Opportunity | Funder | Deadline | Amount | Status | Lead |
-|-------------|--------|----------|--------|--------|------|
-| [Grant Name] | [Funder] | [Date] | [Range] | Researching/Writing/Submitted | [Name] |
+Maintain: opportunity name, funder, deadline, amount range, status (researching/writing/submitted), and lead person.
 
 ## Pre-Submission Intelligence
 
 Before writing, gather:
-
 - Previous awardees (who won and what they proposed)
 - Funded amounts (typical award sizes)
-- Reviewer profiles (who evaluates proposals)
-- Program officer contact (relationship building)
+- Reviewer profiles and program officer contact
 - Success rates (how competitive is this opportunity)
 
-## Common Pitfalls
+## Anti-Patterns
 
-### Chasing Every Opportunity
-
-Wrong: Apply to everything that's remotely related.
-
-Right: Be selective. A focused portfolio of well-aligned proposals beats a scatter-shot approach.
-
-### Ignoring the Funder's History
-
-Wrong: Write a generic proposal without researching the funder.
-
-Right: Study past awards, read the funder's strategic plan, and tailor your approach.
+- **Chasing every opportunity** — A focused portfolio of well-aligned proposals beats scatter-shot
+- **Ignoring funder history** — Study past awards, read the funder's strategic plan, tailor your approach
