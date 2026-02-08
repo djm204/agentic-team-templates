@@ -5,81 +5,48 @@ alwaysApply: false
 
 # Demand Prediction
 
-Guidelines for forecasting resource demand across multiple time horizons and operating conditions.
+Guidelines for forecasting resource demand across multiple time horizons.
 
 ## Forecasting Pipeline
 
-```text
 Data Collection → Feature Engineering → Model Selection → Validation → Deployment → Monitoring
-```
 
-1. **Data Collection**: Aggregate historical demand, calendar events, weather, and external signals
-2. **Feature Engineering**: Extract seasonality, day-of-week effects, holiday indicators, lag features
-3. **Model Selection**: Choose method based on data availability, horizon, and volatility
-4. **Validation**: Backtest against held-out periods; measure MAPE, bias, and peak detection rate
-5. **Deployment**: Integrate forecast into allocation optimizer with confidence intervals
-6. **Monitoring**: Track forecast accuracy in production; trigger retraining when drift detected
-
-## Forecasting Methods by Horizon
+## Methods by Horizon
 
 | Horizon | Methods | Update Frequency |
 |---------|---------|-----------------|
-| Immediate (0-4 hours) | Exponential smoothing, recent trend extrapolation | Every 15-30 minutes |
-| Short-term (4-24 hours) | ARIMA, gradient boosting with real-time features | Every 1-2 hours |
-| Medium-term (1-7 days) | Prophet, SARIMA with calendar features | Daily |
-| Long-term (1-12 months) | Regression models, demographic trends, scenario planning | Weekly to monthly |
+| Immediate (0-4h) | Exponential smoothing, trend extrapolation | Every 15-30 min |
+| Short-term (4-24h) | ARIMA, gradient boosting with real-time features | Every 1-2 hours |
+| Medium-term (1-7d) | Prophet, SARIMA with calendar features | Daily |
+| Long-term (1-12mo) | Regression, demographic trends, scenario planning | Weekly to monthly |
 
 ## Demand Signal Categories
 
-### Deterministic Signals
-
-Scheduled and predictable: appointments, planned events, seasonal patterns, regulatory deadlines. These should be captured with near-perfect accuracy.
-
-### Stochastic Signals
-
-Random but statistically patterned: walk-in arrivals, equipment failures, emergency calls. Model with probability distributions, not point estimates.
-
-### Shock Events
-
-Rare, high-impact disruptions: mass casualty incidents, natural disasters, pandemic surges. Cannot be predicted by time-series models. Handle with scenario planning and pre-defined crisis protocols.
+- **Deterministic**: Scheduled events, seasonal patterns, regulatory deadlines — capture with near-perfect accuracy
+- **Stochastic**: Walk-ins, equipment failures, emergencies — model with probability distributions, not point estimates
+- **Shock events**: Disasters, pandemics — cannot predict with time-series; handle with scenario planning and crisis protocols
 
 ## Accuracy Targets
 
 | Metric | Target | Action if Missed |
 |--------|--------|-----------------|
-| MAPE (4-hour window) | < 15% | Review feature set, check for data quality issues |
-| MAPE (24-hour window) | < 20% | Acceptable; improve with additional external features |
-| Bias (systematic over/under) | Within +/- 3% | Recalibrate model; check for population or process changes |
-| Peak detection rate | > 90% | Add leading indicators; review threshold sensitivity |
-| False alarm rate | < 10% | Increase confirmation requirements before surge alert |
+| MAPE (4-hour) | < 15% | Review features, check data quality |
+| MAPE (24-hour) | < 20% | Add external features |
+| Bias | Within ±3% | Recalibrate; check for process changes |
+| Peak detection | > 90% | Add leading indicators |
+| False alarm rate | < 10% | Increase confirmation requirements |
 
-## Feature Importance
+## Key Predictors
 
-Key predictors to include in demand models:
-
-- **Time features**: Hour of day, day of week, month, holiday flags
-- **Weather**: Temperature extremes, precipitation, severe weather warnings
-- **Events**: Scheduled local events, school calendars, sports schedules
+- **Time features**: Hour, day of week, month, holiday flags
+- **Weather**: Temperature extremes, precipitation, severe warnings
+- **Events**: Local events, school calendars, sports schedules
 - **Lagged demand**: Same hour yesterday, same day last week, same period last year
-- **Upstream signals**: Emergency call volumes, clinic referral rates, pre-hospital data
-- **Capacity state**: Current utilization may suppress apparent demand (turned-away patients)
+- **Upstream signals**: Emergency call volumes, referral rates, pre-hospital data
+- **Capacity state**: Current utilization may suppress apparent demand (censoring)
 
 ## Common Pitfalls
 
-### Confusing Demand with Throughput
-
-Wrong: Use historical throughput (patients served) as a proxy for demand.
-
-Right: Throughput is demand filtered through capacity constraints. If you were full, unmet demand is invisible in throughput data. Adjust for censoring.
-
-### Ignoring Regime Changes
-
-Wrong: Train on five years of data and assume patterns are stationary.
-
-Right: Monitor for structural breaks (new facility opened, policy change, population shift). Weight recent data more heavily or segment models by regime.
-
-### Point Forecasts Without Uncertainty
-
-Wrong: Predict "42 arrivals next shift" with no confidence interval.
-
-Right: Provide prediction intervals. "42 arrivals, 80% CI [35, 51]" tells the scheduler how much slack to plan for.
+- **Confusing demand with throughput**: Throughput is demand filtered by capacity — adjust for censoring when at capacity
+- **Ignoring regime changes**: Monitor for structural breaks; weight recent data more heavily or segment by regime
+- **Point forecasts without uncertainty**: Always provide prediction intervals (e.g., "42 arrivals, 80% CI [35, 51]")

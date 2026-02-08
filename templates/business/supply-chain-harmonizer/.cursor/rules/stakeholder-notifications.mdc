@@ -9,25 +9,22 @@ Guidelines for cascading disruption communications to the right people through t
 
 ## Notification Cascade
 
-Notifications are tiered by urgency and audience:
-
 | Tier | Timing | Recipients |
 |------|--------|-----------|
-| Immediate | < 15 minutes | Operations control center, affected warehouse managers, on-call supply chain lead |
-| Fast | < 1 hour | Procurement (if supplier-related), logistics partners, customer service, VP Supply Chain (S1/S2) |
-| Standard | < 4 hours | Affected retailers and key accounts, sales team, finance team, executive leadership (S1 only) |
+| Immediate | < 15 min | Operations control center, affected warehouse managers, on-call SC lead |
+| Fast | < 1 hour | Procurement (if supplier-related), logistics partners, customer service, VP SC (S1/S2) |
+| Standard | < 4 hours | Affected retailers/key accounts, sales team, finance team, exec leadership (S1) |
 | Periodic | Daily until resolved | Status update to all previously notified parties |
 
 ## Channel Selection
 
-| Stakeholder | S1 Channel | S2 Channel | S3+ Channel |
-|------------|-----------|-----------|------------|
-| Executive leadership | Phone + SMS + Email | Email + Dashboard | Dashboard only |
-| Operations team | SMS + Slack + Dashboard | Slack + Dashboard | Dashboard only |
+| Stakeholder | S1 | S2 | S3+ |
+|------------|-----|-----|-----|
+| Executive leadership | Phone + SMS + Email | Email + Dashboard | Dashboard |
+| Operations team | SMS + Slack + Dashboard | Slack + Dashboard | Dashboard |
 | Warehouse managers | SMS + WMS alert | WMS alert + Email | WMS alert |
-| Logistics partners | API + Email + Phone | API + Email | API notification |
-| Retailers and customers | Phone + Email | Email | Email (if ETA changes) |
-| Finance team | Email | Email | Weekly report |
+| Logistics partners | API + Email + Phone | API + Email | API |
+| Retailers/customers | Phone + Email | Email | Email (if ETA changes) |
 
 Higher severity always uses higher-urgency channels. Never send an S1 notification by email alone.
 
@@ -35,55 +32,30 @@ Higher severity always uses higher-urgency channels. Never send an S1 notificati
 
 Every disruption notification must include:
 
-1. **What happened**: Clear, factual description of the disruption
-2. **What is affected**: Specific routes, shipments, SKUs, or orders impacted
-3. **What we are doing**: Actions already taken (autonomous) and actions planned
+1. **What happened**: Clear, factual description
+2. **What is affected**: Specific routes, shipments, SKUs, or orders
+3. **What we are doing**: Actions taken and actions planned
 4. **Revised timeline**: Updated ETAs or service level expectations
-5. **What they need to do**: Specific decisions or actions required from the recipient
+5. **What they need to do**: Decisions or actions required from the recipient
 6. **Next update**: When the next communication will be sent
 
-Avoid jargon with external stakeholders. Retailers do not need to know which rerouting algorithm was used; they need to know when their order arrives.
+Avoid jargon with external stakeholders — retailers need delivery dates, not algorithm names.
 
 ## Escalation Rules
 
-- If a notification is not acknowledged within 30 minutes (S1) or 2 hours (S2), automatically escalate to the next level in the recipient's chain of command
-- If three consecutive S3+ disruptions affect the same stakeholder within 30 days, schedule a proactive resilience review call
-- If the recovery timeline extends beyond the initial estimate by more than 50%, send an updated notification immediately regardless of the periodic schedule
+- No acknowledgment within 30 min (S1) or 2 hrs (S2) → auto-escalate to next level in chain of command
+- Three S3+ disruptions affecting same stakeholder in 30 days → proactive resilience review call
+- Recovery timeline extends > 50% beyond estimate → immediate updated notification regardless of schedule
 
-## Notification Fatigue Prevention
+## Fatigue Prevention
 
-- **Role-based filtering**: Each stakeholder role has a defined severity threshold; do not send below it
-- **Aggregation**: Multiple S4/S5 events in the same region within a 24-hour window are batched into a single daily summary
-- **Deduplication**: If the same disruption is detected from multiple sources, send one notification, not one per source
-- **Quiet hours**: S4 and S5 notifications respect business hours unless they escalate to S3+
-
-## Feedback Loop
-
-After every S1 or S2 disruption, survey notification recipients:
-
-- Was the notification timely?
-- Was the information sufficient for decision-making?
-- Was the channel appropriate?
-- What would you change?
-
-Incorporate feedback into cascade configuration quarterly.
+- **Role-based filtering**: Each role has a severity threshold; do not send below it
+- **Aggregation**: Multiple S4/S5 events in same region within 24 hrs → single daily summary
+- **Deduplication**: One notification per disruption, not one per detection source
+- **Quiet hours**: S4/S5 respect business hours unless they escalate
 
 ## Common Pitfalls
 
-### Notifying Everyone About Everything
-
-Wrong: Send every disruption alert to every stakeholder. Executives receive 50 supply chain notifications a day.
-
-Right: Match notification severity to stakeholder role. Executives see only S1 and S2. Warehouse managers see only events affecting their location.
-
-### Technical Jargon in Customer Communications
-
-Wrong: Tell a retailer that "AIS data indicates vessel diversion from Ningbo to Busan due to typhoon-class weather event affecting East China Sea shipping lanes."
-
-Right: Tell a retailer that "Due to severe weather, your shipment is being rerouted and the revised delivery date is [date]. No action is needed from you at this time."
-
-### Missing the Periodic Update
-
-Wrong: Send the initial disruption alert and then go silent until the problem is resolved.
-
-Right: Send daily updates for the duration of the disruption, even if the update is "no change from yesterday." Silence breeds uncertainty.
+- **Notifying everyone about everything**: Match severity to role — executives see only S1/S2
+- **Technical jargon in customer comms**: "Your shipment is rerouted, revised delivery is [date]" not AIS vessel data
+- **Missing periodic updates**: Send daily updates even if "no change" — silence breeds uncertainty

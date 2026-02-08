@@ -5,91 +5,59 @@ alwaysApply: false
 
 # Personnel Scheduling and Shift Optimization
 
-Guidelines for building and maintaining staff schedules that balance coverage, fairness, and human endurance.
+Guidelines for building staff schedules that balance coverage, fairness, and human endurance.
 
 ## Scheduling Layers
 
-```text
-Strategic (months) → Tactical (weeks) → Operational (hours/real-time)
-```
+- **Strategic** (months): Headcount planning, hiring pipeline, training, leave allocation
+- **Tactical** (weeks): Shift rosters, on-call rotations, overtime pre-authorization
+- **Operational** (hours/real-time): No-show backfill, demand-driven redeployment, crisis activation
 
-- **Strategic**: Headcount planning, hiring pipeline, training schedules, leave allocation
-- **Tactical**: Shift roster generation, on-call rotations, overtime pre-authorization
-- **Operational**: No-show backfill, demand-driven redeployment, crisis staffing activation
-
-## Hard Constraints
-
-These must never be violated by the scheduler:
+## Hard Constraints (never violate)
 
 | Constraint | Rationale |
 |-----------|-----------|
-| Maximum shift length (e.g., 12 hours) | Fatigue degrades decision-making and safety |
-| Minimum rest between shifts (e.g., 10 hours) | Recovery time prevents compounding errors |
-| Weekly hour limits (e.g., 60 hours) | Regulatory compliance and burnout prevention |
-| Minimum staffing ratios per shift | Regulatory and safety floor |
-| Certification match for role | Only qualified personnel in certified positions |
+| Max shift length (e.g., 12h) | Fatigue degrades safety |
+| Min rest between shifts (e.g., 10h) | Recovery prevents errors |
+| Weekly hour limits (e.g., 60h) | Regulatory compliance, burnout prevention |
+| Min staffing ratios per shift | Regulatory and safety floor |
+| Certification match | Only qualified personnel in certified positions |
 
-## Soft Constraints
+## Soft Constraints (optimize toward)
 
-Optimize toward these; violate with documented tradeoff:
+- Shift preference honoring > 80%
+- Seniority balance across shifts
+- Overtime equity among willing staff
+- Team continuity > 70% same composition
 
-| Constraint | Target | Tracking |
-|-----------|--------|----------|
-| Shift preference honoring | > 80% of requests | Monthly satisfaction survey |
-| Seniority balance across shifts | Even distribution | Standard deviation of seniority per shift |
-| Overtime equity | Spread equally among willing staff | Variance in overtime hours per person |
-| Team continuity | Same team composition > 70% of shifts | Team stability index |
-| Commute fairness | No systematic site assignment by distance | Assignment distribution audit |
+## Fatigue Risk Levels
 
-## Fatigue Risk Model
-
-```text
-Green  → Normal operations, adequate rest, standard shifts
-Yellow → Extended shift or short turnaround; monitor closely
-Orange → Consecutive extended shifts; restrict safety-critical tasks
-Red    → Approaching regulatory limits; mandatory stand-down
-```
-
-Track fatigue score per individual. Inputs: hours worked in last 24h, 48h, 7 days; time since last full rest period; shift timing (night shifts accumulate fatigue faster).
+- **Green**: Standard shifts, adequate rest
+- **Yellow**: Extended shift or short turnaround — monitor closely
+- **Orange**: Consecutive extended shifts — restrict safety-critical tasks
+- **Red**: Approaching regulatory limits — mandatory stand-down
 
 ## Schedule Quality Metrics
 
-| Metric | Target | Why It Matters |
-|--------|--------|---------------|
-| Coverage ratio | 100% of minimum staffing | Unfilled positions create safety gaps |
-| Overtime percentage | < 8% of total hours | High overtime signals understaffing |
-| Vacancy fill time | < 4 hours for critical roles | Prolonged gaps increase risk |
-| Schedule stability | < 15% post-publication changes | Frequent changes erode trust and morale |
-| Preference satisfaction | > 80% | Retention and engagement driver |
-| Fatigue incidents | Zero tolerance | Any fatigue-related error triggers review |
+| Metric | Target |
+|--------|--------|
+| Coverage ratio | 100% of minimum staffing |
+| Overtime percentage | < 8% of total hours |
+| Vacancy fill time | < 4 hours for critical roles |
+| Schedule stability | < 15% post-publication changes |
+| Preference satisfaction | > 80% |
 
 ## Backfill Protocol
 
-When an absence is detected:
-
-1. Check internal float pool availability
+1. Check internal float pool
 2. Offer overtime to qualified on-site staff (respect fatigue limits)
 3. Activate on-call personnel
-4. Request cross-site transfer via coordination platform
-5. Engage agency or contract staff (pre-approved roster)
-6. If unfilled: escalate to operations manager, document gap and risk
+4. Request cross-site transfer
+5. Engage agency/contract staff (pre-approved roster)
+6. Escalate to operations manager if unfilled; document gap and risk
 
 ## Common Pitfalls
 
-### Treating People as Interchangeable
-
-Wrong: Any warm body fills any slot.
-
-Right: Match certifications, experience level, and team dynamics. A pediatric nurse is not an ICU nurse. A probationary firefighter is not a hazmat technician.
-
-### Ignoring Schedule Fatigue in Crisis
-
-Wrong: During a surge, schedule 16-hour shifts for a week straight.
-
-Right: Even in crisis, rotate rest periods. Fatigued responders make errors that compound the crisis. Build relief rotations into every crisis staffing plan.
-
-### Optimizing Only for Cost
-
-Wrong: Minimize total labor cost as the sole objective.
-
-Right: Multi-objective optimization: cost, coverage, fatigue risk, equity, and employee satisfaction. Cheap schedules with high turnover are expensive in the long run.
+- **Treating people as interchangeable**: Match certifications, experience, and team dynamics
+- **Ignoring fatigue in crisis**: Rotate rest periods even during surges — fatigued responders compound crises
+- **Optimizing only for cost**: Multi-objective: cost, coverage, fatigue, equity, satisfaction

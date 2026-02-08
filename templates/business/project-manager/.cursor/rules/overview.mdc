@@ -9,91 +9,45 @@ Principal-level guidelines for disciplined project planning and execution.
 
 ## Scope
 
-This ruleset applies to:
-
 - Project initiation and charter development
 - Scope management and WBS creation
 - Risk and issue tracking (RAID logs)
 - Schedule planning and critical path management
-- Team coordination and resource allocation
-- Status reporting and dashboards
-- Change control processes
-- Lessons learned and project closure
+- Stakeholder coordination and status reporting
+- Change control and lessons learned
 
 ## Core Philosophy
 
-**Projects succeed through disciplined planning, transparent communication, and rigorous scope control.** Every project artifact should trace back to the charter's objectives and success criteria.
+Projects succeed through disciplined planning, transparent communication, and rigorous scope control. Every artifact traces back to charter objectives.
 
 ## Fundamental Principles
 
-### 1. Plan Before Executing
-
-Invest time in upfront planning. A well-decomposed WBS prevents scope creep and estimation failures downstream.
-
-```markdown
-Wrong: "Let's just start building and figure it out as we go"
-Right: "Let's decompose the scope into work packages before we estimate or schedule"
-```
-
-### 2. Guard the Baseline
-
-Once the scope, schedule, and budget baselines are set, all changes go through formal change control. No exceptions.
-
-### 3. Risks Are Managed, Not Ignored
-
-Identify risks early, assess them objectively, plan responses, and track them weekly. A risk register is a living document.
-
-### 4. Communicate Relentlessly
-
-Stakeholder misalignment is the most common cause of project failure. Over-communicate status, risks, and decisions.
-
-### 5. Measure Progress Objectively
-
-Use earned value metrics and milestone tracking, not gut feelings, to assess project health.
-
-## Project Structure
-
-```text
-project/
-├── initiation/
-│   ├── charter.md                # Project charter
-│   ├── stakeholder-register.md   # Stakeholder analysis
-│   └── business-case.md          # Justification
-├── planning/
-│   ├── wbs.md                    # Work breakdown structure
-│   ├── schedule.md               # Timeline and milestones
-│   ├── raci.md                   # Responsibility matrix
-│   ├── risk-register.md          # Risk register
-│   ├── communication-plan.md     # Stakeholder comms plan
-│   └── change-control.md         # Change management process
-├── execution/
-│   ├── status-reports/           # Weekly status reports
-│   ├── meeting-notes/            # Meeting minutes
-│   └── deliverables/             # Work products
-├── monitoring/
-│   ├── raid-log.md               # Risks, assumptions, issues, dependencies
-│   ├── change-requests/          # Formal change requests
-│   └── dashboards/               # Project dashboards
-└── closure/
-    ├── lessons-learned.md        # Retrospective findings
-    ├── final-report.md           # Project closure report
-    └── archive/                  # Archived documentation
-```
+- **Plan Before Executing**: Decompose the WBS before estimating or scheduling
+- **Guard the Baseline**: All scope/schedule/budget changes go through formal change control
+- **Manage Risks Proactively**: Identify early, assess objectively, plan responses, track weekly
+- **Communicate Relentlessly**: Stakeholder misalignment is the top cause of project failure
+- **Measure Objectively**: Use earned value metrics and milestone tracking, not gut feelings
 
 ## Decision Framework
 
-When evaluating any project decision:
+For any project decision, evaluate:
 
-1. **Scope Impact**: Does this change the project baseline?
-2. **Risk Exposure**: Does this introduce or increase risk?
-3. **Stakeholder Alignment**: Have affected parties been consulted?
-4. **Resource Availability**: Do we have the capacity to execute?
-5. **Trade-off Transparency**: What are we giving up to do this?
+1. **Scope Impact** — Does this change the baseline?
+2. **Risk Exposure** — Does this introduce or increase risk?
+3. **Stakeholder Alignment** — Have affected parties been consulted?
+4. **Resource Availability** — Do we have capacity to execute?
+5. **Trade-off Transparency** — What are we giving up?
 
 ## Communication Standards
 
-- Lead status reports with the overall RAG status
-- Quantify impacts (days delayed, dollars at risk) rather than using vague language
+- Lead status reports with overall RAG status
+- Quantify impacts (days delayed, dollars at risk) — no vague language
 - Escalate early with proposed solutions, not just problems
 - Document all decisions with rationale and participants
-- Tailor communication depth to audience (executives get summaries, teams get details)
+- Tailor depth to audience: executives get summaries, teams get details
+
+## Common Pitfalls
+
+- **Planning without decomposition**: Build a WBS first, then schedule bottom-up
+- **Optimistic estimation**: Use three-point: (Optimistic + 4×MostLikely + Pessimistic) / 6
+- **Hiding problems in reports**: Use AMBER early; escalate risks before they become issues

@@ -11,11 +11,11 @@ Guidelines for identifying, classifying, and escalating market risk signals.
 
 | Category | Examples | Primary Sources |
 |----------|----------|----------------|
-| Competitive | New entrant, pricing war, feature parity | News, filings, product launches |
-| Regulatory | New legislation, enforcement actions | Government sites, legal databases |
-| Reputational | Customer backlash, executive scandal | Social media, review platforms |
+| Competitive | New entrant, pricing war, feature parity | News, filings, launches |
+| Regulatory | New legislation, enforcement actions | Government sites, legal DBs |
+| Reputational | Customer backlash, executive scandal | Social media, reviews |
 | Financial | Credit downgrade, liquidity concern | Financial data, credit agencies |
-| Geopolitical | Trade restrictions, sanctions, conflict | Wire services, government alerts |
+| Geopolitical | Trade restrictions, sanctions, conflict | Wire services, govt alerts |
 | Technology | Disruption, security breach, obsolescence | Tech press, CVE databases |
 | Supply chain | Supplier failure, logistics disruption | Shipping data, supplier news |
 
@@ -33,59 +33,31 @@ Low Prob.     Log           Log              Monitor        Escalate
 | Severity | Response Time | Notification | Action |
 |----------|--------------|-------------|--------|
 | Critical | < 30 minutes | Executive team | War room, containment plan |
-| High | < 2 hours | Senior leadership | Investigation, mitigation plan |
+| High | < 2 hours | Senior leadership | Investigation, mitigation |
 | Medium | < 24 hours | Department heads | Analysis, options memo |
-| Low | Next reporting cycle | Team leads | Log, include in periodic report |
+| Low | Next report cycle | Team leads | Log, include in periodic report |
 
 ## Early Warning Indicators
-
-Watch for these leading indicators of risk:
 
 - **Executive departures** at competitors or partners (3+ in 6 months)
 - **Patent litigation surge** in your technology domain
 - **Regulatory comment periods** on rules affecting your industry
 - **Credit rating watch** on key suppliers or customers
-- **Unusual trading volume** in your sector before announcements
+- **Unusual trading volume** in sector before announcements
 - **Employee sentiment decline** on Glassdoor/Blind for key partners
 
 ## Risk Signal Template
 
 ```markdown
 ## Risk Signal: [Title]
-
-**Date Detected**: [Date]
 **Severity**: [Critical/High/Medium/Low]
-**Category**: [Category]
-**Source**: [Source with link]
+**Category**: [Category] | **Source**: [Source]
 
-### Description
-[What was detected and why it matters]
-
-### Corroboration
-- [Supporting source 1]
-- [Supporting source 2]
-
-### Potential Impact
-[Quantified if possible: revenue at risk, timeline, affected operations]
-
-### Recommended Response
-[Specific action with owner and deadline]
-
-### Monitoring
-- Reassess by: [Date]
-- Escalation trigger: [Condition]
+### Description / Potential Impact / Recommended Response
+[What was detected, quantified impact, action with owner]
 ```
 
 ## Common Pitfalls
 
-### Crying Wolf
-
-Wrong: Escalate every negative signal as critical.
-
-Right: Use the severity matrix consistently. Reserve "critical" for genuine emergencies.
-
-### Normalizing Risk
-
-Wrong: Accept persistent medium-risk signals as background noise.
-
-Right: Track risk signal duration. A medium risk that persists for 90+ days needs reassessment.
+- **Crying wolf**: Escalate every negative signal as critical. Use the severity matrix consistently; reserve "critical" for genuine emergencies.
+- **Normalizing risk**: Accept persistent medium-risk signals as background noise. Track duration; reassess anything persisting 90+ days.

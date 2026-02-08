@@ -5,113 +5,62 @@ alwaysApply: false
 
 # Deal Structuring
 
-Guidelines for structuring M&A deals, joint ventures, and complex commercial agreements to optimize value and manage risk.
-
-## Deal Structure Decision Tree
-
-```text
-Structuring Decisions
-├── Transaction Type
-│   ├── Asset purchase vs. stock purchase
-│   ├── Merger vs. acquisition
-│   ├── Joint venture vs. strategic alliance
-│   └── Licensing vs. outright purchase
-├── Consideration Mix
-│   ├── Cash vs. stock vs. hybrid
-│   ├── Upfront vs. deferred payment
-│   ├── Earnouts and milestones
-│   └── Seller financing and notes
-├── Risk Allocation
-│   ├── Representations and warranties scope
-│   ├── Indemnification structure
-│   ├── Escrow and holdback amounts
-│   └── Material adverse change definitions
-└── Governance
-    ├── Post-close integration governance
-    ├── Board composition and voting rights
-    ├── Management retention and incentives
-    └── Dispute resolution mechanisms
-```
+Guidelines for structuring M&A deals, joint ventures, and complex commercial agreements.
 
 ## Valuation Alignment Mechanisms
 
-When buyer and seller disagree on value, use contingent structures:
+When buyer and seller disagree on value:
 
 | Mechanism | When to Use | Risk Allocation |
 |-----------|------------|----------------|
 | Earnouts | Revenue/EBITDA uncertainty | Seller bears performance risk |
 | Escrow holdbacks | Representation risk | Seller bears warranty risk |
-| Milestone payments | Product or regulatory milestones | Shared risk on execution |
-| Working capital adjustments | Balance sheet uncertainty | Factual true-up, minimal risk |
-| CVRs (Contingent Value Rights) | Binary event outcomes | Seller retains upside optionality |
+| Milestone payments | Product/regulatory milestones | Shared execution risk |
+| Working capital adjustments | Balance sheet uncertainty | Factual true-up |
+| CVRs | Binary event outcomes | Seller retains upside optionality |
 | Seller notes | Financing gap | Buyer credit risk to seller |
 
 ## Earnout Design Principles
 
-Earnouts are the most contentious post-close mechanism. Design them carefully:
-
-1. **Metric clarity**: Use unambiguous, auditable metrics (revenue, not "adjusted EBITDA")
-2. **Measurement period**: 12-24 months is typical; longer creates more disputes
-3. **Operating covenants**: Specify how the business must be operated during the period
-4. **Ceiling and floor**: Cap maximum payout and set minimum thresholds
-5. **Dispute resolution**: Pre-agree on accounting firm and arbitration procedure
-6. **Acceleration triggers**: Define what happens on change of control or material breach
+1. **Metric clarity**: Unambiguous, auditable metrics (revenue, not "adjusted EBITDA")
+2. **Period**: 12-24 months typical; longer creates more disputes
+3. **Operating covenants**: Specify how the business must be run during measurement
+4. **Ceiling and floor**: Cap maximum payout; set minimum thresholds
+5. **Dispute resolution**: Pre-agree on accounting firm and arbitration
 
 ## Indemnification Framework
 
 | Element | Seller-Friendly | Buyer-Friendly | Market Norm |
 |---------|----------------|---------------|-------------|
-| Cap | 5-10% of deal value | 50-100% of deal value | 10-25% |
-| Basket type | Tipping basket | True deductible | Deal-size dependent |
-| Basket threshold | 1.5-2% of deal value | 0.25-0.5% of deal value | 0.5-1% |
+| Cap | 5-10% of deal value | 50-100% | 10-25% |
+| Basket threshold | 1.5-2% | 0.25-0.5% | 0.5-1% |
 | Survival (general) | 12 months | 36 months | 18-24 months |
-| Survival (fundamental) | 24 months | Indefinite | Statute of limitations |
 | Escrow | 5% for 12 months | 15-20% for 24 months | 8-15% for 18 months |
 
 ## Term Trade-Off Strategy
 
-Never negotiate terms in isolation. Use trades across term categories:
-
-### High-Value Trades
+Never negotiate terms in isolation. Use cross-category trades:
 
 | Concession | In Exchange For |
 |-----------|----------------|
 | Higher purchase price | Stronger rep and warranty package |
 | Broader indemnification | Larger escrow with faster release |
-| Shorter non-compete period | Tighter customer non-solicitation |
+| Shorter non-compete | Tighter customer non-solicitation |
 | Flexible payment schedule | Stronger MAC clause protections |
-| Wider earn-out targets | Stricter operating covenants |
 
-### Package Negotiation
-
-Always present offers as complete packages, not individual terms:
-
-- **Package A**: Lower price, minimal earnout, strong protections
-- **Package B**: Higher price, meaningful earnout, moderate protections
-- **Package C**: Highest price, large earnout, lighter protections
-
-This forces the counterparty to evaluate trade-offs rather than cherry-picking.
+Present offers as complete packages (A/B/C options) — forces trade-off evaluation over cherry-picking.
 
 ## Tax Structure Considerations
 
-| Structure | Seller Tax Impact | Buyer Tax Benefit |
-|-----------|------------------|------------------|
-| Asset purchase | Ordinary income on some assets | Step-up in basis, depreciation |
+| Structure | Seller Impact | Buyer Benefit |
+|-----------|--------------|---------------|
+| Asset purchase | Ordinary income on some assets | Step-up in basis |
 | Stock purchase | Capital gains treatment | No step-up (unless 338(h)(10)) |
-| 338(h)(10) election | Treated as asset sale for tax | Step-up in basis |
-| Tax-free reorganization | Deferral of gain | Carryover basis |
-| Installment sale | Spread recognition over time | Deferred payments |
+| Tax-free reorg | Deferral of gain | Carryover basis |
+| Installment sale | Spread recognition | Deferred payments |
 
 ## Common Pitfalls
 
-### Over-Engineering Earnouts
-
-Wrong: Create complex multi-metric earnout formulas that require an accounting degree to calculate.
-
-Right: Simple, measurable, auditable metrics with clear payment triggers. If you cannot explain the earnout in two sentences, simplify it.
-
-### Ignoring Integration in Deal Terms
-
-Wrong: Negotiate the deal in isolation and figure out integration after signing.
-
-Right: Integration requirements should inform deal structure. Transition services agreements, employee retention terms, and system migration timelines are negotiation items, not afterthoughts.
+- **Over-engineering earnouts**: If you cannot explain it in two sentences, simplify it
+- **Ignoring integration in deal terms**: TSAs, retention, system migration are negotiation items, not afterthoughts
+- **Single-issue focus**: Negotiate multiple issues simultaneously to enable value-creating trades

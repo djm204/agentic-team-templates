@@ -9,140 +9,62 @@ Guidelines for market research, segmentation, competitive analysis, and sizing.
 
 ## Research Methodology
 
-```text
-Market Research Process
-├── Secondary Research (Desk Research)
-│   ├── Industry reports (Gartner, Forrester, IDC)
-│   ├── Public filings and financial data
-│   ├── News and trade publications
-│   ├── Government and census data
-│   └── Academic papers and whitepapers
-├── Primary Research (Field Research)
-│   ├── Customer interviews (qualitative)
-│   ├── Surveys (quantitative)
-│   ├── Focus groups
-│   ├── Win/loss analysis
-│   └── Ethnographic observation
-├── Competitive Intelligence
-│   ├── Product teardowns and feature comparison
-│   ├── Pricing analysis
-│   ├── Positioning and messaging audit
-│   ├── Hiring pattern analysis
-│   └── Technology stack analysis
-└── Data Synthesis
-    ├── Pattern identification
-    ├── Segment definition
-    ├── Opportunity sizing
-    └── Strategic recommendations
-```
+- **Secondary (desk)**: Industry reports, public filings, news, government data, whitepapers
+- **Primary (field)**: Customer interviews, surveys, focus groups, win/loss analysis
+- **Competitive intel**: Product teardowns, pricing analysis, positioning audit, hiring patterns
+- **Synthesis**: Pattern identification, segment definition, opportunity sizing, recommendations
 
 ## Segmentation Framework
 
 | Step | Activity | Output |
 |------|----------|--------|
-| Define variables | Choose segmentation dimensions (firmographic, behavioral, needs-based) | Variable list with definitions |
-| Collect data | Gather data on potential customers across variables | Customer dataset |
-| Cluster analysis | Group customers with similar profiles | Segment definitions |
-| Profile segments | Describe each segment's characteristics, size, and needs | Segment profiles |
-| Evaluate segments | Score attractiveness: size, growth, accessibility, fit | Prioritized segment list |
-| Select targets | Choose segments to pursue based on strategy | Target segment decisions |
+| Define variables | Choose dimensions (firmographic, behavioral, needs-based) | Variable list |
+| Collect data | Gather data across variables | Customer dataset |
+| Cluster analysis | Group similar profiles | Segment definitions |
+| Profile segments | Describe characteristics, size, needs | Segment profiles |
+| Evaluate segments | Score: size, growth, accessibility, fit | Prioritized list |
+| Select targets | Choose segments based on strategy | Target decisions |
 
-### Segment Evaluation Criteria
+## Segment Evaluation Criteria
 
-| Criterion | Weight | Description |
-|-----------|--------|------------|
-| Market size | 20% | Revenue potential of the segment |
-| Growth rate | 15% | Year-over-year segment growth |
-| Competitive intensity | 15% | Number and strength of competitors serving this segment |
-| Accessibility | 15% | Ability to reach and serve the segment with current resources |
-| Strategic fit | 15% | Alignment with company capabilities and vision |
-| Willingness to pay | 10% | Price sensitivity and budget availability |
-| Switching costs | 10% | Barriers to leaving current solution |
+| Criterion | Weight |
+|-----------|--------|
+| Market size | 20% |
+| Growth rate | 15% |
+| Competitive intensity | 15% |
+| Accessibility | 15% |
+| Strategic fit | 15% |
+| Willingness to pay | 10% |
+| Switching costs | 10% |
 
 ## Market Sizing Methods
 
 | Method | Approach | Best For |
 |--------|---------|----------|
-| Top-Down | Start with total market, apply filters | TAM estimation, investor presentations |
-| Bottom-Up | Start with unit economics, multiply by reachable customers | SOM estimation, revenue planning |
-| Value Theory | Estimate total value delivered, capture percentage | New categories with no existing market data |
-| Analog | Use comparable market as proxy | Emerging markets with limited data |
+| Top-Down | Total market, apply filters | TAM estimation |
+| Bottom-Up | Unit economics × reachable customers | SOM, revenue planning |
+| Value Theory | Total value delivered, capture % | New categories |
+| Analog | Comparable market as proxy | Emerging markets |
 
-### Sizing Template
+## Competitive Analysis
 
-```markdown
-## Market Sizing: [Market Name]
-
-**Date**: [Date]
-**Method**: [Top-Down / Bottom-Up / Value Theory]
-
-### TAM (Total Addressable Market)
-| Input | Value | Source |
-|-------|-------|--------|
-| Total potential customers | [#] | [Source] |
-| Average annual spend | [$] | [Source] |
-| **TAM** | **[$]** | Customers x Spend |
-
-### SAM (Serviceable Addressable Market)
-| Filter | Reduction | Remaining |
-|--------|----------|-----------|
-| Geographic reach | [%] | [$] |
-| Segment fit | [%] | [$] |
-| Channel access | [%] | [$] |
-| **SAM** | | **[$]** |
-
-### SOM (Serviceable Obtainable Market)
-| Factor | Assumption | Value |
-|--------|-----------|-------|
-| Year 1 market share target | [%] | [$] |
-| Year 3 market share target | [%] | [$] |
-| Sales capacity constraint | [# reps x quota] | [$] |
-| **SOM (Year 1)** | | **[$]** |
-```
-
-## Competitive Analysis Framework
-
-| Analysis Type | Focus | Sources | Frequency |
-|--------------|-------|---------|-----------|
-| Feature comparison | Product capabilities | Product demos, documentation, reviews | Quarterly |
-| Pricing analysis | Price points, packaging, discounting | Public pricing, sales intel, win/loss | Quarterly |
-| Positioning audit | Messaging, claims, target audience | Website, ads, content, press | Semi-annual |
-| GTM analysis | Channels, partnerships, sales motion | Job postings, news, partner directories | Quarterly |
-| Financial health | Revenue, growth, funding, burn rate | SEC filings, press releases, estimates | Quarterly |
-| Technology audit | Tech stack, architecture, patents | Job postings, documentation, patents | Semi-annual |
+| Analysis Type | Focus | Frequency |
+|--------------|-------|-----------|
+| Feature comparison | Product capabilities | Quarterly |
+| Pricing analysis | Price points, packaging | Quarterly |
+| Positioning audit | Messaging, target audience | Semi-annual |
+| GTM analysis | Channels, partnerships, sales motion | Quarterly |
+| Financial health | Revenue, growth, funding | Quarterly |
 
 ## Win/Loss Analysis
 
-| Data Point | Source | Purpose |
-|-----------|--------|---------|
-| Why they chose us | Customer interviews | Validate positioning and strengths |
-| Why they chose competitor | Lost prospect interviews | Identify gaps and competitive weaknesses |
-| Decision criteria ranking | Both winners and losers | Understand what buyers actually value |
-| Evaluation process | Sales team debrief | Improve sales process and materials |
-| Competitor mentions | CRM data, call recordings | Track competitive frequency |
+- Interview winners and losers to validate positioning and identify gaps
+- Rank decision criteria from buyer interviews
+- Track competitor mentions in CRM and call recordings
+- Debrief sales team on evaluation process
 
 ## Common Pitfalls
 
-### Analysis Paralysis
-
-Wrong: Spend 6 months on market research before making any strategic decisions. Require certainty before acting.
-
-Right: Time-box research to 2-4 weeks. Make decisions with 70% confidence. Use real market feedback to fill the remaining 30%.
-
-### Confirmation Bias in Research
-
-Wrong: Design survey questions that lead respondents toward your desired answer. Only interview customers who love your product.
-
-Right: Ask open-ended questions. Interview churned customers and lost deals. Actively seek disconfirming data.
-
-### Static Market View
-
-Wrong: Treat a market analysis from 18 months ago as current. Assume segments and competitors have not changed.
-
-Right: Refresh competitive intelligence quarterly. Re-validate segment assumptions annually. Markets move faster than PowerPoint decks.
-
-### Ignoring Adjacent Markets
-
-Wrong: Only monitor direct competitors. Miss the startup three categories away that is about to redefine your market.
-
-Right: Monitor adjacent markets, emerging technologies, and cross-industry trends. Disruption usually comes from outside your current competitive set.
+- **Analysis paralysis**: Time-box research to 2-4 weeks. Decide at 70% confidence; real market feedback fills the rest.
+- **Confirmation bias**: Ask open-ended questions. Interview churned customers. Seek disconfirming data.
+- **Static market view**: Refresh competitive intel quarterly. Markets move faster than slide decks.

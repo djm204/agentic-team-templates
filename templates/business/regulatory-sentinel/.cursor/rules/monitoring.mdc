@@ -5,91 +5,63 @@ alwaysApply: false
 
 # Regulatory Monitoring
 
-Guidelines for continuous scanning of regulatory sources, detecting changes, and maintaining situational awareness across jurisdictions.
-
-## Source Categories
-
-```text
-Regulatory Intelligence Sources
-├── Primary Legal Sources (registers, statutes, court opinions)
-├── Regulatory Agency Communications (enforcement, guidance, bulletins)
-├── Industry Bodies (SRO rules, standards, professional requirements)
-├── Legislative Activity (bills, hearings, lobbying disclosures)
-└── Enforcement Intelligence (penalties, consent decrees, exam schedules)
-```
+Guidelines for continuous scanning of regulatory sources and detecting changes across jurisdictions.
 
 ## Source Reliability Tiers
 
-| Tier | Source Type | Authority Level |
-|------|-----------|----------------|
+| Tier | Source Type | Authority |
+|------|-----------|-----------|
 | 1 | Official gazettes, enacted statutes | Definitive |
 | 2 | Regulatory agency final rules | Very High |
 | 3 | Proposed rules, comment periods | High |
 | 4 | Agency guidance, staff bulletins | Medium-High |
 | 5 | Industry analysis, legal commentary | Medium |
-| 6 | Political signals, rumored policy shifts | Low - speculative |
+| 6 | Political signals, rumored shifts | Low — speculative |
 
 ## Monitoring Schedule
 
-| Source | Frequency | Priority |
-|--------|-----------|----------|
-| Federal/national registers | Daily | Critical |
-| Enforcement actions against peers | Daily | High |
-| Regulatory agency announcements | Daily | High |
-| Legislative bill tracking | Weekly | Medium |
-| Guidance documents and FAQs | Weekly | Medium |
-| International regulatory developments | Weekly | Medium |
-| Industry standards updates | Monthly | Low-Medium |
-| Regulatory comment period deadlines | Weekly calendar check | High |
+| Source | Frequency |
+|--------|-----------|
+| Federal/national registers | Daily |
+| Enforcement actions against peers | Daily |
+| Agency announcements | Daily |
+| Legislative bill tracking | Weekly |
+| Guidance documents and FAQs | Weekly |
+| International regulatory developments | Weekly |
+| Industry standards updates | Monthly |
 
 ## Horizon Scanning
 
 Look beyond current regulations to anticipate future requirements:
 
-- **Proposed legislation**: Track bills through committee, floor votes, and conference
-- **Regulatory agendas**: Review semi-annual regulatory agendas published by agencies
-- **Enforcement trends**: Increasing enforcement in a domain signals stricter rules ahead
-- **International precedent**: Regulations adopted in one jurisdiction often spread to others
-- **Industry incidents**: Major breaches, failures, or scandals trigger regulatory responses
-- **Political platforms**: Incoming administrations signal regulatory priorities
+- **Proposed legislation**: Track bills through committee and floor votes
+- **Regulatory agendas**: Review semi-annual agency agendas
+- **Enforcement trends**: Increasing enforcement signals stricter rules ahead
+- **International precedent**: Regulations in one jurisdiction often spread
+- **Industry incidents**: Breaches and scandals trigger regulatory responses
 
 ## Change Detection Signals
 
 | Signal | Strength | Response |
 |--------|----------|----------|
-| Final rule published in official register | Definitive | Begin implementation assessment immediately |
-| Proposed rule with comment period | Strong | Assess impact, prepare comment if warranted |
-| Agency enforcement action against peer | Strong | Self-assess against the cited violations |
-| Legislative bill introduced | Moderate | Add to tracking list, assess if advances |
-| Agency leadership speech on priorities | Moderate | Note as directional indicator |
-| Industry group advocacy position | Weak | Monitor for legislative uptake |
-| Media speculation on regulatory intent | Weak | Log, do not act until corroborated |
+| Final rule in official register | Definitive | Begin implementation assessment immediately |
+| Proposed rule with comment period | Strong | Assess impact; prepare comment if warranted |
+| Enforcement action against peer | Strong | Self-assess against cited violations |
+| Legislative bill introduced | Moderate | Add to tracking; assess if it advances |
+| Agency leadership speech | Moderate | Note as directional indicator |
+| Media speculation | Weak | Log; do not act until corroborated |
 
 ## Alert Escalation
 
-| Alert Level | Trigger | Response Time | Notification |
-|-------------|---------|--------------|-------------|
-| Critical | Final rule affecting core operations | < 24 hours | Executive team, legal, affected business units |
-| High | Enforcement action in our sector or proposed rule with direct impact | < 48 hours | Compliance team, affected business units |
-| Medium | Guidance update or standard change | Within 1 week | Compliance team |
-| Low | Informational development, adjacent industry | Next reporting cycle | Include in periodic report |
+| Level | Trigger | Response Time |
+|-------|---------|--------------|
+| Critical | Final rule affecting core operations | < 24 hours |
+| High | Enforcement in our sector or proposed rule with direct impact | < 48 hours |
+| Medium | Guidance update or standard change | Within 1 week |
+| Low | Informational, adjacent industry | Next reporting cycle |
 
 ## Common Pitfalls
 
-### Alert Fatigue
-
-Wrong: Send every regulatory development as a high-priority alert.
-
-Right: Classify rigorously. Reserve high-priority alerts for changes that require action. Bundle informational items into periodic digests.
-
-### Jurisdictional Blind Spots
-
-Wrong: Monitor only federal/national regulations and miss state, local, or international requirements.
-
-Right: Map all jurisdictions where the organization operates and establish monitoring for each level of government.
-
-### Monitoring Without Action
-
-Wrong: Collect regulatory changes in a database that nobody reviews.
-
-Right: Every detected change must flow into the assessment pipeline within the defined response time. Monitoring without triage is waste.
+- **Alert fatigue**: Classify rigorously; reserve high-priority for actionable changes; bundle informational items into digests
+- **Jurisdictional blind spots**: Map all jurisdictions where the organization operates; monitor each government level
+- **Monitoring without action**: Every detected change must flow into the assessment pipeline within defined response time

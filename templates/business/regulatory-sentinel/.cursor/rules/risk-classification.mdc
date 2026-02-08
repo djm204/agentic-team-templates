@@ -9,111 +9,65 @@ Guidelines for classifying, scoring, and prioritizing regulatory compliance risk
 
 ## Risk Matrix
 
-```text
-                Low Severity    Medium Severity    High Severity    Critical
-High Likelihood   Medium          High               Critical         Critical
-Med Likelihood    Low             Medium             High             Critical
-Low Likelihood    Low             Low                Medium           High
-```
+| | Low Severity | Medium | High | Critical |
+|---|---|---|---|---|
+| **High Likelihood** | Medium | High | Critical | Critical |
+| **Med Likelihood** | Low | Medium | High | Critical |
+| **Low Likelihood** | Low | Low | Medium | High |
 
 ## Severity Criteria
 
 | Factor | Low | Medium | High | Critical |
 |--------|-----|--------|------|----------|
-| Financial penalty | < $100K | $100K - $1M | $1M - $10M | > $10M |
-| Operational disruption | Minimal | Moderate, contained | Significant, multi-unit | Enterprise-wide |
-| License/authorization | None | Warning letter | Conditional restriction | Revocation possible |
-| Reputational exposure | Internal only | Trade press | Regional media | National/international |
-| Customer impact | None | Minor inconvenience | Service degradation | Data breach or harm |
-| Enforcement trend | No recent actions | Occasional enforcement | Active campaign | Regulatory sweep |
+| Financial penalty | < $100K | $100K-$1M | $1M-$10M | > $10M |
+| Operational disruption | Minimal | Moderate | Multi-unit | Enterprise-wide |
+| License risk | None | Warning | Conditional restriction | Revocation |
+| Reputational exposure | Internal | Trade press | Regional media | National media |
+| Customer impact | None | Inconvenience | Service degradation | Breach or harm |
 
-## Likelihood Assessment
+## Composite Risk Scoring
 
-Evaluate likelihood based on:
+```
+Score = Severity (1-4) × Likelihood (1-3) × Velocity (1-3)
+Range: 1-36
 
-- **Regulatory activity**: Is the regulator actively enforcing this area?
-- **Peer enforcement**: Have similar organizations been penalized recently?
-- **Control maturity**: How robust are existing controls?
-- **Complexity**: How complex is the requirement? Complexity increases error likelihood.
-- **Change velocity**: Has the regulation recently changed? New rules have higher scrutiny.
-- **Complaint volume**: Are there external complaints or whistleblower activity in this domain?
-
-## Risk Scoring
-
-Calculate composite risk score:
-
-```text
-Composite Score = Severity (1-4) x Likelihood (1-3) x Velocity (1-3)
-
-Severity: Critical=4, High=3, Medium=2, Low=1
-Likelihood: High=3, Medium=2, Low=1
-Velocity: Immediate=3, Fast=2, Moderate/Slow=1
-
-Score Range: 1-36
-  Critical: 24-36 (immediate executive attention)
-  High: 12-23 (senior management attention within 48 hours)
-  Medium: 4-11 (compliance team manages, report monthly)
-  Low: 1-3 (log and review quarterly)
+Critical (24-36): Immediate executive attention
+High (12-23): Senior management within 48 hours
+Medium (4-11): Compliance team manages monthly
+Low (1-3): Log and review quarterly
 ```
 
 ## Risk Velocity
 
 | Velocity | Definition | Example |
 |----------|-----------|---------|
-| Immediate | Risk can materialize with no warning | Unannounced regulatory examination |
-| Fast | Materializes within days to weeks | Enforcement action following a complaint |
-| Moderate | Develops over weeks to months | Proposed rule finalized and effective |
-| Slow | Evolves over months to years | Gradual industry-wide regulatory trend |
+| Immediate | No warning | Unannounced examination |
+| Fast | Days to weeks | Enforcement after complaint |
+| Moderate | Weeks to months | Proposed rule finalized |
+| Slow | Months to years | Gradual industry trend |
 
 ## Prioritization Process
 
 1. **Catalog** all compliance risks from gap analysis and monitoring
-2. **Classify** each risk using the severity and likelihood matrix
-3. **Score** with the composite formula including velocity
-4. **Rank** risks by composite score, highest first
-5. **Allocate** resources to the highest-ranked risks
-6. **Review** quarterly or whenever a material regulatory change occurs
+2. **Classify** using severity and likelihood matrix
+3. **Score** with composite formula including velocity
+4. **Rank** by composite score, highest first
+5. **Allocate** resources to highest-ranked risks
+6. **Review** quarterly or on material regulatory change
 
 ## Risk Acceptance
 
-Some residual risk may be accepted when:
+Residual risk may be accepted only when:
 
-- The cost of full compliance dramatically exceeds the risk exposure
+- Cost of full compliance dramatically exceeds exposure
 - Legal counsel has reviewed and documented the rationale
-- Senior leadership has formally approved the acceptance
-- The acceptance is time-bound with a defined reassessment date
-- Compensating controls partially mitigate the risk
+- Senior leadership has formally approved
+- Acceptance is time-bound with a reassessment date
 
-Risk acceptance must never be used for critical-severity obligations.
-
-## Risk Register Template
-
-For each classified risk, maintain:
-
-- **Risk ID and description**
-- **Regulation reference**
-- **Severity, likelihood, velocity, and composite score**
-- **Current controls and their effectiveness**
-- **Risk owner** (single accountable person)
-- **Remediation plan** if score exceeds threshold
-- **Last review date and next review date**
+Never accept critical-severity obligations.
 
 ## Common Pitfalls
 
-### Uniform Risk Treatment
-
-Wrong: Apply the same level of effort to all compliance obligations regardless of risk.
-
-Right: Use the risk matrix to differentiate. Critical risks get immediate attention and senior ownership. Low risks get quarterly review.
-
-### Static Risk Scores
-
-Wrong: Score risks once and never update.
-
-Right: Risk scores must be dynamic. Enforcement trends shift, controls degrade, and business operations change. Reassess at least quarterly.
-
-### Ignoring Velocity
-
-Wrong: Focus only on severity and likelihood, ignoring how fast a risk can materialize.
-
-Right: A high-velocity risk needs faster response even at lower severity. An unannounced audit gives zero preparation time.
+- **Uniform treatment**: Use the matrix to differentiate — critical risks get immediate attention, low risks get quarterly review
+- **Static scores**: Reassess at least quarterly as enforcement trends shift and controls degrade
+- **Ignoring velocity**: High-velocity risks need faster response even at lower severity

@@ -12,75 +12,48 @@ Guidelines for structuring, delivering, and measuring the impact of intelligence
 | Report | Frequency | Audience | Purpose |
 |--------|-----------|----------|---------|
 | Flash Alert | As needed | Decision-makers | Critical signals requiring immediate action |
-| Daily Brief | Daily | Leadership team | Overnight developments and market snapshot |
-| Weekly Strategic | Weekly | Senior leadership | Trend analysis, competitive landscape, risk updates |
-| Monthly Deep Dive | Monthly | Cross-functional leads | Thematic analysis on strategic topics |
-| Quarterly Outlook | Quarterly | Executive team, board | Forward-looking trend and risk assessment |
+| Daily Brief | Daily | Leadership | Overnight developments and market snapshot |
+| Weekly Strategic | Weekly | Senior leadership | Trend analysis, competitive landscape, risk |
+| Monthly Deep Dive | Monthly | Cross-functional | Thematic analysis on strategic topics |
+| Quarterly Outlook | Quarterly | Exec team/board | Forward-looking trend and risk assessment |
 
-## Daily Intelligence Brief Structure
+## Daily Brief Structure
 
-```markdown
-## Daily Intelligence Brief: [Date]
-
-### Priority Alerts
-| # | Alert | Severity | Action Required |
-|---|-------|----------|----------------|
-| 1 | [Description] | [Level] | [Action] |
-
-### Market Snapshot
-| Indicator | Current | Change | Trend |
-|-----------|---------|--------|-------|
-| [Metric] | [Value] | [+/-] | [Direction] |
-
-### Competitive Activity
-- [Competitor]: [Activity observed]
-
-### Emerging Signals
-- [Signal]: [Description, signal strength]
-
-### Sentiment Summary
-| Topic | Sentiment | Volume | Change |
-|-------|-----------|--------|--------|
-| [Topic] | [Score] | [Count] | [+/-] |
-```
+- **Priority Alerts**: Severity, source, action required
+- **Market Snapshot**: Key indicators, changes, trends
+- **Competitive Activity**: Notable competitor moves
+- **Emerging Signals**: Description and signal strength
+- **Sentiment Summary**: Topic sentiment, volume, changes
 
 ## Report Quality Standards
 
 - **Lead with the "so what"**: Start with implications, not data
 - **Quantify impact**: Attach revenue, market share, or timeline estimates
-- **Include confidence levels**: State how certain you are and why
+- **Include confidence levels**: State certainty and rationale
 - **Cite sources**: Every claim links to evidence
-- **Recommend action**: Every report ends with specific next steps
-- **Keep it scannable**: Use tables, bullets, and bold for key figures
+- **Recommend action**: End with specific next steps
+- **Keep it scannable**: Tables, bullets, bold for key figures
 
 ## Distribution Best Practices
 
-- Match report detail to audience seniority (executives want summary, analysts want data)
+- Match detail to audience seniority (execs want summary, analysts want data)
 - Use consistent formatting so readers know where to find what
-- Set SLAs for report delivery (daily brief by 8 AM, weekly by Friday noon)
-- Track readership and engagement to identify unused reports
-- Archive reports for historical pattern analysis
+- Set SLAs (daily brief by 8 AM, weekly by Friday noon)
+- Track readership to identify unused reports
+- Archive for historical pattern analysis
 
 ## Measuring Intelligence Impact
 
-| Metric | How to Measure | Target |
-|--------|---------------|--------|
-| Decision influence | Survey decision-makers quarterly | >70% report using intelligence in decisions |
-| Signal accuracy | Track prediction vs outcome | >80% confirmed signals |
-| Time advantage | Days before mainstream coverage | >5 days average lead time |
-| Coverage gaps | Missed events that should have been caught | <2 per quarter |
-| Report utilization | Open rates, feedback | >85% readership |
+| Metric | Target |
+|--------|--------|
+| Decision influence | >70% report using intelligence in decisions |
+| Signal accuracy | >80% confirmed signals |
+| Time advantage | >5 days before mainstream coverage |
+| Coverage gaps | <2 missed events per quarter |
+| Report utilization | >85% readership |
 
 ## Common Pitfalls
 
-### Data Dumps Disguised as Reports
-
-Wrong: Send 50 articles with no synthesis or recommendation.
-
-Right: Curate 3-5 key developments with analysis, impact assessment, and recommended actions.
-
-### Static Reporting
-
-Wrong: Same format, same content structure, regardless of what happened.
-
-Right: Adapt report emphasis to current conditions. Lead with what matters most today.
+- **Data dumps**: Send 50 articles with no synthesis. Instead, curate 3-5 developments with analysis and actions.
+- **Static reporting**: Same format regardless of events. Adapt emphasis to current conditions.
+- **No feedback loop**: Never ask if reports are useful. Survey consumers quarterly.
