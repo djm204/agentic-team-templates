@@ -5,158 +5,60 @@ alwaysApply: false
 
 # Multimedia Production
 
-Frameworks for video scripting, podcast production, visual content briefs, and cross-format content repurposing.
+Frameworks for video scripting, podcast production, visual content, and cross-format repurposing.
 
 ## Core Principle
 
-**The medium shapes the message.** Every format has unique strengths and constraints. Effective multimedia production adapts the core idea to each format's native language rather than forcing a blog post into a video or a podcast into a carousel.
+**The medium shapes the message.** Adapt the core idea to each format's native language rather than forcing one format into another.
 
 ## Video Content
 
-### Video Types and Parameters
+| Type | Duration | Goal |
+|------|----------|------|
+| Short-form (Reels/TikTok) | 15-90 sec | Awareness, reach |
+| Explainer | 2-5 min | Education, consideration |
+| Tutorial | 5-15 min | Skill-building, authority |
+| Webinar | 30-60 min | Lead generation, depth |
+| Brand story / Testimonial | 1-3 min | Trust, social proof |
 
-| Type | Duration | Platform | Production Level | Goal |
-|------|----------|----------|-----------------|------|
-| Short-form (Reels/TikTok) | 15-90 sec | Instagram, TikTok, YouTube Shorts | Low-medium | Awareness, reach |
-| Explainer | 2-5 min | YouTube, landing pages | Medium | Education, consideration |
-| Tutorial | 5-15 min | YouTube, course platform | Medium-high | Skill-building, authority |
-| Webinar | 30-60 min | Zoom, LinkedIn Live | Medium | Lead generation, depth |
-| Brand story | 1-3 min | Website, social | High | Trust, emotional connection |
-| Testimonial | 1-3 min | Website, sales enablement | Medium | Social proof, conversion |
-
-### Video Script Template
-
-```markdown
-## Video Script: [Title]
-**Duration:** [Target length]
-**Platform:** [Primary distribution channel]
-**Objective:** [What should the viewer do after watching?]
-
-### Hook (0:00-0:10)
-[Opening line: bold claim, surprising stat, or direct question]
-VISUAL: [What the viewer sees]
-AUDIO: [Background music or sound direction]
-
-### Context (0:10-0:30)
-[Why this matters to the viewer right now]
-VISUAL: [Talking head, text overlay, or B-roll]
-
-### Main Content
-#### Point 1: [Key idea] (0:30-X:XX)
-SCRIPT: [Spoken words]
-VISUAL: [Screen share, animation, or demonstration]
-TRANSITION: [How to bridge to point 2]
-
-#### Point 2: [Key idea] (X:XX-X:XX)
-SCRIPT: [Spoken words]
-VISUAL: [Supporting visuals]
-
-#### Point 3: [Key idea] (X:XX-X:XX)
-SCRIPT: [Spoken words]
-VISUAL: [Supporting visuals]
-
-### Summary (X:XX-X:XX)
-[Recap the three key takeaways in one sentence each]
-
-### CTA (final 10-15 sec)
-[Clear next step: subscribe, download, visit link in description]
-VISUAL: [End screen with subscribe button and related video]
-```
+Script structure: Hook (0-10s: bold claim, stat, or question) → Context (why it matters) → Main Content (2-3 key points with visual direction) → Summary → CTA (clear next step).
 
 ## Podcast Production
 
-### Episode Planning Framework
-
 | Phase | Activities | Timeline |
 |-------|-----------|----------|
-| Topic Selection | Audience demand research, guest availability, editorial calendar alignment | 2-3 weeks before |
-| Pre-production | Guest research, question list, technical setup check | 5-7 days before |
-| Recording | Audio capture, backup recording, timestamped notes | Record day |
-| Post-production | Editing, mixing, mastering, transcript generation | 2-3 days after |
-| Asset Creation | Show notes, audiogram clips, quote graphics, blog summary | 1-2 days after edit |
-| Publishing | Episode upload, metadata, distribution to platforms | Publish day |
-| Promotion | Social posts, newsletter inclusion, guest cross-promotion | Publish day + 7 days |
+| Pre-production | Topic brief, guest research, question list | 5-7 days before |
+| Recording | Audio capture, backup, timestamped notes | Record day |
+| Post-production | Edit, mix, master, transcript | 2-3 days after |
+| Asset creation | Show notes, audiograms, quote graphics | 1-2 days after edit |
+| Publishing + Promotion | Upload, social posts, newsletter, guest outreach | Publish day + 7 days |
 
-### Show Notes Template
+Show notes: 2-3 sentence summary, guest info, key takeaways with timestamps, resources mentioned, transcript link.
 
-```markdown
-## Episode [Number]: [Title]
+## Visual Content Types
 
-### Summary
-[2-3 sentence overview of the episode]
-
-### Guest
-[Name, title, company, relevant background]
-[Link to guest's website/LinkedIn]
-
-### Key Takeaways
-- [Takeaway 1 with timestamp]
-- [Takeaway 2 with timestamp]
-- [Takeaway 3 with timestamp]
-
-### Timestamps
-- 00:00 - Introduction
-- 02:30 - [Topic 1]
-- 12:00 - [Topic 2]
-- 25:00 - [Topic 3]
-- 38:00 - Rapid-fire questions
-- 42:00 - Where to find [Guest]
-
-### Resources Mentioned
-- [Resource 1](link)
-- [Resource 2](link)
-
-### Transcript
-[Full transcript or link to transcript page]
-```
-
-## Visual Content
-
-### Visual Content Types
-
-| Type | Tools | Use Case | Repurposing Source |
-|------|-------|----------|-------------------|
-| Infographic | Figma, Canva, Piktochart | Data visualization, process flows | Research reports, blog posts |
-| Social carousel | Canva, Figma | Step-by-step guides, key takeaways | Blog posts, presentations |
-| Quote graphic | Canva, Adobe Express | Expert quotes, podcast highlights | Interviews, podcasts |
-| Data chart | Datawrapper, Flourish | Trend visualization, comparisons | Original research |
-| Thumbnail | Canva, Photoshop | Video and podcast cover art | Episode or video content |
-| Diagram | Mermaid, Excalidraw, Figma | Process flows, architecture | Technical articles |
+| Type | Use Case |
+|------|----------|
+| Infographic | Data visualization, process flows |
+| Social carousel | Step-by-step guides, key takeaways |
+| Quote graphic | Expert quotes, podcast highlights |
+| Data chart | Trend visualization, comparisons |
+| Diagram | Process flows, architecture |
 
 ## Content Repurposing
 
-### Repurposing Workflow
+From a pillar piece (e.g., 3,000-word guide), extract:
+- 5-10 social posts (key stats, quotes, tips)
+- 1 email newsletter section (300 words)
+- 1 infographic or carousel (key framework)
+- 1 video summary (3-5 min)
+- 1 podcast segment (10-15 min)
+- 1 downloadable resource (checklist, template)
 
-```text
-PILLAR CONTENT (e.g., 3,000-word guide)
-    │
-    ├── Extract → 5-10 social posts (key stats, quotes, tips)
-    ├── Condense → 1 email newsletter section (300 words)
-    ├── Visualize → 1 infographic or carousel (key framework)
-    ├── Record → 1 video summary (3-5 min explainer)
-    ├── Discuss → 1 podcast segment (10-15 min deep dive)
-    ├── Atomize → 3-5 tweet/thread ideas
-    └── Gate → 1 downloadable resource (checklist, template)
-```
-
-### Format Adaptation Guidelines
-
-| From | To | Adaptation Notes |
-|------|----|-----------------|
-| Blog post | Video script | Lead with the hook; cut setup by 50%; add visual direction |
-| Blog post | Social carousel | One slide per key point; max 10 slides; end with CTA |
-| Podcast | Blog post | Structure around key quotes; add context and links |
-| Webinar | Blog series | One post per major section; add depth lost in live format |
-| Research report | Infographic | Highlight 3-5 most surprising findings; simplify data viz |
-| Case study | Testimonial clips | Pull 2-3 strongest outcome quotes; add context overlay |
+Adapt by format: blog → video (lead with hook, cut setup 50%, add visuals); blog → carousel (one point per slide, max 10); podcast → blog (structure around quotes, add context).
 
 ## Common Pitfalls
 
-```text
-- Copy-paste repurposing: Dumping a blog post transcript into a video script without adapting
-- Ignoring platform norms: Posting the same content identically across all channels
-- Over-producing: Investing in high production value when the audience values authenticity
-- No hook: Starting videos or podcasts with lengthy introductions instead of immediate value
-- Missing accessibility: No captions on video, no transcripts for podcasts, no alt text on graphics
-- Orphaned assets: Creating multimedia content without linking back to pillar content for SEO value
-```
+- **Copy-paste repurposing**: Adapt for each format's native conventions
+- **No hook**: Start with immediate value, not lengthy introductions
+- **Missing accessibility**: Always add captions, transcripts, and alt text

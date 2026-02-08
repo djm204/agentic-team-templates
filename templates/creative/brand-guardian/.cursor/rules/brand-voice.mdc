@@ -9,22 +9,19 @@ Guidelines for defining, documenting, and enforcing a consistent brand voice acr
 
 ## Voice Architecture
 
-A brand voice has three layers:
-
-1. **Core Identity**: The unchanging personality traits, values, and mission that define who the brand is
-2. **Voice Attributes**: Specific, measurable characteristics (e.g., confident, warm, direct) with examples and counter-examples
-3. **Tone Ranges**: The acceptable spectrum of formality, emotion, and authority that shifts by channel and context
+- **Core Identity**: Unchanging personality traits, values, and mission
+- **Voice Attributes**: Measurable characteristics (e.g., confident, warm, direct) with examples and counter-examples
+- **Tone Ranges**: Spectrum of formality, emotion, and authority that shifts by channel and context
 
 ## Defining Voice Attributes
 
-Every voice attribute must include:
+Every attribute must include:
 
-- A clear one-sentence definition
-- Three or more "sounds like" examples
-- Three or more "does not sound like" counter-examples
-- Channel intensity ratings showing how strongly the attribute appears in each medium
+- One-sentence definition
+- 3+ "sounds like" examples and 3+ "does not sound like" counter-examples
+- Channel intensity ratings per medium
 
-Attributes are typically grouped as primary (always present), secondary (context-dependent), and anti-attributes (never present).
+Group as: primary (always present), secondary (context-dependent), anti-attributes (never present).
 
 ## Voice Consistency Scoring
 
@@ -37,52 +34,31 @@ Attributes are typically grouped as primary (always present), secondary (context
 | Audience awareness | 15% |
 | Channel adaptation | 15% |
 
-Score interpretation:
-
-- 4.5-5.0: Exemplary, use as reference content
-- 3.5-4.4: On-brand, approved for publication
-- 2.5-3.4: Needs revision, specific adjustments required
-- 1.5-2.4: Off-brand, significant rewrite needed
-- Below 1.5: Reject, does not represent the brand
+- **4.5-5.0**: Exemplary — use as reference
+- **3.5-4.4**: On-brand — approved
+- **2.5-3.4**: Needs revision
+- **Below 2.5**: Off-brand — rewrite or reject
 
 ## Tone Spectrum
 
-Tone is the variable expression of a fixed voice. Map each content type along these spectrums:
+Tone is the variable expression of a fixed voice. Map each content type along:
 
-- Formal to Casual
-- Serious to Playful
-- Authoritative to Approachable
-- Technical to Accessible
-
-Each content type (social post, press release, support email) should have a defined position on each spectrum.
+- Formal ↔ Casual
+- Serious ↔ Playful
+- Authoritative ↔ Approachable
+- Technical ↔ Accessible
 
 ## Word List Governance
 
-Maintain four lists:
+Maintain and review quarterly:
 
-- **Preferred terms**: Always use when describing brand concepts
+- **Preferred terms**: Always use for brand concepts
 - **Acceptable alternatives**: Permitted but not preferred
 - **Prohibited terms**: Never use in brand communications
 - **Inclusive language**: Preferred over exclusionary alternatives
 
-Review and update word lists quarterly. Track new terminology emerging from product, marketing, and customer usage.
-
 ## Common Pitfalls
 
-### Voice as Script
-
-Wrong: Give creators exact sentences to copy and paste for every scenario.
-
-Right: Define the personality, provide examples, and trust trained creators to express it authentically.
-
-### Confusing Voice and Tone
-
-Wrong: Treat voice and tone as the same thing. Apply identical tone to a celebration post and a crisis statement.
-
-Right: Voice is constant personality. Tone is the mood that shifts with context. The brand always sounds like itself but adjusts its emotional register.
-
-### Ignoring Internal Voice
-
-Wrong: Enforce brand voice in marketing but allow internal communications, recruiting, and partner materials to speak however they please.
-
-Right: Brand voice applies everywhere the brand name appears. Internal culture documents, job postings, and partner materials all carry brand equity.
+- **Voice as script**: Define personality and trust trained creators — don't provide copy-paste sentences
+- **Confusing voice and tone**: Voice is constant personality; tone shifts with context
+- **Ignoring internal voice**: Brand voice applies everywhere the brand name appears — job posts, partner materials, internal docs

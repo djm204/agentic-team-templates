@@ -5,90 +5,73 @@ alwaysApply: false
 
 # Story Bible
 
-Guidelines for maintaining, versioning, and governing the canonical reference document for a narrative universe.
+Maintaining, versioning, and governing the canonical reference document for a narrative universe.
 
 ## Purpose
 
-The story bible is the single source of truth for all canonical facts about a narrative universe. It exists to ensure that any writer, designer, or partner working within the universe can find authoritative answers to lore questions without relying on individual memory or tribal knowledge.
+The story bible is the single source of truth for all canonical facts. It ensures any writer, designer, or partner can find authoritative lore answers without relying on individual memory.
 
 ## Structure
 
-The story bible is organized into seven volumes:
-
-1. **Universe Foundations** - Cosmology, physics, magic/tech systems, world history, geography
-2. **Peoples and Cultures** - Civilizations, languages, religions, social structures
-3. **Characters** - Profiles, relationship maps, arc tracking
-4. **Timeline** - Master chronology, per-installment logs, character timelines
-5. **Canon Registry** - Tier assignments, retcon log, contradiction history, open questions
-6. **Style and Terminology** - Spellings, glossary, naming conventions, tone guidelines
-7. **Production Reference** - Cross-media tracker, upcoming releases, writer onboarding, FAQ
+1. **Universe Foundations** — Cosmology, physics, magic/tech systems, history, geography
+2. **Peoples and Cultures** — Civilizations, languages, religions, social structures
+3. **Characters** — Profiles, relationship maps, arc tracking
+4. **Timeline** — Master chronology, per-installment logs, character timelines
+5. **Canon Registry** — Tier assignments, retcon log, contradiction history, open questions
+6. **Style and Terminology** — Spellings, glossary, naming conventions, tone guidelines
+7. **Production Reference** — Cross-media tracker, upcoming releases, writer onboarding, FAQ
 
 ## Versioning
 
-| Version Type | Trigger | Scope of Change | Approval Required |
-|-------------|---------|----------------|-------------------|
-| Patch (1.0.x) | Corrections and clarifications | Typos, formatting, wording | Narrative architect |
-| Minor (1.x.0) | New content integration | New entries from released content | Narrative architect |
-| Major (x.0.0) | Structural changes or retcons | Reorganization, retcons, rule changes | Narrative architect + IP owner |
+| Type | Trigger | Approval |
+|------|---------|----------|
+| Patch (1.0.x) | Corrections, clarifications | Narrative architect |
+| Minor (1.x.0) | New content integration | Narrative architect |
+| Major (x.0.0) | Structural changes or retcons | Narrative architect + IP owner |
 
-Every change must include a dated changelog entry with the author, description, and rationale.
+Every change includes a dated changelog with author, description, and rationale.
 
 ## Maintenance Schedule
 
-| Task | Frequency | Owner |
-|------|-----------|-------|
-| Integrate new releases | Within 2 weeks of release | Narrative architect team |
-| Cross-reference validation | Quarterly | Narrative architect team |
-| Full consistency audit | Annually | Narrative architect + external reviewer |
-| Writer feedback integration | Monthly | Narrative architect team |
-| Community issue triage | Weekly | Community liaison + narrative team |
+| Task | Frequency |
+|------|-----------|
+| Integrate new releases | Within 2 weeks of release |
+| Cross-reference validation | Quarterly |
+| Full consistency audit | Annually |
+| Writer feedback integration | Monthly |
+| Community issue triage | Weekly |
 
 ## Access Control
 
 | Role | Read | Write | Approve |
 |------|------|-------|---------|
 | Narrative architect | Full | Full | Yes |
-| Lead writers | Full | Propose changes | No |
-| Writers and designers | Relevant volumes | Propose changes | No |
-| External partners | Approved excerpts | None | No |
-| Marketing and PR | Approved excerpts | None | No |
-| Community management | Public-safe excerpts | None | No |
-
-Restrict access to prevent spoilers and unauthorized canon establishment. Writers should see what they need for their current project, not the full roadmap of future reveals.
+| Lead writers | Full | Propose | No |
+| Writers/designers | Relevant volumes | Propose | No |
+| External partners / Marketing | Approved excerpts | None | No |
 
 ## Canon Tier System
 
-| Tier | Name | Binding Power | Examples |
-|------|------|--------------|---------|
-| Tier 1 | Core Canon | Absolute, all media must respect | Flagship games, primary novels, main films |
-| Tier 2 | Extended Canon | Strong, assumed true unless overridden by Tier 1 | Official DLC, companion novels, authorized spinoffs |
-| Tier 3 | Soft Canon | Moderate, true in own context | Tie-in comics, mobile games, promotional content |
-| Tier 4 | Quasi-Canon | Weak, flavor only | Sourcebooks, art book lore, developer commentary |
-| Tier 5 | Non-Canon | None | Fan fiction, what-if content, decanonized works |
+| Tier | Binding Power | Examples |
+|------|--------------|---------|
+| Tier 1: Core | Absolute — all media must respect | Flagship games, primary novels, main films |
+| Tier 2: Extended | Strong — unless overridden by Tier 1 | Official DLC, companion novels, spinoffs |
+| Tier 3: Soft | Moderate — true in own context | Tie-in comics, mobile games, promos |
+| Tier 4: Quasi | Weak — flavor only | Sourcebooks, art book lore, dev commentary |
+| Tier 5: Non-Canon | None | Fan fiction, what-if, decanonized works |
 
 ## Retcon Protocol
 
-When a retcon is necessary:
-
-1. Document the original fact with its source and tier
-2. Document the new fact with justification for the change
-3. Identify all content affected by the change
-4. Choose a resolution method: reconciliation, soft retcon, hard retcon, or decanonization
-5. Obtain approval from the narrative architect and IP owner for Tier 1 changes
-6. Update the story bible with full retcon record
+1. Document original fact with source and tier
+2. Document new fact with justification
+3. Identify all affected content
+4. Choose method: reconciliation, soft retcon, hard retcon, or decanonization
+5. Obtain approval (narrative architect; + IP owner for Tier 1)
+6. Update story bible with full retcon record
 7. Notify all active media teams
 8. Determine audience communication plan
 
 ## Common Pitfalls
 
-### Story Bible as Write-Only Document
-
-Wrong: Maintain the story bible meticulously but have writers rarely consult it.
-
-Right: Make the story bible searchable, accessible, and integrated into the writing workflow. If writers do not use it, it does not matter how complete it is.
-
-### Undocumented Oral Lore
-
-Wrong: Allow important canonical decisions to exist only in meeting notes or team memory.
-
-Right: Every canonical decision must be recorded in the story bible within one week of being made.
+- **Write-only bible**: Make it searchable and integrated into workflow — if writers don't use it, completeness doesn't matter
+- **Undocumented oral lore**: Every canonical decision recorded within one week of being made

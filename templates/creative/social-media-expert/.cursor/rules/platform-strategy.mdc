@@ -5,120 +5,60 @@ alwaysApply: false
 
 # Platform Strategy
 
-Guidelines for selecting, optimizing, and managing presence across social media platforms with algorithm-aware, platform-native approaches.
+Selecting, optimizing, and managing social media presence with algorithm-aware, platform-native approaches.
 
 ## Platform Selection Criteria
 
-Before establishing a presence on any platform, evaluate:
-
-| Criterion | Question to Answer | Weight |
-|-----------|-------------------|--------|
-| Audience presence | Is our target audience active and growing on this platform? | 30% |
-| Content format fit | Can we consistently produce content in the formats this platform rewards? | 25% |
-| Business goal alignment | Does this platform support our primary objective (awareness, leads, sales, community)? | 20% |
-| Resource requirement | Do we have the team, tools, and budget to maintain quality presence? | 15% |
-| Competitive landscape | Is there whitespace or is the platform oversaturated in our category? | 10% |
+| Criterion | Weight |
+|-----------|--------|
+| Audience presence and growth | 30% |
+| Content format fit for team capabilities | 25% |
+| Business goal alignment (awareness, leads, sales) | 20% |
+| Resource requirement (team, tools, budget) | 15% |
+| Competitive whitespace | 10% |
 
 ## Platform-Specific Optimization
 
 ### Instagram
-
-| Element | Best Practice |
-|---------|--------------|
-| Reels | 7-15 seconds optimal; trending audio within 48h of trend; text overlays for silent viewing |
-| Carousels | 5-10 slides; educational or storytelling; first slide is the hook, last slide is the CTA |
-| Stories | Daily minimum; use polls, questions, sliders for engagement; link stickers for traffic |
-| Feed posts | High-quality imagery; cohesive grid aesthetic; detailed captions with value |
-| Algorithm priority | Reels > Carousels > Single image; Saves and Shares weighted highest |
+- Reels: 7-15s optimal, trending audio within 48h, text overlays for silent viewing
+- Carousels: 5-10 slides, educational/storytelling, hook first slide, CTA last
+- Algorithm: Reels > Carousels > Single image; Saves and Shares weighted highest
 
 ### TikTok
-
-| Element | Best Practice |
-|---------|--------------|
-| Video length | 15-45 seconds for discovery; 1-3 minutes for depth; watch-through rate is king |
-| Trends | Participate within 24-48h of trend emergence; add unique brand angle |
-| Hooks | First 1-2 seconds must stop the scroll; text hooks, visual hooks, or audio hooks |
-| Posting volume | 1-3 per day during growth phase; quality over quantity once established |
-| Algorithm priority | Completion rate > Shares > Comments > Likes; content shown to non-followers first |
+- 15-45s for discovery; 1-3min for depth; watch-through rate is king
+- Participate in trends within 24-48h with unique brand angle
+- Algorithm: Completion rate > Shares > Comments > Likes; shown to non-followers first
 
 ### LinkedIn
-
-| Element | Best Practice |
-|---------|--------------|
-| Text posts | Personal stories with professional insight; line breaks for readability; 1,200-1,500 characters |
-| Carousels (PDF) | Slide-by-slide value; 8-12 slides; actionable frameworks or step-by-step guides |
-| Video | Subtitled, vertical or square; 30-90 seconds; professional but authentic |
-| Articles | Long-form thought leadership; SEO value; establishes deep authority |
-| Algorithm priority | Dwell time > Comments > Reactions; first hour engagement critical; avoid external links in post |
+- Text posts: personal stories + insight, 1,200-1,500 chars, line breaks for readability
+- Algorithm: Dwell time > Comments > Reactions; first hour critical; avoid external links in post
 
 ### X (Twitter)
-
-| Element | Best Practice |
-|---------|--------------|
-| Posts | Sharp, opinionated, concise; one idea per post; provoke discussion |
-| Threads | 5-12 posts; number them; each post should stand alone; pin the thread |
-| Engagement | Reply to others in your niche daily; quote tweets with added value |
-| Spaces | Host weekly on niche topic; invite industry guests; repurpose audio clips |
-| Algorithm priority | Reply engagement > Repost > Like; conversation velocity in first 30 minutes |
+- Sharp, opinionated, concise; one idea per post; threads 5-12 posts
+- Algorithm: Reply engagement > Repost > Like; conversation velocity in first 30 minutes
 
 ### YouTube
+- Titles: curiosity-driven, keyword-rich, under 60 chars
+- Thumbnails: high contrast, readable text, expressive faces, test 3 variations
+- Algorithm: CTR + average view duration = primary signals
 
-| Element | Best Practice |
-|---------|--------------|
-| Titles | Curiosity-driven, keyword-rich; under 60 characters; avoid clickbait that underdelivers |
-| Thumbnails | High contrast, readable text, expressive faces; test 3 variations |
-| Retention | Hook in first 30 seconds; pattern interrupt every 60-90 seconds; deliver on title promise |
-| Shorts | Vertical, 15-45 seconds; repurpose long-form highlights; loop-friendly endings |
-| Algorithm priority | Click-through rate + average view duration = primary ranking signals |
+## Content Repurposing Flow
 
-## Cross-Platform Content Repurposing
-
-```text
-Content Repurposing Flow
-├── Original Long-Form (YouTube video or blog)
-│   ├── Cut 3-5 short clips for TikTok and Reels
-│   ├── Extract key insight for LinkedIn text post
-│   ├── Pull quote for X post with link
-│   ├── Create carousel summarizing key points for Instagram
-│   └── Record behind-the-scenes of creation for Stories
-├── Original Short-Form (TikTok or Reel)
-│   ├── Repost to Shorts (remove watermark, re-upload natively)
-│   ├── Expand into LinkedIn text post with deeper analysis
-│   ├── Use as teaser for longer YouTube video
-│   └── Screenshot best comment for X engagement post
-└── Original Text (LinkedIn post or X thread)
-    ├── Convert to Instagram carousel with visual design
-    ├── Record yourself reading it for TikTok/Reels talking head
-    ├── Expand into YouTube script for deeper video
-    └── Repurpose as email newsletter content
-```
+- Long-form (YouTube/blog) → 3-5 short clips, LinkedIn insight, X quote, Instagram carousel, behind-the-scenes Stories
+- Short-form (TikTok/Reel) → Shorts (re-upload natively), LinkedIn deeper analysis, YouTube teaser
+- Text (LinkedIn/X thread) → Instagram carousel, talking-head video, email newsletter
 
 ## Platform Health Monitoring
 
-| Metric | Healthy Range | Warning Sign | Action If Warning |
-|--------|-------------|-------------|------------------|
-| Engagement rate | Platform average +50% | Declining 3 weeks straight | Audit content quality and format mix |
-| Follower growth rate | 2-5% monthly (organic) | Negative growth or sudden spikes | Check for bot follows or content issues |
-| Reach per post | Stable or growing | Declining without posting changes | Algorithm shift; test new formats |
-| Profile visits to follow ratio | 10-30% conversion | Below 5% | Optimize bio, pinned content, grid |
-| Story completion rate (IG) | 70%+ on each slide | Below 50% on slide 2+ | Shorten stories, improve hooks |
+| Metric | Warning Sign |
+|--------|-------------|
+| Engagement rate | Declining 3+ weeks |
+| Follower growth | Negative or sudden spikes |
+| Reach per post | Declining without posting changes |
+| Profile visit → follow ratio | Below 5% |
 
 ## Common Pitfalls
 
-### Platform FOMO
-
-Wrong: Launch on every new platform the week it is announced, spreading resources thin and producing mediocre content everywhere.
-
-Right: Monitor emerging platforms with a test account. Invest meaningfully only when audience data confirms your target market is adopting and the format suits your content capabilities.
-
-### Ignoring Algorithm Changes
-
-Wrong: Continue posting the same format and expecting the same results after a major algorithm update.
-
-Right: Follow platform creator blogs and industry analysts. When algorithms shift (e.g., Instagram prioritizing Reels, LinkedIn deprioritizing external links), adapt strategy within one week.
-
-### Treating All Platforms as Equal
-
-Wrong: Allocate equal time, budget, and resources across all platforms regardless of where your audience is and which platform drives results.
-
-Right: Audit performance quarterly. Double down on platforms delivering ROI. Maintain minimal presence on secondary platforms. Drop platforms that consistently underperform after 6 months of effort.
+- **Platform FOMO**: Monitor new platforms with test accounts; invest only when audience data confirms fit
+- **Ignoring algorithm changes**: Adapt strategy within one week of major updates
+- **Treating all platforms equally**: Audit quarterly; double down on ROI platforms, maintain or drop underperformers

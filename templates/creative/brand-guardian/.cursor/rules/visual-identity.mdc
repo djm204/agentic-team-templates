@@ -9,78 +9,56 @@ Guidelines for verifying and enforcing visual brand standards across all content
 
 ## Visual Identity Checklist
 
-Every piece of visual content must pass these checks:
-
 ### Logo Usage
 
-- Correct version selected (primary, secondary, icon-only) for the context
-- Minimum clear space maintained around the logo
-- Minimum size requirements met for legibility
-- No unauthorized modifications (stretching, recoloring, adding effects)
-- Approved color variations only (full color, monochrome, reversed)
-- Correct placement and alignment per layout templates
+- Correct version selected (primary, secondary, icon-only) for context
+- Minimum clear space and size requirements met
+- No unauthorized modifications (stretching, recoloring, effects)
+- Approved color variations only; correct placement per templates
 
 ### Color Palette
 
 - Primary colors within hex/RGB tolerance (no eyeballed approximations)
-- Secondary and accent colors used in correct proportions
-- Color ratios follow brand-defined proportions (e.g., 60/30/10 rule)
-- Accessible contrast ratios maintained (WCAG AA minimum: 4.5:1 for text)
-- No unapproved colors introduced without brand team sign-off
+- Secondary and accent colors in correct proportions (e.g., 60/30/10)
+- Accessible contrast ratios maintained (WCAG AA: 4.5:1 for text)
+- No unapproved colors without brand team sign-off
 
 ### Typography
 
-- Approved typefaces only, no substitutions without fallback approval
-- Correct weight and style hierarchy (heading, subheading, body, caption)
+- Approved typefaces only; correct weight/style hierarchy
 - Minimum size requirements met per channel
-- Line height and letter spacing follow specifications
-- Web and email fallback fonts specified and tested
+- Line height, letter spacing per spec; web/email fallbacks tested
 
 ### Imagery
 
-- Photography style matches guidelines (lighting, composition, color grading)
-- Illustration style consistent with brand visual language
+- Photography and illustration style matches guidelines
 - Image quality meets minimum resolution for output medium
-- Representation and diversity in imagery align with brand values
+- Representation and diversity align with brand values
 - All assets properly licensed or owned
 
 ## Deviation Severity
 
-| Severity | Examples | Required Action |
-|----------|----------|----------------|
-| Critical | Wrong logo, competitor colors, unlicensed images | Block publication immediately |
-| High | Incorrect logo spacing, wrong typeface, poor contrast | Return for correction before publishing |
-| Medium | Slightly off-brand color shade, suboptimal image crop | Flag for next revision cycle |
-| Low | Minor spacing inconsistency, acceptable font substitution | Log for style guide discussion |
+| Severity | Examples | Action |
+|----------|----------|--------|
+| Critical | Wrong logo, competitor colors, unlicensed images | Block publication |
+| High | Incorrect spacing, wrong typeface, poor contrast | Return for correction |
+| Medium | Slightly off-brand shade, suboptimal crop | Flag for next revision |
+| Low | Minor spacing inconsistency, acceptable substitution | Log for discussion |
 
 ## Automated Checks
 
-Where possible, automate visual compliance:
-
-- Color extraction and hex value validation against approved palette
+- Color extraction and hex validation against approved palette
 - Logo detection and clear space measurement
 - Font identification in design files
-- Contrast ratio calculation for text over backgrounds
-- Image resolution and aspect ratio verification
+- Contrast ratio calculation; image resolution verification
 
 ## Asset Management
 
-- Maintain a single-source-of-truth digital asset library
-- Version all brand assets with clear naming conventions
-- Remove outdated assets promptly to prevent accidental use
-- Restrict upload permissions to brand team members
-- Provide self-serve access to approved templates and assets for creators
+- Single-source-of-truth digital asset library with versioned naming
+- Remove outdated assets promptly; restrict upload to brand team
+- Provide self-serve access to approved templates for creators
 
 ## Common Pitfalls
 
-### Template Proliferation
-
-Wrong: Allow every team to create their own templates from scratch.
-
-Right: Provide centrally managed, pre-approved templates that creators can populate with content.
-
-### Platform Compression Blindness
-
-Wrong: Approve visual assets at source resolution but never verify how they render after platform compression and resizing.
-
-Right: Test visual assets in their final published form on each target platform before approval.
+- **Template proliferation**: Provide centrally managed templates, don't let teams build from scratch
+- **Platform compression blindness**: Test assets in final published form on each target platform

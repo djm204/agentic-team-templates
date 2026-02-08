@@ -5,148 +5,55 @@ alwaysApply: false
 
 # Copywriting
 
-Principles and frameworks for persuasive writing across headlines, landing pages, email sequences, ad copy, and conversion-focused content.
+Principles and frameworks for persuasive writing across headlines, landing pages, emails, ads, and conversion-focused content.
 
 ## Core Principle
 
-**Great copy is clear before it is clever.** The reader should never have to decode your meaning. Persuasion comes from understanding the audience's pain and presenting a credible solution, not from wordplay.
+**Great copy is clear before it is clever.** Persuasion comes from understanding the audience's pain and presenting a credible solution.
 
 ## Persuasion Frameworks
 
-### Framework Selection Guide
-
-| Framework | Structure | Best For | Example Use |
-|-----------|-----------|----------|-------------|
-| AIDA | Attention - Interest - Desire - Action | Landing pages, ads | Product launch page |
-| PAS | Problem - Agitate - Solve | Email sequences, sales pages | Cold outreach email |
-| BAB | Before - After - Bridge | Case studies, testimonials | Customer success story |
-| 4Ps | Promise - Picture - Proof - Push | Direct response copy | Webinar registration |
-| FAB | Feature - Advantage - Benefit | Product descriptions | Feature announcement |
-| QUEST | Qualify - Understand - Educate - Stimulate - Transition | Long-form sales | Sales page |
+| Framework | Structure | Best For |
+|-----------|-----------|----------|
+| AIDA | Attention-Interest-Desire-Action | Landing pages, ads |
+| PAS | Problem-Agitate-Solve | Email sequences, sales pages |
+| BAB | Before-After-Bridge | Case studies, testimonials |
+| 4Ps | Promise-Picture-Proof-Push | Direct response |
+| FAB | Feature-Advantage-Benefit | Product descriptions |
 
 ## Headline Writing
 
-### Headline Quality Checklist
+Test every headline for: specificity, benefit clarity, curiosity, under-3-second comprehension, and length (under 70 chars SEO / under 40 social).
 
-| Element | Test |
-|---------|------|
-| Specificity | Does it name the audience or outcome? |
-| Benefit | Does the reader know what they'll gain? |
-| Curiosity | Is there a reason to click beyond the headline? |
-| Clarity | Can someone understand it in under 3 seconds? |
-| Length | Under 70 characters for SEO; under 40 for social? |
-
-### Headline Formulas
-
-```markdown
-How to [Achieve Result] Without [Pain Point]
-  → "How to Double Organic Traffic Without Hiring a Single Writer"
-
-[Number] [Adjective] Ways to [Benefit] in [Timeframe]
-  → "7 Proven Ways to Reduce Churn in 30 Days"
-
-Why [Common Belief] Is Wrong (And What to Do Instead)
-  → "Why Publishing Daily Is Wrong (And What to Do Instead)"
-
-The [Audience]'s Guide to [Topic]
-  → "The Solo Founder's Guide to Content That Converts"
-
-[Do This], Not [That]: A Framework for [Outcome]
-  → "Audit First, Create Later: A Framework for Content ROI"
-```
-
-## Voice and Tone
-
-### Voice vs. Tone Distinction
-
-```text
-Voice = The consistent personality of the brand (does not change)
-Tone  = The emotional adjustment for context (changes per situation)
-
-Example:
-  Voice: Direct, knowledgeable, approachable
-  Tone (error page): Empathetic, reassuring
-  Tone (product launch): Enthusiastic, confident
-  Tone (pricing page): Transparent, no-pressure
-```
-
-### Tone Calibration Matrix
-
-| Situation | Formality | Emotion | Pace | Example |
-|-----------|-----------|---------|------|---------|
-| Blog post | Conversational | Curious | Steady | "Here's what we found..." |
-| Error message | Professional | Empathetic | Calm | "Something went wrong. Here's how to fix it." |
-| Ad copy | Casual | Urgent | Fast | "Stop guessing. Start growing." |
-| White paper | Formal | Authoritative | Measured | "The data suggests a significant shift..." |
-| Onboarding email | Warm | Encouraging | Gentle | "Welcome! Let's get you set up in 5 minutes." |
+Proven patterns:
+- `How to [Result] Without [Pain Point]`
+- `[Number] Ways to [Benefit] in [Timeframe]`
+- `Why [Common Belief] Is Wrong (And What to Do Instead)`
+- `The [Audience]'s Guide to [Topic]`
 
 ## Email Copywriting
 
-### Subject Line Rules
-
-| Rule | Rationale |
-|------|-----------|
-| Under 50 characters | Mobile truncation starts at ~40 characters |
-| No ALL CAPS | Triggers spam filters and reads as shouting |
-| Personalization sparingly | Overuse trains readers to ignore it |
-| Specificity over mystery | "3 SEO fixes for your pricing page" beats "You need to see this" |
-| Preview text matters | First 90 characters of body appear in inbox preview |
-
-### Email Structure
-
-```text
-Subject line: [Specific benefit or curiosity hook]
-Preview text: [Extends the subject, doesn't repeat it]
-
-Opening line: [Personal, relevant, or surprising]
-    │
-Body: [One idea, clearly communicated]
-    │   - Short paragraphs (1-3 sentences)
-    │   - One link maximum in body
-    │   - Bolded key phrase for scanners
-    │
-CTA: [Single, clear action]
-    │   - Button or linked text
-    │   - "Read the framework" over "Click here"
-    │
-Sign-off: [Human, consistent with brand voice]
-```
+- Subject line under 50 chars; specific over mysterious; no ALL CAPS
+- Preview text extends subject, doesn't repeat it
+- Opening line: personal, relevant, or surprising
+- Body: one idea, short paragraphs, one link max, bolded key phrase
+- CTA: single clear action ("Read the framework" not "Click here")
 
 ## Landing Page Copy
 
-### Conversion Copy Principles
+- One page, one goal — every element supports a single conversion action
+- Lead with benefit, not feature; social proof near CTA
+- FAQ handles top 3-5 objections; urgency must be real
+- CTA buttons: start with verb, name the value ("Get the Free Template")
 
-| Principle | Application |
-|-----------|-------------|
-| One page, one goal | Every element supports a single conversion action |
-| Benefit before feature | Lead with what the reader gains, not what the product does |
-| Social proof placement | Near the CTA, not buried in the middle |
-| Objection handling | FAQ section addresses the top 3-5 reasons people hesitate |
-| Scannability | Headers, bullets, and bold text tell the story for skimmers |
-| Urgency must be real | Fake countdowns and false scarcity destroy trust |
+## Voice and Tone
 
-### CTA Button Copy
-
-```markdown
-## Weak vs. Strong CTAs
-
-Weak: "Submit" / "Click Here" / "Learn More"
-Strong: "Get the Free Template" / "Start Your Audit" / "See Pricing"
-
-Rules:
-- Start with a verb
-- Name the value received
-- Match the commitment level (free content = low friction CTA)
-- Button text should complete the sentence "I want to..."
-```
+- Voice = consistent brand personality (doesn't change)
+- Tone = emotional adjustment for context (changes per situation)
+- Calibrate by situation: formality, emotion, pace
 
 ## Common Pitfalls
 
-```text
-- Feature dumping: Listing features without translating them into reader benefits
-- Cleverness trap: Prioritizing puns and wordplay over clarity of message
-- CTA overload: Multiple competing calls to action that dilute conversion
-- Fake urgency: "Limited time!" on an offer that never expires; destroys credibility
-- Audience mismatch: Writing at expert level for beginners (or vice versa)
-- Ignoring the fold: Burying the value proposition below the initial viewport
-```
+- **Feature dumping**: List features without translating to reader benefits
+- **CTA overload**: Multiple competing calls to action dilute conversion
+- **Fake urgency**: "Limited time!" on an offer that never expires destroys trust
