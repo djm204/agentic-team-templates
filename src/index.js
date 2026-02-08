@@ -387,6 +387,27 @@ const SHARED_RULES = [
   'security-fundamentals.mdc'
 ];
 
+/**
+ * Extract the description field from a .mdc file's YAML front matter
+ * Falls back to the first heading or the filename.
+ * @param {string} filePath - Full path to the .mdc file
+ * @returns {string} Description text
+ */
+function extractDescription(filePath) {
+  try {
+    const content = fs.readFileSync(filePath, 'utf8');
+    const fmMatch = content.match(/^---\s*\n([\s\S]*?)\n---/);
+    if (fmMatch) {
+      const descMatch = fmMatch[1].match(/description:\s*(.+)/);
+      if (descMatch) return descMatch[1].trim();
+    }
+    const headingMatch = content.match(/^#\s+(.+)/m);
+    return headingMatch ? headingMatch[1].trim() : path.basename(filePath, '.mdc');
+  } catch {
+    return path.basename(filePath, '.mdc');
+  }
+}
+
 // Supported IDEs/tools
 const SUPPORTED_IDES = ['cursor', 'claude', 'codex'];
 const DEFAULT_IDES = ['cursor', 'claude', 'codex']; // Default: install for all IDEs
@@ -802,22 +823,18 @@ ${rules}`;
 
   return `# CLAUDE.md - Development Guide
 
-This project uses AI-assisted development with Cursor. The rules in \`.cursor/rules/\` provide domain-specific guidance for the AI assistant.
+This project uses AI-assisted development. Rules in \`.cursor/rules/\` provide guidance.
 
----
-
-## Quick Reference
-
-### Installed Templates
+## Installed Templates
 
 - **Shared** (always included): Core principles, code quality, security, git workflow, communication
 ${templateList}
 
-### Rule Files
+## Rule Files
 
-All rules are in \`.cursor/rules/\`. The AI assistant automatically reads these when working on your project.
+All rules are in \`.cursor/rules/\`. The AI assistant reads these automatically.
 
-#### Shared Rules (Apply to All Code)
+#### Shared Rules
 
 | Rule | Purpose |
 |------|---------|
@@ -828,77 +845,11 @@ All rules are in \`.cursor/rules/\`. The AI assistant automatically reads these 
 | \`communication.mdc\` | Direct, objective, professional |
 ${templateRuleTables}
 
----
-
-## Development Principles
-
-### 1. Honesty Over Output
-
-- If something doesn't work, say it doesn't work
-- If you don't know, say you don't know
-- Never hide errors or suppress warnings
-- Admit mistakes early
-
-### 2. Security First
-
-- Zero trust: Every input is hostile until proven otherwise
-- Validate and sanitize all inputs
-- No secrets in code or logs
-- Least privilege principle
-
-### 3. Tests Are Required
-
-- No feature is complete without tests
-- Green CI or it didn't happen
-- Test behavior, not implementation
-
-### 4. Code Quality
-
-- SOLID principles
-- DRY (Don't Repeat Yourself)
-- Functional programming bias
-- Explicit over implicit
-
----
-
-## Definition of Done
-
-A feature is complete when:
-
-- [ ] Code written and reviewed
-- [ ] Tests written and passing
-- [ ] No linting errors
-- [ ] Security reviewed
-- [ ] Documentation updated
-- [ ] Committed with conventional commit message
-
----
-
 ## Customization
 
-### Adding Project-Specific Rules
-
-1. Create new \`.md\` files in \`.cursor/rules/\`
-2. Follow the existing naming convention
-3. Include clear examples and anti-patterns
-
-### Modifying Existing Rules
-
-Edit files directly in \`.cursor/rules/\`. Changes take effect immediately.
-
-### Updating Templates
-
-Re-run the installer to update (will overwrite existing rules):
-
-\`\`\`bash
-npx cursor-templates ${installedTemplates.join(' ')}
-\`\`\`
-
----
-
-## Resources
-
-- [Cursor Documentation](https://cursor.sh/docs)
+- Create new \`.mdc\` files in \`.cursor/rules/\` for project-specific rules
+- Edit existing files directly; changes take effect immediately
+- Re-run to update: \`npx cursor-templates ${installedTemplates.join(' ')}\`
 `;
 }
 
@@ -913,90 +864,59 @@ function generateClaudeMdToPath(targetDir, installedTemplates, destPath) {
 }
 
 /**
- * Generate content for GitHub Copilot instructions file
+ * Generate content for GitHub Copilot instructions file.
+ * Uses description-based summaries instead of full content concatenation
+ * to keep the file within context window limits.
  */
 function generateCopilotInstructionsContent(installedTemplates) {
-  const templateList = installedTemplates
-    .map(t => `- ${t}: ${TEMPLATES[t].description}`)
-    .join('\n');
-
-  // Read and concatenate all shared rules
-  const sharedRulesContent = SHARED_RULES.map(rule => {
+  // Build shared rules table with descriptions from front matter
+  const sharedRulesTable = SHARED_RULES.map(rule => {
     const rulePath = path.join(TEMPLATES_DIR, '_shared', rule);
-    try {
-      return fs.readFileSync(rulePath, 'utf8');
-    } catch {
-      return '';
-    }
-  }).filter(Boolean).join('\n\n---\n\n');
+    const desc = extractDescription(rulePath);
+    return `| \`${rule}\` | ${desc} |`;
+  }).join('\n');
 
-  // Read and concatenate template-specific rules
-  const templateRulesContent = installedTemplates.map(template => {
-    return TEMPLATES[template].rules.map(rule => {
+  // Build template rules tables with descriptions from front matter
+  const templateTables = installedTemplates.map(template => {
+    const rulesRows = TEMPLATES[template].rules.map(rule => {
       const rulePath = getTemplateRulePath(template, rule);
-      try {
-        return fs.readFileSync(rulePath, 'utf8');
-      } catch {
-        return '';
-      }
-    }).filter(Boolean).join('\n\n');
-  }).join('\n\n---\n\n');
+      const desc = extractDescription(rulePath);
+      return `| \`${rule}\` | ${desc} |`;
+    }).join('\n');
+
+    return `### ${template}
+
+${TEMPLATES[template].description}
+
+| Rule | Guidance |
+|------|----------|
+${rulesRows}`;
+  }).join('\n\n');
 
   return `# Copilot Instructions
 
-This file provides coding guidelines for GitHub Copilot in this project.
+Guidelines for GitHub Copilot in this project. Full rules are in \`.cursor/rules/\`.
 
 ## Project Configuration
 
 **Installed Templates:** ${installedTemplates.join(', ')}
 
-${templateList}
-
----
-
 ## Core Principles
 
-### Honesty Over Output
-- If something doesn't work, say it doesn't work
-- If you don't know, say you don't know
-- Never hide errors or suppress warnings
+- **Honesty over output**: Say what works and what doesn't; admit uncertainty
+- **Security first**: Zero trust, validate all inputs, no secrets in code
+- **Tests required**: No feature ships without tests; test behavior, not implementation
+- **Code quality**: SOLID, DRY, explicit over implicit
 
-### Security First
-- Zero trust: Every input is hostile until proven otherwise
-- Validate and sanitize all inputs
-- No secrets in code or logs
+## Shared Rules
 
-### Tests Are Required
-- No feature is complete without tests
-- Test behavior, not implementation
+| Rule | Guidance |
+|------|----------|
+${sharedRulesTable}
 
-### Code Quality
-- SOLID principles
-- DRY (Don't Repeat Yourself)
-- Explicit over implicit
+## Template Rules
 
----
-
-## Shared Guidelines
-
-${sharedRulesContent}
-
----
-
-## Template-Specific Guidelines
-
-${templateRulesContent}
-
----
-
-## Definition of Done
-
-A feature is complete when:
-- [ ] Code written and reviewed
-- [ ] Tests written and passing
-- [ ] No linting errors
-- [ ] Security reviewed
-- [ ] Documentation updated
+${templateTables}
 `;
 }
 

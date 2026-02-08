@@ -27,6 +27,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Validate rule file sizes
+        run: npm run validate:rules
+
       - name: Run tests
         run: npm test
 

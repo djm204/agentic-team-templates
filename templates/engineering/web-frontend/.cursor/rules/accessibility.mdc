@@ -5,297 +5,71 @@ alwaysApply: false
 
 # Accessibility (a11y)
 
-Guidelines for building accessible web applications that work for everyone.
+Guidelines for building accessible web applications (WCAG 2.1 AA).
 
 ## Core Principles
 
-### 1. Perceivable
-Information must be presentable in ways users can perceive.
-
-### 2. Operable
-UI components must be operable by all users.
-
-### 3. Understandable
-Information and UI operation must be understandable.
-
-### 4. Robust
-Content must be robust enough for assistive technologies.
+- **Perceivable**: Info presentable in ways users can perceive
+- **Operable**: All UI operable by keyboard and assistive tech
+- **Understandable**: Clear, predictable UI behaviour
+- **Robust**: Works with assistive technologies
 
 ## Semantic HTML
 
-Use the right element for the job.
-
-```html
-<!-- Good: Semantic -->
-<nav>
-  <ul>
-    <li><a href="/home">Home</a></li>
-    <li><a href="/about">About</a></li>
-  </ul>
-</nav>
-
-<main>
-  <article>
-    <h1>Article Title</h1>
-    <p>Content...</p>
-  </article>
-</main>
-
-<button onClick={handleClick}>Submit</button>
-
-<!-- Bad: Div soup -->
-<div class="nav">
-  <div class="nav-item" onclick="...">Home</div>
-</div>
-
-<div class="content">
-  <div class="title">Article Title</div>
-</div>
-
-<div class="button" onclick="...">Submit</div>
-```
+Use the right element: `<nav>`, `<main>`, `<article>`, `<button>`, `<a>`. Never use `<div onclick>` for interactive elements.
 
 ## Keyboard Navigation
 
-### All Interactive Elements Must Be Keyboard Accessible
+- All interactive elements keyboard accessible
+- Visible focus indicators (never `outline: none` globally)
+- Skip-to-main-content link
+- Focus trapping for modals
 
-```tsx
-// Good: Native button is keyboard accessible
-<button onClick={handleClick}>Click me</button>
-
-// If you must use a div (avoid if possible):
-<div
-  role="button"
-  tabIndex={0}
-  onClick={handleClick}
-  onKeyDown={(e) => {
-    if (e.key === 'Enter' || e.key === ' ') {
-      handleClick();
-    }
-  }}
->
-  Click me
-</div>
-```
-
-### Focus Management
-
-```tsx
-// Visible focus indicators
-button:focus {
-  outline: 2px solid var(--color-focus);
-  outline-offset: 2px;
-}
-
-// Focus trap for modals
-const Modal = ({ isOpen, onClose, children }) => {
-  const firstFocusableRef = useRef();
-
-  useEffect(() => {
-    if (isOpen) {
-      firstFocusableRef.current?.focus();
-    }
-  }, [isOpen]);
-
-  // ... trap focus within modal
-};
-```
-
-### Skip Links
-
-```html
-<a href="#main-content" class="sr-only focus:not-sr-only">
-  Skip to main content
-</a>
-
-<main id="main-content">
-  ...
-</main>
+```css
+*:focus { outline: 2px solid var(--focus-color); outline-offset: 2px; }
+*:focus:not(:focus-visible) { outline: none; }
 ```
 
 ## ARIA
 
-### Use ARIA Only When Necessary
-
-Native HTML is always preferred. ARIA supplements, not replaces.
-
-```html
-<!-- Good: Native HTML -->
-<button>Submit</button>
-<nav>...</nav>
-<main>...</main>
-
-<!-- ARIA when custom components are unavoidable -->
-<div role="tablist">
-  <button role="tab" aria-selected="true" aria-controls="panel-1">Tab 1</button>
-  <button role="tab" aria-selected="false" aria-controls="panel-2">Tab 2</button>
-</div>
-<div role="tabpanel" id="panel-1">Content 1</div>
-```
-
-### Common ARIA Patterns
+Use only when native HTML is insufficient. Native HTML is always preferred.
 
 ```tsx
-// Loading state
-<button aria-busy={isLoading} disabled={isLoading}>
-  {isLoading ? 'Loading...' : 'Submit'}
-</button>
-
-// Expanded/collapsed
-<button aria-expanded={isOpen} aria-controls="menu">
-  Menu
-</button>
-<ul id="menu" hidden={!isOpen}>...</ul>
-
-// Live regions for dynamic content
-<div aria-live="polite" aria-atomic="true">
-  {statusMessage}
-</div>
-
-// Form errors
-<input
-  aria-invalid={hasError}
-  aria-describedby={hasError ? 'email-error' : undefined}
-/>
-{hasError && <span id="email-error">Please enter a valid email</span>}
+<button aria-expanded={isOpen} aria-controls="menu">Menu</button>
+<input aria-invalid={hasError} aria-describedby="error-msg" />
+<div aria-live="polite">{statusMessage}</div>
 ```
 
 ## Forms
 
-### Labels
-
-Every form input needs a label.
-
-```tsx
-// Good: Explicit label
-<label htmlFor="email">Email</label>
-<input id="email" type="email" />
-
-// Good: Implicit label
-<label>
-  Email
-  <input type="email" />
-</label>
-
-// Bad: No label
-<input type="email" placeholder="Email" />
-```
-
-### Error Messages
-
-```tsx
-<div>
-  <label htmlFor="password">Password</label>
-  <input
-    id="password"
-    type="password"
-    aria-invalid={!!error}
-    aria-describedby={error ? 'password-error' : 'password-hint'}
-  />
-  <span id="password-hint">Must be at least 8 characters</span>
-  {error && (
-    <span id="password-error" role="alert">
-      {error}
-    </span>
-  )}
-</div>
-```
+- Every input needs a visible `<label>` with matching `htmlFor`/`id`
+- Link errors to inputs via `aria-describedby` and `aria-invalid`
+- Provide hint text for complex fields
 
 ## Images
 
-### Alt Text
-
-```html
-<!-- Informative image: Describe the content -->
-<img src="chart.png" alt="Sales increased 25% from Q1 to Q2" />
-
-<!-- Decorative image: Empty alt -->
-<img src="decorative-border.png" alt="" />
-
-<!-- Complex image: Longer description -->
-<figure>
-  <img src="diagram.png" alt="System architecture diagram" />
-  <figcaption>
-    The system consists of three layers: presentation, business logic, and data.
-  </figcaption>
-</figure>
-```
+- Informative: descriptive `alt` text
+- Decorative: `alt=""`
+- Complex: use `<figcaption>` for longer descriptions
 
 ## Color and Contrast
 
-### Minimum Contrast Ratios
+- Normal text: 4.5:1 ratio minimum
+- Large text (18px+): 3:1 ratio
+- Never rely on color alone — use icons + text
 
-- Normal text: 4.5:1
-- Large text (18px+ or 14px+ bold): 3:1
-- UI components and graphics: 3:1
+## Testing Checklist
 
-### Don't Rely on Color Alone
-
-```tsx
-// Bad: Color only
-<span style={{ color: 'red' }}>Error</span>
-
-// Good: Color + icon + text
-<span className="error">
-  <ErrorIcon aria-hidden="true" />
-  Error: Please fix the following issues
-</span>
-```
-
-## Testing
-
-### Automated Testing
-
-```tsx
-import { axe, toHaveNoViolations } from 'jest-axe';
-
-expect.extend(toHaveNoViolations);
-
-test('component has no accessibility violations', async () => {
-  const { container } = render(<MyComponent />);
-  const results = await axe(container);
-  expect(results).toHaveNoViolations();
-});
-```
-
-### Manual Testing Checklist
-
-- [ ] Navigate entire page with keyboard only
-- [ ] Test with screen reader (NVDA, VoiceOver, JAWS)
+- [ ] Navigate with keyboard only
+- [ ] Test with screen reader
 - [ ] Check color contrast ratios
-- [ ] Verify focus indicators are visible
+- [ ] Verify focus indicators visible
 - [ ] Test at 200% zoom
-- [ ] Check with reduced motion preference
 
-## Common Anti-Patterns
+## Anti-Patterns
 
-### Removing Focus Outlines
+**Removing focus outlines**: Replace with visible custom styles, don't remove.
 
-```css
-/* Never do this */
-*:focus { outline: none; }
+**Click-only handlers on divs**: Use `<button>` for interactive elements.
 
-/* Do this instead */
-*:focus { outline: 2px solid var(--focus-color); }
-*:focus:not(:focus-visible) { outline: none; }
-```
-
-### Click-Only Handlers on Non-Interactive Elements
-
-```tsx
-// Bad
-<div onClick={handleClick}>Click me</div>
-
-// Good
-<button onClick={handleClick}>Click me</button>
-```
-
-### Missing Alternative Text
-
-```tsx
-// Bad
-<img src="logo.png" />
-
-// Good
-<img src="logo.png" alt="Company Name" />
-```
+**Missing alt text**: Every `<img>` needs an `alt` attribute.

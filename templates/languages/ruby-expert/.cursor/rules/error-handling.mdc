@@ -5,64 +5,43 @@ alwaysApply: false
 
 # Ruby Expert — Error Handling
 
-Principal-level Ruby: fail fast, fail loud, and make failures debuggable. Silent rescues and swallowed exceptions are how outages turn into all-nighters.
+Fail fast, fail loud, make failures debuggable. Silent rescues turn outages into all-nighters.
 
 ## When to Raise
 
-- **Raising is for exceptional conditions:** broken invariants, unrecoverable state, programming errors, or "this should never happen."
-- **Expected cases are not exceptions.** Use return values, `nil`, or Result objects for "not found," "validation failed," "user chose cancel."
-- **Library boundaries:** re-raise with context or wrap in your own error type so callers know what failed and where.
+- **Raising is for exceptional conditions:** broken invariants, unrecoverable state, programming errors
+- **Expected cases are not exceptions.** Use return values, `nil`, or Result objects
+- **Library boundaries:** re-raise with context or wrap in your own error type
 
 ```ruby
-# Good: Expected "not found" — return nil or a Result
-def find_user(id)
-  User.find_by(id: id)
-end
+# Good: Expected "not found" — return nil
+def find_user(id) = User.find_by(id: id)
 
-# Good: Required record missing in a strict context — raise
-def fetch_user!(id)
-  User.find(id)  # Raises ActiveRecord::RecordNotFound
-end
-
-# Bad: Using exceptions for normal flow
-def get_user(id)
-  User.find(id)
-rescue ActiveRecord::RecordNotFound
-  nil
-end
-# Prefer find_by and handle nil in the caller when "missing" is expected.
+# Good: Required record missing — raise
+def fetch_user!(id) = User.find(id)  # Raises RecordNotFound
 ```
 
 ## Rescue Specificity
 
-- **Never** `rescue Exception` or bare `rescue` in application code unless you immediately re-raise or log and re-raise. Catching everything hides bugs and can mask `SignalException`, `SystemExit`, and memory errors.
-- **Rescue specific classes:** `rescue ActiveRecord::RecordNotFound`, `rescue Net::OpenTimeout`.
-- **At top-level (e.g. job or request boundary):** rescue, log with full context (request id, user, params), then re-raise or report to error tracking. Don't swallow.
+- **Never** bare `rescue` or `rescue Exception` without immediate re-raise
+- **Rescue specific classes:** `rescue ActiveRecord::RecordNotFound`, `rescue Net::OpenTimeout`
+- **At boundaries:** rescue, log with context, re-raise or report to error tracking
 
 ```ruby
-# Good: Specific rescue, then re-raise with context
+# Good: Specific rescue, then re-raise
 def sync_order(id)
   order = Order.find(id)
   external_system.sync(order)
 rescue ExternalAPI::RateLimited => e
   Rails.logger.warn("Rate limited for order #{id}: #{e.message}")
-  raise  # Let job retry or caller handle
-end
-
-# Bad: Swallowing
-def sync_order(id)
-  Order.find(id).then { |o| external_system.sync(o) }
-rescue => e
-  Rails.logger.error(e.message)
-  # No re-raise — caller thinks it succeeded
+  raise
 end
 ```
 
 ## Custom Error Classes
 
-- **Namespace under your app or gem:** `MyApp::Errors::ValidationError`, `MyGem::ConfigurationError`.
-- **Inherit from `StandardError`** (not `Exception`). Add attributes (e.g. `code`, `details`) if they help callers or monitoring.
-- **Use for domain failures** that callers should handle explicitly: e.g. `PaymentFailed`, `QuotaExceeded`.
+- Namespace under your app/gem: `MyApp::ValidationError`
+- Inherit from `StandardError` (not `Exception`). Add attributes if useful
 
 ```ruby
 module MyApp
@@ -76,24 +55,15 @@ module MyApp
 end
 ```
 
-## Logging and Observability
+## Key Rules
 
-- **Log before re-raise** when you add context (e.g. ids, sanitized params). Use structured logging if available.
-- **Don't log sensitive data.** No passwords, tokens, or PII in logs. Redact or use placeholders.
-- **Error tracking:** send exceptions to Sentry/Honeybadger/etc. from the top-level boundary (job, controller, Rack middleware). Avoid rescuing and re-raising just to "report" — use `before_send` or equivalent to enrich.
+- Log before re-raise when adding context; use structured logging
+- Never log sensitive data (passwords, tokens, PII)
+- `RecordNotFound` → let Rails turn it into 404
+- Background jobs: configure retries/dead queues; don't silently drop failures
 
-## Rails Conventions
+## Definition of Done
 
-- **`ActiveRecord::RecordNotFound`:** let it bubble to the framework; Rails turns it into 404.
-- **`ActiveRecord::RecordInvalid`:** raise after `save!` / `create!` when validation failure is exceptional; otherwise use `save` and check return value.
-- **Background jobs:** configure retries and dead queues. On final failure, log and/or report; don't silently drop.
-
-## Definition of Done (Error Handling)
-
-- [ ] No bare `rescue` or `rescue Exception` without immediate re-raise or documented justification.
-- [ ] Expected "not found" or invalid cases use return values or Result types, not exceptions for flow control.
-- [ ] Custom errors are namespaced and inherit from `StandardError`.
-- [ ] Failures at boundaries are logged with context and reported to error tracking.
-- [ ] No sensitive data in exception messages or logs.
-
-Consider these rules if they affect your changes.
+- [ ] No bare `rescue` or `rescue Exception` without immediate re-raise
+- [ ] Custom errors namespaced and inherit from `StandardError`
+- [ ] Failures at boundaries logged with context and reported

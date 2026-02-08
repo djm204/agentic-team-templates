@@ -5,160 +5,62 @@ alwaysApply: false
 
 # Scenario Modeling
 
-Guidelines for building quantitative models, running simulations, and stress-testing negotiation strategies against multiple future states.
+Guidelines for building quantitative models and stress-testing negotiation strategies.
 
 ## Modeling Pipeline
 
-```text
-Scenario Modeling Process
-├── Define the Decision
-│   ├── What specific negotiation choice does this model inform?
-│   ├── What is the time horizon?
-│   └── What level of precision is required?
-├── Identify Key Uncertainties
-│   ├── List all variables that affect outcomes
-│   ├── Classify as controllable vs. uncontrollable
-│   ├── Rank by impact and unpredictability
-│   └── Select top 2-4 for scenario construction
-├── Build Scenarios
-│   ├── 2x2 matrix for two key uncertainties
-│   ├── Name each scenario for easy reference
-│   ├── Assign probability ranges to each
-│   └── Develop narrative and data assumptions per scenario
-├── Model Outcomes
-│   ├── Decision trees for sequential choices
-│   ├── Expected value calculations per path
-│   ├── Monte Carlo for continuous uncertainty
-│   └── Sensitivity analysis for assumption testing
-└── Derive Strategy
-    ├── Identify robust strategies (perform well across scenarios)
-    ├── Identify contingent strategies (optimal in specific scenarios)
-    ├── Define trigger points for shifting between strategies
-    └── Build monitoring plan for early warning signals
-```
+1. **Define the decision**: What negotiation choice does this inform? What precision is needed?
+2. **Identify key uncertainties**: List variables, classify as controllable vs. not, rank by impact
+3. **Build scenarios**: 2×2 matrix from top two uncertainties; name each; assign probabilities
+4. **Model outcomes**: Decision trees for sequential choices, Monte Carlo for continuous uncertainty
+5. **Derive strategy**: Identify robust strategies (work across scenarios) and contingent ones (optimal in specific scenarios); define trigger points for shifting
 
 ## Decision Tree Construction
 
-### Building a Negotiation Decision Tree
+- **Root node**: Your opening decision (accept, reject, counter)
+- **Chance nodes**: Counterparty responses with estimated probabilities
+- **Decision nodes**: Your choices at each stage
+- **Terminal nodes**: Final outcomes with dollar values
+- **Solve backward**: Calculate expected values from terminal nodes to root
 
-1. **Root node**: Your opening decision (accept, reject, counter)
-2. **Chance nodes**: Counterparty responses with estimated probabilities
-3. **Decision nodes**: Your subsequent choices at each stage
-4. **Terminal nodes**: Final outcomes with dollar values
-5. **Solve backward**: Calculate expected values from terminal nodes to root
-
-### Probability Estimation
-
-| Confidence Level | Source | Typical Use |
-|-----------------|--------|------------|
-| High (narrow range) | Historical data, precedent transactions | Mature markets, repeat deals |
-| Medium (moderate range) | Expert judgment, analogous situations | Novel but similar contexts |
-| Low (wide range) | Speculation, limited data | First-of-kind deals, new markets |
-
-When confidence is low, widen probability ranges and run more scenarios. Do not fake precision.
+Confidence levels: High (historical data, precedent) → Medium (expert judgment, analogies) → Low (speculation). When low, widen ranges and run more scenarios.
 
 ## Monte Carlo Simulation
 
-For deals with many continuous uncertainties, use Monte Carlo:
-
-1. **Define input distributions** for each uncertain variable (revenue growth, synergy capture, integration cost)
-2. **Specify correlations** between inputs (do not assume independence without justification)
-3. **Run 10,000+ iterations** to build output distributions
-4. **Analyze results** as probability distributions, not single point estimates
-
-### Key Outputs
-
-| Metric | What It Tells You |
-|--------|------------------|
-| Mean outcome | Expected deal value |
-| Median outcome | Most likely single outcome |
-| Standard deviation | Outcome volatility |
-| 5th percentile | Downside scenario (Value at Risk) |
-| 95th percentile | Upside scenario |
-| Probability of loss | Chance deal destroys value |
+1. Define input distributions for each uncertain variable
+2. Specify correlations between inputs (don't assume independence)
+3. Run 10,000+ iterations
+4. Analyze as distributions: mean, median, std dev, 5th/95th percentile, probability of loss
 
 ## Sensitivity Analysis
 
-### Tornado Diagram
+**Tornado diagram**: Vary each assumption independently, hold others at base case, rank by swing in outcome. Focus negotiation on the top 3-5 value drivers.
 
-Rank assumptions by their impact on deal value:
+**Two-way table**: For the two most impactful assumptions, build a matrix showing outcome under each combination — reveals dangerous and windfall scenarios.
 
-1. Vary each assumption independently across its plausible range
-2. Hold all other assumptions at base case
-3. Record the swing in outcome value
-4. Rank from largest swing to smallest
-5. Focus negotiation efforts on the top 3-5 value drivers
+## Four-Scenario Framework
 
-### Two-Way Sensitivity Tables
+For each scenario, document: probability, deal value, optimal terms, early warning indicators, contingency response.
 
-For the two most impactful assumptions, build a matrix:
-
-```text
-                 Revenue Growth
-                 Low    Base   High
-Synergy   Low  | $80M  $95M   $110M |
-Capture   Base | $95M  $115M  $135M |
-          High | $110M $135M  $160M |
-```
-
-This reveals which assumption combinations are dangerous and which are windfalls.
-
-## Scenario Analysis Framework
-
-### Four-Scenario Template
-
-For the two highest-impact uncertainties, construct four futures:
-
-| Scenario | Axis 1: High | Axis 1: Low |
-|----------|-------------|------------|
-| Axis 2: High | Best case (quantify) | Mixed case A (quantify) |
-| Axis 2: Low | Mixed case B (quantify) | Worst case (quantify) |
-
-For each scenario, document:
-
-- Probability estimate (must sum to ~100%)
-- Deal value under this scenario
-- Optimal deal terms for this scenario
-- Early warning indicators
-- Contingency response
-
-### Robust vs. Contingent Strategies
-
-- **Robust strategy**: Performs acceptably (not necessarily optimally) across all scenarios
+- **Robust strategy**: Performs acceptably across all scenarios
 - **Contingent strategy**: Optimal in a specific scenario but may fail in others
-- **Preferred approach**: Build a robust base strategy with contingent options (earn-outs, triggers, options) that activate if specific scenarios materialize
+- **Preferred approach**: Robust base with contingent options (earn-outs, triggers) that activate per scenario
 
 ## Stress Testing
 
-### Deal-Breaker Analysis
+Test every proposed structure against:
 
-For each proposed deal structure, test against these stress scenarios:
-
-| Stress Test | Question | Threshold |
-|------------|----------|-----------|
-| Revenue collapse | What if revenue drops 30% post-close? | Does the deal still create value? |
-| Synergy failure | What if only 50% of synergies materialize? | Is the price still justified? |
-| Key person loss | What if the CEO/CTO leaves in month 3? | Are retention terms adequate? |
-| Market downturn | What if multiples compress 25%? | Is the financing structure safe? |
-| Regulatory block | What if approval takes 18+ months? | Can both sides sustain the interim? |
-| Integration delay | What if integration takes 2x the planned time? | What are the cash flow implications? |
+| Stress Test | Question |
+|------------|----------|
+| Revenue collapse (-30%) | Does the deal still create value? |
+| Synergy failure (50%) | Is the price still justified? |
+| Key person loss (month 3) | Are retention terms adequate? |
+| Market downturn (-25% multiples) | Is financing safe? |
+| Regulatory block (18+ months) | Can both sides sustain? |
+| Integration delay (2×) | Cash flow implications? |
 
 ## Common Pitfalls
 
-### False Precision
-
-Wrong: Present a deal value of $147.3M based on assumptions with plus-or-minus 30% uncertainty.
-
-Right: Present as a range ($100M to $195M) with a base case of $147M. Communicate uncertainty honestly.
-
-### Scenario Blindness
-
-Wrong: Build three scenarios (optimistic, base, pessimistic) that are all mild variations of each other.
-
-Right: Make scenarios genuinely different. The worst case should be uncomfortable. The best case should feel ambitious. Test real extremes.
-
-### Anchoring on Base Case
-
-Wrong: Treat the base case as the likely outcome and scenarios as theoretical exercises.
-
-Right: Weight all scenarios by probability. If the downside scenario is 30% likely and catastrophic, that matters more than a 40% base case that is merely good.
+- **False precision**: Present ranges, not point values, when assumptions have ±30% uncertainty
+- **Scenario blindness**: Make scenarios genuinely different — worst case should be uncomfortable
+- **Anchoring on base case**: Weight all scenarios by probability; a 30% catastrophic downside matters more than a 40% moderate base

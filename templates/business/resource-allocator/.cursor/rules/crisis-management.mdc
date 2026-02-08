@@ -15,84 +15,50 @@ Guidelines for managing resource allocation when demand exceeds normal capacity.
 | 2 | Elevated | 20-50% above | Activate reserves, pre-position assets |
 | 3 | Surge | 50-100% above | Cancel non-essential, request mutual aid |
 | 4 | Major Incident | Exceeds capacity | Crisis command center, triage protocols |
-| 5 | Catastrophic | System overwhelmed | Regional/national coordination, crisis standards |
+| 5 | Catastrophic | System overwhelmed | Regional/national coordination |
 
 ## Escalation Authority
 
-Each level transition requires explicit authorization:
-
-- **Level 1 to 2**: Shift supervisor
-- **Level 2 to 3**: Operations manager
-- **Level 3 to 4**: Incident commander or director
-- **Level 4 to 5**: Executive leadership with emergency management
-
-De-escalation follows the same chain in reverse. Never skip levels in either direction without documenting the rationale.
+- **1→2**: Shift supervisor | **2→3**: Operations manager | **3→4**: Incident commander | **4→5**: Executive leadership
+- De-escalation follows the same chain in reverse. Never skip levels without documenting rationale.
 
 ## Triage Prioritization
 
-| Priority | Label | Criteria | Allocation Rule |
-|----------|-------|----------|----------------|
-| P1 | Immediate | Life-threatening, time-critical | First allocation, best-matched resources |
-| P2 | Urgent | Serious but stable for 1-4 hours | Second allocation, may queue briefly |
-| P3 | Delayed | Important but not time-sensitive | Queued, served as capacity allows |
-| P4 | Minor | Low severity, can self-manage temporarily | Deferred to lower-acuity resources |
-| P5 | Expectant | Needs exceed available resources | Comfort measures only (crisis standards) |
+| Priority | Criteria | Allocation Rule |
+|----------|----------|----------------|
+| P1 Immediate | Life-threatening, time-critical | First allocation, best-matched resources |
+| P2 Urgent | Serious, stable 1-4 hours | Second allocation, may queue briefly |
+| P3 Delayed | Important, not time-sensitive | Queued, served as capacity allows |
+| P4 Minor | Low severity, self-manageable | Deferred to lower-acuity resources |
+| P5 Expectant | Needs exceed resources | Comfort measures only (crisis standards) |
 
-Triage is reassessed continuously. A P3 patient whose condition deteriorates becomes P2 or P1.
+Triage is reassessed continuously — conditions change priority.
 
-## Crisis Resource Allocation Rules
+## Crisis Resource Rules
 
-1. **Suspend non-critical operations**: Elective procedures, training exercises, routine maintenance
-2. **Consolidate demand**: Direct low-acuity cases to alternate sites or telehealth
-3. **Expand capacity**: Open overflow areas, convert spaces, deploy field resources
-4. **Mutual aid**: Request resources from neighboring sites per pre-agreed protocols
-5. **Ration deliberately**: When supply is exhausted, apply triage matrix transparently
+1. Suspend non-critical operations (elective procedures, training, routine maintenance)
+2. Consolidate demand (redirect low-acuity to alternate sites or telehealth)
+3. Expand capacity (overflow areas, field resources)
+4. Activate mutual aid per pre-agreed protocols
+5. Ration deliberately via triage matrix when supply is exhausted
 
-## Communication During Crisis
+## Situation Report Cadence
 
-### Situation Report Cadence
-
-| Crisis Level | Report Frequency | Distribution |
-|-------------|-----------------|--------------|
+| Crisis Level | Frequency | Distribution |
+|-------------|-----------|--------------|
 | Level 2 | Every 4 hours | Operations team |
 | Level 3 | Every 2 hours | Operations + leadership |
-| Level 4 | Every hour | All stakeholders |
-| Level 5 | Every 30 minutes | All stakeholders + external agencies |
+| Level 4 | Hourly | All stakeholders |
+| Level 5 | Every 30 minutes | All + external agencies |
 
-### Required Elements per Report
-
-- Current crisis level and trend direction
-- Resource status by type (available, deployed, inbound, gap)
-- Actions taken since last report
-- Immediate needs with priority
-- Next decision point or update time
+Each report: current level and trend, resource status, actions taken, immediate needs, next update time.
 
 ## Post-Crisis Review
 
-Every Level 3+ event triggers a structured after-action review within 7 days:
-
-1. **Timeline reconstruction**: What happened and when
-2. **Decision audit**: What was decided, by whom, with what information
-3. **Resource effectiveness**: Were the right resources deployed to the right places
-4. **Communication review**: Did information flow to the right people in time
-5. **Improvement actions**: Specific changes with owners and deadlines
+Every Level 3+ event triggers after-action review within 7 days: timeline reconstruction, decision audit, resource effectiveness, communication review, improvement actions with owners.
 
 ## Common Pitfalls
 
-### Delayed Escalation
-
-Wrong: Wait until resources are exhausted before escalating. Hope the surge passes.
-
-Right: Escalate early based on trajectory, not just current state. It is easier to de-escalate than to recover from behind.
-
-### Abandoning the System
-
-Wrong: During crisis, bypass all allocation protocols and dispatch ad hoc.
-
-Right: The system exists precisely for crisis. Follow triage protocols. Ad hoc decisions under stress are systematically worse than structured ones.
-
-### Forgetting De-Escalation
-
-Wrong: Maintain crisis posture long after demand normalizes. Staff burn out in sustained high alert.
-
-Right: Define explicit de-escalation criteria. When conditions meet thresholds, step down deliberately and communicate the stand-down.
+- **Delayed escalation**: Escalate on trajectory, not just current state — easier to de-escalate than recover
+- **Bypassing protocols in crisis**: The system exists precisely for crisis; ad hoc dispatch under stress is worse
+- **Forgetting de-escalation**: Define explicit criteria; step down deliberately when thresholds are met

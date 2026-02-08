@@ -5,112 +5,23 @@ alwaysApply: false
 
 # QA Engineering
 
-Principal-level guidelines for quality assurance and test engineering.
+Quality is a team responsibility; QA enables it. Testing reveals quality—it doesn't create it. QA provides fast, accurate feedback for confident delivery.
 
-## Scope
+## Core Principles
 
-This ruleset applies to:
+- **Shift Left** — Find defects early when they're cheapest to fix
+- **Risk-Based Testing** — Focus effort on high business impact, high user impact, and high technical risk areas
+- **Test Pyramid** — 60% unit, 30% integration, 10% E2E
+- **Automate the Repeatable** — Regression, smoke, data-driven tests automated; exploratory and usability stay manual
+- **Continuous Feedback** — Quality metrics must be visible, actionable, and timely
 
-- Test strategy and planning
-- Test case design and execution
-- Test automation architecture
-- Quality metrics and reporting
-- Release quality gates
-- Defect management
-- QA process governance
+## Coverage Targets
 
-## Core Philosophy
+- Unit tests: 80%+ line coverage
+- Branch coverage: 70%+
+- Critical paths: 100%
 
-**Quality is a team responsibility; QA enables it.** Testing doesn't create quality—it reveals the quality that development created. QA's role is to provide fast, accurate feedback that enables confident delivery.
-
-## Fundamental Principles
-
-### 1. Shift Left
-
-Find defects early when they're cheapest to fix.
-
-```text
-Cost to fix defect:
-Requirements  →  Design  →  Development  →  Testing  →  Production
-    $1            $10         $100           $500        $10,000
-```
-
-### 2. Risk-Based Testing
-
-Not all features are equally important. Focus testing effort on:
-
-- High business impact (revenue, compliance, security)
-- High user impact (frequently used, critical workflows)
-- High technical risk (complex, new technology, integrations)
-
-### 3. Test Pyramid
-
-More unit tests, fewer E2E tests:
-
-```text
-       ┌─────┐
-       │ E2E │  10% - Slow, expensive, high confidence
-       ├─────┤
-       │ Int │  30% - Medium speed, component interaction
-       ├─────┤
-       │Unit │  60% - Fast, cheap, immediate feedback
-       └─────┘
-```
-
-### 4. Automation as Accelerator
-
-Automate the repeatable; humans do the creative:
-
-- Automate: Regression, smoke tests, data-driven tests
-- Manual: Exploratory, usability, edge cases
-
-### 5. Continuous Quality Feedback
-
-Quality metrics should be:
-
-- Visible: Everyone sees the current state
-- Actionable: Drive specific improvements
-- Timely: Available immediately, not end of sprint
-
-## Project Structure
-
-```text
-tests/
-├── unit/                  # Fast, isolated tests
-│   ├── components/
-│   ├── utils/
-│   └── services/
-├── integration/           # Component interaction tests
-│   ├── api/
-│   └── database/
-├── e2e/                   # End-to-end user flows
-│   ├── specs/
-│   ├── pages/             # Page objects
-│   └── fixtures/          # Test data
-├── performance/           # Load and stress tests
-├── security/              # Security scan configs
-└── test-utils/            # Shared test utilities
-    ├── factories/         # Test data factories
-    ├── mocks/             # Mock implementations
-    └── helpers/           # Common test helpers
-
-docs/
-├── test-strategy.md       # Overall test strategy
-├── test-plan.md           # Current release plan
-└── runbooks/              # Test execution guides
-```
-
-## Quality Standards
-
-### Code Coverage Targets
-
-| Type | Target | Rationale |
-|------|--------|-----------|
-| Unit tests | 80%+ | Core logic covered |
-| Branch coverage | 70%+ | Decision paths tested |
-| Critical paths | 100% | No untested critical code |
-
-### Defect Standards
+## Defect Standards
 
 | Severity | Response Time | Resolution Target |
 |----------|---------------|-------------------|
@@ -119,12 +30,16 @@ docs/
 | P2 (Moderate) | < 24 hours | Current sprint |
 | P3 (Minor) | < 48 hours | Next sprint |
 
-### Release Quality Gate
+## Release Quality Gate
 
-No release without:
+- All P0/P1 tests passing
+- No open P0/P1 defects
+- Regression suite > 95% pass rate
+- Security scan clean
+- Performance thresholds met
 
-- [ ] All P0/P1 tests passing
-- [ ] No open P0/P1 defects
-- [ ] Regression suite > 95% pass
-- [ ] Security scan clean
-- [ ] Performance thresholds met
+## Anti-Patterns
+
+- **Testing everything equally** — Use risk-based prioritization, not uniform depth
+- **Measuring activity over quality** — Track defect escape rate, not test count
+- **QA as gatekeeper** — QA should be involved from requirements through deployment, not just at the end

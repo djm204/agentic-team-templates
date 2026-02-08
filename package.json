@@ -41,6 +41,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
+    "validate:rules": "node scripts/validate-rule-sizes.js",
     "prepare": "husky"
   },
   "devDependencies": {

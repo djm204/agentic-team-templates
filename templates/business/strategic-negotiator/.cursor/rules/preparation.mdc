@@ -5,148 +5,75 @@ alwaysApply: false
 
 # Preparation
 
-Guidelines for thorough negotiation preparation, counterparty profiling, and pre-negotiation strategy development.
+Guidelines for negotiation preparation, counterparty profiling, and pre-negotiation strategy.
 
-## Preparation Framework
+## Preparation Checklist
 
-```text
-Negotiation Preparation Checklist
-├── Self-Assessment
-│   ├── Identify and rank our interests (not positions)
-│   ├── Calculate our BATNA and reservation price
-│   ├── Set target/aspiration price with justification
-│   ├── Inventory concessions we can make (with internal costs)
-│   ├── Define authority limits (who approves what)
-│   └── Identify our constraints and pressure points
-├── Counterparty Analysis
-│   ├── Research their interests and priorities
-│   ├── Estimate their BATNA
-│   ├── Assess their constraints and timeline pressures
-│   ├── Profile decision makers (style, authority, biases)
-│   ├── Review their past negotiation behavior
-│   └── Map their internal stakeholder dynamics
-├── ZOPA Construction
-│   ├── Estimate zone of possible agreement
-│   ├── Identify ZOPA expansion opportunities
-│   ├── Prepare multiple package proposals
-│   └── Design contingent agreements for uncertainty
-├── Strategy Design
-│   ├── Choose opening strategy (anchor, listen first, or package)
-│   ├── Plan concession pattern and pace
-│   ├── Prepare responses to likely counterparty moves
-│   ├── Define walk-away criteria and process
-│   └── Assign team roles and communication protocols
-└── Logistics
-    ├── Set agenda and sequencing preferences
-    ├── Choose venue and format
-    ├── Prepare documents and data room
-    ├── Brief legal and financial advisors
-    └── Establish internal communication plan
-```
+**Self-Assessment**:
+- Identify and rank interests (not positions)
+- Calculate BATNA and reservation price
+- Set target price with justification
+- Inventory concessions with internal costs
+- Define authority limits and constraints
 
-## Counterparty Profiling
+**Counterparty Analysis**:
+- Research their interests, priorities, and BATNA
+- Assess constraints, timeline pressures, and decision-making process
+- Profile key decision-makers (style, authority, biases)
+- Review past negotiation behavior
 
-### Information Gathering
+**ZOPA Construction**:
+- Estimate zone of possible agreement
+- Identify expansion opportunities
+- Prepare multiple package proposals
+- Design contingent agreements for uncertainty
 
-| Category | Sources | Key Questions |
-|----------|---------|--------------|
-| Financial position | Public filings, credit reports, press releases | Cash reserves? Debt covenants? Quarterly pressure? |
-| Strategic priorities | Annual reports, CEO letters, investor presentations | Growth targets? Divestiture plans? Adjacency strategy? |
-| Negotiation history | News archives, industry contacts, legal databases | Past deal terms? Litigation patterns? Walk-away record? |
-| Decision process | Organizational charts, board composition, governance docs | Who decides? Consensus or hierarchy? Board approval needed? |
-| Cultural factors | Regional norms, industry customs, personal style | Relationship-first or transactional? Direct or indirect? |
+**Strategy**:
+- Choose opening approach (anchor, listen first, or package)
+- Plan concession pattern and pace
+- Prepare responses to likely counterparty moves
+- Define walk-away criteria; assign team roles
 
-### Negotiation Style Assessment
+## Counterparty Style Assessment
 
 | Style | Indicators | Counter-Strategy |
 |-------|-----------|-----------------|
-| Competitive | Positional demands, take-it-or-leave-it, deadline pressure | Hold firm on walk-away, redirect to interests, slow the pace |
-| Collaborative | Interest-based questions, creative options, transparency | Reciprocate openness cautiously, but verify claims independently |
-| Avoidant | Delayed responses, delegation, process objections | Set deadlines, escalate to decision makers, present clear alternatives |
-| Accommodating | Quick concessions, relationship focus, conflict avoidance | Do not exploit (if repeated game), test their limits gently |
-| Analytical | Data requests, scenario analysis, detailed due diligence | Prepare rigorous supporting data, expect longer timelines |
+| Competitive | Positional demands, deadline pressure | Hold firm on walk-away; redirect to interests |
+| Collaborative | Interest-based questions, transparency | Reciprocate cautiously; verify claims |
+| Avoidant | Delayed responses, delegation | Set deadlines; escalate to decision-makers |
+| Analytical | Data requests, detailed due diligence | Prepare rigorous data; expect longer timelines |
 
 ## Anchoring Strategy
 
-### When to Anchor First
+**Anchor first** when you have strong ZOPA information and want to frame terms. **Let them anchor** when you have limited info and their offer may reveal intelligence.
 
-Anchor first (make the opening offer) when:
+- Set anchor ambitiously but defensibly (justify with data)
+- Use precise numbers ($47.5M, not "around $50M") — precision signals preparation
+- Expect 30-50% of distance between anchor and counterparty target as outcome
 
-- You have strong information about the ZOPA
-- The counterparty has weaker information
-- Industry norms support a specific range
-- You want to frame the negotiation around your terms
+## Concession Principles
 
-### When to Let Them Anchor
-
-Let them go first when:
-
-- You have limited information about their valuation
-- Their anchor may reveal more than yours
-- You expect their anchor to be within your acceptable range
-- Listening first yields strategic intelligence
-
-### Anchor Calibration
-
-- Set anchor **ambitiously but defensibly** (can you justify it with data?)
-- Expect **30-50% of the distance** between anchor and counterparty's target as final outcome
-- Prepare **supporting rationale** (comparables, precedent, market data) for your anchor
-- Never anchor with a round number; precision signals preparation (say $47.5M, not "around $50M")
-
-## Concession Strategy
-
-### Concession Planning Table
-
-| Concession | Our Cost | Their Perceived Value | Priority (give early/late) |
-|-----------|----------|----------------------|--------------------------|
-| [Item 1] | [Low/Med/High] | [Low/Med/High] | [Early - builds goodwill] |
-| [Item 2] | [Low/Med/High] | [Low/Med/High] | [Late - save for closing] |
-| [Item 3] | [Low/Med/High] | [Low/Med/High] | [Trade for specific return] |
-
-### Concession Principles
-
-1. **Never concede without getting something back** (reciprocity principle)
-2. **Make concessions progressively smaller** (signals approaching your limit)
-3. **Label your concessions** ("This is important to us, but we are willing to...")
-4. **Track all concessions** by both sides (running scorecard)
-5. **Never split the difference** as a first move (it rewards extreme opening positions)
+1. Never concede without getting something back
+2. Make concessions progressively smaller (signals approaching your limit)
+3. Label concessions ("This is important to us, but...")
+4. Track all concessions by both sides
+5. Never split the difference as a first move
 
 ## Team Roles
 
-| Role | Responsibility | Skills Required |
-|------|---------------|----------------|
-| Lead negotiator | Primary spokesperson, relationship management | Communication, judgment |
-| Analyst | Real-time modeling, number verification | Financial modeling, quick math |
-| Observer | Read counterparty body language and dynamics | Emotional intelligence, note-taking |
-| Scribe | Document proposals, counterproposals, commitments | Precision, organization |
-| Specialist | Answer technical/legal/financial questions | Domain expertise |
+| Role | Responsibility |
+|------|---------------|
+| Lead negotiator | Primary spokesperson, relationship management |
+| Analyst | Real-time modeling, number verification |
+| Observer | Read counterparty dynamics, take notes |
+| Specialist | Answer technical/legal/financial questions |
 
 ## War-Gaming
 
-Before the negotiation, simulate it:
-
-1. **Assign red team** to play the counterparty using their estimated strategy
-2. **Run through 3 rounds** of offers, counteroffers, and objections
-3. **Identify surprises** and weak points in your strategy
-4. **Refine responses** to the most challenging counterparty moves
-5. **Practice walk-away** to ensure the team can execute it under pressure
+Simulate before negotiating: assign a red team as counterparty, run 3 rounds of offers/counteroffers, identify weak points, refine responses, practice walk-away.
 
 ## Common Pitfalls
 
-### Underestimating Preparation Time
-
-Wrong: Schedule a "quick prep call" the morning of the negotiation.
-
-Right: Major negotiations require days to weeks of preparation. The ratio of preparation time to negotiation time should be at least 3:1.
-
-### Preparing Only Your Side
-
-Wrong: Build a detailed model of your own position and walk in blind about the counterparty.
-
-Right: Spend at least half your preparation time on counterparty analysis. Understanding their constraints and interests is as important as knowing your own.
-
-### Rigid Scripting
-
-Wrong: Write a negotiation script and follow it regardless of what happens.
-
-Right: Prepare principles, ranges, and contingency responses. Be adaptive in execution while staying disciplined on strategy.
+- **Underestimating prep time**: Preparation-to-negotiation ratio should be at least 3:1
+- **Preparing only your side**: Spend half your prep on counterparty analysis
+- **Rigid scripting**: Prepare principles and ranges, not scripts — be adaptive in execution

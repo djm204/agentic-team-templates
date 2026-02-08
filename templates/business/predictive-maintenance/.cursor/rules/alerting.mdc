@@ -14,77 +14,43 @@ Guidelines for configuring, routing, and managing predictive maintenance alerts.
 | P1 - Critical | Imminent failure (RUL < 48h) or safety risk | < 1 hour | Stop asset, emergency maintenance |
 | P2 - High | Significant degradation (RUL < 2 weeks) | < 8 hours | Schedule urgent maintenance |
 | P3 - Medium | Moderate degradation detected | < 48 hours | Plan maintenance in next window |
-| P4 - Low | Early degradation signal, trend emerging | Next review cycle | Monitor, add to watchlist |
+| P4 - Low | Early degradation signal, trend emerging | Next review | Monitor, add to watchlist |
 | P5 - Info | Anomaly detected, no confirmed degradation | Log only | Record for pattern analysis |
 
 ## Alert Routing
 
-| Severity | Primary Recipient | Secondary | Channel |
-|----------|------------------|-----------|---------|
-| P1 | On-shift operator + maintenance lead | Plant manager | SMS + phone + dashboard |
-| P2 | Maintenance planner | Shift supervisor | Email + dashboard + mobile push |
-| P3 | Maintenance planner | Asset engineer | Dashboard + email |
-| P4 | Asset engineer | Analytics team | Dashboard |
-| P5 | Analytics team | - | Log only |
+| Severity | Primary Recipient | Channel |
+|----------|------------------|---------|
+| P1 | On-shift operator + maintenance lead | SMS + phone + dashboard |
+| P2 | Maintenance planner + shift supervisor | Email + dashboard + push |
+| P3 | Maintenance planner + asset engineer | Dashboard + email |
+| P4 | Asset engineer | Dashboard |
+| P5 | Analytics team | Log only |
 
-## Threshold Configuration
+## Threshold Types
 
-### Static Thresholds
-
-Set absolute limits based on manufacturer specs or engineering standards:
-
-```text
-Example: Bearing vibration
-- Normal: < 4.5 mm/s
-- Warning (P4): 4.5 - 7.1 mm/s
-- Alert (P3): 7.1 - 11.2 mm/s
-- Danger (P2): 11.2 - 18.0 mm/s
-- Critical (P1): > 18.0 mm/s
-```
-
-### Dynamic Thresholds
-
-Adapt limits based on operating context:
-
-- Adjust for load level (higher vibration is normal at higher load)
-- Adjust for ambient temperature
-- Use rolling baseline: alert when reading > mean + N standard deviations
-
-### Model-Based Alerts
-
-Triggered by prediction models rather than raw sensor values:
-
-- RUL estimate drops below threshold
-- Anomaly score exceeds confidence threshold
-- Degradation rate accelerates beyond historical norm
+- **Static**: Absolute limits from manufacturer specs (e.g., vibration > 18.0 mm/s = P1)
+- **Dynamic**: Adjusted for load, ambient temperature; alert when reading > mean + N std dev
+- **Model-based**: RUL drops below threshold, anomaly score exceeds confidence limit, or degradation rate accelerates
 
 ## Alert Quality Metrics
 
-| Metric | Formula | Target |
-|--------|---------|--------|
-| True positive rate | Confirmed issues / Total alerts | > 80% |
-| False alarm rate | Non-issues / Total alerts | < 15% |
-| Missed detection rate | Undetected failures / Total failures | < 5% |
-| Alert-to-action time | Time from alert to maintenance decision | < SLA per severity |
+| Metric | Target |
+|--------|--------|
+| True positive rate | > 80% |
+| False alarm rate | < 15% |
+| Missed detection rate | < 5% |
+| Alert-to-action time | < SLA per severity |
 
 ## Alert Fatigue Prevention
 
 - **Suppress duplicates**: Same asset, same condition, within suppression window
-- **Aggregate related alerts**: Multiple sensors on one asset = one alert with details
-- **Escalate, don't repeat**: If P4 is not acknowledged in 48h, escalate to P3
+- **Aggregate related**: Multiple sensors on one asset = one alert with details
+- **Escalate, don't repeat**: Unacknowledged P4 for 48h escalates to P3
 - **Tune continuously**: Review false alarms monthly, adjust thresholds quarterly
-- **Snooze with accountability**: Allow temporary suppression with documented reason and expiration
+- **Snooze with accountability**: Temporary suppression requires reason and expiration
 
 ## Common Pitfalls
 
-### Too Many P1 Alerts
-
-Wrong: Set tight thresholds to "catch everything." Result: 50 P1 alerts per day, all ignored.
-
-Right: Reserve P1 for genuine imminent failure or safety risk. Use P3-P4 for early warnings.
-
-### Static Thresholds on Variable Assets
-
-Wrong: Same vibration threshold for an asset running at 50% load and 100% load.
-
-Right: Normalize thresholds against operating conditions. Use dynamic or model-based approaches.
+- **Too many P1s**: Tight thresholds to "catch everything" produces 50 daily P1s, all ignored. Reserve P1 for imminent failure or safety risk.
+- **Static thresholds on variable assets**: Same vibration limit at 50% and 100% load. Normalize against operating conditions.

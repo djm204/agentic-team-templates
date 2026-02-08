@@ -5,14 +5,12 @@ alwaysApply: false
 
 # Collaboration
 
-Guidelines for governing collaborative writing, coordinating across media teams, and managing the content submission pipeline.
+Governing collaborative writing, coordinating across media teams, and managing the content submission pipeline.
 
 ## Writer Onboarding
 
-New writers progress through four phases:
-
-1. **Orientation** (Week 1): Story bible access, canon tier system training, review process walkthrough, key contacts
-2. **Guided Writing** (Weeks 2-4): First submission reviewed with detailed lore feedback, cross-reference tools demonstrated, character voice calibrated
+1. **Orientation** (Week 1): Story bible access, canon tier training, review process walkthrough
+2. **Guided Writing** (Weeks 2-4): First submission with detailed lore feedback, cross-reference tools demonstrated
 3. **Independent Writing** (Week 5+): Standard review process, reduced oversight as track record builds
 4. **Senior Contributor**: May review others' lore compliance, propose story bible amendments, mentor new writers
 
@@ -21,72 +19,44 @@ New writers progress through four phases:
 | Rule | Rationale |
 |------|-----------|
 | Major character deaths require narrative architect approval | Permanent downstream consequences across all media |
-| New magic or tech rules require approval | System rules constrain all future stories |
-| New named locations must be checked against geography | Prevents duplicate or conflicting place names |
-| Dialogue must respect character knowledge states | Prevents characters knowing things they should not |
-| Historical references must be verified against timeline | Prevents temporal contradictions |
-| New species, factions, or cultures require documentation first | Prevents under-documented elements from proliferating |
+| New magic/tech rules require approval | System rules constrain all future stories |
+| New named locations checked against geography | Prevents duplicates or conflicts |
+| Dialogue must respect character knowledge states | Prevents characters knowing the unknowable |
+| Historical references verified against timeline | Prevents temporal contradictions |
+| New species/factions/cultures require documentation first | Prevents under-documented elements |
 
 ## Content Submission Pipeline
 
-Every piece of narrative content follows this workflow:
-
-1. **Draft submission**: Writer submits with self-check completed, new lore elements flagged, dependencies listed
-2. **Lore review**: Narrative architect checks canon compliance, flags contradictions with specific references, evaluates new elements
-3. **Revision**: Writer addresses required changes, resubmits for verification
-4. **Approval**: Content marked lore-approved, new canonical facts queued for story bible, cross-media notifications sent
-5. **Post-publication**: Story bible updated, dependency graph updated, timeline updated, community feedback monitored
+1. **Draft**: Writer submits with self-check, new lore flagged, dependencies listed
+2. **Lore review**: Narrative architect checks compliance, flags contradictions with references
+3. **Revision**: Writer addresses required changes, resubmits
+4. **Approval**: Content marked lore-approved, new facts queued for story bible, cross-media notifications sent
+5. **Post-publication**: Story bible, dependency graph, and timeline updated; community feedback monitored
 
 ## Cross-Media Coordination
 
-When multiple media are active simultaneously:
+- Shared canon layer all media must respect
+- Media-specific permissions for tone, pacing, detail adaptation
+- Synchronization points for character status alignment
+- Release coordination to prevent cross-media spoilers
+- Narrative architect as final authority on shared-layer disputes
 
-- Establish shared canon layer that all media must respect
-- Define media-specific permissions for tone, pacing, and detail adaptation
-- Set synchronization points for character status alignment
-- Coordinate release schedules to prevent cross-media spoilers
-- Designate the narrative architect as final authority on shared-layer disputes
-
-### Media Authority Matrix
-
-- Any team may propose new canonical elements
-- The narrative architect approves or rejects proposals based on consistency impact
-- Character deaths and system rule changes require IP owner approval in addition to narrative architect
-- Non-canon side stories may be created independently by respective team leads
-
-## Conflict Resolution Between Writers
+## Conflict Resolution
 
 | Conflict Type | Resolution |
 |--------------|-----------|
 | Parallel writers establish contradictory facts | Narrative architect determines canonical version |
-| Writer disagrees with a lore constraint | Writer proposes amendment through story bible process |
-| Multiple writers need the same character simultaneously | Narrative architect coordinates scheduling and state transitions |
-| Writer wants to retcon another writer's content | Full retcon protocol followed; original writer consulted |
+| Writer disagrees with lore constraint | Propose amendment through story bible process |
+| Multiple writers need same character | Narrative architect coordinates scheduling |
+| Writer wants to retcon another's content | Full retcon protocol; original writer consulted |
 
 ## Communication Standards
 
-- Lore review feedback must be specific, citing exact story bible references
-- Feedback must be actionable, explaining what to change and why
-- Feedback must distinguish between required fixes and suggestions
-- Turnaround for lore review should not exceed one week for standard submissions
-- Urgent submissions (release-blocking) receive 48-hour turnaround
+- Feedback must cite exact story bible references, be actionable, and distinguish required fixes from suggestions
+- Standard turnaround: one week; urgent (release-blocking): 48 hours
 
 ## Common Pitfalls
 
-### Siloed Development
-
-Wrong: Allow teams working on different media or installments to develop in isolation without regular synchronization.
-
-Right: Schedule cross-team canon alignment meetings at the start and midpoint of every development cycle.
-
-### Authority Without Documentation
-
-Wrong: Make verbal canonical decisions in meetings without recording them in the story bible.
-
-Right: Every canonical decision, no matter how small, must be documented within one week of being made.
-
-### Feedback Without References
-
-Wrong: Reject content with vague notes like "this does not feel right" or "check the lore."
-
-Right: Every lore objection must cite the specific story bible entry, installment, and passage that the submitted content contradicts.
+- **Siloed development**: Schedule cross-team canon alignment at start and midpoint of each cycle
+- **Authority without documentation**: Every canonical decision recorded in story bible within one week
+- **Feedback without references**: Every lore objection must cite the specific entry it contradicts

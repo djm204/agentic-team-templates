@@ -619,20 +619,20 @@ describe('Content Generation', () => {
       expect(content).toContain('security-fundamentals.mdc');
     });
 
-    it('should include development principles', () => {
+    it('should include customization section', () => {
       const content = generateClaudeMdContent(['web-frontend']);
       
-      expect(content).toContain('Honesty Over Output');
-      expect(content).toContain('Security First');
-      expect(content).toContain('Tests Are Required');
+      expect(content).toContain('Customization');
+      expect(content).toContain('.mdc');
+      expect(content).toContain('npx cursor-templates');
     });
 
-    it('should include definition of done', () => {
+    it('should not include duplicated principles or definition of done', () => {
       const content = generateClaudeMdContent(['web-frontend']);
       
-      expect(content).toContain('Definition of Done');
-      expect(content).toContain('Code written and reviewed');
-      expect(content).toContain('Tests written and passing');
+      // These were removed to avoid duplicating shared rules
+      expect(content).not.toContain('Development Principles');
+      expect(content).not.toContain('Definition of Done');
     });
   });
 
@@ -650,12 +650,23 @@ describe('Content Generation', () => {
       expect(content).toContain('**Installed Templates:** web-frontend, web-backend');
     });
 
-    it('should include core principles', () => {
+    it('should include compact core principles', () => {
       const content = generateCopilotInstructionsContent(['web-frontend']);
       
-      expect(content).toContain('Honesty Over Output');
-      expect(content).toContain('Security First');
-      expect(content).toContain('Tests Are Required');
+      expect(content).toContain('Honesty over output');
+      expect(content).toContain('Security first');
+      expect(content).toContain('Tests required');
+    });
+
+    it('should use description tables instead of full content', () => {
+      const content = generateCopilotInstructionsContent(['web-frontend']);
+      
+      // Should have description-based tables
+      expect(content).toContain('Shared Rules');
+      expect(content).toContain('Template Rules');
+      expect(content).toContain('| Rule | Guidance |');
+      // Should NOT contain full rule file content (no YAML front matter)
+      expect(content).not.toContain('alwaysApply:');
     });
   });
 });

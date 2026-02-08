@@ -7,14 +7,6 @@ alwaysApply: false
 
 Guidelines for optimizing maintenance timing, balancing asset health against operational constraints.
 
-## Maintenance Strategy Spectrum
-
-```text
-Reactive         Time-Based          Condition-Based       Predictive
-(Fix on fail)    (Calendar/Hours)    (Threshold triggers)  (Model-driven RUL)
-   ←── Increasing maturity and cost-effectiveness ──→
-```
-
 ## Strategy Selection by Asset Criticality
 
 | Criticality | Strategy | Rationale |
@@ -59,23 +51,11 @@ Factors to balance when scheduling:
 
 Every predictive maintenance recommendation generates a work order containing:
 
-- Asset ID and location
-- Predicted failure mode and confidence level
-- Recommended action and urgency
-- Required parts, tools, and skills
-- Estimated duration
-- RUL window (earliest and latest recommended completion)
+- Asset ID, location, predicted failure mode, and confidence level
+- Recommended action, urgency, required parts/tools/skills
+- Estimated duration and RUL window (earliest/latest completion)
 
 ## Common Pitfalls
 
-### Over-Maintaining
-
-Wrong: Replace a component at 50% remaining useful life "just to be safe."
-
-Right: Optimize the intervention point. Early replacement wastes remaining life and increases costs.
-
-### Ignoring Scheduling Constraints
-
-Wrong: Model recommends maintenance Tuesday; plant runs 24/7 with no planned shutdowns.
-
-Right: Integrate maintenance recommendations with production scheduling and constraint systems.
+- **Over-maintaining**: Replacing at 50% remaining useful life "just to be safe" wastes remaining life and increases costs. Optimize the intervention point.
+- **Ignoring constraints**: Model recommends Tuesday; plant runs 24/7. Integrate recommendations with production scheduling.

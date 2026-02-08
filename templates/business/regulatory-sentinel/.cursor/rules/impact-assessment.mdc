@@ -5,78 +5,58 @@ alwaysApply: false
 
 # Impact Assessment
 
-Guidelines for evaluating the operational, financial, and strategic impact of regulatory changes on business operations.
+Guidelines for evaluating operational, financial, and strategic impact of regulatory changes.
 
 ## Impact Dimensions
-
-Assess every regulatory change across these dimensions:
 
 | Dimension | Key Questions |
 |-----------|--------------|
 | Operational | Which processes must change? What is the implementation effort? |
-| Financial | What are compliance costs? New fees, reporting burdens, or penalty exposure? |
-| Technology | Do systems need modification? Are new monitoring tools required? |
-| Personnel | Is training required? Are new roles or certifications needed? |
-| Strategic | Does this affect market positioning or create barriers to entry? |
-| Customer | Will customer experience change? Are new disclosures or consents required? |
-| Third-party | Are vendor and partner obligations affected? Do contracts need amendment? |
+| Financial | Compliance costs? New fees, reporting burdens, or penalty exposure? |
+| Technology | System modifications needed? New monitoring tools required? |
+| Personnel | Training required? New roles or certifications needed? |
+| Strategic | Affect market positioning or create barriers to entry? |
+| Customer | Experience changes? New disclosures or consents required? |
+| Third-party | Vendor/partner obligations affected? Contracts need amendment? |
 
 ## Severity Scale
 
 | Level | Definition | Example |
 |-------|-----------|---------|
-| Critical | Fundamental business model change or existential risk | New law prohibits core product offering |
-| High | Significant process overhaul or substantial cost | Major data handling requirements across systems |
-| Medium | Moderate process adjustments or targeted changes | New reporting for specific product line |
-| Low | Minor procedural updates or documentation changes | Updated disclosure language on existing forms |
-| Informational | No direct impact, strategic awareness only | Regulation affecting adjacent industry |
+| Critical | Business model change or existential risk | Law prohibits core product |
+| High | Significant process overhaul or substantial cost | Major data handling requirements |
+| Medium | Moderate process adjustments | New reporting for specific product line |
+| Low | Minor procedural or documentation updates | Updated disclosure language |
+| Informational | No direct impact, strategic awareness only | Regulation in adjacent industry |
 
 ## Assessment Process
 
-For each regulatory change:
-
-1. **Identify** the specific provisions that apply to operations
+1. **Identify** specific provisions that apply to operations
 2. **Map** affected business units, processes, and systems
 3. **Quantify** compliance costs (technology, personnel, process, legal)
-4. **Estimate** timeline for implementation vs. regulatory effective date
-5. **Evaluate** risk of non-compliance (penalties, enforcement, reputation)
-6. **Determine** whether the change creates competitive advantage for early adopters
-7. **Document** findings in standardized impact assessment format
+4. **Estimate** implementation timeline vs. regulatory effective date
+5. **Evaluate** non-compliance risk (penalties, enforcement, reputation)
+6. **Determine** whether early adoption creates competitive advantage
+7. **Document** in standardized impact assessment format
 
 ## Cross-Regulation Analysis
 
-Some regulatory changes interact with existing obligations:
-
-- **Conflict detection**: Does the new requirement contradict an existing one in another jurisdiction?
+- **Conflict detection**: Does the new requirement contradict existing obligations?
 - **Overlap identification**: Can compliance efforts for related regulations be consolidated?
-- **Cascade effects**: Does this change trigger obligations under other frameworks (e.g., a privacy change triggers security requirements)?
+- **Cascade effects**: Does this trigger obligations under other frameworks?
 - **Precedent implications**: Does this enforcement action signal broader regulatory intent?
 
 ## Timeline Management
 
-| Phase | Activity | Target |
-|-------|----------|--------|
-| Detection to Assessment | Complete impact assessment | Within 5 business days of detection |
-| Assessment to Plan | Develop implementation roadmap | Within 10 business days of assessment |
-| Plan to Implementation | Begin execution | Before 50% of time to effective date consumed |
-| Implementation to Validation | Complete testing | At least 30 days before effective date |
+| Phase | Target |
+|-------|--------|
+| Detection to assessment | Within 5 business days |
+| Assessment to plan | Within 10 business days |
+| Plan to implementation | Before 50% of time to effective date consumed |
+| Implementation to validation | At least 30 days before effective date |
 
 ## Common Pitfalls
 
-### Under-Scoping Impact
-
-Wrong: Assess impact only on the obviously affected business unit.
-
-Right: Trace the regulation across all operations. Data privacy rules affect marketing, HR, IT, legal, and every unit that handles personal data.
-
-### Ignoring Indirect Costs
-
-Wrong: Estimate only direct compliance costs (technology, legal fees).
-
-Right: Include indirect costs: employee time, opportunity cost, customer friction, vendor renegotiation, and ongoing monitoring.
-
-### Waiting for Final Rules
-
-Wrong: Begin assessment only after the final rule is published.
-
-Right: Start impact assessment during the proposed rule stage. Refine when the final rule drops. This buys months of lead time.
+- **Under-scoping**: Trace the regulation across all operations, not just the obvious unit
+- **Ignoring indirect costs**: Include employee time, opportunity cost, customer friction, vendor renegotiation
+- **Waiting for final rules**: Start assessment during proposed rule stage; refine when final rule drops

@@ -5,33 +5,26 @@ alwaysApply: false
 
 # Ruby Expert
 
-Guidelines for principal-level Ruby engineering. The best Ruby developer on your team: they've seen the outages, heard the war stories, and know what to expect and when.
+Principal-level Ruby engineering. Clarity, convention, and production readiness.
 
 ## Scope
 
-This ruleset applies to:
 - Web applications (Rails, Hanami, Roda, Sinatra)
-- Background job systems (Sidekiq, Solid Queue, Good Job)
-- CLI tools and automation (Thor, OptionParser)
-- Libraries and gems published to RubyGems
-- APIs and service layers
-- Scripts and glue code that run in production
+- Background jobs (Sidekiq, Solid Queue, Good Job)
+- CLI tools, automation, libraries/gems, APIs, scripts
 
 ## Core Philosophy
 
-Ruby rewards clarity and convention. Principal-level Ruby means knowing when to follow the grain and when to push back — and why.
-
-- **Optimize for humans first.** Ruby is designed for programmer happiness and long-term maintainability. Clever one-liners that obscure intent are a liability, not a flex.
-- **Convention over configuration.** Rails didn't invent this — Matz did. Use the standard library and community idioms unless you have a measured reason not to.
-- **Fail fast, fail loud.** Silent failures and swallowed exceptions are how 3 AM pages happen. Raise, log, and propagate. If you don't know, say so.
-- **The GIL is real.** Understand it. Design for it. Use processes, background jobs, and I/O concurrency — not threads for CPU-bound work.
-- **Memory and N+1s bite.** Principal Rubyists profile before optimizing and know exactly when `includes`, `eager_load`, and query batching matter.
-- **Metaprogramming is a sharp tool.** Use it to remove boilerplate and enforce contracts. Don't use it to show off. If the team can't debug it at 2 AM, don't ship it.
-- **If you don't know, say so.** The Ruby and Rails ecosystems are vast. Admitting uncertainty about a gem or MRI internals is professional.
+- **Optimize for humans first.** Clever one-liners that obscure intent are a liability
+- **Convention over configuration.** Use stdlib and community idioms unless you have a measured reason not to
+- **Fail fast, fail loud.** Silent failures cause 3 AM pages. Raise, log, propagate
+- **The GIL is real.** Use processes, background jobs, and I/O concurrency — not threads for CPU work
+- **Metaprogramming is a sharp tool.** If the team can't debug it at 2 AM, don't ship it
+- **If you don't know, say so.** Admitting uncertainty is professional
 
 ## Key Principles
 
-### 1. Explicit Over Magic
+### Explicit Over Magic
 
 ```ruby
 # Good: Clear, traceable behavior
@@ -39,85 +32,29 @@ def user_full_name(user)
   [user.first_name, user.last_name].compact.join(" ")
 end
 
-# Bad: "Convenient" but opaque to newcomers and debuggers
-delegate :full_name, to: :user  # Where does this go? What's the fallback?
+# Bad: Opaque delegation chains
+delegate :full_name, to: :user  # Where does this go?
 ```
 
-Use delegation, `method_missing`, and DSLs where they reduce real boilerplate and stay discoverable. Avoid them when they hide control flow or make stack traces meaningless.
-
-### 2. Exceptions Are for Exceptional Conditions
+### Exceptions Are for Exceptional Conditions
 
 ```ruby
-# Good: Expected cases are values, not exceptions
-def find_user(id)
-  User.find_by(id: id)  # Returns nil; caller decides what that means
-end
+# Good: Expected case — return nil
+def find_user(id) = User.find_by(id: id)
 
-# Good: Exceptional case — not found when we required it
-def fetch_user!(id)
-  User.find(id)  # Raises ActiveRecord::RecordNotFound
-end
-
-# Bad: Using exceptions for flow control
-begin
-  do_thing
-rescue SomeError
-  do_other_thing
-end
+# Good: Exceptional case — raise
+def fetch_user!(id) = User.find(id)
 ```
 
-Reserve exceptions for truly exceptional cases. Use return values, `nil`, or Result objects for expected branches.
+### Testing Is Non-Negotiable
 
-### 3. Know When to Reach for Rails (and When Not To)
+- RSpec or Minitest — pick one, be consistent
+- Test behavior, not implementation; factories over fixtures
+- No silent rescues in tests
 
-- **Use Rails conventions** for CRUD, APIs, background jobs, and asset pipeline when you're building a Rails app. Fighting the framework is expensive.
-- **Don't let Rails own your domain.** Keep business logic in plain Ruby objects and services. Controllers and models should be thin.
-- **Libraries and scripts:** prefer plain Ruby and stdlib. Don't depend on Rails in a gem unless it's explicitly a Rails extension.
+## Definition of Done
 
-### 4. Testing Is Non-Negotiable
-
-- **RSpec or Minitest:** pick one and be consistent. Both are fine; inconsistency is not.
-- **Test behavior, not implementation.** Avoid testing private methods or mocking the world. Prefer integration tests for critical paths.
-- **Factories over fixtures** for flexibility; keep factories simple and avoid deep associations by default.
-- **No silent rescues in tests.** If a test rescues an exception without re-raising or asserting, you're hiding bugs.
-
-## Project Structure
-
-**Rails app:**
-
-```
-app/
-├── controllers/          # Thin: params, auth, render
-├── models/               # Persistence + scopes; no business logic
-├── services/             # Use cases, orchestration
-├── jobs/                 # Background work
-├── lib/                  # Non-Rails code, tasks
-├── serializers/          # Or presenters, as needed
-config/
-spec/ or test/
-```
-
-**Gem or script:**
-
-```
-lib/
-├── my_gem/
-│   ├── version.rb
-│   └── ...
-├── my_gem.rb
-spec/
-my_gem.gemspec
-```
-
-## Definition of Done (Overview)
-
-A Ruby change is complete when:
-
-- [ ] Tests pass (RSpec or Minitest)
-- [ ] RuboCop (or chosen linter) passes with no ignored offenses without justification
-- [ ] No bare `rescue` or `rescue Exception`; rescues are specific and re-raise or handle
-- [ ] N+1s checked for new queries (Bullet or manual review)
-- [ ] No new `eval`, `send` with user input, or unsafe metaprogramming without review
+- [ ] Tests pass; RuboCop passes
+- [ ] No bare `rescue` or `rescue Exception`; N+1s checked
+- [ ] No unsafe metaprogramming without review
 - [ ] Code reviewed and approved
-
-Consider these rules if they affect your changes.

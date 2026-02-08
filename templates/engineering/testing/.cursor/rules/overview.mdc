@@ -5,164 +5,57 @@ alwaysApply: false
 
 # Testing Best Practices
 
-Comprehensive guidelines for building world-class, principal-level test suites.
+Tests are a first-class deliverable. A feature without tests is incomplete.
 
-## Scope
+## Core Principles
 
-This ruleset applies to:
-- Unit testing
-- Integration testing
-- End-to-end (E2E) testing
-- Performance and load testing
-- Contract testing
-- Property-based testing
-- Mutation testing
-- Chaos engineering tests
+- **Test behavior, not implementation** — Verify what the system does so refactoring doesn't break tests
+- **Testing Trophy** — Prioritize integration tests (~60%) over unit (~20%), with E2E (~10%) and static analysis (~10%)
+- **Fast feedback** — Unit < 10ms, integration < 500ms, E2E < 30s, full suite < 5 min
+- **Deterministic results** — Mock time, isolate data, reset state, use explicit waits
+- **Tests as documentation** — Anyone should understand system behavior by reading tests
 
-## Core Philosophy
-
-**Tests are a first-class deliverable.** A feature without tests is incomplete. Tests provide confidence to ship, enable rapid iteration, and serve as executable documentation.
-
-## Testing Trophy (Not Pyramid)
-
-The Testing Trophy prioritizes integration tests over unit tests for maximum real-world value:
-
-```
-         ┌─────────────┐
-         │     E2E     │  ~10% - Critical user journeys only
-         ├─────────────┤
-         │             │
-         │ Integration │  ~60% - Maximum confidence/cost ratio
-         │             │
-         ├─────────────┤
-         │    Unit     │  ~20% - Pure functions and logic
-         ├─────────────┤
-         │   Static    │  ~10% - Types, linting, formatting
-         └─────────────┘
-```
-
-## Key Principles
-
-### 1. Test Behavior, Not Implementation
-
-Tests should verify what the system does, not how it does it. This allows refactoring without breaking tests.
+## Test Behavior, Not Implementation
 
 ```ts
-// Bad: Tests implementation
-it('calls repository.save', () => {
+// Bad: tests implementation detail
+it('calls repo.save', () => {
   const spy = vi.spyOn(repo, 'save');
   service.createUser(data);
   expect(spy).toHaveBeenCalled();
 });
 
-// Good: Tests behavior
-it('persists user to database', async () => {
+// Good: tests observable behavior
+it('persists user', async () => {
   await service.createUser(data);
   const user = await db.user.findUnique({ where: { email: data.email } });
   expect(user).toBeDefined();
 });
 ```
 
-### 2. Fast Feedback Loops
+## TDD (When Valuable)
 
-Tests must run quickly to be useful. Slow tests get skipped or ignored.
+Red-Green-Refactor in 2-10 minute cycles. Best for complex business logic, security-critical code, and systems with many edge cases. Skip for prototypes and exploratory spikes.
 
-| Test Type | Target Time |
-|-----------|-------------|
-| Unit tests | < 10ms each |
-| Integration tests | < 500ms each |
-| E2E tests | < 30s each |
-| Full suite | < 5 minutes |
+## Coverage Targets
 
-### 3. Deterministic Results
-
-Same inputs must produce same outputs, always. No flaky tests allowed.
-
-- Mock time-dependent code
-- Isolate test data
-- Reset state between tests
-- Use explicit waits, not sleeps
-
-### 4. Tests as Documentation
-
-Tests describe system behavior. Anyone should be able to understand what the code does by reading its tests.
-
-```ts
-describe('OrderService', () => {
-  describe('when cart has items', () => {
-    it('creates order with correct total');
-    it('decrements inventory for each item');
-    it('sends confirmation email to user');
-    it('returns order confirmation number');
-  });
-
-  describe('when cart is empty', () => {
-    it('throws EmptyCartError');
-    it('does not create order record');
-  });
-});
-```
-
-### 5. Write Tests First (TDD)
-
-For complex logic, write the test before the implementation:
-
-1. **Red** - Write a failing test
-2. **Green** - Write minimal code to pass
-3. **Refactor** - Improve code quality
-
-## Technology Stack
-
-### Recommended Tools
-
-| Purpose | Tool | Why |
-|---------|------|-----|
-| Unit/Integration | Vitest | Fast, modern, ESM native |
-| E2E | Playwright | Cross-browser, reliable |
-| Performance | k6 | Developer-friendly, scriptable |
-| Contract | Pact | Consumer-driven, battle-tested |
-| Property | fast-check | Finds edge cases automatically |
-| Mutation | Stryker | Validates test quality |
-| Mocking | MSW | Network-level mocking |
-
-### Vitest Configuration
-
-```ts
-// vitest.config.ts
-import { defineConfig } from 'vitest/config';
-
-export default defineConfig({
-  test: {
-    globals: true,
-    environment: 'node',
-    include: ['**/*.test.ts', '**/*.spec.ts'],
-    coverage: {
-      provider: 'v8',
-      reporter: ['text', 'json', 'html'],
-      exclude: ['**/node_modules/**', '**/test/**'],
-      thresholds: {
-        lines: 80,
-        branches: 75,
-        functions: 90,
-      },
-    },
-    sequence: {
-      shuffle: true, // Catch order dependencies
-    },
-  },
-});
-```
+| Metric | Target |
+|--------|--------|
+| Line Coverage | 80%+ |
+| Branch Coverage | 75%+ |
+| Function Coverage | 90%+ |
+| Mutation Score | 70%+ |
 
 ## Definition of Done
 
-A test suite is complete when:
+- Critical paths have integration tests
+- Pure functions have unit tests
+- Edge cases and error paths tested
+- Tests are deterministic with no flaky tests
+- Coverage meets thresholds
 
-- [ ] Critical paths have integration tests
-- [ ] Pure functions have unit tests
-- [ ] Edge cases are explicitly tested
-- [ ] Error paths are tested
-- [ ] Tests are deterministic
-- [ ] No flaky tests
-- [ ] Coverage meets thresholds
-- [ ] Tests run in under 5 minutes
-- [ ] Documentation is current
+## Anti-Patterns
+
+- **Excessive mocking** — Mock only what you don't control; use real dependencies in integration tests
+- **Shared mutable state** — Create fresh state per test; never mutate shared setup
+- **Testing everything with E2E** — Use unit/integration for validation and edge cases; E2E for critical journeys only

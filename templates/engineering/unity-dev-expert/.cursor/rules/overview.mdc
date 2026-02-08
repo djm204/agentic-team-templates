@@ -9,126 +9,48 @@ Principal-level guidelines for Unity game development covering architecture, per
 
 ## Scope
 
-This template applies to:
-
-- C# scripting architecture and MonoBehaviour lifecycle management
-- Entity Component System (ECS) and Data-Oriented Technology Stack (DOTS)
-- Physics simulation, collision detection, and raycasting
-- Shader programming with Shader Graph and custom HLSL
-- UI development with UI Toolkit and UGUI
-- Multiplayer networking with Netcode for GameObjects
-- Performance profiling, memory management, and optimization
-- Asset pipeline management and Addressables
-- Platform-specific builds (mobile, console, VR, WebGL)
+- C# scripting architecture and MonoBehaviour lifecycle
+- ECS/DOTS for high-performance scenarios
+- Physics simulation, collision detection, raycasting
+- Shader programming (Shader Graph, HLSL, URP, HDRP)
+- UI development (UI Toolkit, UGUI)
+- Multiplayer networking (Netcode for GameObjects)
+- Performance profiling, memory management, optimization
+- Asset pipeline, Addressables, platform builds
 
 ## Core Principles
 
-### 1. Composition Over Inheritance
+- **Composition Over Inheritance**: MonoBehaviours are components, not base classes. Combine small, focused components.
+- **Data-Oriented Mindset**: Think data layout, cache coherence, batch processing. ECS/DOTS formalizes this.
+- **Profile Before Optimizing**: Use Unity Profiler on target device. Never guess bottlenecks.
+- **Deterministic Lifecycle**: Know Awake/OnEnable/Start/Update/FixedUpdate/LateUpdate order. Init-order bugs are common.
+- **Platform-Aware Design**: Frame budgets, input, memory, and rendering vary across mobile/console/VR/desktop.
+- **Testable Architecture**: Separate logic from MonoBehaviour. Keep pure C# testable outside the engine.
 
-Unity's component model is designed for composition. MonoBehaviours are components, not base classes. Build complex behaviours by combining small, focused components on a single GameObject rather than deep inheritance trees.
+## When to Use ECS vs MonoBehaviour
 
-### 2. Data-Oriented Mindset
+| Criteria | MonoBehaviour | ECS/DOTS |
+|----------|---------------|----------|
+| Entity count | <1,000 | 1,000-1,000,000+ |
+| Team familiarity | Standard Unity | Requires DOTS training |
+| Iteration speed | Fast prototyping | Slower initial setup |
+| Performance ceiling | Moderate | Very high (Burst + Jobs) |
+| Third-party assets | Full support | Limited |
 
-Think in terms of data layout, cache coherence, and batch processing. When performance matters, prefer structs over classes, arrays over lists, and linear iteration over scattered access patterns. ECS/DOTS formalizes this approach.
+## Key Technology Choices
 
-### 3. Profile Before Optimizing
-
-Never guess where the bottleneck is. Use the Unity Profiler on the target device to find real problems. Premature optimization in Unity often means optimizing the wrong thing while the actual bottleneck goes unnoticed.
-
-### 4. Deterministic Lifecycle
-
-Understand the exact execution order of Awake, OnEnable, Start, Update, FixedUpdate, and LateUpdate. Bugs from initialization order are among the most common and hardest to debug in Unity projects.
-
-### 5. Platform-Aware Design
-
-Build abstractions that accommodate mobile, console, VR, and desktop targets from the start. Frame budgets, input methods, memory limits, and rendering capabilities vary dramatically across platforms.
-
-### 6. Testable Architecture
-
-Separate pure game logic from MonoBehaviour. Keep calculations, state machines, and data transformations in plain C# classes that can be unit tested without the Unity runtime.
-
-## Technology Stack
-
-| System | Primary | Alternatives |
-|--------|---------|--------------|
-| Scripting | C# / MonoBehaviour | ECS Systems, Visual Scripting |
-| Physics | Built-in PhysX / Unity Physics | Custom, Havok for DOTS |
-| Rendering | URP | HDRP, Built-in (legacy) |
-| UI Runtime | UI Toolkit | UGUI, IMGUI (debug only) |
-| Networking | Netcode for GameObjects | Mirror, Photon Fusion, Fish-Net |
-| Input | Input System Package | Legacy Input (avoid) |
-| Asset Loading | Addressables | Resources (avoid), AssetBundles |
-| Audio | FMOD / Wwise | Built-in AudioSource |
-| Animation | Animator / Playables | DOTween, custom tweening |
-| Testing | Unity Test Framework | NUnit (edit mode), NSubstitute |
-| CI/CD | Unity Cloud Build | GameCI, Jenkins, GitHub Actions |
-
-## Project Structure
-
-```text
-Assets/
-├── _Project/
-│   ├── Scripts/
-│   │   ├── Runtime/
-│   │   │   ├── Core/           # Service locator, events, singletons
-│   │   │   ├── Gameplay/       # Player, AI, items, abilities
-│   │   │   ├── Systems/        # Audio, save, camera, input
-│   │   │   ├── Data/           # ScriptableObjects, configs
-│   │   │   ├── Networking/     # RPCs, sync, lobby
-│   │   │   └── UI/             # Presenters, view models
-│   │   ├── Editor/             # Custom inspectors, tools
-│   │   └── Tests/
-│   │       ├── EditMode/       # Pure logic unit tests
-│   │       └── PlayMode/       # Runtime integration tests
-│   ├── Art/
-│   ├── Prefabs/
-│   ├── Scenes/
-│   └── AddressableAssets/
-├── Plugins/
-└── StreamingAssets/
-```
-
-## Principal Engineer Responsibilities
-
-### Technical Leadership
-
-- Define project-wide C# coding standards and architecture patterns
-- Select render pipeline, networking stack, and input handling approach
-- Make build vs buy decisions for middleware and plugins
-- Establish performance budgets per platform target
-
-### Cross-Team Enablement
-
-- Create reusable ScriptableObject frameworks and event channels
-- Build shared tooling (custom editors, debug overlays, profiling dashboards)
-- Establish naming conventions, folder structure, and prefab workflows
-- Mentor team on DOTS migration, shader authoring, and networking patterns
-
-### Quality and Performance
-
-- Own the profiling and optimization workflow
-- Set and enforce frame budget, memory budget, and draw call targets
-- Review shader complexity and material setup for rendering efficiency
-- Ensure multiplayer code handles latency, prediction, and reconciliation correctly
+| System | Primary | When to Consider Alternatives |
+|--------|---------|-------------------------------|
+| Input | Input System Package | Never use legacy Input |
+| Asset Loading | Addressables | Avoid Resources.Load |
+| UI | UI Toolkit (new) / UGUI (VR/world-space) | IMGUI for debug only |
+| Networking | Netcode for GameObjects | Mirror/Photon for specific needs |
+| Rendering | URP (most) / HDRP (high-end PC/console) | Built-in for legacy only |
 
 ## Common Pitfalls
 
-### GC Allocations in Hot Paths
+**GC Allocations in Hot Paths**: Strings, LINQ, arrays in Update. Cache allocations, use StringBuilder.
 
-Wrong: Allocating strings, arrays, or LINQ in Update loops.
-Right: Cache allocations, use StringBuilder, avoid LINQ in per-frame code.
+**Ignoring Execution Order**: Assuming Start runs before another Awake. Use Script Execution Order or explicit init chains.
 
-### Ignoring Execution Order
-
-Wrong: Assuming Start runs before another component's Awake.
-Right: Use Script Execution Order settings or explicit initialization chains.
-
-### Over-Networking
-
-Wrong: Synchronizing visual-only state (particles, animations) over the network.
-Right: Sync authoritative gameplay state; derive visuals locally from synced data.
-
-### Skipping Target Device Profiling
-
-Wrong: Profiling only in the Unity Editor and assuming production performance.
-Right: Always profile on the actual target hardware with development builds.
+**Over-Networking**: Syncing particles and animations. Sync authoritative gameplay state; derive visuals locally.

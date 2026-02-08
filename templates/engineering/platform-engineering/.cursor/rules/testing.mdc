@@ -9,75 +9,51 @@ Guidelines for testing infrastructure, platform components, and reliability.
 
 ## Core Principles
 
-1. **Test Early, Test Often** - Validate before apply, not after.
-2. **Test Like Production** - Realistic data, scale, and scenarios.
-3. **Automate Everything** - Manual testing doesn't scale.
-4. **Test the Recovery** - Verify backups, failover, and DR.
+- **Test early, test often** — validate before apply, not after
+- **Test like production** — realistic data, scale, and scenarios
+- **Automate everything** — manual testing doesn't scale
+- **Test the recovery** — verify backups, failover, and DR
 
 ## Testing Layers
 
-- **Static analysis** - Terraform fmt/validate, TFLint, tfsec; K8s schema (kubeconform), Kyverno CLI, Kubesec.
-- **Unit (Terratest)** - Module-level IaC tests; init, apply, assert outputs, destroy.
-- **Integration** - Helm chart tests (helm test), multi-component interaction in a test namespace.
-- **E2E / Chaos** - Pod/network failure, CPU stress; validate SLOs during and after.
-- **Load** - k6 or similar; define stages and thresholds (e.g. p99 latency, error rate).
-- **DR** - Backup restore to test env; failover simulation and recovery verification.
+- **Static analysis** — Terraform fmt/validate, TFLint, tfsec; K8s schema (kubeconform), Kyverno CLI
+- **Unit (Terratest)** — module-level IaC tests; init, apply, assert outputs, destroy
+- **Integration** — Helm chart tests (`helm.sh/hook: test`), multi-component in test namespace
+- **Chaos** — pod/network failure via Chaos Mesh or Litmus; validate SLOs during and after
+- **Load** — k6 or similar; define stages and thresholds (p99 latency, error rate)
+- **DR** — backup restore to test DB; failover simulation and recovery verification
 
 ## Static Analysis
 
-Run on every PR for changed paths (e.g. `terraform/**`, `kubernetes/**`):
+Run on every PR for changed paths (`terraform/**`, `kubernetes/**`):
 
-- Terraform: `fmt -check`, `validate`, TFLint, tfsec (or Checkov).
-- Kubernetes: YAML lint, kubeconform (or kubeval), Kyverno apply, Kubesec.
-- Pre-commit: Use hooks for terraform_fmt, terraform_validate, yamllint, detect-private-key.
+- Terraform: `fmt -check`, `validate`, TFLint, tfsec/Checkov
+- Kubernetes: YAML lint, kubeconform, Kyverno apply, Kubesec
+- Pre-commit hooks: terraform_fmt, terraform_validate, yamllint, detect-private-key
 
 ## Unit Tests (Terratest)
-
-One module, one test; always destroy in defer.
 
 ```go
 func TestVpcModule(t *testing.T) {
     opts := terraform.WithDefaultRetryableErrors(t, &terraform.Options{
         TerraformDir: "../modules/networking/vpc",
-        Vars: map[string]interface{}{
-            "environment": "test",
-            "vpc_cidr":    "10.0.0.0/16",
-            "azs":         []string{"us-east-1a", "us-east-1b"},
-        },
+        Vars: map[string]interface{}{"environment": "test", "vpc_cidr": "10.0.0.0/16"},
     })
     defer terraform.Destroy(t, opts)
     terraform.InitAndApply(t, opts)
-    vpcId := terraform.Output(t, opts, "vpc_id")
-    assert.NotEmpty(t, vpcId)
+    assert.NotEmpty(t, terraform.Output(t, opts, "vpc_id"))
 }
 ```
 
-## Integration and Helm Tests
+## Integration, Chaos, Load, DR
 
-Use `helm.sh/hook: test` and `hook-delete-policy: hook-succeeded` for chart tests (e.g. curl healthz). For multi-component tests, create a short-lived namespace, deploy with Helm/kubectl, assert readiness and basic behavior, then delete.
-
-## Chaos
-
-Use Chaos Mesh or Litmus; run in staging on a schedule or workflow_dispatch. One example: PodChaos pod-failure for a deployment; after experiment, assert SLO (e.g. error rate) and clean up. Prefer one experiment per file.
-
-## Load Testing
-
-Define stages (ramp up, sustain, ramp down) and thresholds (e.g. p99 < 500ms, error rate < 1%). Run k6 (or equivalent) in CI or on-demand against staging; store results as artifacts.
-
-## Disaster Recovery
-
-- **Backup verification**: Periodically restore latest backup to a test DB; run sanity queries.
-- **Failover**: Trigger failover in staging; wait for recovery; verify health and metrics return to baseline.
-
-## Definition of Done (Infra Change)
-
-- [ ] IaC passes lint and validate; plan reviewed.
-- [ ] Tested in non-prod; rollback documented.
-- [ ] Monitoring/alerting and runbook updated; cost and security reviewed.
+- **Helm tests**: `helm.sh/hook: test` pods that curl healthz; `hook-delete-policy: hook-succeeded`
+- **Chaos**: one experiment per file; run in staging on schedule; assert SLO after
+- **Load**: ramp up → sustain → ramp down; thresholds (p99 < 500ms, errors < 1%); store results
+- **DR**: periodic backup restore + sanity queries; staging failover + health verification
 
 ## Common Pitfalls
 
-- **Happy path only** - Test failure cases and validation errors too.
-- **Order-dependent tests** - Each test must be isolated; use setup/teardown, no shared mutable state.
-- **Flaky timing** - Use `require.Eventually` (or equivalent) with timeout instead of fixed sleeps.
-- **No cleanup** - Always `defer terraform.Destroy` (or equivalent) so resources don't leak.
+- **Happy path only** — test failure cases and validation errors too
+- **Order-dependent tests** — isolate each test; use setup/teardown, no shared mutable state
+- **No cleanup** — always `defer terraform.Destroy`; resources leak otherwise

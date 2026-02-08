@@ -5,116 +5,46 @@ alwaysApply: false
 
 # Research Workflow
 
-Rules for integrating knowledge synthesis into the daily and weekly research process.
+Rules for integrating knowledge synthesis into the research process.
 
 ## Research Phases
 
-Each phase maps to specific knowledge actions:
-
 | Phase | Knowledge Action | System Feature |
 |-------|-----------------|---------------|
-| Question Formation | Search for prior thinking on the topic | Semantic search, graph browse |
-| Literature Review | Ingest and classify new sources | Ingestion pipeline |
-| Reading | Create literature notes, apply progressive summarization | Note creation, highlighting |
-| Analysis | Create permanent notes, link to graph | Zettelkasten, graph construction |
+| Question Formation | Search for prior thinking | Semantic search, graph browse |
+| Literature Review | Ingest and classify sources | Ingestion pipeline |
+| Reading | Create literature notes, summarize | Note creation, highlighting |
+| Analysis | Create permanent notes, link to graph | Zettelkasten, graph |
 | Synthesis | Build topic summaries, concept maps | Summarization hierarchy |
 | Writing | Retrieve and cite from knowledge base | Citation manager, search |
 | Revision | Update notes with new understanding | Version tracking |
-| Publication | Export bibliography, archive project notes | Export, archival |
+| Publication | Export bibliography, archive project | Export, archival |
 
-## Daily Routine (30-45 minutes)
+## Daily Routine (30-45 min)
 
-### Morning (15 minutes)
-- Process fleeting notes inbox: convert to literature/permanent notes or discard
-- Review 3-5 random permanent notes via spaced repetition
-- Check for new documents awaiting ingestion
+- **Morning (15 min):** Process fleeting notes inbox, review 3-5 random notes via spaced repetition, check documents awaiting ingestion
+- **During work:** Capture fleeting notes without interrupting deep work, create literature notes while reading, link new notes immediately
+- **Evening (15 min):** Process remaining fleeting notes, update structure notes, log one "idea of the day"
 
-### During Work
-- Capture fleeting notes as ideas occur (do not interrupt deep work to process them)
-- Create literature notes while actively reading
-- Link new notes to existing knowledge immediately
+## Weekly Review (60-90 min)
 
-### Evening (15 minutes)
-- Process remaining fleeting notes
-- Update structure notes if topic clusters shifted
-- Log one "idea of the day" for future review
-
-## Weekly Review (60-90 minutes)
-
-### Inbox Zero
-- All fleeting notes processed or discarded
-- All new documents classified and metadata complete
-- All highlights converted to literature notes
-
-### Graph Maintenance
-- Review orphan notes and link or archive them
-- Merge duplicate concept nodes
-- Update structure notes and maps of content
-
-### Summarization
-- Write or update one topic summary
-- Promote mature literature notes to permanent status
-
-### Reflection
-- What surprised me this week?
-- What contradicted my prior understanding?
-- What question do I want to explore next week?
+- **Inbox zero:** All fleeting notes processed, documents classified, highlights converted
+- **Graph maintenance:** Link/archive orphan notes, merge duplicates, update structure notes
+- **Summarization:** Write or update one topic summary, promote mature notes
+- **Reflection:** What surprised me? What contradicted prior understanding? What to explore next?
 
 ## Note Processing Rules
 
-### Fleeting Notes
-- Must be processed within 48 hours or explicitly archived
-- Never link fleeting notes to the knowledge graph directly
-- A fleeting note becomes either a literature note, a permanent note, or trash
-
-### Literature Notes
-- One note per key idea (not one note per source)
-- Written in your own words, never copy-paste
-- Always linked to the bibliographic record
-- Tagged with source, topic, and date
-
-### Permanent Notes
-- Atomic: exactly one idea
-- Self-contained: understandable without reading the source
-- Connected: at least one link to another permanent note
-- Versioned: includes creation date and update log
-
-## Integration Points
-
-| External Tool | Sync Method | Direction |
-|--------------|-------------|-----------|
-| Reference Manager (Zotero) | BibTeX / CSL-JSON | Bidirectional |
-| PDF Reader | Annotation export | Into system |
-| Note App (Obsidian, Logseq) | Markdown + backlinks | Bidirectional |
-| Search Index | Update on change | From system |
-| Vector Database | Embed on create/update | From system |
-| Writing Tool | Citation insertion | From system |
-| Web Browser | Clip extension | Into system |
+- **Fleeting notes:** Process within 48 hours or archive. Never link directly to graph.
+- **Literature notes:** One per key idea (not per source). Own words, never copy-paste. Linked to bibliographic record.
+- **Permanent notes:** Atomic (one idea), self-contained, at least one link to another permanent note, versioned with creation date and update log.
 
 ## Version Tracking
 
-When understanding of an idea changes:
-
-1. Create a new version of the note (do not overwrite)
-2. Add a change log entry: date, what changed, what triggered the change
-3. Link the new version to the previous version
-4. Update all incoming links to point to the latest version
-5. Mark the old version as superseded (never delete)
+When understanding changes: create new version (don't overwrite), add change log entry (date, what changed, trigger), link to previous version, update incoming links, mark old version as superseded (never delete).
 
 ## Project Lifecycle
 
-When starting a research project:
+**Starting:** Search existing notes, create project structure note, identify knowledge gaps, build targeted reading list, track project notes separately.
 
-1. Search existing notes for prior thinking
-2. Create a project structure note linking all relevant permanent notes
-3. Identify gaps in current knowledge
-4. Build a targeted reading list to fill gaps
-5. Track project-specific notes separately (they are temporary)
-
-When completing a project:
-
-1. Promote any project notes worth keeping to permanent status
-2. Archive remaining project notes
-3. Update topic summaries affected by the project
-4. Export bibliography for the final output
-5. Write a brief retrospective: what did this project teach me?
+**Completing:** Promote valuable project notes to permanent, archive the rest, update affected topic summaries, export bibliography, write brief retrospective.

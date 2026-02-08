@@ -5,131 +5,65 @@ alwaysApply: false
 
 # Adaptive Planning
 
-Guidelines for cross-domain optimization, goal balancing, progress tracking, plan adjustment triggers, and maintaining a unified wellness plan that responds to changing conditions.
+Guidelines for cross-domain optimization, goal balancing, plan adjustment triggers, and maintaining a unified wellness plan.
 
-## Adaptive Planning Principles
+## Principles
 
-- **Plans are hypotheses, not contracts** - Every wellness plan is a best guess based on current data; it must be updated as the person's body, life, and goals change
-- **Adjust one variable at a time** - When a plan needs modification, change one domain or one parameter at a time and observe for 1-2 weeks before making additional changes
-- **Lead indicators over lag indicators** - Readiness scores, mood trends, and adherence rates predict future outcomes; body weight and performance numbers confirm past outcomes
-- **Sustainability beats optimization** - A plan that someone follows consistently for 6 months outperforms an aggressive plan abandoned after 3 weeks
-- **Regression is information, not failure** - When metrics decline, investigate the cause rather than pushing harder; the decline is a signal, not a character flaw
+- **Plans are hypotheses, not contracts** — Update as the person's body, life, and goals change
+- **Adjust one variable at a time** — Change one parameter, observe 1-2 weeks before changing another
+- **Lead indicators over lag** — Readiness, mood, adherence predict outcomes; weight and performance confirm them
+- **Sustainability beats optimization** — 6 months of consistent adherence beats 3 weeks of aggressive effort
+- **Regression is information** — Declining metrics are signals to investigate, not push harder
 
-## Cross-Domain Interaction Reference
+## Cross-Domain Interactions
 
-| Domain A | Domain B | Key Interaction | Management Strategy |
-|----------|----------|----------------|---------------------|
-| Fitness | Nutrition | Training volume drives caloric need; deficit impairs recovery | Align caloric target with training phase; increase intake during high-volume blocks |
-| Fitness | Sleep | Intense late-evening exercise disrupts sleep onset | Complete vigorous training 3-4 hours before bed; use readiness scores to auto-regulate |
-| Fitness | Mental Wellness | Exercise is a potent mood booster; overtraining causes mood decline | Monitor mood alongside training load; deload when both decline together |
-| Nutrition | Sleep | Large meals and caffeine disrupt sleep; alcohol suppresses REM | Enforce caffeine cutoff; finish large meals 2-3 hours before bed |
-| Nutrition | Mental Wellness | Severe deficit increases irritability; gut health affects mood | Monitor mood when changing diet; ease deficit if mood drops below 4/10 for 3+ days |
-| Sleep | Mental Wellness | Sleep deprivation amplifies emotional reactivity; anxiety drives insomnia | Prioritize sleep when stress is high; use CBT-I techniques for anxiety-related insomnia |
+| Domains | Key Interaction | Management |
+|---------|----------------|------------|
+| Fitness ↔ Nutrition | Training volume drives caloric need; deficit impairs recovery | Align calories with training phase |
+| Fitness ↔ Sleep | Late-evening exercise disrupts sleep; poor sleep reduces readiness | Complete vigorous training 3-4h before bed |
+| Fitness ↔ Mental | Exercise boosts mood; overtraining causes mood decline | Monitor mood alongside training load |
+| Nutrition ↔ Sleep | Caffeine and large late meals disrupt sleep; alcohol suppresses REM | Enforce caffeine cutoff; meals 2-3h before bed |
+| Nutrition ↔ Mental | Severe deficit increases irritability; gut health affects mood | Ease deficit if mood drops below 4/10 for 3+ days |
+| Sleep ↔ Mental | Sleep deprivation amplifies reactivity; anxiety drives insomnia | Prioritize sleep when stress is high |
 
-## Plan Adjustment Trigger Matrix
+## Plan Adjustment Triggers
 
-| Trigger | Detection Method | Threshold | Response Protocol |
-|---------|-----------------|-----------|-------------------|
-| Weight plateau | 7-day rolling average | No change for 3+ weeks | Reassess calories, check adherence, consider diet break |
-| Readiness decline | Composite readiness score | Below 50 for 3+ consecutive days | Reduce training volume, extend sleep target, audit stressors |
-| Mood decline | Self-reported mood scale | Below 4/10 for 3+ consecutive days | Prioritize mental wellness protocols, reduce training intensity |
-| Sleep quality drop | Efficiency or duration trend | Efficiency below 80% for 1+ week | Full sleep hygiene audit, check caffeine and alcohol, assess anxiety |
-| Persistent soreness | Self-reported soreness map | Above 6/10 in any muscle group for 72+ hours | Deload that muscle group, add recovery modalities, rule out injury |
-| Motivation decline | Self-reported engagement | Drop of 2+ points sustained over 1 week | Introduce variety, reassess goal relevance, consider social training |
-| Life disruption | Self-reported event | Travel, illness, family crisis, job change | Switch to maintenance plan across all domains until stability returns |
-| Lab values out of range | Clinical blood work | Any clinically significant result | Consult physician before adjusting wellness plan |
+| Trigger | Threshold | Response |
+|---------|-----------|----------|
+| Weight plateau | No change 3+ weeks | Reassess calories, check adherence, consider diet break |
+| Readiness decline | Below 50 for 3+ days | Reduce training, extend sleep, audit stressors |
+| Mood decline | Below 4/10 for 3+ days | Prioritize mental wellness, reduce training |
+| Sleep quality drop | Efficiency < 80% for 1+ week | Sleep hygiene audit, check caffeine/alcohol/anxiety |
+| Persistent soreness | > 72 hours | Deload, add recovery, rule out injury |
+| Life disruption | Travel, illness, crisis | Switch to maintenance across all domains |
 
-## Goal Balancing Framework
+## Goal Priority Hierarchy
 
-When goals compete across domains, use this priority hierarchy:
+1. **Health Protection** — Adequate sleep (7+h, 85%+ efficiency), no injury progression, mental wellness above thresholds, normal clinical markers
+2. **Recovery Capacity** — Readiness averaging > 60, stress manageable, social connection maintained
+3. **Active Goals** — Body composition, performance, habit formation targets
+4. **Optimization** — Fine-tuning macros, supplements, advanced periodization
 
-```text
-Goal Priority Hierarchy (default ordering)
-├── Tier 1: Health Protection
-│   ├── Adequate sleep (7+ hours, 85%+ efficiency)
-│   ├── No active injury or illness progression
-│   ├── Mental wellness above critical thresholds
-│   └── Clinical markers within normal ranges
-├── Tier 2: Recovery Capacity
-│   ├── Readiness scores averaging above 60
-│   ├── Stress load manageable (below 7/10 sustained)
-│   └── Social connection maintained
-├── Tier 3: Active Goals
-│   ├── Body composition targets (fat loss, muscle gain)
-│   ├── Performance targets (strength, endurance, sport)
-│   └── Habit formation targets (meditation streak, nutrition adherence)
-└── Tier 4: Optimization
-    ├── Fine-tuning macro ratios
-    ├── Supplement protocols
-    └── Advanced periodization details
-```
-
-A Tier 3 goal must never compromise a Tier 1 or Tier 2 item. If a fat loss deficit is degrading sleep and mood (Tier 1), ease the deficit regardless of body composition progress.
-
-## Weekly Review Protocol
-
-Every wellness plan should include a structured weekly review covering:
-
-| Review Area | Key Questions |
-|-------------|---------------|
-| Training | Sessions completed vs. planned? Volume and intensity appropriate per readiness? Any pain or form concerns? |
-| Nutrition | Calorie and protein targets hit what percentage of days? Food quality maintained? Hydration adequate? |
-| Sleep | Average duration and efficiency on track? Consistent schedule maintained? Any new disruptors? |
-| Mental wellness | Mood and stress trends stable or improving? Mindfulness practice maintained? Social connection adequate? |
-| Cross-domain | Any domain declining as another improves? Any trigger thresholds approached or crossed? |
-| Adjustments | What one change (if any) should be made for next week? |
+A Tier 3 goal must never compromise Tier 1 or 2. Ease the deficit if it degrades sleep and mood.
 
 ## Adherence Tracking
 
-| Adherence Level | Percentage | Interpretation | Action |
-|----------------|-----------|----------------|--------|
-| Excellent | 90-100% | Sustainable and on track | Maintain current plan |
-| Good | 75-89% | Effective progress with normal life variability | Maintain; minor tweaks only |
-| Fair | 60-74% | Progress possible but plan may be too demanding | Simplify plan, reduce number of tracked variables |
-| Poor | Below 60% | Plan is not matching the person's reality | Major reassessment: is the plan realistic given schedule, preferences, and life demands? |
-
-Adherence below 60% for two consecutive weeks is a plan design problem, not a willpower problem. Redesign the plan to fit the person's actual life.
+| Level | % | Action |
+|-------|---|--------|
+| Excellent | 90-100% | Maintain plan |
+| Good | 75-89% | Maintain; minor tweaks |
+| Fair | 60-74% | Simplify plan, reduce tracked variables |
+| Poor | < 60% | Major reassessment — plan design problem, not willpower |
 
 ## Phase Transitions
 
-When transitioning between wellness phases (e.g., fat loss to maintenance, or off-season to competition prep):
+- **Deficit → Maintenance:** 2-4 weeks, increase 100-200 kcal/week
+- **Maintenance → Surplus:** 1-2 weeks, increase 200-300 kcal
+- **High volume → Deload:** 1 week, volume -40-60%, intensity -20-30%
+- **Injury → Return:** Start at 50% pre-injury volume, progress 10-20%/week
 
-| Transition | Duration | Key Actions |
-|-----------|----------|-------------|
-| Deficit to maintenance | 2-4 weeks (reverse diet) | Increase calories by 100-200 kcal per week; maintain training volume; monitor weight stabilization |
-| Maintenance to surplus | 1-2 weeks | Increase calories by 200-300 kcal; add training volume gradually; monitor body composition trends |
-| High-volume to deload | 1 week | Reduce volume 40-60%, intensity 20-30%; prioritize sleep and nutrition quality |
-| Structured training to active recovery | 1-2 weeks | Remove structured programming; emphasize play, recreation, and movement variety |
-| Injury/illness to return-to-training | 2-6 weeks (varies) | Start at 50% of pre-injury volume; progress 10-20% per week; monitor pain and readiness |
+## Anti-Patterns
 
-## Common Pitfalls
-
-### 1. Changing Too Many Variables at Once
-
-Wrong: Simultaneously increase training volume, decrease calories, and add a new morning meditation habit.
-
-Right: Change one variable at a time and observe for 1-2 weeks. If the person's weight stalls, change calories or training, not both. Isolating variables makes it possible to identify what works and what does not.
-
-### 2. Ignoring Adherence Data
-
-Wrong: Keep prescribing a plan that the person follows less than 60% of the time and blame lack of discipline.
-
-Right: Low adherence is feedback about the plan, not the person. Simplify, reduce the number of targets, align with preferences, and build from what is actually sustainable.
-
-### 3. Refusing to Back Off
-
-Wrong: Maintain aggressive goals when readiness, mood, and sleep are all declining.
-
-Right: Use the goal priority hierarchy. If Tier 1 (health protection) items are compromised, pull back on Tier 3 (active goals) immediately. Short-term setbacks in body composition or performance are preferable to burnout, injury, or mental health crises.
-
-### 4. Review Without Action
-
-Wrong: Complete the weekly review template, note that sleep has declined for two weeks, and do nothing about it.
-
-Right: Every review must produce a specific adjustment or an explicit decision to hold course. If no action is taken after identifying a declining trend, the review process is theater.
-
-### 5. Treating the Plan as Permanent
-
-Wrong: Create a 12-week plan and follow it rigidly regardless of how the person responds.
-
-Right: Plans are living documents. Review weekly, adjust as needed, and perform a major reassessment at the end of each mesocycle or phase. The best plan for week 1 is rarely the best plan for week 8.
+- **Changing too many variables** — Isolate changes to identify what works
+- **Ignoring adherence data** — Low adherence is plan feedback, not character failure
+- **Review without action** — Every review produces a specific adjustment or explicit hold decision

@@ -10,91 +10,50 @@ Guidelines for building runtime user interfaces in Unity using UI Toolkit and UG
 ## Core Principles
 
 - Separate UI logic (presenter) from layout (view) and game state (model)
-- Choose UI Toolkit for new projects with complex layouts; UGUI for world-space and VR
-- Design responsive layouts that adapt to different screen sizes and safe areas
-- Minimize Canvas rebuilds in UGUI; minimize USS recalculations in UI Toolkit
+- UI Toolkit for new projects with complex layouts; UGUI for world-space and VR
+- Design responsive layouts for different screen sizes and safe areas
+- Minimize Canvas rebuilds (UGUI) and USS recalculations (UI Toolkit)
 
 ## System Selection
 
 | Criteria | UI Toolkit | UGUI |
 |----------|-----------|------|
 | New runtime UI | Preferred | Acceptable |
-| Editor extensions | Preferred | Not supported |
-| World-space UI | Limited | Preferred |
-| VR/AR interfaces | Not recommended | Preferred |
-| Data binding | Built-in | Manual or third-party |
+| World-space / VR | Limited | Preferred |
+| Data binding | Built-in | Manual |
 | Layout system | Flexbox (USS) | RectTransform anchors |
-| Asset store support | Growing | Extensive |
+| Editor extensions | Primary choice | Legacy |
 
 ## MVP Architecture
 
-```text
-┌──────────────────────────────────────────────────┐
-│              MODEL-VIEW-PRESENTER                 │
-├──────────────────────────────────────────────────┤
-│                                                   │
-│  MODEL (ScriptableObject / C# class)              │
-│  ├── Holds game state, raises change events       │
-│  └── No references to UI elements                 │
-│                                                   │
-│  PRESENTER (MonoBehaviour)                        │
-│  ├── Queries view elements in OnEnable            │
-│  ├── Subscribes to model changes                  │
-│  └── Forwards user input to model/systems         │
-│                                                   │
-│  VIEW (UXML + USS / Canvas hierarchy)             │
-│  ├── Pure layout and style, no game logic         │
-│  └── Exposes elements via names/classes            │
-└──────────────────────────────────────────────────┘
-```
+- **Model** (ScriptableObject / C#): Game state data, raises change events, no UI refs
+- **Presenter** (MonoBehaviour): Queries view in OnEnable, subscribes to model, forwards input
+- **View** (UXML+USS / Canvas): Pure layout and style, no game logic
 
-## UGUI Canvas Splitting
+## UGUI Performance
 
-| Canvas | Contents | Why Separate |
-|--------|----------|-------------|
-| Canvas_HUD | Health bar, ammo, minimap | Static except ammo; split dynamic into sub-canvas |
-| Canvas_Menus | Pause, inventory, dialog | Hidden most of the time |
-| Canvas_WorldSpace | Enemy health bars, prompts | Per-entity, proximity-based |
+| Problem | Solution |
+|---------|----------|
+| Canvas rebuild spikes | Split static/dynamic into sub-canvases |
+| Nested LayoutGroup stutter | Avoid nesting > 2 levels |
+| Overdraw on mobile | Reduce layers, sprite packing |
+| Raycast on everything | Disable Raycast Target on non-interactive elements |
 
-Rule: Elements that change together share a Canvas. Elements that change at different rates get separate Canvases.
-
-## UGUI Performance Rules
-
-| Problem | Cause | Solution |
-|---------|-------|----------|
-| Canvas rebuild spikes | Any child element changes | Split into sub-canvases |
-| Layout rebuild stutter | Nested LayoutGroups | Avoid nesting > 2 levels |
-| Overdraw on mobile | Overlapping transparent images | Reduce layers, sprite packing |
-| Raycast on everything | Default Raycast Target on | Disable on non-interactive elements |
+Rule: Elements that change together share a Canvas. Different update rates get separate Canvases.
 
 ## Responsive Design
 
 | Platform | Strategy | Key Consideration |
 |----------|----------|-------------------|
-| Mobile portrait | Flex column layout | Touch target min 44x44 dp |
-| Mobile landscape | Side panels | Safe area insets |
+| Mobile | Flex column | Touch target min 44x44 dp |
 | Desktop | Fixed or scaled | Mouse hover states |
 | Console TV | Overscan safe area | Large text, 10-foot UI |
-| VR | World-space at 2-3m | No small text, gaze targets |
+| VR | World-space 2-3m | No small text, gaze targets |
 
 ## Common Pitfalls
 
-### Rebuilding Entire Canvas
+**Querying Elements Every Frame**: Calling `root.Q<Label>("score")` in Update. Cache the reference in OnEnable.
 
-Wrong: All HUD elements on one Canvas. Changing any element triggers full rebuild.
-Right: Split static and dynamic elements into separate Canvases or sub-canvases.
+**Ignoring Raycast Target**: Leaving it enabled on all Images and Text. Disable on non-interactive elements.
 
-### Querying UI Elements Every Frame
-
-Wrong: Calling `root.Q<Label>("score")` in Update to set the text.
-Right: Cache the reference in OnEnable and reuse it.
-
-### Ignoring Raycast Target
-
-Wrong: Leaving Raycast Target enabled on all Image and Text components.
-Right: Disable Raycast Target on every non-interactive element.
-
-### Hardcoded Pixel Sizes
-
-Wrong: Setting font size to 24px and button width to 200px for all platforms.
-Right: Use USS relative units, CanvasScaler with reference resolution, or runtime DPI scaling.
+**Hardcoded Pixel Sizes**: Use USS relative units, CanvasScaler with reference resolution, or DPI scaling.

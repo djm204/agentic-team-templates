@@ -9,32 +9,20 @@ Rules for ingesting, parsing, classifying, and storing documents within the know
 
 ## Ingestion Pipeline
 
-All documents pass through these stages in order:
-
-1. **Intake** - Accept the document (PDF, web clip, note, annotation export)
-2. **Parsing** - Extract text, metadata, sections, figures, and references
-3. **Classification** - Assign type, topics, domain tags, quality score
-4. **Enrichment** - Resolve citations, extract keywords, run NER, cross-reference
-5. **Storage** - Index full text, store metadata, generate vector embeddings, archive file
+1. **Intake** — Accept document (PDF, web clip, note, annotation export)
+2. **Parsing** — Extract text, metadata, sections, figures, references
+3. **Classification** — Assign type, topics, domain tags, quality score
+4. **Enrichment** — Resolve citations, extract keywords, run NER, cross-reference
+5. **Storage** — Index full text, store metadata, generate vector embeddings, archive file
 
 ## Metadata Requirements
 
-Every ingested document must have:
-
-- Unique ID (UUID, never reuse)
-- Title (extracted or manually assigned)
-- Author(s)
-- Date (published or accessed)
-- Document type (paper, book, note, report, article, lecture, email)
-- At least one topic tag
-- Relevance score (1-5)
-- Ingestion date
-- Original file hash for deduplication
+Every document must have: unique ID (UUID), title, author(s), date, document type, at least one topic tag, relevance score (1-5), ingestion date, original file hash for deduplication.
 
 ## Classification Standards
 
-| Type | Priority | Retention Policy |
-|------|----------|-----------------|
+| Type | Priority | Retention |
+|------|----------|-----------|
 | Academic Paper | High | Permanent |
 | Book Chapter | High | Permanent |
 | Personal Note | High | Permanent |
@@ -46,40 +34,18 @@ Every ingested document must have:
 
 ## Duplicate Detection
 
-Apply these methods in order, stopping at the first match:
+Apply in order, stop at first match:
+1. Exact file hash (SHA-256)
+2. DOI or ISBN match
+3. Title + Author fuzzy match (Levenshtein < 3)
+4. Embedding cosine similarity > 0.95
 
-1. Exact file hash (SHA-256) for identical files
-2. DOI or ISBN match for published works
-3. Title + Author fuzzy match (Levenshtein distance < 3)
-4. Embedding cosine similarity > 0.95 for semantic duplicates
-
-When a duplicate is found, merge metadata and discard the newer copy. Never silently create duplicates.
+Merge metadata on duplicate; discard newer copy. Never silently create duplicates.
 
 ## Processing State Tracking
 
-Track processing state for every document:
-
-- `parsed` - Text and metadata extracted
-- `summarized` - Progressive summarization level (0-3)
-- `linked` - Connected to knowledge graph
-- `reviewed` - Last human review date
-
-Documents in the inbox that remain unprocessed for more than 7 days should be flagged for triage.
-
-## File Organization
-
-- Store original files with their hash as filename in an archive directory
-- Keep metadata in a structured store (JSON, SQLite, or dedicated DB)
-- Generate vector embeddings at the paragraph level for papers, section level for books
-- Maintain a full-text search index updated on every ingestion
+Track per document: `parsed`, `summarized` (level 0-3), `linked` (to graph), `reviewed` (last human review date). Flag unprocessed inbox items older than 7 days.
 
 ## Quality Gates
 
-Before a document is considered fully ingested:
-
-- [ ] Metadata complete (no blank required fields)
-- [ ] No duplicate detected or duplicate resolved
-- [ ] At least one topic tag assigned
-- [ ] Full text indexed
-- [ ] Vector embedding generated
-- [ ] Processing state updated
+Before fully ingested: metadata complete, no unresolved duplicates, topic tag assigned, full text indexed, vector embedding generated, processing state updated.
