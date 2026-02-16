@@ -26,6 +26,7 @@ Guidance for authoring Cursor rule files so the AI applies them consistently.
 ## Size and Scope
 
 - **Per file**: Keep each rule file under ~500 lines. Larger files are more likely to be partially ignored.
+- **Always-apply tax**: If it loads every message, keep it under ~200 lines. Move reference material to `docs/` for on-demand loading.
 - **Total context**: Prefer that code plus rules stay within a few thousand lines of critical context so important rules are not dropped.
 - **One topic per file**: Split by concern (e.g., `debugging.mdc`, `formatting.mdc`) instead of one large file. Reference or @-mention specific rules in prompts when needed.
 

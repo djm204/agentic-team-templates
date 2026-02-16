@@ -1,17 +1,16 @@
 ---
-description: Project overview and critical requirements - portfolio site, admin access restrictions. Reference for understanding project context.
+description: Project overview and critical requirements - agentic-team-templates CLI, template structure. Reference for understanding project context.
 alwaysApply: false
 ---
 
 # Project Overview
 
-Portfolio site for David Josef Mendez - Staff/Senior Software Engineer with SRE experience.
+**agentic-team-templates** — CLI that installs AI assistant rules (Cursor, Claude, Copilot) into projects.
 
-## Critical Requirement
+## Key Facts
 
-**Only `me@davidmendez.dev` can access admin features. Period. No exceptions, no edge cases, no "maybe later" users.**
-
-This is a hard requirement that must be enforced at every level:
-- Server-side validation only
-- No client-side checks as security measures
-- Email must be EXACTLY `me@davidmendez.dev` (case-sensitive, exact match)
+- Node.js CLI; templates in `templates/<category>/<template>/`
+- Shared rules in `templates/_shared/` (always installed)
+- Each template has `.cursor/rules/` with `.mdc` files
+- Registry in `src/index.js` (TEMPLATES object)
+- Run: `node bin/cli.js <template> [--ide=cursor|claude|codex]`

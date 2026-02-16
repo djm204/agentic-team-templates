@@ -10,7 +10,7 @@ alwaysApply: true
 ❌ **Wrong**:
 
 ```typescript
-// Client validates email is me@davidmendez.dev
+// Client validates email is allowed@example.com
 // Server assumes it's fine
 ```
 
@@ -19,7 +19,7 @@ alwaysApply: true
 ```typescript
 // Client validates for UX
 // Server validates again and rejects if wrong
-const isAuthorized = (email: string): boolean => email === 'me@davidmendez.dev';
+const isAuthorized = (email: string): boolean => email === 'allowed@example.com';
 ```
 
 ## 2. Mutating State

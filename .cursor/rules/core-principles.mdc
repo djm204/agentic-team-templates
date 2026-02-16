@@ -15,12 +15,10 @@ alwaysApply: true
 ## 2. Security First
 
 - **Zero Trust**: Every input is hostile until proven otherwise
-- **Email Verification**: Hardcoded allowlist for `me@davidmendez.dev` only
-- **Rate Limiting**: Cloudflare Workers built-in rate limiting on all mutations
-- **CSRF Protection**: State parameter validation on OAuth flows
-- **XSS Prevention**: Sanitize all MDX before storage and rendering
-- **Content Security Policy**: Strict CSP headers via Cloudflare Pages
-- **No Client-Side Secrets**: All auth validation server-side only
+- Validate and sanitize all inputs
+- No secrets in code or logs
+- Least privilege
+- Read `docs/security-requirements.md` for project-specific details
 
 ## 3. Functional Programming Bias
 
