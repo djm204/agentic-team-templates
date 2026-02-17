@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.24.0](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.23.1...agentic-team-templates-v0.24.0) (2026-02-17)
+
+
+### Features
+
+* add dogfood script to self-install templates via bin/cli.js ([#90](https://github.com/djm204/agentic-team-templates/issues/90)) ([cbc840b](https://github.com/djm204/agentic-team-templates/commit/cbc840bec4be16b0c1e801a83ed8f1e58ab6051a))
+* token optimization — slim CLAUDE.md and on-demand docs ([#88](https://github.com/djm204/agentic-team-templates/issues/88)) ([6ed3f64](https://github.com/djm204/agentic-team-templates/commit/6ed3f64d10d6961934f44338a28fcca1205ece0d))
+
 ## [0.23.1](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.23.0...agentic-team-templates-v0.23.1) (2026-02-08)
 
 
