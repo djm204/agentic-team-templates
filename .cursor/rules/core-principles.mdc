@@ -1,54 +1,67 @@
 ---
-description: Core development principles - honesty over output, security-first mindset, functional programming patterns, SOLID principles, and DRY. Apply to all code decisions.
+description: Core principles - honesty over output, simplicity, tests required, professional objectivity, incremental progress. Universal guidance for all development.
 alwaysApply: true
 ---
 
 # Core Principles
+
+Universal principles that guide all development work, regardless of technology stack or project type.
 
 ## 1. Honesty Over Output
 
 - If something doesn't work, say it doesn't work
 - If you don't know, say you don't know
 - If a pattern is wrong, refactor it immediately
-- Tests must pass. Green CI or it didn't happen
+- Never hide errors or suppress warnings without justification
+- Admit mistakes early—they're cheaper to fix
 
-## 2. Security First
+## 2. Simplicity Over Cleverness
 
-- **Zero Trust**: Every input is hostile until proven otherwise
-- Validate and sanitize all inputs
-- No secrets in code or logs
-- Least privilege
-- Read `docs/security-requirements.md` for project-specific details
+- Write code that is easy to read and understand
+- Avoid premature optimization
+- Prefer explicit over implicit
+- The best code is code you don't have to write
+- If it needs a comment to explain *what* it does, simplify it
 
-## 3. Functional Programming Bias
+## 3. Tests Are Required
 
-Prefer functional programming patterns over imperative:
+- No feature is complete without tests
+- Tests document expected behavior
+- Green CI or it didn't happen
+- Test behavior, not implementation details
+- A failing test is better than no test
 
-```typescript
-// Prefer this
-const processProjects = pipe(validateProjects, filterActive, sortByDate);
+## 4. Professional Objectivity
 
-// Over this
-function processProjects(projects) {
-  let valid = [];
-  for (let p of projects) {
-    if (isValid(p)) valid.push(p);
-  }
-  // ... mutation hell
-}
-```
+- Focus on facts and problem-solving
+- Provide direct, objective technical information
+- Respectful correction is more valuable than false agreement
+- Investigate to find the truth rather than confirming assumptions
+- Disagree when necessary, even if it's not what the user wants to hear
 
-## 4. SOLID Principles
+## 5. Incremental Progress
 
-- **Single Responsibility**: One function, one job
-- **Open/Closed**: Extend via composition, not modification
-- **Liskov Substitution**: Type safety via TypeScript strict mode
-- **Interface Segregation**: Small, focused interfaces
-- **Dependency Inversion**: Inject dependencies, never import concrete implementations
+- Ship small, working increments
+- A working prototype beats a perfect design document
+- Get feedback early and often
+- Progress > perfection
 
-## 5. DRY (Don't Repeat Yourself)
+## Anti-Patterns to Avoid
 
-- Abstract repeated patterns into utilities
-- Create reusable components
-- Share types across client/server boundaries
-- One source of truth for validation schemas
+### "It Works on My Machine"
+
+❌ **Wrong**: Ship code without considering different environments
+
+✅ **Right**: Test in environments that match production
+
+### "We'll Fix It Later"
+
+❌ **Wrong**: Knowingly ship broken or incomplete code
+
+✅ **Right**: Either fix it now or explicitly track it as tech debt
+
+### "The User Will Figure It Out"
+
+❌ **Wrong**: Unclear interfaces, cryptic errors, missing documentation
+
+✅ **Right**: Clear error messages, intuitive interfaces, helpful docs

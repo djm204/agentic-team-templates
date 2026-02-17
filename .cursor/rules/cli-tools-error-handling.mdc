@@ -1,0 +1,67 @@
+---
+description: Error Handling
+alwaysApply: false
+---
+
+# CLI Error Handling
+
+Patterns for handling errors gracefully and providing helpful feedback.
+
+## Exit Codes
+
+| Code | Meaning | Code | Meaning |
+|------|---------|------|---------|
+| 0 | Success | 2 | Invalid arguments |
+| 1 | General error | 126 | Cannot execute |
+| 64-78 | BSD sysexits | 130 | Interrupted (Ctrl+C) |
+
+Map error types to exit codes in a central handler:
+
+```go
+switch {
+case errors.Is(err, ErrInvalidArgs): os.Exit(2)
+case errors.Is(err, context.Canceled): os.Exit(130)
+default: os.Exit(1)
+}
+```
+
+## Error Message Structure
+
+Every error should include: **what happened**, **context** (paths, values), **why** (root cause), and **how to fix** (actionable suggestions).
+
+```
+Error: cannot read config file
+  File: ~/.config/mytool/config.yaml
+  Cause: permission denied
+Try:
+  • chmod 600 ~/.config/mytool/config.yaml
+```
+
+Implement as a structured `CLIError` type with `Message`, `Details`, `Cause`, and `Suggestions` fields.
+
+## Error Wrapping
+
+- Add context at each layer: `fmt.Errorf("deploy to %s: %w", env, err)`
+- Unwrap with `errors.Is` / `errors.As` for specific handling
+- Result chain: `"deploy to prod: invalid config: missing field 'api_key'"`
+
+## Graceful Degradation
+
+- **Partial failures**: Log warnings, continue processing, report summary (`failed 3/10 files`)
+- **Fallbacks**: Try env var → config file → default value
+- **Verbose mode**: Show stack traces and debug context only when `--verbose` / `--debug` is set
+
+## Anti-Patterns
+
+```go
+// Bad: Silent failure
+result, _ := riskyOp()
+
+// Good: Propagate with context
+result, err := riskyOp()
+if err != nil { return fmt.Errorf("risky op: %w", err) }
+```
+
+- **Generic messages** — `"operation failed"` is useless; include what, where, and how to fix
+- **Panic for recoverable errors** — return errors, never `panic` in CLI code
+- **String matching** — use `errors.Is(err, os.ErrNotExist)` not `err.Error() == "file not found"`

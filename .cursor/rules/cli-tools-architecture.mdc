@@ -1,0 +1,76 @@
+---
+description: CLI Architecture
+alwaysApply: false
+---
+
+# CLI Architecture
+
+Patterns for structuring maintainable, testable command-line applications.
+
+## Command Structure
+
+- **Root command**: Sets up global config, persistent flags (`--config`, `--verbose`, `--no-color`)
+- **Subcommands**: Organize related functionality — `mytool init`, `mytool build`, `mytool config get`
+- Each command has `Short` (one-line) and `Long` descriptions, plus `Example` usage
+
+```go
+var buildCmd = &cobra.Command{
+    Use: "build [path]", Short: "Build the project",
+    Args: cobra.MaximumNArgs(1),
+    RunE: func(cmd *cobra.Command, args []string) error {
+        path := "."
+        if len(args) > 0 { path = args[0] }
+        return runBuild(cmd.Context(), path)
+    },
+}
+```
+
+## Configuration Precedence
+
+1. Command-line flags (highest)
+2. Environment variables (`MYTOOL_` prefix, `AutomaticEnv()`)
+3. Local config file (`.mytool.yaml` in current dir)
+4. Global config file (`$HOME/.mytool.yaml`)
+5. Default values (lowest)
+
+Support YAML, JSON, and TOML formats via Viper/cosmiconfig.
+
+## Dependency Injection
+
+Inject interfaces for testability — never use global state or direct I/O in business logic:
+
+```go
+type Builder struct {
+    logger Logger
+    fs     FileSystem
+}
+
+func (b *Builder) Build(ctx context.Context, path string) error {
+    b.logger.Info("Building", "path", path)
+    // Uses b.fs — mockable in tests
+}
+```
+
+## Context and Cancellation
+
+- Trap `SIGINT`/`SIGTERM`, call `cancel()` on a context
+- Check `ctx.Done()` in loops for graceful shutdown
+- Exit code 130 for interrupt (128 + SIGINT)
+
+```go
+sigChan := make(chan os.Signal, 1)
+signal.Notify(sigChan, os.Interrupt, syscall.SIGTERM)
+go func() { <-sigChan; cancel() }()
+```
+
+## Plugin Architecture (Optional)
+
+- Define a `Plugin` interface with `name`, `version`, `setup(context)`
+- Plugin context exposes `registerCommand` and `registerHook`
+- Load plugins dynamically from config list
+
+## Anti-Patterns
+
+- **Global mutable state** — pass config/deps explicitly instead
+- **God commands** — split 500-line handlers into focused subcommands
+- **Hardcoded paths** — use XDG/platform conventions (`xdg.ConfigHome`)

@@ -1,0 +1,43 @@
+---
+description: CLI UX—stdout vs stderr, output formats (table, JSON, plain), colors, progress, non-interactive. Human-first, scriptable.
+alwaysApply: false
+---
+
+# CLI User Experience
+
+Guidelines for clear, scriptable CLI output.
+
+## Streams
+
+- **stdout**: Data output only (for piping and scripts). JSON, table rows, or plain lines.
+- **stderr**: Progress, status, errors, logs. Never put parseable data on stderr when scripting is expected.
+- **Exit codes**: 0 success; 1 general error; 2 invalid usage. Document in help.
+
+## Output Formats
+
+- Support at least: **human** (table or formatted) and **machine** (JSON). Flag e.g. `--output json` or `-o json`. Default human; JSON for scripting.
+- **Table**: Align columns; consistent spacing. Optional `--no-headers` for scripts.
+- **JSON**: One object or one JSON line per result; no extra prose. Respect `--output json` in all commands that produce data.
+
+## Colors and Progress
+
+- **Colors**: Use for success (green), error (red), warning (yellow), info (blue). Respect `NO_COLOR` and `--no-color`; disable when stdout is not a TTY.
+- **Progress**: Spinner for indefinite; progress bar for known total. When not TTY (e.g. CI), print plain messages to stderr instead of spinner.
+- **Interactive**: Prompts only when stdin is TTY; support `--yes`/`--force` to skip confirmation in scripts.
+
+## Error Messages
+
+- **Structure**: What failed, context (path, value), cause if known, and suggested fix. Use stderr.
+- **Actionable**: “Cannot read config: permission denied at ~/.config/tool/config.yaml” and “chmod 600 ~/.config/tool/config.yaml”.
+
+## Definition of Done (CLI UX)
+
+- [ ] Data on stdout, progress/errors on stderr; exit codes documented.
+- [ ] JSON (or machine) output where scripting is needed; colors respect NO_COLOR/TTY.
+- [ ] Non-interactive mode (e.g. --yes) for CI; no hanging prompts.
+
+## Common Pitfalls
+
+- **Mixing data and logs on stdout** - Scripts break; keep data on stdout only.
+- **Always showing spinner** - In CI or pipe, show static message or nothing.
+- **Prompting without escape** - Provide flag to assume yes so automation doesn’t hang.

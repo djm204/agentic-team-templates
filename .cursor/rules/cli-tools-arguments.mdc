@@ -1,0 +1,65 @@
+---
+description: Command-Line Arguments
+alwaysApply: false
+---
+
+# Command-Line Arguments
+
+Patterns for parsing, validating, and documenting CLI arguments.
+
+## Argument Types
+
+- **Positional**: Identified by position — `cp <source> <dest>`
+- **Optional positional**: Default when omitted — `build [path]` (defaults to `.`)
+- **Variadic**: One or more values — `delete <file>...` with `MinimumNArgs(1)`
+
+## Flags and Options
+
+- **Boolean**: `--verbose`, `--dry-run`, `--force`
+- **Value**: `--output <dir>`, `--port <number>`, `--tags <tags...>`
+- **Required**: Mark with `MarkFlagRequired` or `requiredOption`
+- **Mutually exclusive**: `MarkFlagsMutuallyExclusive("file", "stdin")`
+- **Co-required groups**: `MarkFlagsRequiredTogether("username", "password")`
+
+## Validation
+
+- Use built-in validators: `ExactArgs(n)`, `MinimumNArgs(n)`, `RangeArgs(min, max)`
+- Custom validators return descriptive errors with allowed values:
+
+```go
+Args: func(cmd *cobra.Command, args []string) error {
+    valid := []string{"dev", "staging", "prod"}
+    if !slices.Contains(valid, args[0]) {
+        return fmt.Errorf("invalid env %q, must be one of: %v", args[0], valid)
+    }
+    return nil
+},
+```
+
+## Help Text
+
+- `Short`: one-line summary; `Long`: detailed description
+- Always include `Example` with 2-3 common use cases
+- Flag descriptions should note defaults and allowed values
+
+```go
+cmd.Flags().StringP("format", "f", "json", "output format (json, yaml, table)")
+```
+
+## Shell Completions
+
+- Provide `completion [bash|zsh|fish|powershell]` subcommand
+- Add dynamic completions for arguments with known values:
+
+```go
+ValidArgsFunction: func(cmd *cobra.Command, args []string, toComplete string) ([]string, cobra.ShellCompDirective) {
+    return []string{"dev", "staging", "prod"}, cobra.ShellCompDirectiveNoFileComp
+},
+```
+
+## Conventions
+
+- Kebab-case for multi-word flags: `--output-dir` (not `--outputDir`)
+- Short flags are single characters: `-o` (not `-od`)
+- Env var naming: `PREFIX_FLAG_NAME` — e.g., `MYTOOL_API_KEY`
+- Standard flags every CLI should support: `-h`, `-v`, `-q`, `--version`, `--config`, `--no-color`, `--dry-run`, `-f`, `-o`
