@@ -1,11 +1,12 @@
 {
-  "name": "agentic-team-templates",
-  "version": "0.24.0",
-  "description": "AI coding assistant templates for Cursor IDE. Pre-configured rules and guidelines that help AI assistants write better code. - use at your own risk",
+  "name": "@djm204/agent-skills",
+  "version": "1.0.0",
+  "description": "AI agent skill templates for Cursor IDE, Claude Code, and GitHub Copilot. Pre-configured rules and guidelines that help AI assistants write better code.",
   "keywords": [
     "cursor",
     "cursor-ide",
     "ai",
+    "agent-skills",
     "templates",
     "coding-assistant",
     "cursorrules",
@@ -18,14 +19,14 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/djm204/agentic-team-templates.git"
+    "url": "git+https://github.com/djm204/agent-skills.git"
   },
-  "homepage": "https://github.com/djm204/agentic-team-templates#readme",
+  "homepage": "https://github.com/djm204/agent-skills#readme",
   "bugs": {
-    "url": "https://github.com/djm204/agentic-team-templates/issues"
+    "url": "https://github.com/djm204/agent-skills/issues"
   },
   "bin": {
-    "cursor-templates": "./bin/cli.js"
+    "agent-skills": "bin/cli.js"
   },
   "files": [
     "bin",
