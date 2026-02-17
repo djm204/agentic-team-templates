@@ -1,0 +1,77 @@
+---
+description: Node.js Patterns
+alwaysApply: false
+---
+
+# Node.js Patterns
+
+Production Node.js patterns for services, CLIs, and tooling.
+
+## Graceful Shutdown
+
+```typescript
+const shutdown = async (signal: string) => {
+  console.log(`Received ${signal}, shutting down...`);
+  server.close();
+  await db.disconnect();
+  process.exit(0);
+};
+process.on('SIGTERM', () => shutdown('SIGTERM'));
+process.on('SIGINT', () => shutdown('SIGINT'));
+process.on('unhandledRejection', (reason) => { console.error('Unhandled:', reason); process.exit(1); });
+```
+
+## Streams
+
+```typescript
+import { pipeline } from 'node:stream/promises';
+// Always use pipeline for proper error handling and cleanup
+await pipeline(
+  createReadStream('input.log'),
+  new Transform({ transform(chunk, _, cb) {
+    cb(null, chunk.toString().split('\n').filter((l: string) => l.includes('ERROR')).join('\n'));
+  }}),
+  createGzip(),
+  createWriteStream('errors.log.gz'),
+);
+```
+
+## Worker Threads
+
+```typescript
+import { Worker, isMainThread, parentPort, workerData } from 'node:worker_threads';
+if (isMainThread) {
+  const runWorker = <T>(data: unknown): Promise<T> =>
+    new Promise((resolve, reject) => {
+      const worker = new Worker(new URL(import.meta.url), { workerData: data });
+      worker.on('message', resolve);
+      worker.on('error', reject);
+    });
+} else {
+  parentPort!.postMessage(performExpensiveComputation(workerData));
+}
+```
+
+## Configuration
+
+```typescript
+import { z } from 'zod';
+const EnvSchema = z.object({
+  NODE_ENV: z.enum(['development', 'production', 'test']),
+  PORT: z.coerce.number().int().positive().default(3000),
+  DATABASE_URL: z.string().url(),
+});
+export const env = EnvSchema.parse(process.env); // Crash at startup if invalid
+```
+
+## Module System
+
+- Use `node:` protocol for builtins (`import { readFile } from 'node:fs/promises'`)
+- ESM by default — `"type": "module"`, use `.js` extensions in imports
+- Always use `fs/promises`, never sync variants in async code
+
+## Anti-Patterns
+
+- Never `require()` in ESM — use `import` or `createRequire`
+- Never unbounded concurrency — use `p-limit` or manual batching
+- Never `process.exit()` without cleanup or string concat for SQL

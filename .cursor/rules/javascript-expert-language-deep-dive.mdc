@@ -1,0 +1,74 @@
+---
+description: JavaScript Language Deep Dive
+alwaysApply: false
+---
+
+# JavaScript Language Deep Dive
+
+Advanced JavaScript patterns and idioms for expert-level engineering.
+
+## The Event Loop
+
+```typescript
+console.log('1 - sync');
+setTimeout(() => console.log('2 - macrotask'), 0);
+Promise.resolve().then(() => console.log('3 - microtask'));
+queueMicrotask(() => console.log('4 - microtask'));
+console.log('5 - sync');
+// Output: 1, 5, 3, 4, 2 — sync > microtasks > macrotasks
+```
+
+## Async Patterns
+
+```typescript
+// Parallel independent operations
+const [users, posts] = await Promise.all([fetchUsers(), fetchPosts()]);
+
+// Race with timeout
+const withTimeout = <T>(promise: Promise<T>, ms: number): Promise<T> =>
+  Promise.race([promise, new Promise<never>((_, reject) =>
+    setTimeout(() => reject(new Error(`Timeout after ${ms}ms`)), ms))]);
+
+// Async iteration for streams
+async function* readChunks(stream: ReadableStream<Uint8Array>) {
+  const reader = stream.getReader();
+  try { while (true) { const { done, value } = await reader.read(); if (done) break; yield value; } }
+  finally { reader.releaseLock(); }
+}
+```
+
+## Closures
+
+```typescript
+// Encapsulation via closures
+const createRateLimiter = (maxCalls: number, windowMs: number) => {
+  const calls: number[] = [];
+  return <T>(fn: () => T): T | null => {
+    const now = Date.now();
+    while (calls.length > 0 && calls[0]! < now - windowMs) calls.shift();
+    if (calls.length >= maxCalls) return null;
+    calls.push(now);
+    return fn();
+  };
+};
+```
+
+## Iterators and Generators
+
+```typescript
+// Lazy evaluation — no intermediate arrays
+function* filter<T>(iter: Iterable<T>, pred: (item: T) => boolean) {
+  for (const item of iter) { if (pred(item)) yield item; }
+}
+function* take<T>(iter: Iterable<T>, count: number) {
+  let i = 0;
+  for (const item of iter) { if (i++ >= count) break; yield item; }
+}
+const result = [...take(filter(hugeDataset, item => item.active), 10)];
+```
+
+## Anti-Patterns
+
+- Never `for...in` on arrays — use `for...of`, `.map`, `.reduce`
+- Never `==` (except `== null` for null+undefined) — use `===`
+- Never block the event loop — use `worker_threads` (Node) or Web Workers (browser)

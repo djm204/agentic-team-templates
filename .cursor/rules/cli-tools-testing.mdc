@@ -1,0 +1,42 @@
+---
+description: CLI testing—unit (business logic), integration (full commands, capture stdout/stderr), exit codes. Mock I/O; test non-interactively.
+alwaysApply: false
+---
+
+# CLI Testing
+
+Guidelines for testing CLI applications.
+
+## Levels
+
+- **Unit**: Test business logic in isolation (functions that take config/inputs and return results). No CLI framework in unit tests; easy to assert and mock.
+- **Integration**: Run full commands (real or test binary); capture stdout, stderr, and exit code. Use temp dirs and env; no leftover state.
+- **E2E** (optional): Critical user flows with real binary; fewer, focused tests.
+
+## Structure for Testability
+
+- **Separate logic from CLI**: Core behavior in lib/ or core/ (pure functions or small modules); CLI layer only parses args, loads config, calls core, and prints. Unit test core; integration test CLI.
+- **Inject I/O**: Accept writer/reader or use package-level vars for stdout/stderr in tests so you can capture output without spawning process (or spawn and capture for integration).
+
+## Integration Tests
+
+- **Run command**: `exec` or language equivalent (e.g. `exec.Command` in Go, `child_process` in Node) with args; capture stdout, stderr, exit code.
+- **Assert**: Exit code (e.g. 0 success, 2 usage); stdout contains or equals expected; stderr empty or contains expected error.
+- **Environment**: Use temp dir for cwd and config; set env vars (e.g. `HOME`, `CONFIG`); clean up after.
+- **Non-interactive**: Set `--yes` or pipe to avoid prompts; or mock stdin with “y\n”.
+
+## Exit Codes
+
+- **Test explicitly**: Invalid args → 2; success → 0; runtime error → 1. Assert exit code in integration tests so contract is guaranteed.
+
+## Definition of Done (CLI Tests)
+
+- [ ] Unit tests for core logic; integration tests for main commands.
+- [ ] Exit codes and stdout/stderr asserted; tests run non-interactively in CI.
+- [ ] No reliance on real filesystem outside temp dirs; tests isolated.
+
+## Common Pitfalls
+
+- **Testing only happy path** - Test invalid args, missing files, and permission errors.
+- **Brittle output assertions** - Prefer “contains” or structured parse over exact string when output might change (e.g. version).
+- **Shared state** - Use temp dir per test; don’t rely on cwd or global config.

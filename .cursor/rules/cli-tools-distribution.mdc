@@ -1,0 +1,40 @@
+---
+description: CLI distribution—versioning (SemVer), packaging (npm, Homebrew, binaries), shell completions, install scripts. Version flag and release flow.
+alwaysApply: false
+---
+
+# CLI Distribution
+
+Guidelines for packaging and distributing CLIs.
+
+## Versioning
+
+- **SemVer**: MAJOR.MINOR.PATCH. MAJOR for breaking CLI changes; MINOR for new commands/options (backward compatible); PATCH for fixes.
+- **Version flag**: `--version` / `-V` prints version; optionally commit, build date, runtime (e.g. Go version, Node version). Inject at build via ldflags or env.
+
+## Packaging
+
+- **npm**: `bin` in package.json; `npm install -g` or npx. Publish to npm for Node-based tools.
+- **Homebrew**: Formula in tap repo; `brew install org/tap/tool`. Support ARM and Intel where relevant.
+- **Binaries**: Go/Rust build for target OS/arch; publish to GitHub Releases or similar. Provide checksums.
+- **Install script**: Optional `curl | sh` for one-line install; script should be idempotent and verify checksums.
+
+## Shell Completions
+
+- Generate bash, zsh, fish completions (e.g. `tool completion bash`). Document where to place (e.g. `/etc/bash_completion.d/`, `fpath`, fish completions dir). Include in package or doc.
+
+## Configuration Precedence
+
+- Document order: CLI flags > env vars > local config file > global config file > defaults. Same order across commands.
+
+## Definition of Done (Distribution)
+
+- [ ] Version flag shows useful info; SemVer in release tags.
+- [ ] At least one install path (npm, brew, or binary) documented and working.
+- [ ] Completions available; precedence documented.
+
+## Common Pitfalls
+
+- **No version flag** - Users and scripts need to check version; always support `--version`.
+- **Hardcoded paths** - Use XDG or platform-appropriate dirs for config/data.
+- **Skipping checksums** - Provide SHA256 for binaries so install scripts can verify.

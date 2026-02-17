@@ -1,5 +1,12 @@
 # CLAUDE.md - Development Guide
 
+## Installed Templates
+
+- **Shared** (always included): Core principles, code quality, security, git workflow, communication
+- **javascript-expert**: Principal-level JavaScript & TypeScript engineering (Node.js, React, type system, testing)
+- **cli-tools**: Command-line applications and developer tools (Cobra, Commander, Click)
+- **testing**: Comprehensive testing practices (TDD, test design, CI/CD integration, performance testing)
+
 ## Development Principles
 
 ### 1. Honesty Over Output

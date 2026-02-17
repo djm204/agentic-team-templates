@@ -1,0 +1,58 @@
+---
+description: CLI Tools Development Overview
+alwaysApply: false
+---
+
+# CLI Tools Development Overview
+
+Guidelines for building professional command-line interfaces that are intuitive, robust, and maintainable.
+
+## Scope
+
+- Command-line applications and utilities
+- Developer tools, build systems, automation tooling
+- System administration scripts
+- Interactive terminal applications
+
+## Core Principles
+
+### Human-First Design
+- Helpful error messages that suggest fixes
+- Sensible defaults for common cases
+- Support both interactive and non-interactive modes
+- Follow platform conventions (POSIX, Windows)
+
+### Composability
+- Accept stdin, produce stdout; stderr for diagnostics
+- Support piping and redirection
+- Return meaningful exit codes
+
+### Predictability
+- Same inputs produce same outputs (deterministic)
+- Respect environment variables and config files
+- Never silently fail
+
+### Progressive Disclosure
+- Common operations require minimal arguments
+- Advanced features available but not required
+- Help text at multiple levels; examples for every command
+
+## Configuration Precedence
+
+1. Command-line flags (highest)
+2. Environment variables
+3. Local config file
+4. Global config file
+5. Default values (lowest)
+
+## Standard Flags
+
+Always support: `-h/--help`, `-v/--verbose`, `-q/--quiet`, `--version`, `--config`, `--no-color`, `--dry-run`, `-f/--force`
+
+## Definition of Done
+
+- [ ] All commands have help text, examples, and shell completions
+- [ ] Error messages suggest corrective actions; exit codes follow conventions
+- [ ] Works in non-interactive environments (CI/CD) and supports piping
+- [ ] Tests cover happy path and error cases
+- [ ] Installation and configuration precedence documented
