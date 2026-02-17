@@ -1,0 +1,25 @@
+{
+  "name": "agentic-team-templates",
+  "version": "0.25.0",
+  "description": "Deprecated — renamed to @djm204/agent-skills. This package delegates to the new name.",
+  "bin": {
+    "cursor-templates": "./bin/cli.js"
+  },
+  "dependencies": {
+    "@djm204/agent-skills": "^1.0.0"
+  },
+  "files": [
+    "bin"
+  ],
+  "type": "module",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "license": "MIT",
+  "author": "David Josef Mendez <me@davidmendez.dev>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/djm204/agent-skills.git",
+    "directory": "shim"
+  }
+}
