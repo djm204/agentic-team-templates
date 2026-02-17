@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.0.0] — Rebrand to @djm204/agent-skills
+
+**Package renamed** from `agentic-team-templates` to `@djm204/agent-skills`.
+**CLI command renamed** from `cursor-templates` to `agent-skills`.
+
+The old `agentic-team-templates` package continues to work via a deprecation shim
+that delegates to `@djm204/agent-skills`. Existing installs are unaffected.
+
+---
+
 ## [0.24.0](https://github.com/djm204/agentic-team-templates/compare/agentic-team-templates-v0.23.1...agentic-team-templates-v0.24.0) (2026-02-17)
 
 
