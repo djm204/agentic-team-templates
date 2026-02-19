@@ -12,6 +12,7 @@ import fs from 'fs';
 import path from 'path';
 import { loadSkill as _loadSkill } from '../core/skill-loader.js';
 import { getAdapter, ADAPTERS } from '../adapters/index.js';
+import { composeSkills as _composeSkills } from '../core/composer.js';
 
 // Re-export adapter utilities
 export { getAdapter, ADAPTERS };
@@ -78,4 +79,19 @@ export async function listSkills(skillsDir) {
   }
 
   return metas.sort((a, b) => a.name.localeCompare(b.name));
+}
+
+/**
+ * Compose multiple skills into a single merged prompt within a token budget.
+ *
+ * @param {object[]} skills - Array of SkillPack objects (from loadSkill)
+ * @param {{
+ *   budget?: number,
+ *   primary?: string,
+ *   conflictResolution?: 'throw' | 'primary_wins'
+ * }} [options]
+ * @returns {Promise<import('../core/composer.js').ComposedSkillPack>}
+ */
+export async function composeSkills(skills, options = {}) {
+  return _composeSkills(skills, options);
 }
