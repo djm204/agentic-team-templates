@@ -1,0 +1,32 @@
+name: market-intelligence
+version: 1.0.0
+category: business
+tags:
+  - market-research
+  - competitive-intelligence
+  - trend-detection
+  - sentiment-analysis
+  - risk-signals
+
+description:
+  short: "Market monitoring, trend detection, competitive intelligence, and actionable risk signal reporting"
+  long: "Principal-level intelligence analysis: source triangulation, sentiment scoring, weak signal detection, risk severity classification, and intelligence reporting with explicit recommended actions."
+
+context_budget:
+  minimal: 600
+  standard: 2200
+  comprehensive: 6500
+
+composable_with:
+  recommended:
+    - strategic-negotiator
+    - research-assistant
+    - regulatory-sentinel
+  enhances:
+    - executive-assistant
+    - project-manager
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false
