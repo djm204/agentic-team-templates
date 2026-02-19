@@ -10,12 +10,18 @@ import { rawAdapter } from './raw.js';
 import { cursorAdapter } from './cursor.js';
 import { claudeCodeAdapter } from './claude-code.js';
 import { copilotAdapter } from './copilot.js';
+import { openaiAgentsAdapter } from './openai-agents.js';
+import { langchainAdapter } from './langchain.js';
+import { crewaiAdapter } from './crewai.js';
 
 const ADAPTER_MAP = {
   raw: rawAdapter,
   cursor: cursorAdapter,
   'claude-code': claudeCodeAdapter,
   copilot: copilotAdapter,
+  'openai-agents': openaiAgentsAdapter,
+  langchain: langchainAdapter,
+  crewai: crewaiAdapter,
 };
 
 /** List of all registered adapter names */
@@ -37,4 +43,12 @@ export function getAdapter(name) {
   return adapter;
 }
 
-export { rawAdapter, cursorAdapter, claudeCodeAdapter, copilotAdapter };
+export {
+  rawAdapter,
+  cursorAdapter,
+  claudeCodeAdapter,
+  copilotAdapter,
+  openaiAgentsAdapter,
+  langchainAdapter,
+  crewaiAdapter,
+};
