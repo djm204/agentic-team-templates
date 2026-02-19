@@ -266,58 +266,9 @@ function trackTokenUsage(
 }
 ```
 
-### Use Toon Format for Prompt Optimization
-
-**Use toon format instead of JSON for data passing in prompts/responses to reduce token usage.**
-
-**Example - JSON (inefficient)**:
-```json
-{
-  "status": "success",
-  "data": {
-    "user": {
-      "id": "123",
-      "name": "John Doe"
-    }
-  }
-}
-```
-
-**Example - Toon (efficient for prompts)**:
-```
-status:success
-data.user.id:123
-data.user.name:John Doe
-```
-
-**⚠️ CRITICAL: Data Storage Rules**
-
-- **Prompt/Response Optimization**: Use toon format to reduce tokens in AI interactions
-- **Data Storage**: **NEVER use toon** - Always use JSON, YAML, or other standard formats
-- **File Storage**: Always use standard formats (JSON, YAML, TOML, etc.)
-- **API Responses**: Use JSON (standard format)
-- **Configuration Files**: Use standard formats (JSON, YAML, TOML)
-
-**When to use toon**:
-- ✅ Internal prompt data passing
-- ✅ Temporary data in conversation context
-- ✅ Token-optimized intermediate representations
-
-**When NOT to use toon**:
-- ❌ File storage (use JSON/YAML/TOML)
-- ❌ Database storage (use standard formats)
-- ❌ API responses (use JSON)
-- ❌ Configuration files (use standard formats)
-- ❌ Any persistent data storage
-
 ### Optimization Strategies
 
-1. **Use Toon for Prompts**
-   - Use toon format for data passing in prompts/responses
-   - Never use toon for persistent data storage
-   - Always use JSON/YAML for files and APIs
-
-2. **Concise Communication**
+1. **Concise Communication**
    - Get to the point quickly
    - Remove unnecessary words
    - Use bullet points for lists
