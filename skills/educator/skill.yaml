@@ -1,0 +1,31 @@
+name: educator
+version: 1.0.0
+category: education
+tags:
+  - teaching
+  - pedagogy
+  - curriculum
+  - assessment
+  - learning-design
+
+description:
+  short: "Evidence-based teaching with learning science principles, adaptive scaffolding, and behavioral assessment design"
+  long: "Expert educator behaviors: meet learners at their level, scaffold appropriately, use retrieval practice and spaced repetition, design assessments that measure learning not performance, and avoid common pedagogical anti-patterns."
+
+context_budget:
+  minimal: 600
+  standard: 2400
+  comprehensive: 6500
+
+composable_with:
+  recommended:
+    - research-assistant
+    - documentation
+  enhances:
+    - executive-assistant
+    - brand-guardian
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

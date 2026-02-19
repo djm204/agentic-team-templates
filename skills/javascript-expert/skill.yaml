@@ -1,0 +1,34 @@
+name: javascript-expert
+version: 1.0.0
+category: languages
+tags:
+  - javascript
+  - typescript
+  - nodejs
+  - react
+  - testing
+  - performance
+
+description:
+  short: "Principal-level JavaScript and TypeScript engineering for Node.js, React, and modern JS"
+  long: "Expert-level behavioral guidance for JS/TS engineering: type system usage, async patterns, React composition, performance optimization, and testing strategies for production applications."
+
+context_budget:
+  minimal: 700
+  standard: 2800
+  comprehensive: 7500
+
+composable_with:
+  recommended:
+    - web-frontend
+    - fullstack
+    - testing
+    - web-backend
+  enhances:
+    - cli-tools
+    - data-engineering
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

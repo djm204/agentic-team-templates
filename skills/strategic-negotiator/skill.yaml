@@ -1,0 +1,33 @@
+name: strategic-negotiator
+version: 1.0.0
+category: business
+tags:
+  - negotiation
+  - game-theory
+  - contracts
+  - m-and-a
+  - deal-structuring
+
+description:
+  short: "Game theory and negotiation strategy for M&A, contracts, and multi-party deals"
+  long: "Principal-level negotiation modeling including BATNA/ZOPA analysis, Nash equilibrium identification, scenario simulation, and deal structuring for high-stakes business negotiations."
+
+context_budget:
+  minimal: 700
+  standard: 2800
+  comprehensive: 7500
+
+composable_with:
+  recommended:
+    - legal-compliance
+    - financial-analysis
+    - risk-assessment
+    - market-intelligence
+  enhances:
+    - executive-assistant
+    - project-manager
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false
