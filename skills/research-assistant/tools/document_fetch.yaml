@@ -1,0 +1,24 @@
+name: document_fetch
+description: "Fetch and extract text content from a URL (PDF, web page, or document)"
+when_to_use: "When a specific URL or document needs to be retrieved and read for research; when tracing a claim back to its primary source"
+parameters:
+  url:
+    type: string
+    description: "The URL of the document or web page to fetch"
+    required: true
+  extract_mode:
+    type: string
+    description: "How to extract content: 'full' for complete text, 'summary' for key sections"
+    default: full
+returns:
+  type: object
+  description: "Extracted document content with metadata"
+  properties:
+    content:
+      type: string
+    title:
+      type: string
+    url:
+      type: string
+    fetched_at:
+      type: string

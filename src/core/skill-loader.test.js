@@ -255,4 +255,124 @@ describe('loadSkill', () => {
     expect(skill.tools).toHaveLength(1);
     expect(skill.tools[0].name).toBe('web_search');
   });
+
+  it('loads full tool schema fields (description, when_to_use, parameters, returns)', async () => {
+    const skillDir = path.join(tmpDir, 'skill-full-tool');
+    createSkillFixture(skillDir);
+    fs.mkdirSync(path.join(skillDir, 'tools'), { recursive: true });
+    fs.writeFileSync(
+      path.join(skillDir, 'tools', 'scenario_model.yaml'),
+      [
+        'name: scenario_model',
+        'description: "Model a negotiation scenario"',
+        'when_to_use: "When analyzing deal structures"',
+        'parameters:',
+        '  parties:',
+        '    type: array',
+        '    description: "List of negotiating parties"',
+        '    required: true',
+        '  scenarios:',
+        '    type: array',
+        '    description: "Possible outcome scenarios"',
+        '    required: true',
+        'returns:',
+        '  type: object',
+        '  description: "Ranked scenarios with recommendations"',
+      ].join('\n')
+    );
+
+    const skill = await loadSkill(skillDir);
+    const tool = skill.tools[0];
+
+    expect(tool.name).toBe('scenario_model');
+    expect(tool.description).toContain('negotiation scenario');
+    expect(tool.when_to_use).toContain('deal structures');
+    expect(tool.parameters.parties.type).toBe('array');
+    expect(tool.parameters.parties.required).toBe(true);
+    expect(tool.returns.type).toBe('object');
+  });
+
+  it('loads multiple tool files and sorts by name', async () => {
+    const skillDir = path.join(tmpDir, 'skill-multi-tools');
+    createSkillFixture(skillDir);
+    fs.mkdirSync(path.join(skillDir, 'tools'), { recursive: true });
+    fs.writeFileSync(
+      path.join(skillDir, 'tools', 'web_search.yaml'),
+      'name: web_search\ndescription: Search\nparameters:\n  query:\n    type: string\n    required: true\n'
+    );
+    fs.writeFileSync(
+      path.join(skillDir, 'tools', 'document_fetch.yaml'),
+      'name: document_fetch\ndescription: Fetch doc\nparameters:\n  url:\n    type: string\n    required: true\n'
+    );
+
+    const skill = await loadSkill(skillDir);
+
+    expect(skill.tools).toHaveLength(2);
+    const names = skill.tools.map(t => t.name).sort();
+    expect(names).toContain('web_search');
+    expect(names).toContain('document_fetch');
+  });
+
+  it('ignores non-yaml files in tools/ directory', async () => {
+    const skillDir = path.join(tmpDir, 'skill-tools-nonjson');
+    createSkillFixture(skillDir);
+    fs.mkdirSync(path.join(skillDir, 'tools'), { recursive: true });
+    fs.writeFileSync(path.join(skillDir, 'tools', 'README.md'), '# Tools');
+    fs.writeFileSync(
+      path.join(skillDir, 'tools', 'web_search.yaml'),
+      'name: web_search\ndescription: Search\nparameters:\n  query:\n    type: string\n    required: true\n'
+    );
+
+    const skill = await loadSkill(skillDir);
+
+    expect(skill.tools).toHaveLength(1);
+  });
+});
+
+// ============================================================================
+// Tool definitions in real skills
+// ============================================================================
+
+describe('real skills with tool definitions', () => {
+  const SKILLS_DIR = path.resolve('skills');
+
+  it('research-assistant has web_search tool', async () => {
+    const skill = await loadSkill(path.join(SKILLS_DIR, 'research-assistant'));
+    const tool = skill.tools.find(t => t.name === 'web_search');
+    expect(tool).toBeDefined();
+    expect(tool.parameters.query).toBeDefined();
+  });
+
+  it('market-intelligence has fetch_market_data tool', async () => {
+    const skill = await loadSkill(path.join(SKILLS_DIR, 'market-intelligence'));
+    const tool = skill.tools.find(t => t.name === 'fetch_market_data');
+    expect(tool).toBeDefined();
+    expect(tool.parameters).toBeDefined();
+  });
+
+  it('strategic-negotiator has scenario_model tool', async () => {
+    const skill = await loadSkill(path.join(SKILLS_DIR, 'strategic-negotiator'));
+    const tool = skill.tools.find(t => t.name === 'scenario_model');
+    expect(tool).toBeDefined();
+    expect(tool.parameters.parties).toBeDefined();
+  });
+
+  it('devops-sre has query_metrics tool', async () => {
+    const skill = await loadSkill(path.join(SKILLS_DIR, 'devops-sre'));
+    const tool = skill.tools.find(t => t.name === 'query_metrics');
+    expect(tool).toBeDefined();
+    expect(tool.parameters).toBeDefined();
+  });
+
+  it('all tool files have required name and description fields', async () => {
+    const skillNames = ['research-assistant', 'market-intelligence', 'strategic-negotiator', 'devops-sre'];
+    for (const skillName of skillNames) {
+      const skill = await loadSkill(path.join(SKILLS_DIR, skillName));
+      for (const tool of skill.tools) {
+        expect(tool.name, `${skillName}/${tool.name || '(unnamed)'} missing name`).toBeTruthy();
+        expect(tool.description, `${skillName}/${tool.name} missing description`).toBeTruthy();
+        expect(tool.parameters, `${skillName}/${tool.name} missing parameters`).toBeDefined();
+      }
+    }
+  });
 });

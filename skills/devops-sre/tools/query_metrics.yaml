@@ -1,0 +1,34 @@
+name: query_metrics
+description: "Query observability metrics (latency, error rate, throughput, saturation) for a service or endpoint"
+when_to_use: "When investigating an incident, verifying SLO compliance, building error budget calculations, or analyzing service health for a postmortem"
+parameters:
+  service:
+    type: string
+    description: "Service name or identifier to query"
+    required: true
+  metric_type:
+    type: string
+    description: "Metric category: latency, error_rate, throughput, saturation, availability"
+    required: true
+  window:
+    type: string
+    description: "Time window for the query: '5m', '1h', '24h', '7d'"
+    default: 1h
+  percentiles:
+    type: array
+    description: "Latency percentiles to return when metric_type is latency: p50, p95, p99, p999"
+    default: []
+returns:
+  type: object
+  description: "Metric time series with SLO threshold comparison"
+  properties:
+    service:
+      type: string
+    metric_type:
+      type: string
+    data_points:
+      type: array
+    slo_threshold:
+      type: number
+    slo_compliance:
+      type: boolean

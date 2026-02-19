@@ -1,0 +1,26 @@
+name: web_search
+description: "Search the web for current information on a topic"
+when_to_use: "When the user asks about current events, recent data, or information that may have changed since training cutoff; when primary sources need to be located online"
+parameters:
+  query:
+    type: string
+    description: "The search query, formulated using advanced search operators when appropriate"
+    required: true
+  max_results:
+    type: integer
+    description: "Maximum number of results to return"
+    default: 10
+returns:
+  type: array
+  description: "List of search results with title, url, snippet, and publication date"
+  items:
+    type: object
+    properties:
+      title:
+        type: string
+      url:
+        type: string
+      snippet:
+        type: string
+      published_date:
+        type: string
