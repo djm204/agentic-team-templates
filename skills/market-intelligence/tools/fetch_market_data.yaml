@@ -1,0 +1,26 @@
+name: fetch_market_data
+description: "Retrieve structured market data for a company, sector, or asset class"
+when_to_use: "When quantitative market data is needed to support an intelligence report; when tracking price, volume, or financial metrics over a time range"
+parameters:
+  ticker_or_query:
+    type: string
+    description: "Stock ticker symbol, sector name, or market query (e.g., 'AAPL', 'semiconductor sector', 'US 10Y yield')"
+    required: true
+  timeframe:
+    type: string
+    description: "Time range for data: '1d', '1w', '1m', '3m', '1y', '5y'"
+    default: 1m
+  metrics:
+    type: array
+    description: "Specific metrics to retrieve: price, volume, market_cap, pe_ratio, revenue_growth"
+    default: []
+returns:
+  type: object
+  description: "Market data points with timestamps and requested metrics"
+  properties:
+    symbol:
+      type: string
+    data_points:
+      type: array
+    metadata:
+      type: object
