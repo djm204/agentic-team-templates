@@ -5,6 +5,8 @@
  * within a token budget, with conflict detection and tier selection.
  */
 
+import { deduplicateFragments } from './fragments.js';
+
 // Token overhead for inter-skill routing instructions (separator + context)
 export const COMPOSITION_GLUE_TOKENS = 400;
 
@@ -187,7 +189,8 @@ export async function composeSkills(skills, options = {}) {
     allTools.push(...(skill.tools || []));
   }
 
-  const systemPrompt = sections.join('\n\n---\n\n');
+  const rawPrompt = sections.join('\n\n---\n\n');
+  const systemPrompt = deduplicateFragments(rawPrompt);
   const estimatedTokens = Math.ceil(systemPrompt.length / 4);
 
   return {

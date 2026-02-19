@@ -1,0 +1,28 @@
+name: scenario_model
+description: "Model a negotiation scenario with multiple parties and probability-weighted outcome analysis"
+when_to_use: "When analyzing deal structures, comparing counteroffers, war-gaming negotiation strategies, or calculating expected value across BATNA/ZOPA scenarios"
+parameters:
+  parties:
+    type: array
+    description: "List of negotiating parties, each with known interests, constraints, and estimated BATNA"
+    required: true
+  scenarios:
+    type: array
+    description: "Possible outcome scenarios to evaluate, each with proposed terms"
+    required: true
+  evaluation_criteria:
+    type: array
+    description: "Criteria to score each scenario: expected_value, risk, relationship_impact, precedent"
+    default: []
+returns:
+  type: object
+  description: "Ranked scenarios with expected values, risk assessments, and recommended strategy"
+  properties:
+    ranked_scenarios:
+      type: array
+    recommended_strategy:
+      type: string
+    risk_analysis:
+      type: object
+    walk_away_triggers:
+      type: array

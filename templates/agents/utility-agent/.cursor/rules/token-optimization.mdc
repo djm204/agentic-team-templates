@@ -11,17 +11,6 @@ Rules for efficient token usage and resource management.
 
 **Maximize value per token: be concise, clear, and efficient.**
 
-## Toon Format for Prompts
-
-Use toon format instead of JSON for data passing in prompts to reduce tokens:
-
-```
-❌ {"status":"success","data":{"user":{"id":"123","name":"John"}}}
-✅ status:success|data.user.id:123|data.user.name:John
-```
-
-**CRITICAL**: Toon is for prompt/response optimization ONLY. Never use for file storage, APIs, config, or any persistent data — always use JSON/YAML/standard formats.
-
 ## Concise Communication
 
 ```markdown

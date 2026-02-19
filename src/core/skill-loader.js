@@ -15,6 +15,7 @@
 
 import fs from 'fs';
 import path from 'path';
+import { resolveFragments } from './fragments.js';
 
 // ============================================================================
 // Constants
@@ -224,6 +225,7 @@ function loadOutputSchemas(skillDir) {
  * @param {string} skillDir - Path to the skill directory
  * @param {object} [options]
  * @param {'minimal'|'standard'|'comprehensive'} [options.tier='standard'] - Prompt tier to use
+ * @param {string|null} [options.fragmentsDir=null] - Optional directory of shared fragment .md files
  * @returns {Promise<SkillPack>}
  *
  * @typedef {object} SkillPack
@@ -239,7 +241,7 @@ function loadOutputSchemas(skillDir) {
  * @property {object[]} tools
  */
 export async function loadSkill(skillDir, options = {}) {
-  const { tier = 'standard' } = options;
+  const { tier = 'standard', fragmentsDir = null } = options;
 
   // Verify directory exists
   if (!fs.existsSync(skillDir)) {
@@ -260,13 +262,15 @@ export async function loadSkill(skillDir, options = {}) {
     throw new Error(`Invalid skill manifest in ${skillDir}:\n  ${errors.join('\n  ')}`);
   }
 
-  // Load prompt tiers
+  // Load prompt tiers (resolve fragment references if fragmentsDir is provided)
   const promptsDir = path.join(skillDir, 'prompts');
   const prompts = {};
   for (const t of TIER_ORDER) {
     const filePath = path.join(promptsDir, `${t}.md`);
     if (fs.existsSync(filePath)) {
-      prompts[t] = fs.readFileSync(filePath, 'utf8');
+      const raw = fs.readFileSync(filePath, 'utf8');
+      const { text } = resolveFragments(raw, fragmentsDir);
+      prompts[t] = text;
     }
   }
 
