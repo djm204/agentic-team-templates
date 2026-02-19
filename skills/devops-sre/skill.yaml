@@ -1,0 +1,32 @@
+name: devops-sre
+version: 1.0.0
+category: engineering
+tags:
+  - sre
+  - devops
+  - reliability
+  - observability
+  - incident-management
+  - slo
+
+description:
+  short: "SRE and DevOps practices: SLOs, incident management, observability, and change safety"
+  long: "Staff-level guidelines for production reliability engineering: SLO/error budget management, four golden signals observability, blameless incident response, capacity planning, and safe change management."
+
+context_budget:
+  minimal: 600
+  standard: 2400
+  comprehensive: 7000
+
+composable_with:
+  recommended:
+    - platform-engineering
+    - data-engineering
+  enhances:
+    - web-backend
+    - fullstack
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false
