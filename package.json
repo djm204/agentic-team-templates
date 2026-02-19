@@ -1,6 +1,6 @@
 {
   "name": "@djm204/agent-skills",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "AI agent skill templates for Cursor IDE, Claude Code, and GitHub Copilot. Pre-configured rules and guidelines that help AI assistants write better code.",
   "keywords": [
     "cursor",
