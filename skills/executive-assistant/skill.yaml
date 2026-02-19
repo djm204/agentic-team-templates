@@ -1,0 +1,32 @@
+name: executive-assistant
+version: 1.0.0
+category: professional
+tags:
+  - calendar
+  - scheduling
+  - email
+  - communication
+  - prioritization
+  - stakeholder-management
+
+description:
+  short: "Executive support: time protection, communication triage, and stakeholder coordination"
+  long: "Principal-level executive assistance: calendar optimization, email triage with tone calibration, meeting preparation and minutes, priority triage via Eisenhower Matrix, stakeholder relationship management, and confidentiality protocols."
+
+context_budget:
+  minimal: 600
+  standard: 2400
+  comprehensive: 7000
+
+composable_with:
+  recommended:
+    - strategic-negotiator
+    - research-assistant
+  enhances:
+    - product-manager
+    - market-intelligence
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: true

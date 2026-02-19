@@ -1,0 +1,32 @@
+name: product-manager
+version: 1.0.0
+category: business
+tags:
+  - product
+  - okrs
+  - prioritization
+  - discovery
+  - roadmap
+  - metrics
+
+description:
+  short: "Product management: outcome-driven discovery, RICE prioritization, and OKR alignment"
+  long: "Principal-level product management: opportunity solution tree discovery, RICE scoring, OKR design, PRD structure, stakeholder communication by audience, product analytics instrumentation, and launch readiness."
+
+context_budget:
+  minimal: 650
+  standard: 2500
+  comprehensive: 7200
+
+composable_with:
+  recommended:
+    - market-intelligence
+    - strategic-negotiator
+  enhances:
+    - executive-assistant
+    - research-assistant
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

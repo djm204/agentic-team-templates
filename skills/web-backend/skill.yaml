@@ -1,0 +1,32 @@
+name: web-backend
+version: 1.0.0
+category: engineering
+tags:
+  - api
+  - rest
+  - graphql
+  - authentication
+  - database
+  - security
+
+description:
+  short: "Backend API and service engineering with security-first patterns"
+  long: "Staff-level backend engineering: RESTful API design, input validation, authentication/authorization patterns, database access layers, error handling hierarchies, and observability for production services."
+
+context_budget:
+  minimal: 600
+  standard: 2500
+  comprehensive: 7000
+
+composable_with:
+  recommended:
+    - javascript-expert
+    - devops-sre
+  enhances:
+    - blockchain
+    - market-intelligence
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false
