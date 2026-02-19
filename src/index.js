@@ -3,6 +3,8 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { exec } from 'child_process';
 import { promisify } from 'util';
+import { getAdapter, ADAPTERS } from './adapters/index.js';
+import { loadSkill } from './core/skill-loader.js';
 
 const execAsync = promisify(exec);
 
@@ -474,19 +476,27 @@ function printBanner() {
 function printHelp() {
   console.log(`${colors.yellow('Usage:')}
   npx @djm204/agent-skills <templates...> [options]
+  npx @djm204/agent-skills <skill-name> --adapter=<adapter> [--tier=<tier>] [--out=<dir>]
   npx @djm204/agent-skills --remove <templates...> [options]
   npx @djm204/agent-skills --reset [options]
 
 ${colors.yellow('Options:')}
-  --ide=<name>   Install for specific IDE (cursor, claude, codex)
-                 Can be specified multiple times: --ide=cursor --ide=claude
-                 Default: all (cursor, claude, codex)
-  --list, -l     List available templates
-  --help, -h     Show this help message
-  --version, -v  Show version number
-  --dry-run      Show what would be changed
-  --force, -f    Overwrite/remove even if files were modified
-  --yes, -y      Skip confirmation prompt (for --remove and --reset)
+  --ide=<name>      Install for specific IDE (cursor, claude, codex)
+                    Can be specified multiple times: --ide=cursor --ide=claude
+                    Default: all (cursor, claude, codex)
+  --list, -l        List available templates
+  --help, -h        Show this help message
+  --version, -v     Show version number
+  --dry-run         Show what would be changed
+  --force, -f       Overwrite/remove even if files were modified
+  --yes, -y         Skip confirmation prompt (for --remove and --reset)
+
+${colors.yellow('Skill Pack Options (--adapter mode):')}
+  --adapter=<name>  Use adapter pipeline for a skill pack (from skills/ directory)
+                    Adapters: ${ADAPTERS.join(', ')}
+  --tier=<tier>     Prompt tier to use: minimal, standard, comprehensive (default: standard)
+  --skill-dir=<dir> Directory containing skill packs (default: skills/)
+  --out=<dir>       Output directory for adapter files (default: current directory)
 
 ${colors.yellow('Removal Options:')}
   --remove       Remove specified templates (keeps shared rules and other templates)
@@ -514,6 +524,12 @@ ${colors.yellow('Examples:')}
   npx @djm204/agent-skills web-frontend --ide=claude --ide=codex
   npx @djm204/agent-skills fullstack --ide=codex
   npx @djm204/agent-skills web-backend --force
+
+${colors.yellow('Skill Pack Examples:')}
+  npx @djm204/agent-skills strategic-negotiator --adapter=raw
+  npx @djm204/agent-skills strategic-negotiator --adapter=langchain --out=./agent
+  npx @djm204/agent-skills devops-sre --adapter=openai-agents --tier=minimal
+  npx @djm204/agent-skills javascript-expert --adapter=crewai --out=./crew
 
 ${colors.yellow('Removal Examples:')}
   npx @djm204/agent-skills --remove web-frontend
@@ -1642,6 +1658,48 @@ async function reset(targetDir, dryRun = false, force = false, skipConfirm = fal
   }
 }
 
+const VALID_TIERS = ['minimal', 'standard', 'comprehensive'];
+
+/**
+ * Install a skill via the adapter pipeline.
+ * Loads skill from skillsDir/<skillName>, runs through the named adapter,
+ * and writes output files to outDir.
+ *
+ * @param {string} skillName
+ * @param {string} adapterName
+ * @param {{ tier?: string, skillsDir?: string, outDir?: string }} options
+ */
+async function skillInstall(skillName, adapterName, { tier = 'standard', skillsDir, outDir } = {}) {
+  const resolvedSkillsDir = path.resolve(skillsDir || 'skills');
+  const skillDir = path.join(resolvedSkillsDir, skillName);
+
+  if (!fs.existsSync(skillDir) || !fs.existsSync(path.join(skillDir, 'skill.yaml'))) {
+    throw new Error(`Skill not found: "${skillName}" (looked in ${skillDir})`);
+  }
+
+  const skillPack = await loadSkill(skillDir, { tier });
+  const adapter = getAdapter(adapterName);
+  const { files, summary } = adapter(skillPack, { tier });
+
+  const resolvedOut = path.resolve(outDir || process.cwd());
+  if (!fs.existsSync(resolvedOut)) {
+    fs.mkdirSync(resolvedOut, { recursive: true });
+  }
+
+  for (const file of files) {
+    const dest = path.join(resolvedOut, file.path);
+    const destDir = path.dirname(dest);
+    if (!fs.existsSync(destDir)) {
+      fs.mkdirSync(destDir, { recursive: true });
+    }
+    fs.writeFileSync(dest, file.content, 'utf8');
+    console.log(`  ${colors.dim('[written]')} ${file.path}`);
+  }
+
+  console.log(colors.green(`✓ ${summary}`));
+  return { files, summary };
+}
+
 export async function run(args) {
   const templates = [];
   const ides = [];
@@ -1650,6 +1708,10 @@ export async function run(args) {
   let skipConfirm = false;
   let removeMode = false;
   let resetMode = false;
+  let adapterName = null;
+  let adapterTier = 'standard';
+  let adapterSkillsDir = null;
+  let adapterOutDir = null;
 
   // Parse arguments
   for (const arg of args) {
@@ -1675,6 +1737,20 @@ export async function run(args) {
       removeMode = true;
     } else if (arg === '--reset') {
       resetMode = true;
+    } else if (arg.startsWith('--adapter=')) {
+      adapterName = arg.slice(10).toLowerCase();
+      if (!adapterName || !ADAPTERS.includes(adapterName)) {
+        throw new Error(`Unknown adapter: "${adapterName}". Available adapters: ${ADAPTERS.join(', ')}`);
+      }
+    } else if (arg.startsWith('--tier=')) {
+      adapterTier = arg.slice(7).toLowerCase();
+      if (!VALID_TIERS.includes(adapterTier)) {
+        throw new Error(`Invalid tier: "${adapterTier}". Valid tiers: ${VALID_TIERS.join(', ')}`);
+      }
+    } else if (arg.startsWith('--skill-dir=')) {
+      adapterSkillsDir = arg.slice(12);
+    } else if (arg.startsWith('--out=')) {
+      adapterOutDir = arg.slice(6);
     } else if (arg.startsWith('--ide=')) {
       const ide = arg.slice(6).toLowerCase();
       if (!SUPPORTED_IDES.includes(ide)) {
@@ -1704,6 +1780,26 @@ export async function run(args) {
 
   // Use default IDEs if none specified
   const targetIdes = ides.length > 0 ? ides : DEFAULT_IDES;
+
+  // Handle skill adapter mode
+  if (adapterName) {
+    if (ides.length > 0) {
+      throw new Error('Cannot use --adapter and --ide together. Use --adapter for skill packs, --ide for template installs.');
+    }
+    if (resolvedTemplates.length === 0) {
+      console.error(colors.red('Error: No skill name specified\n'));
+      console.error(colors.dim('Usage: npx @djm204/agent-skills <skill-name> --adapter=<adapter>\n'));
+      process.exit(1);
+    }
+    for (const skillName of resolvedTemplates) {
+      await skillInstall(skillName, adapterName, {
+        tier: adapterTier,
+        skillsDir: adapterSkillsDir,
+        outDir: adapterOutDir,
+      });
+    }
+    return;
+  }
 
   // Handle reset mode
   if (resetMode) {
@@ -1785,6 +1881,9 @@ export async function run(args) {
 
 // Export internals for testing
 export const _internals = {
+  VALID_TIERS,
+  ADAPTERS,
+  skillInstall,
   PACKAGE_NAME,
   CURRENT_VERSION,
   REPO_URL,
