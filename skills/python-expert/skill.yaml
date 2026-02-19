@@ -1,0 +1,34 @@
+name: python-expert
+version: 1.0.0
+category: languages
+tags:
+  - python
+  - fastapi
+  - django
+  - async
+  - type-hints
+  - testing
+  - pydantic
+
+description:
+  short: "Principal-level Python engineering: type system, async, FastAPI, testing, production patterns"
+  long: "Expert behavioral guidance for Python engineering: strict typing, idiomatic patterns, async TaskGroup, FastAPI/Pydantic, pytest best practices, and production-grade tooling with uv/ruff/mypy."
+
+context_budget:
+  minimal: 700
+  standard: 2800
+  comprehensive: 7500
+
+composable_with:
+  recommended:
+    - data-engineering
+    - web-backend
+    - research-assistant
+  enhances:
+    - devops-sre
+    - ml-ai
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false
