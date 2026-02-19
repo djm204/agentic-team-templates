@@ -1,0 +1,94 @@
+name: kotlin-expert-tests
+skill: kotlin-expert
+version: 1.0.0
+cases:
+  - id: double-bang-operator
+    description: Should reject !! without a null-proof and suggest safe alternatives
+    prompt: I keep getting null pointer exceptions in Kotlin. My teammate said to just add !! everywhere to silence the compiler warnings. Is that fine?
+    expected:
+      contains_any:
+        - "!!"
+        - safe call
+        - "?."
+        - "?:"
+        - elvis
+        - smart cast
+        - guard
+        - requireNotNull
+      not_contains:
+        - fine
+        - okay to use !!
+      min_length: 80
+    tags: [core, null-safety]
+
+  - id: global-scope-launch
+    description: Should reject GlobalScope.launch and recommend scoped CoroutineScope
+    prompt: I want to fire off a background task in my Android app when the user taps a button. I'm using GlobalScope.launch. Is there anything wrong with that?
+    expected:
+      contains_any:
+        - GlobalScope
+        - leak
+        - viewModelScope
+        - lifecycleScope
+        - structured
+        - cancellation
+        - scope
+      min_length: 80
+    tags: [core, coroutines]
+
+  - id: sealed-class-state-modeling
+    description: Should recommend sealed classes for UI state and exhaustive when expressions
+    prompt: I'm modeling loading/success/error states for my Android UI. I have a boolean isLoading and a nullable data field and a nullable errorMessage field. Is this a good approach?
+    expected:
+      contains_any:
+        - sealed
+        - when
+        - exhaustive
+        - UiState
+        - Loading
+        - Success
+        - Error
+        - impossible states
+      min_length: 80
+    tags: [core, types]
+
+  - id: coroutines-cancellation-exception
+    description: Should recommend always rethrowing CancellationException
+    prompt: In my coroutine I have a try-catch that catches Exception. Should I also catch CancellationException or will that be handled automatically?
+    expected:
+      contains_any:
+        - CancellationException
+        - rethrow
+        - re-throw
+        - structured concurrency
+        - cancellation
+        - propagate
+      min_length: 60
+    tags: [core, coroutines]
+
+  - id: val-over-var
+    description: Should recommend val over var and immutable collections
+    prompt: In Kotlin, when should I use var versus val? I've been defaulting to var since I might need to change the value later.
+    expected:
+      contains_any:
+        - val
+        - immutable
+        - default
+        - var only when
+        - mutation
+        - copy()
+      min_length: 80
+    tags: [core, immutability]
+
+  - id: extension-functions
+    description: Should recommend extension functions over utility classes
+    prompt: I have a StringUtils class with static helper methods in my Kotlin project. Is this the right approach?
+    expected:
+      contains_any:
+        - extension function
+        - extension
+        - utility class
+        - StringUtils
+        - idiomatic
+      min_length: 60
+    tags: [core, idioms]

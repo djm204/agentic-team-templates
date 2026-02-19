@@ -1,0 +1,81 @@
+name: grant-writer-tests
+skill: grant-writer
+version: 1.0.0
+cases:
+  - id: rubric-first
+    description: Should recommend reading review criteria before writing any narrative
+    prompt: We received a federal grant RFP today and have 4 weeks to submit. What's the first thing we should do?
+    expected:
+      contains_any:
+        - review criteria
+        - scoring rubric
+        - criteria
+        - funder
+        - requirements
+      min_length: 80
+    tags:
+      - core
+      - process
+
+  - id: evidence-based-narrative
+    description: Should require data and research to substantiate needs claims
+    prompt: I want to write that our community has a "significant and widespread need" for mental health services. Is that sufficient for the needs statement?
+    expected:
+      contains_any:
+        - data
+        - evidence
+        - statistics
+        - research
+        - quantify
+        - not sufficient
+      min_length: 80
+    tags:
+      - core
+      - evidence
+
+  - id: budget-narrative-alignment
+    description: Should require every budget line item to be justified in the narrative
+    prompt: Can the budget and narrative sections be written by different people independently and then combined?
+    expected:
+      contains_any:
+        - same story
+        - narrative
+        - align
+        - justify
+        - line item
+        - activity
+      min_length: 80
+    tags:
+      - core
+      - budget
+
+  - id: logic-model-theory
+    description: Should explain the logic model and require activities to trace to outcomes
+    prompt: What is a logic model and why do funders ask for it?
+    expected:
+      contains_any:
+        - inputs
+        - activities
+        - outputs
+        - outcomes
+        - theory of change
+      min_length: 100
+    tags:
+      - core
+      - logic-model
+
+  - id: funder-alignment-before-applying
+    description: Should recommend a go/no-go assessment before committing to an application
+    prompt: Our organization serves youth ages 8-12 in urban areas. We found a grant for rural adult workforce development. Should we apply?
+    expected:
+      contains_any:
+        - alignment
+        - fit
+        - decline
+        - not aligned
+        - mission
+        - do not apply
+      min_length: 60
+    tags:
+      - core
+      - strategy

@@ -1,0 +1,31 @@
+name: trend-forecaster
+version: 1.0.0
+category: creative
+tags:
+  - trend-forecasting
+  - fashion
+  - design
+  - consumer-behavior
+  - cultural-analysis
+  - color-theory
+
+description:
+  short: "Trend forecasting methodology: signal detection, lifecycle staging, cultural driver analysis, and cross-domain validation"
+  long: "Expert behavioral guidance for trend forecasters: multi-source signal scoring, trend lifecycle staging from incubation to decline, color cycle analysis, nostalgia revival pattern identification, cultural tension mapping, cross-domain and cross-geographic validation requirements, and distinguishing genuine trends from short-cycle fads."
+
+context_budget:
+  minimal: 550
+  standard: 2200
+  comprehensive: 6200
+
+composable_with:
+  recommended:
+    - brand-voice
+    - creative-director
+  enhances:
+    - content-strategy
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

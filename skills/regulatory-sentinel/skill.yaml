@@ -1,0 +1,33 @@
+name: regulatory-sentinel
+version: 1.0.0
+category: business
+tags:
+  - compliance
+  - regulatory
+  - gdpr
+  - hipaa
+  - legal
+  - risk
+  - governance
+
+description:
+  short: "Regulatory compliance: proactive monitoring, jurisdiction awareness, and traceability"
+  long: "Principal-level regulatory compliance analysis: continuous horizon scanning before enforcement, jurisdiction-specific analysis (GDPR, CCPA, HIPAA, and others), mandatory traceability linking every compliance decision to specific regulation and evidence, gap analysis before remediation action, and zero-tolerance approach to knowing non-compliance."
+
+context_budget:
+  minimal: 700
+  standard: 2800
+  comprehensive: 7500
+
+composable_with:
+  recommended:
+    - strategic-negotiator
+    - executive-assistant
+  enhances:
+    - product-manager
+    - research-assistant
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

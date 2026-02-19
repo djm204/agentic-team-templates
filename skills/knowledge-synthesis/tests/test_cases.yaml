@@ -1,0 +1,83 @@
+name: knowledge-synthesis-tests
+skill: knowledge-synthesis
+version: 1.0.0
+cases:
+  - id: atomic-note-principle
+    description: Should explain why one idea per note is the foundational atomic principle
+    prompt: I tend to write long comprehensive notes about a whole book in one document. What's wrong with this approach?
+    expected:
+      contains_any:
+        - atomic
+        - one idea
+        - link
+        - recombine
+        - connections
+        - reuse
+      min_length: 80
+    tags:
+      - core
+      - note-design
+
+  - id: connections-over-collection
+    description: Should emphasize that linked notes create value, not note count
+    prompt: I have 3,000 notes in my system but I rarely find what I'm looking for. What's going wrong?
+    expected:
+      contains_any:
+        - links
+        - connections
+        - graph
+        - orphan
+        - linked
+        - retrieval
+      min_length: 80
+    tags:
+      - core
+      - linking
+
+  - id: progressive-summarization-layers
+    description: Should describe the layered processing approach from capture to synthesis
+    prompt: What is progressive summarization and how does it work in practice?
+    expected:
+      contains_any:
+        - highlight
+        - summarize
+        - layer
+        - capture
+        - passes
+        - synthesis
+      min_length: 100
+    tags:
+      - core
+      - processing
+
+  - id: source-fidelity
+    description: Should emphasize preserving provenance at the moment of capture
+    prompt: I often note down interesting ideas but forget where I read them. Does the source really matter if I remember the idea?
+    expected:
+      contains_any:
+        - source
+        - provenance
+        - citation
+        - trace
+        - original
+        - trust
+      min_length: 80
+    tags:
+      - core
+      - sources
+
+  - id: retrieval-first-design
+    description: Should recommend designing the system around how notes will be found, not how they will be filed
+    prompt: Should I organize my notes by topic, by date, by source, or by project?
+    expected:
+      contains_any:
+        - retrieval
+        - find
+        - context
+        - links
+        - tags
+        - when
+      min_length: 80
+    tags:
+      - core
+      - organization

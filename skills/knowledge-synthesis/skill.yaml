@@ -1,0 +1,32 @@
+name: knowledge-synthesis
+version: 1.0.0
+category: professional
+tags:
+  - knowledge-management
+  - zettelkasten
+  - pkm
+  - obsidian
+  - research
+  - synthesis
+
+description:
+  short: "Knowledge management: atomic notes, connection-first, and retrieval-optimized design"
+  long: "Principal-level knowledge management: atomic knowledge units for maximum reuse, connections over collection with link-based value, source fidelity with preserved provenance, progressive summarization from raw through synthesized layers, and retrieval-first design that organizes around how knowledge will be found and used."
+
+context_budget:
+  minimal: 600
+  standard: 2400
+  comprehensive: 6500
+
+composable_with:
+  recommended:
+    - research-assistant
+    - documentation
+  enhances:
+    - executive-assistant
+    - educator
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

@@ -1,0 +1,29 @@
+name: kotlin-expert
+version: 1.0.0
+category: languages
+tags:
+  - kotlin
+  - coroutines
+  - android
+  - ktor
+  - multiplatform
+  - spring
+
+description:
+  short: "Principal-level Kotlin engineering: null safety, coroutines, sealed types, multiplatform"
+  long: "Expert behavioral guidance for Kotlin engineering: null safety with safe calls and smart casts, structured concurrency with coroutines and scoped CoroutineScope, immutability by default with val and data classes, sealed types for exhaustive state modeling, and extension functions over utility classes."
+
+context_budget:
+  minimal: 700
+  standard: 2800
+  comprehensive: 7500
+
+composable_with:
+  recommended:
+    - java-expert
+    - web-backend
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

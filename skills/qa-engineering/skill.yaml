@@ -1,0 +1,30 @@
+name: qa-engineering
+version: 1.0.0
+category: engineering
+tags:
+  - qa
+  - testing
+  - playwright
+  - cypress
+  - jest
+  - test-automation
+  - shift-left
+
+description:
+  short: "Principal QA engineer: risk-based testing, shift-left quality, automation as accelerator"
+  long: "Expert behavioral guidance for quality engineering: risk-based test coverage allocation, shift-left defect prevention at design and code review, behavior-focused test design, automation for regression with humans for exploratory testing, and zero tolerance for flaky tests."
+
+context_budget:
+  minimal: 700
+  standard: 2800
+  comprehensive: 7500
+
+composable_with:
+  recommended:
+    - testing
+    - devops-sre
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

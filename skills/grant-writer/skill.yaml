@@ -1,0 +1,32 @@
+name: grant-writer
+version: 1.0.0
+category: professional
+tags:
+  - grant-writing
+  - fundraising
+  - nonprofit
+  - proposal
+  - federal-grants
+  - logic-model
+
+description:
+  short: "Grant writing: funder alignment, rubric-driven narrative, and evidence-based proposals"
+  long: "Principal-level grant writing: funder alignment before any writing begins, review-criteria-first approach to every section, evidence-based narratives with data and documented need, budget-as-narrative discipline, and compliance-from-day-one process that prevents disqualification on technical grounds."
+
+context_budget:
+  minimal: 600
+  standard: 2400
+  comprehensive: 6500
+
+composable_with:
+  recommended:
+    - research-assistant
+    - executive-assistant
+  enhances:
+    - knowledge-synthesis
+    - documentation
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

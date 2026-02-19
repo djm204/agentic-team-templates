@@ -1,0 +1,89 @@
+name: mobile-tests
+skill: mobile
+version: 1.0.0
+cases:
+  - id: permissions-on-launch
+    description: Should reject requesting permissions on launch and recommend requesting at moment of need
+    prompt: Should I request camera, location, and notification permissions when the app first launches?
+    expected:
+      contains_any:
+        - moment of need
+        - context
+        - denied
+        - launch
+        - explain
+        - when the user
+      not_contains:
+        - "on launch is fine"
+        - "all at once"
+      min_length: 60
+    tags: [core, permissions]
+
+  - id: offline-blank-screen
+    description: Should recommend caching and showing cached data instead of blank screen when offline
+    prompt: When the user has no internet connection, my app shows a blank screen. What should I do?
+    expected:
+      contains_any:
+        - cache
+        - offline
+        - cached data
+        - AsyncStorage
+        - local
+        - show
+      min_length: 60
+    tags: [core, offline]
+
+  - id: flatlist-scrollview-long-list
+    description: Should recommend FlatList over ScrollView for long dynamic lists
+    prompt: I'm rendering a list of 500 user records using a ScrollView. The app is sluggish. What should I use instead?
+    expected:
+      contains_any:
+        - FlatList
+        - virtuali
+        - scroll
+        - performance
+        - lazy
+        - render
+      min_length: 60
+    tags: [core, performance]
+
+  - id: animation-native-driver
+    description: Should require useNativeDriver true for animations to avoid JS thread blocking
+    prompt: My React Native animations are janky. I'm using Animated.timing but it stutters during heavy list rendering.
+    expected:
+      contains_any:
+        - useNativeDriver
+        - native thread
+        - JS thread
+        - bridge
+        - true
+      min_length: 60
+    tags: [core, performance, animation]
+
+  - id: platform-divergence
+    description: Should recommend platform-specific components where iOS and Android conventions differ
+    prompt: I want my app's navigation to work well on both iOS and Android. Should I use the same component for both?
+    expected:
+      contains_any:
+        - platform
+        - iOS
+        - Android
+        - conventions
+        - Platform.select
+        - native
+      min_length: 60
+    tags: [core, platform]
+
+  - id: real-device-testing
+    description: Should require testing on real devices, especially mid-range Android
+    prompt: I've tested my app on the iOS simulator and Android emulator and it looks great. Can I ship it?
+    expected:
+      contains_any:
+        - real device
+        - mid-range
+        - Android
+        - simulator
+        - emulator
+        - performance
+      min_length: 60
+    tags: [testing, devices]

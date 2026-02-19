@@ -1,0 +1,91 @@
+name: qa-engineering-tests
+skill: qa-engineering
+version: 1.0.0
+cases:
+  - id: flaky-test-policy
+    description: Should treat flaky tests as bugs requiring immediate action not tolerance
+    prompt: We have about 20 flaky tests in our CI. They fail maybe 10% of the time. Is it OK to just rerun them?
+    expected:
+      contains_any:
+        - flaky
+        - fix
+        - quarantine
+        - confidence
+        - delete
+        - liability
+      not_contains:
+        - "is fine"
+        - "OK to"
+        - "acceptable"
+      min_length: 60
+    tags: [core, flakiness]
+
+  - id: coverage-target
+    description: Should reject 100% line coverage as a quality goal and recommend risk-based approach
+    prompt: Our engineering manager says we need 100% code coverage. How do we achieve that?
+    expected:
+      contains_any:
+        - risk-based
+        - behavior
+        - coverage is not
+        - meaningful
+        - quality
+        - wrong metric
+      min_length: 80
+    tags: [core, coverage]
+
+  - id: shift-left-requirements
+    description: Should recommend QA involvement at requirements and design, not just testing
+    prompt: QA only gets involved after the feature is built. We keep finding bugs late in the cycle. How do we improve?
+    expected:
+      contains_any:
+        - shift left
+        - requirements
+        - design
+        - earlier
+        - prevent
+        - definition
+      min_length: 60
+    tags: [core, shift-left]
+
+  - id: automation-vs-exploration
+    description: Should distinguish automation for regression from humans for exploratory testing
+    prompt: We have full Playwright automation. Can we stop doing manual testing?
+    expected:
+      contains_any:
+        - exploratory
+        - usability
+        - humans
+        - automation cannot
+        - edge cases
+        - judgment
+      min_length: 60
+    tags: [core, automation]
+
+  - id: test-behavior-not-implementation
+    description: Should reject tests that assert on internal state or function calls
+    prompt: I wrote a test that asserts my CheckoutService.processPayment method was called. Is this a good test?
+    expected:
+      contains_any:
+        - behavior
+        - outcome
+        - implementation
+        - refactor
+        - user
+        - brittle
+      min_length: 60
+    tags: [core, test-design]
+
+  - id: risk-based-allocation
+    description: Should recommend higher test coverage for high-risk areas like payments and auth
+    prompt: We have limited time for testing. What should we test first?
+    expected:
+      contains_any:
+        - risk
+        - payment
+        - authentication
+        - authorization
+        - cost of failure
+        - priorit
+      min_length: 60
+    tags: [risk-based]

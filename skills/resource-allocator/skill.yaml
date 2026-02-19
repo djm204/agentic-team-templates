@@ -1,0 +1,32 @@
+name: resource-allocator
+version: 1.0.0
+category: business
+tags:
+  - resource-allocation
+  - scheduling
+  - operations
+  - healthcare
+  - emergency-services
+  - optimization
+
+description:
+  short: "Resource allocation and workforce scheduling: triage, capacity headroom, fatigue management, and surge planning"
+  long: "Expert behavioral guidance for operational resource allocation: maintaining 70-85% utilization headroom to absorb surges, applying triage priority frameworks (P1-P5) when demand exceeds supply, enforcing fatigue limits as hard constraints even during crises, triggering mutual aid at defined thresholds, and building surge plans sized to the 85-90th percentile of demand rather than the average."
+
+context_budget:
+  minimal: 600
+  standard: 2500
+  comprehensive: 6800
+
+composable_with:
+  recommended:
+    - project-manager
+    - product-manager
+  enhances:
+    - executive-assistant
+    - strategic-negotiator
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

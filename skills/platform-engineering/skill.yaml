@@ -1,0 +1,30 @@
+name: platform-engineering
+version: 1.0.0
+category: engineering
+tags:
+  - platform
+  - kubernetes
+  - terraform
+  - ci-cd
+  - sre
+  - devex
+  - helm
+
+description:
+  short: "Staff platform/infrastructure engineer: golden paths, developer experience, reliability, Kubernetes"
+  long: "Expert behavioral guidance for platform engineering: opinionated golden paths with escape hatches, infrastructure as code without snowflakes, SLO-driven reliability engineering, security baked into the platform, and developer experience metrics as platform health signals."
+
+context_budget:
+  minimal: 700
+  standard: 2800
+  comprehensive: 7500
+
+composable_with:
+  recommended:
+    - devops-sre
+    - golang-expert
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

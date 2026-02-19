@@ -1,0 +1,31 @@
+name: data-engineering
+version: 1.0.0
+category: engineering
+tags:
+  - data-engineering
+  - spark
+  - airflow
+  - dbt
+  - kafka
+  - snowflake
+  - delta-lake
+  - etl
+
+description:
+  short: "Staff data engineer: idempotent pipelines, schema contracts, data quality, observability"
+  long: "Expert behavioral guidance for data engineering: idempotent pipeline design, schema registry and versioning, data quality validation at ingestion, pipeline observability with lineage and freshness metrics, and cost-aware storage patterns."
+
+context_budget:
+  minimal: 700
+  standard: 2800
+  comprehensive: 7500
+
+composable_with:
+  recommended:
+    - ml-ai
+    - devops-sre
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

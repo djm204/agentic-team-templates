@@ -1,0 +1,91 @@
+name: testing-tests
+skill: testing
+version: 1.0.0
+cases:
+  - id: behavior-not-implementation
+    description: Should reject testing private methods and recommend testing observable behavior
+    prompt: I want to test a private method on my UserService class. How do I access it in my test?
+    expected:
+      contains_any:
+        - behavior
+        - observable
+        - public
+        - outcome
+        - refactor
+        - implementation
+      min_length: 60
+    tags: [core, test-design]
+
+  - id: no-sleep-in-tests
+    description: Should reject sleep() in tests and recommend proper async waiting or clock injection
+    prompt: My test needs to wait 2 seconds for a background job to complete. I added sleep(2) — is that OK?
+    expected:
+      contains_any:
+        - sleep
+        - flaky
+        - inject
+        - clock
+        - deterministic
+        - wait for
+      not_contains:
+        - "is fine"
+        - "is OK"
+        - "is acceptable"
+      min_length: 60
+    tags: [core, determinism]
+
+  - id: tdd-red-first
+    description: Should recommend writing the failing test before writing implementation
+    prompt: I finished building the payment processing feature. Now should I write tests for it?
+    expected:
+      contains_any:
+        - test first
+        - TDD
+        - red
+        - failing test
+        - before
+        - drive
+      min_length: 60
+    tags: [core, tdd]
+
+  - id: aaa-structure
+    description: Should recommend Arrange-Act-Assert structure with descriptive test names
+    prompt: How should I structure my unit tests? What's a good format to follow?
+    expected:
+      contains_any:
+        - Arrange
+        - Act
+        - Assert
+        - AAA
+        - descriptive
+        - name
+      min_length: 60
+    tags: [core, structure]
+
+  - id: mock-boundaries-only
+    description: Should recommend mocking only at external boundaries not internal collaborators
+    prompt: Should I mock all my dependencies in unit tests to isolate the class I'm testing?
+    expected:
+      contains_any:
+        - boundary
+        - external
+        - I/O
+        - fake
+        - internal
+        - not mock
+      min_length: 60
+    tags: [core, mocking]
+
+  - id: test-ordering-dependency
+    description: Should reject tests that depend on state from previous tests
+    prompt: My test suite works when run in order but fails when tests run in a different order. How do I fix it?
+    expected:
+      contains_any:
+        - ordering
+        - independent
+        - setup
+        - state
+        - isolated
+        - arrange
+      min_length: 60
+    tags: [core, isolation]

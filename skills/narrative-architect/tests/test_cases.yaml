@@ -1,0 +1,82 @@
+name: narrative-architect-tests
+skill: narrative-architect
+version: 1.0.0
+cases:
+  - id: documentation-over-memory
+    description: Should require documentation over memory for lore facts
+    prompt: "I'm the lead writer and I remember that the character lost their arm in book 2. Do I need to look it up?"
+    expected:
+      contains_any:
+        - document
+        - story bible
+        - cite
+        - source
+        - verify
+        - memory
+      not_contains:
+        - trust your memory
+        - that's fine
+      min_length: 80
+    tags: [core, documentation]
+
+  - id: canon-tier-before-marketing
+    description: Should require canon review for marketing content
+    prompt: "Our marketing team wants to post lore details about our world on Twitter to hype the game. Is that OK?"
+    expected:
+      contains_any:
+        - canon
+        - review
+        - tier
+        - story bible
+        - approve
+        - workflow
+      min_length: 80
+    tags: [core, governance]
+
+  - id: character-knowledge-check
+    description: Should verify character knowledge before writing scenes
+    prompt: "My character overheard a secret in chapter 3. Can they reference that secret in chapter 1's prequel story?"
+    expected:
+      contains_any:
+        - knowledge
+        - matrix
+        - timeline
+        - learned
+        - prequel
+        - before
+      min_length: 80
+    tags: [core, continuity]
+
+  - id: retcon-requires-documentation
+    description: Should require formal retcon process for fact changes
+    prompt: "The new film contradicts an established magic rule from the original game. Can we just quietly use the new version going forward?"
+    expected:
+      contains_any:
+        - retcon
+        - document
+        - protocol
+        - formal
+        - record
+        - propagate
+      not_contains:
+        - just update it
+        - no problem
+      min_length: 80
+    tags: [core, retcons]
+
+  - id: contradiction-blocks-release
+    description: Should block release for critical contradictions
+    prompt: "Our new DLC shows a character alive who was confirmed dead in the main game. Can we release it anyway?"
+    expected:
+      contains_any:
+        - critical
+        - block
+        - rewrite
+        - contradiction
+        - cannot release
+        - must fix
+      not_contains:
+        - release it
+        - nobody will notice
+      min_length: 80
+    tags: [core, quality]

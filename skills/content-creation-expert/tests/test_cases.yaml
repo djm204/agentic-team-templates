@@ -1,0 +1,83 @@
+name: content-creation-expert-tests
+skill: content-creation-expert
+version: 1.0.0
+cases:
+  - id: audience-specificity
+    description: Should require defining a specific audience before writing
+    prompt: We want to write a blog post about project management. Who should we write it for?
+    expected:
+      contains_any:
+        - specific
+        - audience
+        - who
+        - person
+        - problem
+        - define
+      min_length: 80
+    tags:
+      - core
+      - audience
+
+  - id: one-idea-per-piece
+    description: Should recommend choosing one idea rather than covering multiple topics
+    prompt: I want to write one blog post covering project planning, risk management, stakeholder communication, and change control. Is that a good idea?
+    expected:
+      contains_any:
+        - one idea
+        - single
+        - focus
+        - separate
+        - dilute
+        - pick one
+      min_length: 60
+    tags:
+      - core
+      - structure
+
+  - id: seo-intent-first
+    description: Should focus on search intent rather than keyword density for SEO
+    prompt: How do I write a blog post that ranks well in Google?
+    expected:
+      contains_any:
+        - search intent
+        - intent
+        - answer the question
+        - reader
+        - human
+        - not keyword stuffing
+      min_length: 80
+    tags:
+      - core
+      - seo
+
+  - id: value-before-promotion
+    description: Should recommend leading with value and ending with calls to action
+    prompt: Should I put our product demo CTA at the beginning or end of a blog post?
+    expected:
+      contains_any:
+        - value
+        - earn
+        - end
+        - trust
+        - insight
+        - lead with
+      min_length: 60
+    tags:
+      - core
+      - structure
+
+  - id: distribution-plan-required
+    description: Should require a distribution plan before publishing content
+    prompt: I've finished writing a great blog post. What should I do now?
+    expected:
+      contains_any:
+        - distribute
+        - channels
+        - promotion
+        - social
+        - email
+        - plan
+      min_length: 80
+    tags:
+      - core
+      - distribution

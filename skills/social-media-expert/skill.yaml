@@ -1,0 +1,31 @@
+name: social-media-expert
+version: 1.0.0
+category: marketing
+tags:
+  - social-media
+  - content-strategy
+  - community
+  - influencer
+  - analytics
+  - platform-strategy
+
+description:
+  short: "Platform-native social media strategy: content pillars, algorithm signals, community growth, and crisis response"
+  long: "Expert behavioral guidance for social media strategy: platform-native content adaptation, content pillar frameworks, algorithm optimization, influencer tier selection, community engagement, crisis level response, and data-informed decision making across Instagram, TikTok, LinkedIn, X, and YouTube."
+
+context_budget:
+  minimal: 600
+  standard: 2400
+  comprehensive: 6500
+
+composable_with:
+  recommended:
+    - content-strategy
+    - brand-voice
+  enhances:
+    - influencer-marketing
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

@@ -1,0 +1,97 @@
+name: cpp-expert-tests
+skill: cpp-expert
+version: 1.0.0
+cases:
+  - id: raw-new-delete
+    description: Should reject raw new/delete and recommend smart pointers with RAII
+    prompt: "I'm allocating objects with new and calling delete in my class destructor. Is there a better way in modern C++?"
+    expected:
+      contains_any:
+        - unique_ptr
+        - shared_ptr
+        - make_unique
+        - RAII
+        - smart pointer
+        - destructor
+        - Rule of Zero
+      not_contains:
+        - raw new is fine
+      min_length: 80
+    tags: [core, raii]
+
+  - id: const-correctness
+    description: Should recommend const on all non-mutating parameters and member functions
+    prompt: When should I use const in C++? My code compiles without it.
+    expected:
+      contains_any:
+        - const reference
+        - const member function
+        - const parameter
+        - constexpr
+        - "const&"
+        - correctness
+        - mutation
+      min_length: 80
+    tags: [core, const]
+
+  - id: c-style-cast
+    description: Should reject C-style casts and recommend named casts
+    prompt: I need to cast a double to an int in C++. I'm using (int)value. Is that fine?
+    expected:
+      contains_any:
+        - static_cast
+        - reinterpret_cast
+        - named cast
+        - C-style cast
+        - intent
+        - explicit
+        - dangerous
+      min_length: 60
+    tags: [core, safety]
+
+  - id: undefined-behavior-sanitizers
+    description: Should recommend enabling sanitizers in CI to catch undefined behavior
+    prompt: My C++ code has subtle bugs that only appear in production. How can I catch undefined behavior earlier?
+    expected:
+      contains_any:
+        - sanitizer
+        - AddressSanitizer
+        - asan
+        - ubsan
+        - UBSan
+        - undefined behavior
+        - "-fsanitize"
+        - CI
+      min_length: 80
+    tags: [core, safety]
+
+  - id: std-optional-over-pointer
+    description: Should recommend std::optional instead of nullable pointers or sentinel values
+    prompt: My function returns a pointer to a User if found, or nullptr if not found. Is there a better way?
+    expected:
+      contains_any:
+        - std::optional
+        - optional
+        - "std::nullopt"
+        - nullable
+        - sentinel
+        - has_value
+        - value_or
+      min_length: 60
+    tags: [core, types]
+
+  - id: vector-over-list
+    description: Should recommend std::vector over std::list for general sequential data
+    prompt: I need a data structure to store a sequence of objects that I iterate over frequently. Should I use std::list for fast insertion?
+    expected:
+      contains_any:
+        - std::vector
+        - cache
+        - sequential
+        - memory layout
+        - contiguous
+        - list
+        - benchmark
+        - profile
+      min_length: 80
+    tags: [core, performance]

@@ -1,0 +1,90 @@
+name: csharp-expert-tests
+skill: csharp-expert
+version: 1.0.0
+cases:
+  - id: result-wait-deadlock
+    description: Should reject .Result or .Wait() on async code and explain the deadlock risk
+    prompt: I have an async method but the calling method is synchronous, so I'm using .Result to get the value. Is that okay?
+    expected:
+      contains_any:
+        - deadlock
+        - ".Result"
+        - ".Wait()"
+        - async all the way
+        - synchronization context
+        - async Task
+      not_contains:
+        - .Result is fine
+      min_length: 80
+    tags: [core, async]
+
+  - id: nullable-reference-types
+    description: Should recommend enabling nullable reference types project-wide
+    prompt: I keep getting NullReferenceException at runtime in my .NET application. How can I catch these at compile time?
+    expected:
+      contains_any:
+        - "<Nullable>enable</Nullable>"
+        - Nullable
+        - nullable reference types
+        - compile time
+        - NullReferenceException
+        - "?"
+      min_length: 80
+    tags: [core, null-safety]
+
+  - id: records-for-data
+    description: Should recommend records for immutable data types instead of mutable classes
+    prompt: I'm creating a C# class for a command object that just carries data from the API to my service layer. Should it be a regular class?
+    expected:
+      contains_any:
+        - record
+        - immutable
+        - value equality
+        - "with"
+        - positional
+        - data carrier
+      min_length: 80
+    tags: [core, types]
+
+  - id: service-locator-antipattern
+    description: Should reject service locator pattern in business logic
+    prompt: Inside my service class I'm calling IServiceProvider.GetRequiredService to get dependencies when I need them. Is this acceptable?
+    expected:
+      contains_any:
+        - service locator
+        - constructor injection
+        - anti-pattern
+        - hidden dependency
+        - testability
+        - composition root
+      min_length: 80
+    tags: [core, di]
+
+  - id: cancellation-token
+    description: Should recommend threading CancellationToken through all async methods
+    prompt: Should I add a CancellationToken parameter to my async service methods? It seems like extra overhead.
+    expected:
+      contains_any:
+        - CancellationToken
+        - cancellation
+        - timeout
+        - HTTP request
+        - thread through
+        - propagate
+        - last parameter
+      min_length: 80
+    tags: [core, async]
+
+  - id: async-void
+    description: Should reject async void except for event handlers
+    prompt: I made a method async void because I don't need to await it. The caller just fires and forgets. Is this okay?
+    expected:
+      contains_any:
+        - async void
+        - exception
+        - unobservable
+        - crash
+        - async Task
+        - event handler
+      min_length: 80
+    tags: [core, async]

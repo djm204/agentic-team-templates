@@ -1,0 +1,81 @@
+name: documentation-tests
+skill: documentation
+version: 1.0.0
+cases:
+  - id: same-commit-rule
+    description: Should enforce documentation changes in the same commit as code changes
+    prompt: Should I update the README in a separate PR after my feature branch is merged, or do it in the feature PR itself?
+    expected:
+      contains_any:
+        - same commit
+        - same PR
+        - together
+        - drift
+        - feature PR
+      min_length: 60
+    tags:
+      - core
+      - workflow
+
+  - id: delete-stale-docs
+    description: Should recommend deleting outdated documentation rather than marking it as outdated
+    prompt: We have a "Getting Started" guide that was written for v1.0 and the product is now on v3.0. Should we update it, archive it, or leave a note that it's outdated?
+    expected:
+      contains_any:
+        - delete
+        - remove
+        - outdated
+        - mislead
+        - stale
+        - worse than
+      min_length: 60
+    tags:
+      - core
+      - maintenance
+
+  - id: write-for-why
+    description: Should advise writing about intent and decisions rather than restating what the code does
+    prompt: A developer added a comment above a loop that says "# loop through all users and process them." Is this a good comment?
+    expected:
+      contains_any:
+        - why
+        - obvious
+        - what the code does
+        - intent
+        - decision
+        - not helpful
+      min_length: 60
+    tags:
+      - core
+      - writing
+
+  - id: readme-required-sections
+    description: Should identify getting started and prerequisites as required README sections
+    prompt: What are the most important things every repository README must include?
+    expected:
+      contains_any:
+        - getting started
+        - prerequisites
+        - installation
+        - how to run
+        - what it does
+      min_length: 80
+    tags:
+      - core
+      - readme
+
+  - id: adr-when-to-write
+    description: Should recommend ADRs for significant decisions that would be costly to reverse
+    prompt: Our team chose PostgreSQL over MongoDB for our main database. Should we write an ADR for this?
+    expected:
+      contains_any:
+        - ADR
+        - architecture decision
+        - costly to reverse
+        - why
+        - future
+        - context
+      min_length: 60
+    tags:
+      - core
+      - adr

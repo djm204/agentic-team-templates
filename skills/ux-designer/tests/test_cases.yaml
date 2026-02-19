@@ -1,0 +1,83 @@
+name: ux-designer-tests
+skill: ux-designer
+version: 1.0.0
+cases:
+  - id: friction-before-delight
+    description: Should prioritize removing friction over adding delight features
+    prompt: Our onboarding funnel has a 60% drop-off rate. The team wants to add animations and confetti to make it more delightful. What should we do?
+    expected:
+      contains_any:
+        - friction
+        - usability
+        - drop-off
+        - research
+        - test
+        - fix first
+      min_length: 80
+    tags:
+      - core
+      - ux-principles
+
+  - id: accessibility-non-negotiable
+    description: Should enforce WCAG 2.2 AA as a minimum non-negotiable requirement
+    prompt: Our design team says accessibility is nice to have but we don't have time for it in this sprint. How should I respond?
+    expected:
+      contains_any:
+        - WCAG
+        - non-negotiable
+        - requirement
+        - accessibility
+        - minimum
+        - AA
+      min_length: 80
+    tags:
+      - core
+      - accessibility
+
+  - id: evidence-over-opinion
+    description: Should recommend user testing to settle design debates rather than opinion
+    prompt: The design team prefers a tab navigation, the product manager prefers a sidebar. How do we decide?
+    expected:
+      contains_any:
+        - user testing
+        - research
+        - evidence
+        - test
+        - users
+        - data
+      min_length: 60
+    tags:
+      - core
+      - research
+
+  - id: simplicity-default
+    description: Should advocate for removing elements rather than adding when in doubt
+    prompt: We have a form with 12 fields for user registration. The team wants to add 3 more for analytics purposes. What's your recommendation?
+    expected:
+      contains_any:
+        - remove
+        - fewer fields
+        - friction
+        - completion
+        - necessary
+        - justify
+      min_length: 60
+    tags:
+      - core
+      - simplicity
+
+  - id: error-state-design
+    description: Should emphasize error state and edge case design as equally important as happy path
+    prompt: We're almost done with our checkout flow design. What are we probably missing?
+    expected:
+      contains_any:
+        - error state
+        - empty state
+        - loading
+        - edge case
+        - failure
+        - error message
+      min_length: 80
+    tags:
+      - core
+      - design-quality

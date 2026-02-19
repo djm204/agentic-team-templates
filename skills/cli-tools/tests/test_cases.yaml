@@ -1,0 +1,90 @@
+name: cli-tools-tests
+skill: cli-tools
+version: 1.0.0
+cases:
+  - id: exit-code-on-failure
+    description: Should require non-zero exit code on failure, not exit 0
+    prompt: My CLI tool prints an error message when a file is not found but still exits with code 0. Is that fine?
+    expected:
+      contains_any:
+        - exit code
+        - non-zero
+        - scripts
+        - CI
+        - "exit 1"
+        - break
+      not_contains:
+        - "is fine"
+        - "is OK"
+      min_length: 60
+    tags: [core, exit-codes]
+
+  - id: stdout-stderr-separation
+    description: Should enforce data to stdout and diagnostics to stderr
+    prompt: Should I print progress messages and the JSON result to stdout so the user sees everything in one place?
+    expected:
+      contains_any:
+        - stderr
+        - stdout
+        - pipe
+        - composab
+        - separate
+        - data
+      min_length: 60
+    tags: [core, output]
+
+  - id: json-output-flag
+    description: Should recommend a --json flag for machine-readable output with a stable schema
+    prompt: Users want to use my CLI in scripts and need to parse the output. What's the best approach?
+    expected:
+      contains_any:
+        - "--json"
+        - structured
+        - schema
+        - stable
+        - machine-readable
+        - parse
+      min_length: 60
+    tags: [core, json]
+
+  - id: dry-run-destructive
+    description: Should require --dry-run for mutating or destructive commands
+    prompt: I'm adding a 'delete' subcommand that removes all files in a directory. What flags should I add?
+    expected:
+      contains_any:
+        - dry-run
+        - confirm
+        - preview
+        - what would happen
+        - destructive
+        - "--force"
+      min_length: 60
+    tags: [core, safety]
+
+  - id: stdin-pipe-support
+    description: Should recommend supporting "-" for stdin to enable pipe composition
+    prompt: My CLI has an --input flag that takes a file path. Users want to pipe data into it. How do I support that?
+    expected:
+      contains_any:
+        - stdin
+        - pipe
+        - "-"
+        - isatty
+        - composab
+        - Unix
+      min_length: 60
+    tags: [composability]
+
+  - id: actionable-error-message
+    description: Should recommend actionable error messages with context and remedy
+    prompt: What should my error messages look like when a user provides an invalid flag value?
+    expected:
+      contains_any:
+        - actionable
+        - how to fix
+        - --help
+        - context
+        - stderr
+        - remedy
+      min_length: 60
+    tags: [ux, errors]

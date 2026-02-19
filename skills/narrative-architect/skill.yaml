@@ -1,0 +1,31 @@
+name: narrative-architect
+version: 1.0.0
+category: creative
+tags:
+  - narrative
+  - worldbuilding
+  - lore
+  - continuity
+  - storytelling
+  - game-writing
+
+description:
+  short: "Narrative continuity and world bible architecture: canon management, lore governance, and contradiction prevention"
+  long: "Expert behavioral guidance for narrative architects and lead writers: maintaining canonical consistency across large universes, managing world bible documentation, classifying canon tiers, tracking character knowledge, executing retcons with formal protocol, and governing collaborative storytelling at scale."
+
+context_budget:
+  minimal: 550
+  standard: 2200
+  comprehensive: 6000
+
+composable_with:
+  recommended:
+    - content-strategy
+    - game-design
+  enhances:
+    - creative-director
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

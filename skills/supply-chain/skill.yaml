@@ -1,0 +1,32 @@
+name: supply-chain
+version: 1.0.0
+category: business
+tags:
+  - supply-chain
+  - inventory
+  - logistics
+  - procurement
+  - scm
+  - demand-planning
+
+description:
+  short: "Supply chain management: end-to-end visibility, demand-driven planning, and risk diversification"
+  long: "Principal-level supply chain management: total cost of ownership evaluation, demand-driven pull-based planning, single-point-of-failure elimination through dual-sourcing and geographic diversification, idempotent planning discipline, and RAID-based visibility across the full supply network."
+
+context_budget:
+  minimal: 700
+  standard: 2800
+  comprehensive: 7500
+
+composable_with:
+  recommended:
+    - product-manager
+    - strategic-negotiator
+  enhances:
+    - executive-assistant
+    - market-intelligence
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

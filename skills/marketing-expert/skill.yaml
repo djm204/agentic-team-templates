@@ -1,0 +1,33 @@
+name: marketing-expert
+version: 1.0.0
+category: business
+tags:
+  - marketing
+  - brand
+  - growth
+  - content
+  - seo
+  - gtm
+  - positioning
+
+description:
+  short: "Marketing strategy: positioning clarity, measurable outcomes, and full-funnel thinking"
+  long: "Principal-level marketing strategy: STP-first positioning, measurement-before-launch discipline, full-funnel customer journey optimization, ICE-scored hypothesis-driven experiments, and compounding asset strategy (SEO, community, brand equity) over campaign-only thinking."
+
+context_budget:
+  minimal: 700
+  standard: 2800
+  comprehensive: 7500
+
+composable_with:
+  recommended:
+    - product-manager
+    - strategic-negotiator
+  enhances:
+    - market-intelligence
+    - executive-assistant
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

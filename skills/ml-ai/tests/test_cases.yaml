@@ -1,0 +1,87 @@
+name: ml-ai-tests
+skill: ml-ai
+version: 1.0.0
+cases:
+  - id: test-set-contamination
+    description: Should warn against using test data for hyperparameter tuning
+    prompt: I tuned my model's hyperparameters using my test set to maximize accuracy. The accuracy is now 94%. Is that a good result?
+    expected:
+      contains_any:
+        - test set contamination
+        - overfitting
+        - held-out
+        - cross-validation
+        - not valid
+        - misleading
+      min_length: 80
+    tags: [core, experiment-design]
+
+  - id: data-quality-before-model
+    description: Should recommend analyzing data quality before tuning hyperparameters
+    prompt: My model accuracy is stuck at 72%. I've tried XGBoost, LightGBM, and a neural network. What should I try next?
+    expected:
+      contains_any:
+        - data quality
+        - label
+        - distribution
+        - missing values
+        - features
+        - data-centric
+      min_length: 80
+    tags: [core, data-centric]
+
+  - id: reproducibility-seeding
+    description: Should require seeding random generators and versioning data for reproducibility
+    prompt: My colleague cannot reproduce my model results even with the same code. What am I missing?
+    expected:
+      contains_any:
+        - seed
+        - random
+        - data version
+        - artifact
+        - reproducib
+        - MLflow
+      min_length: 80
+    tags: [core, reproducibility]
+
+  - id: production-monitoring
+    description: Should recommend drift monitoring beyond just uptime checks
+    prompt: Our model is deployed in production and the service is up with 99.9% uptime. How do we know if the model is still working well?
+    expected:
+      contains_any:
+        - drift
+        - distribution
+        - performance
+        - monitor
+        - alert
+        - ground truth
+      min_length: 80
+    tags: [core, monitoring]
+
+  - id: responsible-ai-slices
+    description: Should require slice evaluation across demographic subgroups
+    prompt: Our churn prediction model has 85% accuracy overall. Can we ship it?
+    expected:
+      contains_any:
+        - slice
+        - subgroup
+        - demographic
+        - disparate
+        - bias
+        - fairness
+      min_length: 60
+    tags: [responsible-ai]
+
+  - id: rag-hallucination
+    description: Should recommend evaluating retrieval quality and validating LLM output for RAG
+    prompt: I'm building a RAG system that answers questions from our documentation. Users are complaining about wrong answers. How do I improve it?
+    expected:
+      contains_any:
+        - retrieval
+        - faithfulness
+        - hallucination
+        - chunk
+        - RAGAS
+        - evaluate
+      min_length: 80
+    tags: [llm, rag]

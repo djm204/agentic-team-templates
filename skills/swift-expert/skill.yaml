@@ -1,0 +1,30 @@
+name: swift-expert
+version: 1.0.0
+category: languages
+tags:
+  - swift
+  - ios
+  - swiftui
+  - macos
+  - vapor
+  - spm
+  - actors
+
+description:
+  short: "Principal-level Swift engineering: type safety, structured concurrency, protocol-oriented design, Apple platforms"
+  long: "Expert behavioral guidance for Swift engineering: optional safety without force-unwrap, value types by default with structs and enums, protocol-oriented design with composition over inheritance, structured concurrency with async/await and actors, and exhaustive pattern matching enforced by the compiler."
+
+context_budget:
+  minimal: 700
+  standard: 2800
+  comprehensive: 7500
+
+composable_with:
+  recommended:
+    - mobile
+    - web-backend
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

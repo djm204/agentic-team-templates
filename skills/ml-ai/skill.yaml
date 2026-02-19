@@ -1,0 +1,32 @@
+name: ml-ai
+version: 1.0.0
+category: engineering
+tags:
+  - ml
+  - ai
+  - pytorch
+  - tensorflow
+  - mlops
+  - llm
+  - rag
+  - scikit-learn
+
+description:
+  short: "Staff ML/AI engineer: data-centric development, reproducibility, responsible AI, MLOps"
+  long: "Expert behavioral guidance for ML and AI engineering: data-centric model development, full reproducibility with versioned artifacts, production drift monitoring, responsible AI documentation and bias testing, and fail-fast input/output validation."
+
+context_budget:
+  minimal: 700
+  standard: 2800
+  comprehensive: 7500
+
+composable_with:
+  recommended:
+    - data-engineering
+    - python-expert
+    - research-assistant
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

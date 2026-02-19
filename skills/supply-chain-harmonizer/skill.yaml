@@ -1,0 +1,31 @@
+name: supply-chain-harmonizer
+version: 1.0.0
+category: business
+tags:
+  - supply-chain
+  - logistics
+  - disruption
+  - inventory
+  - rerouting
+
+description:
+  short: "Autonomous supply chain disruption response: severity triage, rerouting, safety stock, cascade analysis"
+  long: "Expert behavioral guidance for real-time supply chain disruption management: autonomous action on S1/S2 events, cascade impact modeling, dynamic safety stock recalculation, route scoring with cost/reliability/risk weighting, supplier concentration enforcement, and time-to-recovery as the primary success metric."
+
+context_budget:
+  minimal: 600
+  standard: 2500
+  comprehensive: 6500
+
+composable_with:
+  recommended:
+    - supply-chain
+    - strategic-negotiator
+  enhances:
+    - executive-assistant
+    - market-intelligence
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

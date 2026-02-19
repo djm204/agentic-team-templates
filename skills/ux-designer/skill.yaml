@@ -1,0 +1,33 @@
+name: ux-designer
+version: 1.0.0
+category: creative
+tags:
+  - ux
+  - ui
+  - design
+  - accessibility
+  - figma
+  - design-systems
+  - user-research
+
+description:
+  short: "UX design: frustration elimination, accessibility non-negotiable, and evidence over opinion"
+  long: "Principal-level UX design: friction elimination before delight, WCAG 2.2 AA accessibility as a minimum non-negotiable, user research and usability testing as the arbiter of design decisions, simplicity by default with every element requiring justification, and design systems that enforce consistency across touchpoints."
+
+context_budget:
+  minimal: 600
+  standard: 2400
+  comprehensive: 6500
+
+composable_with:
+  recommended:
+    - web-frontend
+    - product-manager
+  enhances:
+    - brand-guardian
+    - research-assistant
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

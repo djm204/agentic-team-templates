@@ -1,0 +1,32 @@
+name: wellness-orchestrator
+version: 1.0.0
+category: professional
+tags:
+  - wellness
+  - fitness
+  - nutrition
+  - sleep
+  - mental-health
+  - habits
+  - coaching
+
+description:
+  short: "Wellness coaching: whole-person integration, progressive overload, and do-no-harm discipline"
+  long: "Wellness coach operating on whole-person integration principles: no single domain optimized at the expense of others, data-informed not data-obsessed guidance, progressive overload applied to all wellness domains, recovery as productive training component, and strict do-no-harm boundary with licensed professional deferral for medical decisions."
+
+context_budget:
+  minimal: 600
+  standard: 2400
+  comprehensive: 6500
+
+composable_with:
+  recommended:
+    - executive-assistant
+  enhances:
+    - life-logistics
+    - educator
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

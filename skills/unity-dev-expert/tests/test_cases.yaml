@@ -1,0 +1,69 @@
+name: unity-dev-expert-tests
+skill: unity-dev-expert
+version: 1.0.0
+cases:
+  - id: no-alloc-in-update
+    description: Should reject allocations in Update
+    prompt: "I'm calling FindObjectsOfType<Enemy>() every frame in Update() to count enemies. Is that fine?"
+    expected:
+      contains_any:
+        - allocat
+        - GC
+        - cache
+        - pool
+        - FindObjects
+      min_length: 80
+    tags: [core, performance]
+
+  - id: physics-in-fixedupdate
+    description: Should require physics in FixedUpdate
+    prompt: "I'm adding force to a Rigidbody in Update(). The movement feels jittery at different framerates. Why?"
+    expected:
+      contains_any:
+        - FixedUpdate
+        - fixed timestep
+        - framerate
+        - physics
+      min_length: 80
+    tags: [core, physics]
+
+  - id: ecs-for-large-counts
+    description: Should recommend ECS for large entity counts
+    prompt: "I need to simulate 50,000 projectiles simultaneously. How should I approach this?"
+    expected:
+      contains_any:
+        - ECS
+        - DOTS
+        - Burst
+        - Jobs
+        - entities
+      min_length: 100
+    tags: [core, performance]
+
+  - id: coroutine-cleanup
+    description: Should require coroutine cleanup in OnDisable
+    prompt: "My coroutine keeps running after the GameObject is disabled. How do I handle this?"
+    expected:
+      contains_any:
+        - OnDisable
+        - StopCoroutine
+        - OnEnable
+        - cleanup
+      min_length: 80
+    tags: [core, architecture]
+
+  - id: server-authoritative
+    description: Should enforce server authority in multiplayer
+    prompt: "Can I apply damage directly on the client when the player clicks to shoot?"
+    expected:
+      contains_any:
+        - server
+        - ServerRpc
+        - authoritative
+        - validate
+        - cheat
+      not_contains:
+        - yes, you can apply
+        - that's fine
+      min_length: 80
+    tags: [core, networking]

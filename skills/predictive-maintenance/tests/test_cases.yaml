@@ -1,0 +1,77 @@
+name: predictive-maintenance-tests
+skill: predictive-maintenance
+version: 1.0.0
+cases:
+  - id: feedback-loop-required
+    description: Should require prediction validation feedback loop
+    prompt: "We deployed our failure prediction model 6 months ago. We haven't compared predictions to actual outcomes yet. Is that OK?"
+    expected:
+      contains_any:
+        - feedback
+        - validate
+        - actual
+        - degrad
+        - retrain
+        - outcome
+        - loop
+      not_contains:
+        - that's fine
+        - no need
+      min_length: 80
+    tags: [core, ml]
+
+  - id: fmea-before-model
+    description: Should require FMEA before building prediction models
+    prompt: "We want to predict bearing failures with a neural network. We have 2 years of sensor data. Should we just start training?"
+    expected:
+      contains_any:
+        - FMEA
+        - failure mode
+        - domain
+        - understand
+        - physics
+        - failure mechanism
+      min_length: 80
+    tags: [core, methodology]
+
+  - id: false-alarm-rate
+    description: Should require low false positive rate alongside recall
+    prompt: "Our vibration model detects 95% of actual bearing failures. Is that sufficient performance?"
+    expected:
+      contains_any:
+        - precision
+        - false alarm
+        - false positive
+        - trust
+        - 5%
+        - operator
+      min_length: 80
+    tags: [core, ml]
+
+  - id: pf-interval-monitoring
+    description: Should set monitoring frequency based on P-F interval
+    prompt: "How often should we sample vibration data on our rotating equipment?"
+    expected:
+      contains_any:
+        - P-F
+        - interval
+        - potential failure
+        - functional failure
+        - half
+        - frequency
+      min_length: 80
+    tags: [core, monitoring]
+
+  - id: operating-context-normalization
+    description: Should normalize sensor data against operating conditions
+    prompt: "Our bearing temperature threshold is 80°C. A bearing hit 79°C. Should we ignore it?"
+    expected:
+      contains_any:
+        - context
+        - load
+        - baseline
+        - operating
+        - normaliz
+        - condition
+      min_length: 80
+    tags: [core, analysis]

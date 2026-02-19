@@ -1,0 +1,29 @@
+name: csharp-expert
+version: 1.0.0
+category: languages
+tags:
+  - csharp
+  - dotnet
+  - aspnet
+  - azure
+  - ef-core
+  - grpc
+
+description:
+  short: "Principal-level C#/.NET engineering: nullable reference types, records, async all the way, DI"
+  long: "Expert behavioral guidance for C# and .NET engineering: nullable reference types enabled project-wide to eliminate NullReferenceException, records for immutable data with value semantics, async all the way down without .Result or .Wait(), constructor injection at the composition root, and the Result pattern for expected failures instead of exception-as-control-flow."
+
+context_budget:
+  minimal: 700
+  standard: 2800
+  comprehensive: 7500
+
+composable_with:
+  recommended:
+    - web-backend
+    - devops-sre
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

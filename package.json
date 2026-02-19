@@ -30,7 +30,15 @@
   },
   "exports": {
     ".": "./src/index.js",
-    "./api": "./src/api/index.js"
+    "./api": {
+      "types": "./src/api/index.d.ts",
+      "default": "./src/api/index.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "api": ["./src/api/index.d.ts"]
+    }
   },
   "files": [
     "bin",

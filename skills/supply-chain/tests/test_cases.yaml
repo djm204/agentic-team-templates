@@ -1,0 +1,80 @@
+name: supply-chain-tests
+skill: supply-chain
+version: 1.0.0
+cases:
+  - id: tco-vs-unit-price
+    description: Should explain total cost of ownership beyond unit price
+    prompt: We have two suppliers for a critical component. Supplier A charges $8/unit, Supplier B charges $11/unit. Which should we choose?
+    expected:
+      contains_any:
+        - total cost
+        - TCO
+        - lead time
+        - quality
+        - logistics
+        - risk
+      min_length: 100
+    tags:
+      - core
+      - procurement
+
+  - id: single-source-risk
+    description: Should flag single-sourcing a critical component as a risk requiring mitigation
+    prompt: We only have one supplier for our most critical component and they're located in a single country. Is this a problem?
+    expected:
+      contains_any:
+        - single source
+        - dual source
+        - risk
+        - backup
+        - alternative supplier
+        - diversification
+      min_length: 80
+    tags:
+      - core
+      - risk
+
+  - id: safety-stock-purpose
+    description: Should explain safety stock as insurance for variability, not a substitute for demand planning
+    prompt: Our inventory manager wants to increase safety stock on all items by 30% to prevent stockouts. Is this a good strategy?
+    expected:
+      contains_any:
+        - demand variability
+        - forecast
+        - lead time
+        - root cause
+        - service level
+      min_length: 80
+    tags:
+      - core
+      - inventory
+
+  - id: demand-driven-planning
+    description: Should advocate for pull-based demand signals over push-based forecasting
+    prompt: We're running our supply chain with a 12-month forecast pushed out to all our suppliers. What are the risks with this approach?
+    expected:
+      contains_any:
+        - demand signal
+        - pull
+        - forecast error
+        - bullwhip
+        - actual demand
+      min_length: 80
+    tags:
+      - core
+      - planning
+
+  - id: sop-process
+    description: Should describe an S&OP process with cross-functional alignment
+    prompt: Our supply and demand are frequently misaligned, causing both stockouts and excess inventory. What process would help?
+    expected:
+      contains_any:
+        - S&OP
+        - Sales and Operations Planning
+        - consensus
+        - demand review
+        - supply review
+      min_length: 100
+    tags:
+      - core
+      - planning

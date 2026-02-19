@@ -1,0 +1,29 @@
+name: ruby-expert
+version: 1.0.0
+category: languages
+tags:
+  - ruby
+  - rails
+  - sidekiq
+  - rspec
+  - hanami
+  - gems
+
+description:
+  short: "Principal-level Ruby/Rails engineering: convention over configuration, readability, fail loud"
+  long: "Expert behavioral guidance for Ruby and Rails engineering: convention over configuration, fail-loud error handling with specific rescue classes, skinny controllers and models with fat service objects, Enumerable over index loops, and frozen string literals with rubocop enforced in CI."
+
+context_budget:
+  minimal: 700
+  standard: 2800
+  comprehensive: 7500
+
+composable_with:
+  recommended:
+    - web-backend
+    - devops-sre
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

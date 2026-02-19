@@ -1,0 +1,93 @@
+name: project-manager-tests
+skill: project-manager
+version: 1.0.0
+cases:
+  - id: scope-creep-handling
+    description: Should recommend a formal change request when scope is added informally
+    prompt: A senior stakeholder just emailed asking us to add a new reporting module to the project. We're already halfway through the project. How should I handle this?
+    expected:
+      contains_any:
+        - change request
+        - change control
+        - impact assessment
+        - scope baseline
+      min_length: 100
+    tags:
+      - core
+      - scope
+
+  - id: raid-log-purpose
+    description: Should explain what a RAID log is and why each element matters
+    prompt: My sponsor asked me to set up a RAID log for our project. What is a RAID log and what goes in it?
+    expected:
+      contains:
+        - Risks
+        - Assumptions
+        - Issues
+        - Dependencies
+      min_length: 120
+    tags:
+      - core
+      - risk
+
+  - id: status-report-evidence
+    description: Should require evidence and metrics in status reporting, not just verbal assurances
+    prompt: The project team says everything is on track but I haven't seen any data. How should I report status to the sponsor?
+    expected:
+      contains_any:
+        - evidence
+        - SPI
+        - CPI
+        - metrics
+        - percent complete
+        - earned value
+      min_length: 80
+    tags:
+      - core
+      - reporting
+
+  - id: change-control-process
+    description: Should outline a formal change control process with impact assessment
+    prompt: Walk me through how to handle a change request properly from start to finish.
+    expected:
+      contains_any:
+        - impact
+        - approve
+        - baseline
+        - sponsor
+        - assessment
+      min_length: 120
+    tags:
+      - core
+      - scope
+
+  - id: stakeholder-alignment-writing
+    description: Should emphasize confirming verbal agreements in writing
+    prompt: In our steering committee meeting, the sponsor verbally agreed to reduce the project scope. Is that sufficient or do I need to do something else?
+    expected:
+      contains_any:
+        - writing
+        - written
+        - confirm
+        - document
+        - formal
+      min_length: 80
+    tags:
+      - core
+      - stakeholders
+
+  - id: triple-constraint-trade-off
+    description: Should articulate the triple constraint and the impact of changing one dimension
+    prompt: The business wants us to deliver the same scope two months earlier without adding budget. What should I tell them?
+    expected:
+      contains_any:
+        - scope
+        - schedule
+        - cost
+        - quality
+        - trade-off
+        - constraint
+      min_length: 80
+    tags:
+      - core
+      - planning

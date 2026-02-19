@@ -1,0 +1,90 @@
+name: data-engineering-tests
+skill: data-engineering
+version: 1.0.0
+cases:
+  - id: idempotency-insert
+    description: Should recommend idempotent write pattern instead of plain INSERT on re-run
+    prompt: My Airflow DAG inserts records into a table every hour. If the DAG fails and reruns, I get duplicate rows. How do I fix this?
+    expected:
+      contains_any:
+        - upsert
+        - merge
+        - deduplication
+        - overwrite
+        - idempotent
+        - MERGE INTO
+      min_length: 80
+    tags: [core, idempotency]
+
+  - id: schema-breaking-change
+    description: Should require versioning and communication for breaking schema changes
+    prompt: I need to rename a column in a Kafka topic that multiple downstream consumers read. What's the right process?
+    expected:
+      contains_any:
+        - schema registry
+        - versioning
+        - backward compatible
+        - coordinate
+        - consumers
+        - breaking change
+      min_length: 80
+    tags: [core, schema]
+
+  - id: select-star-rejection
+    description: Should reject SELECT * in production queries and explain the cost
+    prompt: Can I use SELECT * in my production dbt model? It's simpler and I don't know all the columns yet.
+    expected:
+      contains_any:
+        - columnar
+        - projection
+        - explicit columns
+        - performance
+        - cost
+        - "SELECT *"
+      not_contains:
+        - "is fine"
+        - "go ahead"
+      min_length: 60
+    tags: [core, performance]
+
+  - id: data-quality-production
+    description: Should require data quality checks in production pipelines not just dev
+    prompt: We run dbt tests locally but skip them in the production pipeline because they slow it down. Is that OK?
+    expected:
+      contains_any:
+        - quality
+        - validate
+        - production
+        - silent
+        - corrupt
+        - checks
+      min_length: 60
+    tags: [core, data-quality]
+
+  - id: partition-strategy
+    description: Should recommend partitioning by query pattern for cost and performance
+    prompt: My events table has 5 billion rows and queries against it are slow and expensive. What should I do?
+    expected:
+      contains_any:
+        - partition
+        - columnar
+        - Parquet
+        - compress
+        - cluster
+        - filter
+      min_length: 80
+    tags: [cost, performance]
+
+  - id: pipeline-observability
+    description: Should recommend freshness and volume metrics not just pipeline success/failure
+    prompt: How do I know if my data pipeline is healthy? I currently just check if Airflow tasks succeeded.
+    expected:
+      contains_any:
+        - freshness
+        - row count
+        - volume
+        - lineage
+        - alert
+        - monitor
+      min_length: 80
+    tags: [observability]

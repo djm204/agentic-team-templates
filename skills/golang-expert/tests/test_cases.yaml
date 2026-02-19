@@ -1,0 +1,66 @@
+name: golang-expert-tests
+skill: golang-expert
+version: 1.0.0
+cases:
+  - id: error-wrapping
+    description: Should recommend wrapping errors with context rather than returning bare errors
+    prompt: I have a function that queries the database and returns an error. Should I just return err directly?
+    expected:
+      contains_any:
+        - fmt.Errorf
+        - "%w"
+        - wrap
+        - context
+      not_contains:
+        - return err
+      min_length: 80
+    tags: [core, errors]
+
+  - id: accept-interfaces-return-structs
+    description: Should recommend returning concrete struct not interface from constructor
+    prompt: "Should my NewServer function return a Server interface or *Server struct?"
+    expected:
+      contains_any:
+        - return struct
+        - concrete
+        - "*Server"
+        - interface at the consumer
+      min_length: 60
+    tags: [core, interfaces]
+
+  - id: goroutine-cancellation
+    description: Should require goroutines to respect context cancellation
+    prompt: I want to spawn 50 goroutines to fetch URLs concurrently. How should I structure this?
+    expected:
+      contains_any:
+        - errgroup
+        - ctx.Done
+        - context
+        - cancel
+        - semaphore
+      min_length: 100
+    tags: [core, concurrency]
+
+  - id: table-driven-tests
+    description: Should recommend table-driven tests for functions with multiple cases
+    prompt: How should I write tests for a parseAge function that handles valid numbers, negatives, and non-numeric strings?
+    expected:
+      contains_any:
+        - table
+        - "[]struct"
+        - t.Run
+        - tt.name
+      min_length: 80
+    tags: [core, testing]
+
+  - id: stdlib-first
+    description: Should recommend stdlib net/http before suggesting external router frameworks
+    prompt: I'm building an HTTP API in Go. Should I use Gin or Chi for routing?
+    expected:
+      contains_any:
+        - standard library
+        - net/http
+        - stdlib
+        - ServeMux
+      min_length: 60
+    tags: [core, stdlib]

@@ -1,0 +1,90 @@
+name: platform-engineering-tests
+skill: platform-engineering
+version: 1.0.0
+cases:
+  - id: no-snowflake-infrastructure
+    description: Should reject manually configured infrastructure and require infrastructure as code
+    prompt: Our staging environment was configured manually in the AWS console over the past year. Is that OK?
+    expected:
+      contains_any:
+        - infrastructure as code
+        - Terraform
+        - reproducible
+        - snowflake
+        - drift
+        - version control
+      not_contains:
+        - "is fine"
+        - "is OK"
+      min_length: 60
+    tags: [core, iac]
+
+  - id: slo-before-sla
+    description: Should require defining SLOs before committing to SLAs and involve product input
+    prompt: Our customers are asking for an SLA. How do we set one?
+    expected:
+      contains_any:
+        - SLO
+        - error budget
+        - product
+        - reliability
+        - measurement
+        - SLI
+      min_length: 80
+    tags: [core, reliability]
+
+  - id: golden-path-escape-hatch
+    description: Should provide escape hatches alongside golden paths, not just block teams
+    prompt: A team says our standard Helm chart doesn't work for their GPU workload. Should we tell them they have to use it?
+    expected:
+      contains_any:
+        - escape hatch
+        - alternative
+        - document
+        - legitimate
+        - enable
+        - blocker
+      min_length: 60
+    tags: [core, golden-path]
+
+  - id: security-left-shift
+    description: Should recommend RBAC and network policies baked into the platform not as a late gate
+    prompt: Our security team reviews infrastructure configs before production. The reviews take 2 weeks. How do we speed this up?
+    expected:
+      contains_any:
+        - bake in
+        - platform
+        - RBAC
+        - network policy
+        - admission
+        - shift left
+      min_length: 60
+    tags: [core, security]
+
+  - id: dora-metrics
+    description: Should recommend tracking DORA metrics as platform health indicators
+    prompt: How do I know if my platform team is improving developer productivity?
+    expected:
+      contains_any:
+        - DORA
+        - deployment frequency
+        - lead time
+        - MTTR
+        - change failure
+        - measure
+      min_length: 60
+    tags: [core, developer-experience]
+
+  - id: resource-limits-required
+    description: Should require resource requests and limits on every Kubernetes pod
+    prompt: Do I really need to set resource requests and limits on my Kubernetes pods? It seems like extra work.
+    expected:
+      contains_any:
+        - requests
+        - limits
+        - noisy neighbor
+        - OOM
+        - scheduling
+        - required
+      min_length: 60
+    tags: [kubernetes, reliability]

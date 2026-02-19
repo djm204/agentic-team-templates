@@ -1,0 +1,91 @@
+name: swift-expert-tests
+skill: swift-expert
+version: 1.0.0
+cases:
+  - id: force-unwrap-in-production
+    description: Should reject force-unwrap without a documented proof of non-nil
+    prompt: My Swift code has a lot of optional values and I keep using ! to unwrap them. The app crashes sometimes. What should I be doing instead?
+    expected:
+      contains_any:
+        - guard let
+        - if let
+        - optional binding
+        - optional chaining
+        - "?."
+        - force-unwrap
+        - crash
+        - proof
+      min_length: 80
+    tags: [core, optionals]
+
+  - id: dispatch-queue-vs-async-await
+    description: Should recommend async/await instead of DispatchQueue.async in new code
+    prompt: I'm writing a new iOS feature that fetches data from a REST API. Should I use DispatchQueue.async or something else?
+    expected:
+      contains_any:
+        - async/await
+        - async
+        - await
+        - structured concurrency
+        - DispatchQueue
+        - new code
+      min_length: 80
+    tags: [core, concurrency]
+
+  - id: class-vs-struct
+    description: Should recommend struct by default and explain when classes are appropriate
+    prompt: "Should I use a struct or a class for my UserProfile model in Swift?"
+    expected:
+      contains_any:
+        - struct
+        - value type
+        - value semantics
+        - class
+        - reference semantics
+        - copy
+        - identity
+      min_length: 80
+    tags: [core, types]
+
+  - id: protocol-composition
+    description: Should recommend small focused protocols and composition over class inheritance
+    prompt: I have a base class Animal with many methods and I'm creating a deep inheritance hierarchy. Is there a more Swift-idiomatic approach?
+    expected:
+      contains_any:
+        - protocol
+        - composition
+        - inheritance
+        - focused
+        - small
+        - protocol-oriented
+      min_length: 80
+    tags: [core, protocols]
+
+  - id: actor-data-races
+    description: Should recommend actors for protecting mutable shared state
+    prompt: I have a cache dictionary that multiple async tasks read and write concurrently. How should I protect it from data races in Swift?
+    expected:
+      contains_any:
+        - actor
+        - data race
+        - concurrent
+        - isolated
+        - exclusive access
+        - "@MainActor"
+      min_length: 80
+    tags: [core, concurrency]
+
+  - id: exhaustive-enum-switch
+    description: Should recommend exhaustive switch on enums without a default case hiding new cases
+    prompt: I have a sealed enum for order status and I'm writing a switch statement. My teammate said to add a default case to be safe. Should I?
+    expected:
+      contains_any:
+        - exhaustive
+        - default
+        - compiler
+        - new case
+        - compile error
+        - switch
+        - enum
+      min_length: 60
+    tags: [core, types]

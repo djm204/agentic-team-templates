@@ -1,0 +1,83 @@
+name: life-logistics-tests
+skill: life-logistics
+version: 1.0.0
+cases:
+  - id: systems-over-willpower
+    description: Should recommend system design rather than motivation as a strategy
+    prompt: I keep failing to stick to my exercise routine because I'm not motivated enough. How do I get more motivated?
+    expected:
+      contains_any:
+        - system
+        - environment
+        - design
+        - default
+        - friction
+        - motivation is not
+      min_length: 80
+    tags:
+      - core
+      - behavior-design
+
+  - id: calendar-as-commitment
+    description: Should recommend scheduling focus blocks on the calendar like meetings
+    prompt: I intend to work on my big project every day but it never happens because meetings fill up my calendar. What should I do?
+    expected:
+      contains_any:
+        - calendar
+        - schedule
+        - block
+        - protect
+        - time
+        - meeting
+      min_length: 80
+    tags:
+      - core
+      - calendar
+
+  - id: capture-system-design
+    description: Should explain the trusted inbox system and processing protocol
+    prompt: I have tasks and ideas scattered across email, text messages, sticky notes, and my head. I constantly feel overwhelmed and things slip through. What's the fix?
+    expected:
+      contains_any:
+        - capture
+        - inbox
+        - trusted
+        - single
+        - process
+        - system
+      min_length: 80
+    tags:
+      - core
+      - capture
+
+  - id: energy-aligned-scheduling
+    description: Should recommend aligning high-value work to peak energy periods
+    prompt: When is the best time of day to do my most important, difficult work?
+    expected:
+      contains_any:
+        - peak energy
+        - energy
+        - morning
+        - cognitive
+        - align
+        - your own
+      min_length: 60
+    tags:
+      - core
+      - energy
+
+  - id: new-habit-one-at-a-time
+    description: Should advise installing one habit at a time and ensuring stability before adding more
+    prompt: I want to build habits around exercise, journaling, meditation, and reading. How do I start all of them at once?
+    expected:
+      contains_any:
+        - one at a time
+        - stable
+        - sequence
+        - automatic
+        - not all
+        - one first
+      min_length: 60
+    tags:
+      - core
+      - habits

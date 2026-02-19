@@ -1,0 +1,30 @@
+name: web-frontend
+version: 1.0.0
+category: engineering
+tags:
+  - frontend
+  - react
+  - typescript
+  - css
+  - accessibility
+  - performance
+  - nextjs
+
+description:
+  short: "Principal frontend engineer: component composition, accessibility, TypeScript strict, performance by default"
+  long: "Expert behavioral guidance for frontend engineering: small focused components, WCAG AA accessibility, strict TypeScript, complete async state handling (loading/error/empty), and performance patterns like lazy loading and code splitting."
+
+context_budget:
+  minimal: 700
+  standard: 2800
+  comprehensive: 7500
+
+composable_with:
+  recommended:
+    - fullstack
+    - javascript-expert
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

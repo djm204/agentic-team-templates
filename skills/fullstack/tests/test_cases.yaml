@@ -1,0 +1,71 @@
+name: fullstack-tests
+skill: fullstack
+version: 1.0.0
+cases:
+  - id: shared-schema-not-duplicated
+    description: Should recommend shared Zod schemas over duplicate type definitions
+    prompt: I have a User type on my backend and a duplicate User interface on my frontend. They keep drifting. How should I fix this?
+    expected:
+      contains_any:
+        - shared
+        - Zod
+        - single source
+        - schema
+        - infer
+      min_length: 80
+    tags: [core, types]
+
+  - id: server-client-boundary
+    description: Should flag importing DB client into client component
+    prompt: "Can I import my Prisma db client in a React component to fetch data directly?"
+    expected:
+      contains_any:
+        - server
+        - server component
+        - never
+        - boundary
+        - bundle
+      not_contains:
+        - "yes, you can"
+        - that's fine
+      min_length: 60
+    tags: [core, boundaries]
+
+  - id: api-validation-required
+    description: Should require server-side validation even when frontend validates
+    prompt: My frontend validates the form with Zod before submitting. Do I still need to validate on the server?
+    expected:
+      contains_any:
+        - always
+        - server-side
+        - never trust
+        - security
+        - bypass
+      min_length: 60
+    tags: [core, security]
+
+  - id: loading-error-states
+    description: Should require loading and error states before a feature is complete
+    prompt: I built the fetch and the happy path display. Is the feature done?
+    expected:
+      contains_any:
+        - loading
+        - error state
+        - empty state
+        - skeleton
+        - incomplete
+      min_length: 60
+    tags: [core, ux]
+
+  - id: e2e-for-critical-paths
+    description: Should recommend E2E tests for full user journeys
+    prompt: What kind of tests should I write for a user signup and checkout flow?
+    expected:
+      contains_any:
+        - E2E
+        - end-to-end
+        - Playwright
+        - Cypress
+        - user journey
+      min_length: 60
+    tags: [core, testing]

@@ -1,0 +1,32 @@
+name: unity-dev-expert
+version: 1.0.0
+category: engineering
+tags:
+  - unity
+  - csharp
+  - gamedev
+  - ecs
+  - dots
+  - multiplayer
+  - performance
+
+description:
+  short: "Principal-level Unity engineering: ECS/DOTS, performance, multiplayer, testable architecture"
+  long: "Expert behavioral guidance for Unity game development: composition over inheritance, data-oriented design with ECS/DOTS and BurstCompile, deterministic lifecycle management, object pooling to eliminate GC allocations, server-authoritative multiplayer with client-side prediction, and testable architecture that separates pure C# logic from MonoBehaviours."
+
+context_budget:
+  minimal: 650
+  standard: 2600
+  comprehensive: 7000
+
+composable_with:
+  recommended:
+    - csharp-expert
+    - testing
+  enhances:
+    - platform-engineering
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

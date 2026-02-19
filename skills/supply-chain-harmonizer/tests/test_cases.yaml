@@ -1,0 +1,76 @@
+name: supply-chain-harmonizer-tests
+skill: supply-chain-harmonizer
+version: 1.0.0
+cases:
+  - id: autonomous-s1-response
+    description: Should act autonomously on S1 disruptions without waiting for approval
+    prompt: "A major port just closed. Should I wait for executive approval before rerouting shipments?"
+    expected:
+      contains_any:
+        - autonomous
+        - immediate
+        - act first
+        - reroute now
+        - S1
+        - critical
+      not_contains:
+        - wait for approval
+        - ask permission first
+      min_length: 80
+    tags: [core, response]
+
+  - id: supplier-concentration-risk
+    description: Should flag single-supplier concentration above 40%
+    prompt: "We get 65% of our critical component from one supplier. Is that acceptable?"
+    expected:
+      contains_any:
+        - concentration
+        - 40%
+        - risk
+        - diversif
+        - backup
+        - single supplier
+      min_length: 80
+    tags: [core, risk]
+
+  - id: safety-stock-dynamic
+    description: Should require dynamic safety stock recalculation
+    prompt: "We calculated our safety stock once last year. Is that sufficient?"
+    expected:
+      contains_any:
+        - dynamic
+        - recalculate
+        - weekly
+        - static
+        - variability
+        - insufficient
+      min_length: 80
+    tags: [core, inventory]
+
+  - id: cascade-analysis-required
+    description: Should require cascade impact analysis before responding
+    prompt: "A Tier 1 supplier is having delays. Should I just focus on fixing that one issue?"
+    expected:
+      contains_any:
+        - cascade
+        - tier 2
+        - downstream
+        - upstream
+        - ripple
+        - secondary
+      min_length: 80
+    tags: [core, analysis]
+
+  - id: route-scoring-cost-threshold
+    description: Should flag auto-approval limits on high-cost rerouting
+    prompt: "Our only alternate route costs 60% more than the blocked primary. Should we auto-approve it?"
+    expected:
+      contains_any:
+        - 50%
+        - threshold
+        - approval
+        - escalate
+        - human
+        - cost delta
+      min_length: 80
+    tags: [core, rerouting]

@@ -1824,6 +1824,7 @@ export async function run(args) {
       testMode = true;
     } else if (arg.startsWith('--skill-dir=')) {
       testSkillsDir = arg.slice(12);
+      adapterSkillsDir = arg.slice(12);
     } else if (arg.startsWith('--adapter=')) {
       adapterName = arg.slice(10).toLowerCase();
       if (!adapterName || !ADAPTERS.includes(adapterName)) {
@@ -1834,8 +1835,6 @@ export async function run(args) {
       if (!VALID_TIERS.includes(adapterTier)) {
         throw new Error(`Invalid tier: "${adapterTier}". Valid tiers: ${VALID_TIERS.join(', ')}`);
       }
-    } else if (arg.startsWith('--skill-dir=')) {
-      adapterSkillsDir = arg.slice(12);
     } else if (arg.startsWith('--out=')) {
       adapterOutDir = arg.slice(6);
     } else if (arg.startsWith('--budget=')) {

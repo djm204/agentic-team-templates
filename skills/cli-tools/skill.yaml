@@ -1,0 +1,31 @@
+name: cli-tools
+version: 1.0.0
+category: engineering
+tags:
+  - cli
+  - developer-tools
+  - cobra
+  - commander
+  - typer
+  - click
+  - terminal
+
+description:
+  short: "Principal CLI/developer tools engineer: Unix philosophy, composability, explicit failure, machine-readable output"
+  long: "Expert behavioral guidance for CLI tool development: Unix philosophy with stdin/stdout composability, correct exit codes, progressive disclosure via --help and --verbose, explicit validation with stderr diagnostics, and stable --json output for scripting."
+
+context_budget:
+  minimal: 700
+  standard: 2800
+  comprehensive: 7500
+
+composable_with:
+  recommended:
+    - devops-sre
+    - golang-expert
+    - python-expert
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

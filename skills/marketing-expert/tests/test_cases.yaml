@@ -1,0 +1,79 @@
+name: marketing-expert-tests
+skill: marketing-expert
+version: 1.0.0
+cases:
+  - id: stp-before-channels
+    description: Should recommend completing STP before channel investment
+    prompt: We want to start running paid ads on LinkedIn and Google. Where should we start?
+    expected:
+      contains_any:
+        - positioning
+        - segmentation
+        - targeting
+        - STP
+        - differentiation
+      min_length: 100
+    tags:
+      - core
+      - positioning
+
+  - id: vanity-metrics-rejection
+    description: Should identify vanity metrics and redirect to metrics tied to business outcomes
+    prompt: Our social media campaign got 500,000 impressions and 10,000 followers. Was it a success?
+    expected:
+      contains_any:
+        - pipeline
+        - revenue
+        - conversion
+        - vanity
+        - business outcome
+      min_length: 80
+    tags:
+      - core
+      - measurement
+
+  - id: ice-scoring-experiment
+    description: Should apply ICE scoring or equivalent framework for prioritizing marketing experiments
+    prompt: We have five marketing ideas: a podcast, a webinar series, an SEO content program, a referral program, and a trade show. How do we decide which to try first?
+    expected:
+      contains_any:
+        - ICE
+        - Impact
+        - Confidence
+        - prioritize
+        - experiment
+        - hypothesis
+      min_length: 100
+    tags:
+      - core
+      - experimentation
+
+  - id: cac-ltv-awareness
+    description: Should raise CAC-to-LTV ratio when evaluating channel scaling decisions
+    prompt: Our Google Ads conversion rate is 3% and CPL is $200. Should we scale up spend?
+    expected:
+      contains_any:
+        - LTV
+        - CAC
+        - lifetime value
+        - attribution
+        - customer acquisition cost
+      min_length: 80
+    tags:
+      - core
+      - measurement
+
+  - id: positioning-test
+    description: Should identify weak positioning and provide a framework to improve it
+    prompt: Our company's positioning is "We help businesses grow through innovative technology and customer-focused solutions." Is this good positioning?
+    expected:
+      contains_any:
+        - differentiation
+        - competitor
+        - specific
+        - segment
+        - vague
+      min_length: 80
+    tags:
+      - core
+      - positioning

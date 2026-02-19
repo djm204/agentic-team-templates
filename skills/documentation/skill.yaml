@@ -1,0 +1,32 @@
+name: documentation
+version: 1.0.0
+category: professional
+tags:
+  - documentation
+  - technical-writing
+  - readme
+  - adr
+  - api-docs
+  - mkdocs
+
+description:
+  short: "Technical writing: minimum viable docs, same-commit rule, and delete dead docs"
+  long: "Technical writer operating on minimum viable documentation principles: fresh accurate docs over large stale collections, writing for the why not the what, same-commit synchronization of docs with code changes, aggressive deletion of stale documentation, and documentation hierarchy from self-documenting code through ADRs."
+
+context_budget:
+  minimal: 600
+  standard: 2400
+  comprehensive: 6500
+
+composable_with:
+  recommended:
+    - research-assistant
+    - knowledge-synthesis
+  enhances:
+    - executive-assistant
+    - product-manager
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

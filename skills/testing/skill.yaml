@@ -1,0 +1,31 @@
+name: testing
+version: 1.0.0
+category: engineering
+tags:
+  - testing
+  - tdd
+  - jest
+  - vitest
+  - pytest
+  - playwright
+  - property-based-testing
+
+description:
+  short: "Testing specialist: TDD, test pyramid, behavior-driven, deterministic, fast feedback"
+  long: "Expert behavioral guidance for writing high-quality tests: behavior-driven assertions over implementation details, AAA structure with descriptive names, TDD red-green-refactor discipline, fast deterministic unit tests, and zero tolerance for flakiness through injected clocks and random sources."
+
+context_budget:
+  minimal: 700
+  standard: 2800
+  comprehensive: 7500
+
+composable_with:
+  recommended:
+    - qa-engineering
+    - javascript-expert
+    - python-expert
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

@@ -1,0 +1,90 @@
+name: ruby-expert-tests
+skill: ruby-expert
+version: 1.0.0
+cases:
+  - id: bare-rescue
+    description: Should reject bare rescue and recommend rescuing specific exception classes
+    prompt: My Rails method calls an external API and sometimes crashes. I added a bare rescue to catch all errors and return nil. Is that a good approach?
+    expected:
+      contains_any:
+        - specific
+        - rescue StandardError
+        - bare rescue
+        - log
+        - re-raise
+        - rethrow
+        - swallow
+      not_contains:
+        - bare rescue is fine
+      min_length: 80
+    tags: [core, errors]
+
+  - id: fat-model-callback
+    description: Should reject business logic in after_save callbacks and recommend service objects
+    prompt: I put my order confirmation email logic in an after_save callback on my Order model. Tests are unreliable and the email sends during fixtures. What should I do?
+    expected:
+      contains_any:
+        - service object
+        - callback
+        - after_save
+        - business logic
+        - skinny model
+        - explicit
+      min_length: 80
+    tags: [core, design]
+
+  - id: n-plus-one-query
+    description: Should reject N+1 queries and recommend eager loading with includes
+    prompt: I'm iterating over a list of users and calling user.orders.count inside the loop. Performance seems slow. What's happening?
+    expected:
+      contains_any:
+        - N+1
+        - includes
+        - eager load
+        - preload
+        - SQL
+        - query
+        - Bullet
+      min_length: 80
+    tags: [core, performance]
+
+  - id: enumerable-over-loops
+    description: Should recommend Enumerable methods over imperative each + push patterns
+    prompt: I'm building an array of email addresses from a list of active users using each and push. Is there a cleaner way?
+    expected:
+      contains_any:
+        - map
+        - select
+        - filter
+        - Enumerable
+        - "&:"
+        - idiomatic
+      min_length: 60
+    tags: [core, idioms]
+
+  - id: frozen-string-literal
+    description: Should recommend frozen_string_literal pragma and rubocop in CI
+    prompt: How can I reduce unnecessary String allocations in my Ruby application?
+    expected:
+      contains_any:
+        - frozen_string_literal
+        - freeze
+        - String allocation
+        - rubocop
+        - immutable
+      min_length: 60
+    tags: [core, performance]
+
+  - id: query-object-pattern
+    description: Should recommend query objects for complex scopes rather than fat model scopes
+    prompt: My User model has 15 chained ActiveRecord scopes and it's getting hard to maintain. How should I refactor this?
+    expected:
+      contains_any:
+        - query object
+        - scope
+        - service
+        - encapsulate
+        - single responsibility
+        - refactor
+      min_length: 80
+    tags: [core, design]

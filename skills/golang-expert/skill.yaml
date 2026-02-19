@@ -1,0 +1,31 @@
+name: golang-expert
+version: 1.0.0
+category: languages
+tags:
+  - golang
+  - go
+  - concurrency
+  - http
+  - grpc
+  - systems
+
+description:
+  short: "Principal-level Go engineering: idiomatic patterns, concurrency, stdlib-first, production readiness"
+  long: "Expert behavioral guidance for Go engineering: interface design, errgroup concurrency, error wrapping, table-driven tests, graceful shutdown, and production-grade tooling with golangci-lint and race detection."
+
+context_budget:
+  minimal: 700
+  standard: 2800
+  comprehensive: 7500
+
+composable_with:
+  recommended:
+    - devops-sre
+    - web-backend
+  enhances:
+    - platform-engineering
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

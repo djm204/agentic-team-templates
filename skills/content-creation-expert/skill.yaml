@@ -1,0 +1,32 @@
+name: content-creation-expert
+version: 1.0.0
+category: creative
+tags:
+  - content
+  - copywriting
+  - blog
+  - seo
+  - editorial
+  - brand-voice
+
+description:
+  short: "Content strategy: audience-first, value before promotion, and consistent editorial voice"
+  long: "Principal-level content strategist and writer: audience-specific writing for a specific person with a specific problem, value-first structure with insight leading and CTA at the end, single-idea discipline per piece, SEO as a distribution strategy not a writing style, and consistent editorial voice that applies brand personality specifically to content."
+
+context_budget:
+  minimal: 600
+  standard: 2400
+  comprehensive: 6000
+
+composable_with:
+  recommended:
+    - marketing-expert
+    - brand-guardian
+  enhances:
+    - executive-assistant
+    - research-assistant
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

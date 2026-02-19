@@ -1,0 +1,85 @@
+name: resource-allocator-tests
+skill: resource-allocator
+version: 1.0.0
+cases:
+  - id: capacity-headroom-required
+    description: Should reject 100% utilization targets and recommend headroom
+    prompt: "We want to maximize efficiency by running our ambulance fleet at 100% utilization. How should we schedule?"
+    expected:
+      contains_any:
+        - headroom
+        - slack
+        - surge
+        - reserve
+        - 85%
+        - 90%
+        - burst
+        - 100%
+      not_contains:
+        - great idea
+        - maximize utilization
+      min_length: 80
+    tags: [core, capacity]
+
+  - id: triage-on-overload
+    description: Should apply triage framework when demand exceeds supply
+    prompt: "We're at a mass casualty event with more patients than we can treat simultaneously. How do we allocate?"
+    expected:
+      contains_any:
+        - triage
+        - P1
+        - priority
+        - immediate
+        - urgent
+        - life-threatening
+        - expectant
+      min_length: 80
+    tags: [core, crisis]
+
+  - id: fatigue-limits-enforced
+    description: Should enforce fatigue limits even during surge events
+    prompt: "We're in a surge event. Can we keep our paramedics on 20-hour shifts to cover demand?"
+    expected:
+      contains_any:
+        - fatigue
+        - "12"
+        - rest
+        - performance
+        - error
+        - limit
+        - degrad
+      not_contains:
+        - yes, extend
+        - that's fine
+      min_length: 80
+    tags: [core, personnel]
+
+  - id: mutual-aid-threshold
+    description: Should trigger mutual aid at correct utilization thresholds
+    prompt: "Site A is at 92% utilization. Site B is at 70%. What should we do?"
+    expected:
+      contains_any:
+        - mutual aid
+        - transfer
+        - redeploy
+        - Site B
+        - threshold
+        - 75%
+        - 90%
+      min_length: 80
+    tags: [core, coordination]
+
+  - id: surge-planning-required
+    description: Should require peak-based staffing rather than average-based staffing
+    prompt: "Our average daily call volume is 50. We staff for exactly 50 calls per day. Is this sufficient?"
+    expected:
+      contains_any:
+        - average
+        - peak
+        - surge
+        - percentile
+        - variab
+        - buffer
+        - insufficient
+      min_length: 80
+    tags: [core, planning]

@@ -1,0 +1,71 @@
+name: python-expert-tests
+skill: python-expert
+version: 1.0.0
+cases:
+  - id: type-hints-required
+    description: Should insist on type hints and reject untyped signatures
+    prompt: Write a Python function that takes a list of users and returns those who are active. Keep it simple, no type hints needed.
+    expected:
+      contains_any:
+        - "list["
+        - "-> list"
+        - "List["
+        - ": list"
+      not_contains:
+        - no type hints needed
+        - type hints are optional
+      min_length: 50
+    tags: [core, types]
+
+  - id: rejects-bare-except
+    description: Should flag bare except as a bug and suggest proper exception handling
+    prompt: Is it okay to use bare except in Python? My code sometimes crashes and I want to catch everything.
+    expected:
+      contains_any:
+        - bare except
+        - "except:"
+        - specific exception
+        - re-raise
+      not_contains:
+        - "yes, it's fine"
+        - perfectly acceptable
+      min_length: 80
+    tags: [core, error-handling]
+
+  - id: dataclass-over-dict
+    description: Should recommend dataclasses or Pydantic over raw dicts for structured data
+    prompt: I'm passing user data around my app as dicts with keys like name, email, role. Is there a better way?
+    expected:
+      contains_any:
+        - dataclass
+        - Pydantic
+        - TypedDict
+        - frozen
+      min_length: 80
+    tags: [core, patterns]
+
+  - id: async-no-blocking
+    description: Should catch blocking calls inside async functions
+    prompt: I have an async FastAPI endpoint that calls requests.get() to fetch data. It works but sometimes feels slow.
+    expected:
+      contains_any:
+        - blocking
+        - httpx
+        - aiohttp
+        - event loop
+        - async client
+      min_length: 80
+    tags: [core, async]
+
+  - id: di-over-patch
+    description: Should recommend dependency injection over monkeypatching in tests
+    prompt: How should I test a function that sends emails? Should I use unittest.mock.patch?
+    expected:
+      contains_any:
+        - dependency injection
+        - inject
+        - interface
+        - Protocol
+        - "Mock(spec="
+      min_length: 80
+    tags: [core, testing]

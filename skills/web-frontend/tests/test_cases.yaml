@@ -1,0 +1,87 @@
+name: web-frontend-tests
+skill: web-frontend
+version: 1.0.0
+cases:
+  - id: async-state-handling
+    description: Should require all four async states (loading, error, empty, success) not just success
+    prompt: I'm building a component that fetches a list of products from an API and displays them. What states do I need to handle?
+    expected:
+      contains_any:
+        - loading
+        - error
+        - empty
+        - skeleton
+      min_length: 80
+    tags: [core, async]
+
+  - id: no-any-props
+    description: Should reject using any type for component props and recommend typed interfaces
+    prompt: "My component receives data from an API and I'm not sure of the shape. Can I just type the props as any for now?"
+    expected:
+      contains_any:
+        - unknown
+        - interface
+        - zod
+        - type
+        - strict
+      not_contains:
+        - "use any"
+        - "is fine"
+      min_length: 60
+    tags: [core, typescript]
+
+  - id: onclick-div-accessibility
+    description: Should reject onClick on div without keyboard handler and recommend semantic button
+    prompt: I have a card component with an onClick handler on a div. Is there anything wrong with this approach?
+    expected:
+      contains_any:
+        - button
+        - keyboard
+        - semantic
+        - role
+        - accessible
+        - ARIA
+      min_length: 80
+    tags: [core, accessibility]
+
+  - id: component-single-responsibility
+    description: Should recommend splitting a component that fetches, formats, and renders
+    prompt: My UserDashboard component fetches user data, formats the dates, renders a table with sorting, and handles the empty state. It's getting long. How should I refactor it?
+    expected:
+      contains_any:
+        - split
+        - separate
+        - single responsibility
+        - hook
+        - compose
+        - focused
+      min_length: 80
+    tags: [core, composition]
+
+  - id: image-layout-shift
+    description: Should recommend explicit width and height on images to prevent layout shift
+    prompt: My page has a large hero image and users are complaining that the page jumps when it loads. What's the fix?
+    expected:
+      contains_any:
+        - width
+        - height
+        - layout shift
+        - CLS
+        - aspect-ratio
+        - dimensions
+      min_length: 60
+    tags: [core, performance]
+
+  - id: color-contrast-wcag
+    description: Should require WCAG AA color contrast and non-color cues for error states
+    prompt: I'm using red text on a white background to show form validation errors. Is that sufficient?
+    expected:
+      contains_any:
+        - WCAG
+        - contrast
+        - color alone
+        - 4.5
+        - accessible
+        - aria-invalid
+      min_length: 60
+    tags: [accessibility]

@@ -1,0 +1,29 @@
+name: cpp-expert
+version: 1.0.0
+category: languages
+tags:
+  - cpp
+  - systems
+  - embedded
+  - performance
+  - cmake
+  - wasm
+
+description:
+  short: "Principal-level C++ engineering: RAII, const correctness, modern C++17/20/23, zero-cost abstractions"
+  long: "Expert behavioral guidance for C++ engineering: RAII with smart pointers instead of raw new/delete, const correctness on all parameters and member functions, std library containers and algorithms over custom implementations, value semantics with the Rule of Zero, and sanitizers in CI to catch undefined behavior before it ships."
+
+context_budget:
+  minimal: 700
+  standard: 2800
+  comprehensive: 7500
+
+composable_with:
+  recommended:
+    - devops-sre
+    - platform-engineering
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

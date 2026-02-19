@@ -1,0 +1,83 @@
+name: brand-guardian-tests
+skill: brand-guardian
+version: 1.0.0
+cases:
+  - id: vague-positioning-rejection
+    description: Should identify vague positioning as insufficient and explain why
+    prompt: Our brand positioning is "We're an innovative company that puts customers first and delivers exceptional value." Is this strong positioning?
+    expected:
+      contains_any:
+        - vague
+        - competitor
+        - specific
+        - differentiation
+        - anyone could
+        - not positioning
+      min_length: 80
+    tags:
+      - core
+      - positioning
+
+  - id: voice-before-visuals
+    description: Should prioritize voice and verbal identity as foundational to brand personality
+    prompt: We want to rebrand. Should we start by redesigning our logo and color palette?
+    expected:
+      contains_any:
+        - voice
+        - verbal
+        - positioning
+        - purpose
+        - promise
+        - before visual
+      min_length: 80
+    tags:
+      - core
+      - brand-building
+
+  - id: audit-before-advising
+    description: Should recommend auditing existing brand assets before recommending changes
+    prompt: A new CMO just joined and wants to immediately update the brand guidelines. What should be the first step?
+    expected:
+      contains_any:
+        - audit
+        - existing
+        - current state
+        - review
+        - understand
+        - before
+      min_length: 60
+    tags:
+      - core
+      - process
+
+  - id: guidelines-need-rationale
+    description: Should explain that brand guidelines require rationale not just rules
+    prompt: Our brand guidelines say to never use the logo on a dark background, but don't explain why. Our team keeps ignoring this rule. What's the issue?
+    expected:
+      contains_any:
+        - why
+        - rationale
+        - reason
+        - understand
+        - intent
+        - purpose
+      min_length: 60
+    tags:
+      - core
+      - governance
+
+  - id: consistency-as-trust
+    description: Should explain the link between brand consistency and trust
+    prompt: Our website uses one brand voice, our emails use another, and our social media feels completely different. Does this matter?
+    expected:
+      contains_any:
+        - trust
+        - consistency
+        - erodes
+        - signals
+        - confusion
+        - equity
+      min_length: 60
+    tags:
+      - core
+      - consistency

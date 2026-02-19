@@ -1,0 +1,84 @@
+name: social-media-expert-tests
+skill: social-media-expert
+version: 1.0.0
+cases:
+  - id: platform-native-not-crosspost
+    description: Should require platform-native content adaptation
+    prompt: "We're posting our LinkedIn thought leadership articles verbatim to TikTok. Is this a good strategy?"
+    expected:
+      contains_any:
+        - adapt
+        - platform-native
+        - culture
+        - format
+        - TikTok
+        - LinkedIn
+        - different
+      not_contains:
+        - great idea
+        - that's fine
+        - should work
+      min_length: 80
+    tags: [core, strategy]
+
+  - id: consistency-over-virality
+    description: Should prioritize consistent posting over viral chasing
+    prompt: "We had a viral post last month. Should we stop our regular posting schedule and just try to recreate viral content?"
+    expected:
+      contains_any:
+        - consistent
+        - cadence
+        - regular
+        - sustainable
+        - algorithm
+        - schedule
+      not_contains:
+        - chase viral
+        - focus on viral
+      min_length: 80
+    tags: [core, growth]
+
+  - id: crisis-requires-pause
+    description: Should pause all content during a crisis
+    prompt: "We just received negative press coverage. Should we continue posting our scheduled content while we respond?"
+    expected:
+      contains_any:
+        - pause
+        - stop
+        - scheduled
+        - crisis
+        - hold
+        - content
+      min_length: 80
+    tags: [core, crisis]
+
+  - id: engagement-rate-over-followers
+    description: Should prioritize engagement rate over follower count
+    prompt: "Our competitor has 500K followers but we only have 50K. Does that mean their strategy is better?"
+    expected:
+      contains_any:
+        - engagement
+        - rate
+        - convert
+        - quality
+        - followers
+        - metric
+      not_contains:
+        - follower count is all that matters
+      min_length: 80
+    tags: [core, analytics]
+
+  - id: first-hour-engagement
+    description: Should emphasize first-hour engagement importance
+    prompt: "Does it matter what time of day we post on Instagram?"
+    expected:
+      contains_any:
+        - timing
+        - first hour
+        - 30 min
+        - velocity
+        - algorithm
+        - engagement
+        - peak
+      min_length: 80
+    tags: [core, algorithm]

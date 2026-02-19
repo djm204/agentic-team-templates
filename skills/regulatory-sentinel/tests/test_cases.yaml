@@ -1,0 +1,81 @@
+name: regulatory-sentinel-tests
+skill: regulatory-sentinel
+version: 1.0.0
+cases:
+  - id: gdpr-vs-ccpa-difference
+    description: Should explain material differences between GDPR and CCPA rather than treating them as equivalent
+    prompt: Our legal team says we're GDPR compliant so we're automatically CCPA compliant too. Is that correct?
+    expected:
+      contains_any:
+        - different
+        - CCPA
+        - GDPR
+        - jurisdiction
+        - California
+        - does not
+      min_length: 100
+    tags:
+      - core
+      - jurisdiction
+
+  - id: gap-analysis-first
+    description: Should recommend gap analysis before committing to a remediation plan
+    prompt: We just learned we need to comply with HIPAA. How do we get compliant as fast as possible?
+    expected:
+      contains_any:
+        - gap analysis
+        - current state
+        - assess
+        - requirement
+        - prioritize
+      min_length: 80
+    tags:
+      - core
+      - gap-analysis
+
+  - id: traceability-requirement
+    description: Should require documented citation for every compliance decision
+    prompt: Our team made a decision that personal data doesn't need to be encrypted at rest because it's "low sensitivity." How should this be documented?
+    expected:
+      contains_any:
+        - citation
+        - documented
+        - regulation
+        - traceability
+        - evidence
+        - specific
+      min_length: 80
+    tags:
+      - core
+      - traceability
+
+  - id: proactive-horizon-scanning
+    description: Should recommend continuous monitoring rather than point-in-time audit
+    prompt: We did a compliance audit last year and passed. Do we need to do anything until the next annual audit?
+    expected:
+      contains_any:
+        - proactive
+        - continuous
+        - monitoring
+        - changes
+        - horizon
+        - ongoing
+      min_length: 80
+    tags:
+      - core
+      - monitoring
+
+  - id: knowing-noncompliance-escalation
+    description: Should escalate knowing non-compliance rather than accept it as a business trade-off
+    prompt: We know we're not meeting one of the GDPR consent requirements, but the engineering team says it would take 6 months to fix and we've decided to accept the risk. Is that acceptable?
+    expected:
+      contains_any:
+        - escalate
+        - legal counsel
+        - not acceptable
+        - noncompliance
+        - remediation plan
+      min_length: 80
+    tags:
+      - core
+      - escalation

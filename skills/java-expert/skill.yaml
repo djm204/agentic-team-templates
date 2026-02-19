@@ -1,0 +1,30 @@
+name: java-expert
+version: 1.0.0
+category: languages
+tags:
+  - java
+  - spring-boot
+  - jvm
+  - graalvm
+  - kafka
+  - quarkus
+
+description:
+  short: "Principal-level Java engineering: modern Java 21+, records, sealed classes, virtual threads, DI"
+  long: "Expert behavioral guidance for Java engineering: modern Java 21+ with records, sealed classes, pattern matching, and virtual threads; null safety with Optional and @NonNull annotations; constructor injection for testability; fail-fast validation at entry points; and tests as living documentation with AAA structure."
+
+context_budget:
+  minimal: 700
+  standard: 2800
+  comprehensive: 7500
+
+composable_with:
+  recommended:
+    - kotlin-expert
+    - web-backend
+    - devops-sre
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

@@ -1,0 +1,31 @@
+name: predictive-maintenance
+version: 1.0.0
+category: engineering
+tags:
+  - predictive-maintenance
+  - iot
+  - sensors
+  - ml
+  - asset-management
+  - industrial
+
+description:
+  short: "Predictive maintenance engineering: P-F curve analysis, FMEA, condition-based monitoring, and ML model governance"
+  long: "Expert behavioral guidance for industrial predictive maintenance: FMEA-first failure mode analysis, P-F interval-driven monitoring frequency, condition-based maintenance triggers, ML model performance governance (precision >85%, recall >90%), closed feedback loops between predictions and actual outcomes, and economic optimization of maintenance tradeoffs."
+
+context_budget:
+  minimal: 600
+  standard: 2500
+  comprehensive: 6800
+
+composable_with:
+  recommended:
+    - ml-ai
+    - data-engineering
+  enhances:
+    - platform-engineering
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

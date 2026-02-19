@@ -1,0 +1,30 @@
+name: mobile
+version: 1.0.0
+category: engineering
+tags:
+  - mobile
+  - react-native
+  - flutter
+  - ios
+  - android
+  - offline
+
+description:
+  short: "Principal mobile engineer: platform-aware, performance-first, offline-capable"
+  long: "Expert behavioral guidance for mobile engineering: respect iOS/Android platform conventions, achieve 60fps on mid-range devices, design offline-first with graceful sync, request permissions at the moment of need, and validate on real devices."
+
+context_budget:
+  minimal: 600
+  standard: 2500
+  comprehensive: 7000
+
+composable_with:
+  recommended:
+    - web-frontend
+    - swift-expert
+    - kotlin-expert
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

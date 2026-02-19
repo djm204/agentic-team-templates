@@ -1,0 +1,32 @@
+name: fullstack
+version: 1.0.0
+category: engineering
+tags:
+  - fullstack
+  - nextjs
+  - typescript
+  - react
+  - api-design
+  - zod
+  - testing
+
+description:
+  short: "Full-stack web engineering: shared types, API contracts, server/client boundaries, E2E testing"
+  long: "Expert behavioral guidance for full-stack development: unified type systems with Zod, clear server/client boundaries, schema-driven API contracts, optimistic UI updates, and testing at all layers."
+
+context_budget:
+  minimal: 700
+  standard: 2800
+  comprehensive: 7500
+
+composable_with:
+  recommended:
+    - javascript-expert
+    - web-backend
+  enhances:
+    - product-manager
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

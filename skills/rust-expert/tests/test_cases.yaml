@@ -1,0 +1,91 @@
+name: rust-expert-tests
+skill: rust-expert
+version: 1.0.0
+cases:
+  - id: unwrap-in-library-code
+    description: Should reject .unwrap() in library code and recommend Result with ?
+    prompt: I'm writing a Rust library function that reads a config file and parses it as TOML. Should I just call .unwrap() on the File::open and toml::from_str calls?
+    expected:
+      contains_any:
+        - Result
+        - "?"
+        - thiserror
+        - propagate
+        - error handling
+      not_contains:
+        - unwrap()
+      min_length: 80
+    tags: [core, errors]
+
+  - id: illegal-states-unrepresentable
+    description: Should recommend encoding invariants in the type system with enums rather than bool flags
+    prompt: I have a struct Connection with a bool field connected and an Option<TcpStream> field. When connected is false the stream should be None. How should I model this?
+    expected:
+      contains_any:
+        - enum
+        - Disconnected
+        - Connected
+        - illegal states
+        - type system
+        - unrepresentable
+      min_length: 80
+    tags: [core, types]
+
+  - id: unsafe-safety-invariants
+    description: Should require every unsafe block to document its safety invariants
+    prompt: I need to write an unsafe block that dereferences a raw pointer. What do I need to document?
+    expected:
+      contains_any:
+        - SAFETY
+        - safety invariant
+        - precondition
+        - document
+        - comment
+        - non-null
+        - aligned
+        - initialized
+      min_length: 80
+    tags: [core, unsafe]
+
+  - id: stack-vs-heap
+    description: Should recommend stack allocation by default and explain when to reach for Box/heap
+    prompt: When should I use Box<T> in Rust versus just having a value on the stack?
+    expected:
+      contains_any:
+        - stack
+        - heap
+        - Box
+        - size unknown
+        - dynamic dispatch
+        - recursive
+        - large
+      min_length: 80
+    tags: [core, memory]
+
+  - id: borrow-checker-clone
+    description: Should recommend restructuring lifetime/ownership instead of cloning indiscriminately
+    prompt: The borrow checker is complaining about my code so I'm just going to clone everything to make it compile. Is that okay?
+    expected:
+      contains_any:
+        - restructure
+        - ownership
+        - lifetime
+        - clone sparingly
+        - performance
+        - allocation
+      min_length: 80
+    tags: [core, ownership]
+
+  - id: concurrency-tokio
+    description: Should recommend tokio for async I/O and explain Send + 'static requirements for spawn
+    prompt: I want to fetch 100 URLs concurrently in Rust. What's the idiomatic approach?
+    expected:
+      contains_any:
+        - tokio
+        - JoinSet
+        - spawn
+        - async
+        - await
+        - concurrent
+      min_length: 100
+    tags: [core, concurrency]

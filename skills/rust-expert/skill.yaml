@@ -1,0 +1,29 @@
+name: rust-expert
+version: 1.0.0
+category: languages
+tags:
+  - rust
+  - systems
+  - wasm
+  - embedded
+  - cli
+  - performance
+
+description:
+  short: "Principal-level Rust engineering: ownership, RAII, zero-cost abstractions, fearless concurrency"
+  long: "Expert behavioral guidance for Rust engineering: ownership and borrowing, RAII with smart pointers, making illegal states unrepresentable through the type system, Result-based error handling with the ? operator, safe concurrency with Send/Sync, and zero-cost abstractions with iterators and traits."
+
+context_budget:
+  minimal: 700
+  standard: 2800
+  comprehensive: 7500
+
+composable_with:
+  recommended:
+    - devops-sre
+    - web-backend
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

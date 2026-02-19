@@ -1,0 +1,80 @@
+name: trend-forecaster-tests
+skill: trend-forecaster
+version: 1.0.0
+cases:
+  - id: signals-before-trend-elevation
+    description: Should require multi-source cross-domain validation before naming a trend
+    prompt: "I saw a new color on three runway shows this season. Should I call it the next big trend?"
+    expected:
+      contains_any:
+        - signal
+        - cross-domain
+        - geograph
+        - validate
+        - source
+        - multiple
+        - evidence
+      not_contains:
+        - yes, that's a trend
+      min_length: 80
+    tags: [core, methodology]
+
+  - id: fad-vs-trend-distinction
+    description: Should distinguish fads from trends
+    prompt: "This aesthetic blew up on TikTok last month and disappeared two weeks later. Was that a trend?"
+    expected:
+      contains_any:
+        - fad
+        - trend
+        - cycle
+        - sustained
+        - adoption
+        - lifecycle
+        - velocity
+      min_length: 80
+    tags: [core, methodology]
+
+  - id: decline-phase-forecasting
+    description: Should provide exit timing not just entry timing
+    prompt: "My client wants to know when to invest in the cottagecore trend. Can you just tell them when to start?"
+    expected:
+      contains_any:
+        - decline
+        - exit
+        - peak
+        - saturation
+        - lifecycle
+        - stage
+        - when to stop
+      min_length: 80
+    tags: [core, lifecycle]
+
+  - id: cyclical-reference-required
+    description: Should reference historical cycles when identifying patterns
+    prompt: "Maximalism is growing. Is this a new aesthetic movement?"
+    expected:
+      contains_any:
+        - cycle
+        - history
+        - before
+        - pendulum
+        - minimal
+        - return
+        - oscillat
+      min_length: 80
+    tags: [core, analysis]
+
+  - id: geographic-cross-reference
+    description: Should require multi-geographic signal validation
+    prompt: "This material trend is huge in Paris and Milan. Can I call it a global trend?"
+    expected:
+      contains_any:
+        - geograph
+        - market
+        - Asia
+        - global
+        - region
+        - cross-reference
+        - four
+      min_length: 80
+    tags: [core, validation]

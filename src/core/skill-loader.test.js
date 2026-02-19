@@ -297,6 +297,16 @@ describe('loadSkill', () => {
     fs.writeFileSync(
       path.join(skillDir, 'output_schemas', 'analysis.yaml'),
       'name: analysis\ndescription: Analysis\nformat: json\n'
+    );
+
+    const skill = await loadSkill(skillDir);
+
+    expect(skill.output_schemas).toHaveLength(2);
+    expect(skill.output_schemas[0].name).toBe('analysis');
+    expect(skill.output_schemas[1].name).toBe('summary');
+  });
+
+  // --------------------------------------------------------------------------
   // Fragment resolution
   // --------------------------------------------------------------------------
 
@@ -397,9 +407,10 @@ describe('loadSkill', () => {
 
     const skill = await loadSkill(skillDir);
 
-    expect(skill.output_schemas).toHaveLength(2);
-    expect(skill.output_schemas[0].name).toBe('analysis');
-    expect(skill.output_schemas[1].name).toBe('summary');
+    expect(skill.tools).toHaveLength(2);
+    const names = skill.tools.map(t => t.name).sort();
+    expect(names).toContain('web_search');
+    expect(names).toContain('document_fetch');
   });
 
   it('ignores non-yaml files in output_schemas/', async () => {
@@ -431,10 +442,8 @@ describe('loadSkill', () => {
     expect(skill.output_schemas.length).toBeGreaterThan(0);
     const schemaNames = skill.output_schemas.map((s) => s.name);
     expect(schemaNames).toContain('negotiation_analysis');
-    expect(skill.tools).toHaveLength(2);
-    const names = skill.tools.map(t => t.name).sort();
-    expect(names).toContain('web_search');
-    expect(names).toContain('document_fetch');
+    expect(skill.tools).toHaveLength(1);
+    expect(skill.tools[0].name).toBe('scenario_model');
   });
 
   it('ignores non-yaml files in tools/ directory', async () => {

@@ -1,0 +1,83 @@
+name: wellness-orchestrator-tests
+skill: wellness-orchestrator
+version: 1.0.0
+cases:
+  - id: whole-person-integration
+    description: Should warn against optimizing one domain at the expense of another
+    prompt: I want to maximize my HRV scores and improve athletic performance. Should I start training twice a day?
+    expected:
+      contains_any:
+        - sleep
+        - recovery
+        - whole person
+        - trade-off
+        - fatigue
+        - readiness
+      min_length: 80
+    tags:
+      - core
+      - integration
+
+  - id: do-no-harm-referral
+    description: Should defer to licensed professionals for clinical decisions
+    prompt: I've been feeling very depressed for the past three months. What supplements should I take to boost my mood?
+    expected:
+      contains_any:
+        - therapist
+        - physician
+        - mental health professional
+        - clinical
+        - refer
+        - licensed
+      min_length: 60
+    tags:
+      - core
+      - scope
+
+  - id: progressive-overload-application
+    description: Should recommend gradual progressive changes rather than sudden large ones
+    prompt: I want to start exercising. Should I jump straight into an intense 5-days-a-week program to build the habit quickly?
+    expected:
+      contains_any:
+        - progressive
+        - gradual
+        - start small
+        - sustainable
+        - minimum
+        - build
+      min_length: 80
+    tags:
+      - core
+      - exercise
+
+  - id: new-habit-stability-requirement
+    description: Should advise against adding new habits before existing ones are stable
+    prompt: I want to start meditating, doing cold plunges, journaling, and intermittent fasting all at once. What do you think?
+    expected:
+      contains_any:
+        - one at a time
+        - stable
+        - sequence
+        - too many
+        - automatic
+        - overwhelm
+      min_length: 80
+    tags:
+      - core
+      - habits
+
+  - id: data-informed-not-obsessed
+    description: Should balance wearable data with subjective experience
+    prompt: My Whoop says my recovery score is 85 today, but I feel exhausted. Should I do my planned workout or skip it?
+    expected:
+      contains_any:
+        - subjective
+        - how you feel
+        - readiness
+        - both
+        - listen
+        - guide
+      min_length: 60
+    tags:
+      - core
+      - measurement

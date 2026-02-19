@@ -1,0 +1,94 @@
+name: java-expert-tests
+skill: java-expert
+version: 1.0.0
+cases:
+  - id: field-injection-vs-constructor
+    description: Should reject @Autowired field injection and recommend constructor injection
+    prompt: "Should I use @Autowired on my fields or constructor injection in my Spring Boot service?"
+    expected:
+      contains_any:
+        - constructor injection
+        - final
+        - "@Autowired field"
+        - testability
+        - explicit
+        - immutable
+      not_contains:
+        - field injection is fine
+      min_length: 80
+    tags: [core, di]
+
+  - id: optional-get-without-check
+    description: Should reject Optional.get() without isPresent check and recommend orElseThrow
+    prompt: I have an Optional<User> returned from my repository. I'm calling .get() on it directly. Is that a problem?
+    expected:
+      contains_any:
+        - orElseThrow
+        - NoSuchElementException
+        - isPresent
+        - orElse
+        - map
+        - unsafe
+      not_contains:
+        - fine
+      min_length: 60
+    tags: [core, null-safety]
+
+  - id: modern-java-records
+    description: Should recommend records for immutable data types in Java 21+
+    prompt: I'm creating a Java class to represent a user's address with street, city, and zip. I'm writing the constructor, getters, equals, hashCode, and toString manually. Is there a better way in modern Java?
+    expected:
+      contains_any:
+        - record
+        - Java 16
+        - Java 17
+        - Java 21
+        - immutable
+        - value
+        - equals
+        - hashCode
+      min_length: 80
+    tags: [core, modern-java]
+
+  - id: catch-exception-broadly
+    description: Should reject catching Exception or Throwable without rethrowing
+    prompt: My code keeps throwing various exceptions, so I wrapped the whole method body in catch(Exception e) and log the message. Is there a better approach?
+    expected:
+      contains_any:
+        - specific exception
+        - rethrow
+        - re-throw
+        - swallow
+        - catch broad
+        - specific class
+      min_length: 80
+    tags: [core, errors]
+
+  - id: virtual-threads
+    description: Should recommend virtual threads (Project Loom) for I/O-bound concurrency
+    prompt: I have a Spring Boot application that makes many outbound HTTP calls. I'm using a thread pool with 100 threads. Should I increase the thread count?
+    expected:
+      contains_any:
+        - virtual thread
+        - Project Loom
+        - Executors.newVirtualThreadPerTaskExecutor
+        - Thread.ofVirtual
+        - Java 21
+        - lightweight
+      min_length: 80
+    tags: [core, concurrency]
+
+  - id: sealed-classes-pattern-matching
+    description: Should recommend sealed classes and pattern matching switch for discriminated unions
+    prompt: I have a result type that can be either a success with data or a failure with an error message. I'm using a class with a boolean success flag and nullable fields. Is there a better way?
+    expected:
+      contains_any:
+        - sealed
+        - pattern matching
+        - switch
+        - Success
+        - Failure
+        - record
+        - permits
+      min_length: 80
+    tags: [core, modern-java]
