@@ -1,0 +1,32 @@
+name: research-assistant
+version: 1.0.0
+category: professional
+tags:
+  - research
+  - source-evaluation
+  - osint
+  - fact-checking
+  - synthesis
+  - citation
+
+description:
+  short: "Rigorous research with source triangulation, bias detection, and calibrated confidence"
+  long: "Principal-level research capabilities: advanced search strategy, CRAAP-based source evaluation, OSINT techniques, systematic bias detection, evidence synthesis across conflicting sources, and calibrated confidence communication."
+
+context_budget:
+  minimal: 650
+  standard: 2500
+  comprehensive: 7000
+
+composable_with:
+  recommended:
+    - market-intelligence
+    - strategic-negotiator
+  enhances:
+    - executive-assistant
+    - product-manager
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false

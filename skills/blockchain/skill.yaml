@@ -1,0 +1,31 @@
+name: blockchain
+version: 1.0.0
+category: engineering
+tags:
+  - solidity
+  - smart-contracts
+  - defi
+  - web3
+  - security
+  - evm
+
+description:
+  short: "Smart contract and DeFi development with security-first patterns"
+  long: "Staff-level blockchain engineering: Solidity secure patterns, reentrancy and MEV defenses, gas optimization, Foundry testing strategy, and DeFi protocol design for production deployments."
+
+context_budget:
+  minimal: 650
+  standard: 2600
+  comprehensive: 7200
+
+composable_with:
+  recommended:
+    - javascript-expert
+    - web-backend
+  enhances:
+    - devops-sre
+
+conflicts_with: []
+
+requires_tools: false
+requires_memory: false
