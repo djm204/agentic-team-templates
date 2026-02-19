@@ -92,8 +92,30 @@ function parseBlock(lines, startIndex, baseIndent) {
             if (!t.startsWith('- ')) break;
             const itemIndent = l.length - t.length;
             if (itemIndent < indent) break;
-            arr.push(parseScalar(t.slice(2).trim()));
-            i++;
+            const itemContent = t.slice(2).trim();
+            const colonIdx = itemContent.indexOf(':');
+            // Object item: "- key: value" (not a quoted string)
+            if (
+              colonIdx > 0 &&
+              !itemContent.startsWith('"') &&
+              !itemContent.startsWith("'")
+            ) {
+              const firstKey = itemContent.slice(0, colonIdx).trim();
+              const firstRest = itemContent.slice(colonIdx + 1).trimStart();
+              const obj = {};
+              if (firstRest !== '' && firstRest !== '\r') {
+                obj[firstKey] = parseScalar(firstRest);
+              }
+              i++;
+              // Parse remaining properties at itemIndent + 2
+              const child = parseBlock(lines, i, itemIndent + 2);
+              Object.assign(obj, child.value);
+              i = child.nextIndex;
+              arr.push(obj);
+            } else {
+              arr.push(parseScalar(itemContent));
+              i++;
+            }
           }
           result[key] = arr;
         } else {

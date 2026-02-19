@@ -3,6 +3,7 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { exec } from 'child_process';
 import { promisify } from 'util';
+import { loadTestSuite } from './testing/test-runner.js';
 
 const execAsync = promisify(exec);
 
@@ -1650,6 +1651,8 @@ export async function run(args) {
   let skipConfirm = false;
   let removeMode = false;
   let resetMode = false;
+  let testMode = false;
+  let testSkillsDir = null;
 
   // Parse arguments
   for (const arg of args) {
@@ -1675,6 +1678,10 @@ export async function run(args) {
       removeMode = true;
     } else if (arg === '--reset') {
       resetMode = true;
+    } else if (arg === '--test') {
+      testMode = true;
+    } else if (arg.startsWith('--skill-dir=')) {
+      testSkillsDir = arg.slice(12);
     } else if (arg.startsWith('--ide=')) {
       const ide = arg.slice(6).toLowerCase();
       if (!SUPPORTED_IDES.includes(ide)) {
@@ -1704,6 +1711,40 @@ export async function run(args) {
 
   // Use default IDEs if none specified
   const targetIdes = ides.length > 0 ? ides : DEFAULT_IDES;
+
+  // Handle --test mode
+  if (testMode) {
+    if (resolvedTemplates.length === 0) {
+      throw new Error('No skill name specified. Usage: ask <skill-name> --test');
+    }
+    const skillName = resolvedTemplates[0];
+    const resolvedSkillsDir = path.resolve(testSkillsDir || 'skills');
+    const skillDir = path.join(resolvedSkillsDir, skillName);
+
+    if (!fs.existsSync(skillDir)) {
+      throw new Error(`Skill not found: "${skillName}" (looked in ${skillDir})`);
+    }
+
+    const suite = loadTestSuite(skillDir);
+    if (!suite) {
+      throw new Error(
+        `No test suite found for skill "${skillName}". Add tests/test_cases.yaml to the skill directory.`
+      );
+    }
+
+    const caseCount = suite.cases?.length || 0;
+    console.log(`\n${colors.cyan(`Test suite: ${suite.name}`)}`);
+    console.log(`${colors.dim(`Skill: ${suite.skill} | Version: ${suite.version} | Cases: ${caseCount}`)}\n`);
+
+    for (const testCase of suite.cases || []) {
+      const tags = testCase.tags?.length ? ` [${testCase.tags.join(', ')}]` : '';
+      console.log(`  ${colors.yellow('◆')} ${testCase.id}${colors.dim(tags)}`);
+      console.log(`    ${colors.dim(testCase.description)}`);
+    }
+
+    console.log(`\n${colors.dim('Run with a response provider to evaluate against an LLM.')}`);
+    return { suite, skillName };
+  }
 
   // Handle reset mode
   if (resetMode) {

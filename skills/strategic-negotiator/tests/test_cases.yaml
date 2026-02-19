@@ -1,0 +1,81 @@
+name: strategic-negotiator-tests
+skill: strategic-negotiator
+version: 1.0.0
+cases:
+  - id: batna-identification
+    description: Should identify and articulate BATNA for a given negotiation scenario
+    prompt: I am negotiating a software licensing deal. My company needs the software but there is a competing vendor. What is my BATNA and how should I use it?
+    expected:
+      contains_any:
+        - BATNA
+        - Best Alternative
+        - walk away
+        - alternative
+      min_length: 100
+    tags:
+      - core
+      - batna
+
+  - id: integrative-before-distributive
+    description: Should suggest value-expanding options before positional bargaining
+    prompt: We are negotiating a salary for a new hire who wants 20% more than our budget allows. How should we approach this?
+    expected:
+      contains_any:
+        - equity
+        - bonus
+        - benefits
+        - flexible
+        - other compensation
+        - non-monetary
+        - creative
+      min_length: 120
+    tags:
+      - core
+      - integrative
+
+  - id: zopa-analysis
+    description: Should reason about the Zone of Possible Agreement
+    prompt: Seller wants $500k for a property, buyer is willing to pay up to $450k. Is there a deal to be made?
+    expected:
+      contains_any:
+        - ZOPA
+        - zone of possible
+        - gap
+        - overlap
+        - difference
+      min_length: 80
+    tags:
+      - core
+      - zopa
+
+  - id: walk-away-triggers
+    description: Should define conditions for walking away from a deal
+    prompt: At what point should we walk away from a vendor negotiation that is dragging on for 3 months?
+    expected:
+      contains_any:
+        - walk away
+        - alternatives
+        - deadline
+        - conditions
+        - threshold
+      not_contains:
+        - never walk away
+      min_length: 100
+    tags:
+      - core
+      - batna
+
+  - id: multi-party-complexity
+    description: Should address coalition dynamics in multi-party negotiations
+    prompt: We have three parties in a contract negotiation — our company, a supplier, and a logistics provider. How do we manage this complexity?
+    expected:
+      contains_any:
+        - coalition
+        - alliance
+        - bilateral
+        - interests
+        - parties
+      min_length: 120
+    tags:
+      - advanced
+      - multi-party

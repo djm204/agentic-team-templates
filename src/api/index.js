@@ -13,6 +13,14 @@ import path from 'path';
 import { loadSkill as _loadSkill } from '../core/skill-loader.js';
 import { getAdapter, ADAPTERS } from '../adapters/index.js';
 import { composeSkills as _composeSkills } from '../core/composer.js';
+import {
+  loadTestSuite as _loadTestSuite,
+  runTestSuite as _runTestSuite,
+  evaluateResponse,
+  validateTestCase,
+} from '../testing/test-runner.js';
+
+export { evaluateResponse, validateTestCase };
 
 // Re-export adapter utilities
 export { getAdapter, ADAPTERS };
@@ -94,4 +102,26 @@ export async function listSkills(skillsDir) {
  */
 export async function composeSkills(skills, options = {}) {
   return _composeSkills(skills, options);
+}
+
+/**
+ * Load a skill's test suite from its tests/test_cases.yaml file.
+ *
+ * @param {string} skillPath - Absolute or relative path to the skill directory
+ * @returns {object|null} Test suite, or null if no test cases found
+ */
+export function loadTestSuite(skillPath) {
+  return _loadTestSuite(path.resolve(skillPath));
+}
+
+/**
+ * Run all test cases in a suite through a response provider function.
+ *
+ * @param {object} suite - Test suite from loadTestSuite()
+ * @param {function} provider - async (prompt: string) => string
+ * @param {{ tags?: string[] }} [options]
+ * @returns {Promise<import('../testing/test-runner.js').TestRunResult>}
+ */
+export async function runTestSuite(suite, provider, options = {}) {
+  return _runTestSuite(suite, provider, options);
 }

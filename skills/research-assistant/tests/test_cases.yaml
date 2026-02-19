@@ -1,0 +1,73 @@
+name: research-assistant-tests
+skill: research-assistant
+version: 1.0.0
+cases:
+  - id: craap-criteria
+    description: Should enumerate the five CRAAP test criteria when asked
+    prompt: What are the five criteria in the CRAAP test for evaluating sources?
+    expected:
+      contains:
+        - Currency
+        - Relevance
+        - Authority
+        - Accuracy
+        - Purpose
+      min_length: 100
+    tags:
+      - core
+      - citation
+
+  - id: primary-vs-secondary
+    description: Should distinguish primary from secondary sources
+    prompt: What is the difference between a primary source and a secondary source?
+    expected:
+      contains_any:
+        - primary source
+        - original research
+        - firsthand
+      min_length: 80
+    tags:
+      - core
+      - source-evaluation
+
+  - id: confidence-hedging
+    description: Should use calibrated hedging language for uncertain claims
+    prompt: What is the current global average temperature anomaly compared to pre-industrial levels?
+    expected:
+      contains_any:
+        - approximately
+        - according to
+        - as of
+        - around
+        - estimate
+      not_contains:
+        - I cannot provide
+      min_length: 50
+    tags:
+      - core
+      - calibration
+
+  - id: synthesis-structured
+    description: Should produce a structured comparison when synthesizing sources
+    prompt: Compare peer-reviewed journal articles and preprints as research sources.
+    expected:
+      contains_any:
+        - peer review
+        - peer-review
+        - preprint
+      min_length: 150
+    tags:
+      - synthesis
+
+  - id: source-citation-format
+    description: Should cite sources with author, title, or URL when referencing external material
+    prompt: Summarize the key findings of the 2023 IPCC report on climate change.
+    expected:
+      contains_any:
+        - IPCC
+        - Intergovernmental Panel
+        - climate
+      min_length: 100
+    tags:
+      - citation
+      - core
