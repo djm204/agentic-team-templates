@@ -255,4 +255,248 @@ describe('loadSkill', () => {
     expect(skill.tools).toHaveLength(1);
     expect(skill.tools[0].name).toBe('web_search');
   });
+
+  // --------------------------------------------------------------------------
+  // Output schema loading
+  // --------------------------------------------------------------------------
+
+  it('includes output_schemas array (empty when no output_schemas/ dir)', async () => {
+    const skillDir = path.join(tmpDir, 'test-skill');
+    createSkillFixture(skillDir);
+
+    const skill = await loadSkill(skillDir);
+
+    expect(Array.isArray(skill.output_schemas)).toBe(true);
+    expect(skill.output_schemas).toHaveLength(0);
+  });
+
+  it('loads output schemas from output_schemas/ directory', async () => {
+    const skillDir = path.join(tmpDir, 'schema-skill');
+    createSkillFixture(skillDir);
+    fs.mkdirSync(path.join(skillDir, 'output_schemas'), { recursive: true });
+    fs.writeFileSync(
+      path.join(skillDir, 'output_schemas', 'report.yaml'),
+      'name: report\ndescription: A structured report\nformat: json\nschema:\n  type: object\n'
+    );
+
+    const skill = await loadSkill(skillDir);
+
+    expect(skill.output_schemas).toHaveLength(1);
+    expect(skill.output_schemas[0].name).toBe('report');
+    expect(skill.output_schemas[0].format).toBe('json');
+  });
+
+  it('loads multiple output schemas sorted by name', async () => {
+    const skillDir = path.join(tmpDir, 'multi-schema-skill');
+    createSkillFixture(skillDir);
+    fs.mkdirSync(path.join(skillDir, 'output_schemas'), { recursive: true });
+    fs.writeFileSync(
+      path.join(skillDir, 'output_schemas', 'summary.yaml'),
+      'name: summary\ndescription: Summary\nformat: json\n'
+    );
+    fs.writeFileSync(
+      path.join(skillDir, 'output_schemas', 'analysis.yaml'),
+      'name: analysis\ndescription: Analysis\nformat: json\n'
+  // Fragment resolution
+  // --------------------------------------------------------------------------
+
+  it('resolves {{fragment:name}} references in prompts when fragmentsDir is provided', async () => {
+    const skillDir = path.join(tmpDir, 'fragment-skill');
+    const fragDir = path.join(tmpDir, 'fragments');
+    fs.mkdirSync(fragDir, { recursive: true });
+    fs.writeFileSync(path.join(fragDir, 'ethics.md'), 'Always be ethical.');
+
+    createSkillFixture(skillDir, VALID_MANIFEST, {
+      'standard.md': 'Standard prompt.\n{{fragment:ethics}}',
+    });
+
+    const skill = await loadSkill(skillDir, { fragmentsDir: fragDir });
+
+    expect(skill.prompts.standard).toContain('Always be ethical.');
+    expect(skill.prompts.standard).not.toContain('{{fragment:ethics}}');
+  });
+
+  it('leaves prompts unchanged when fragmentsDir is not provided', async () => {
+    const skillDir = path.join(tmpDir, 'no-frag-skill');
+    createSkillFixture(skillDir, VALID_MANIFEST, {
+      'standard.md': 'Standard prompt.\n{{fragment:ethics}}',
+    });
+
+    const skill = await loadSkill(skillDir);
+
+    expect(skill.prompts.standard).toContain('{{fragment:ethics}}');
+  });
+
+  it('resolves fragments in all tiers when fragmentsDir is provided', async () => {
+    const skillDir = path.join(tmpDir, 'multi-tier-frag-skill');
+    const fragDir = path.join(tmpDir, 'fragments');
+    fs.mkdirSync(fragDir, { recursive: true });
+    fs.writeFileSync(path.join(fragDir, 'footer.md'), 'Footer content.');
+
+    createSkillFixture(skillDir, VALID_MANIFEST, {
+      'minimal.md': 'Minimal.\n{{fragment:footer}}',
+      'standard.md': 'Standard.\n{{fragment:footer}}',
+      'comprehensive.md': 'Comprehensive.\n{{fragment:footer}}',
+    });
+
+    const skill = await loadSkill(skillDir, { fragmentsDir: fragDir });
+
+    expect(skill.prompts.minimal).toContain('Footer content.');
+    expect(skill.prompts.standard).toContain('Footer content.');
+    expect(skill.prompts.comprehensive).toContain('Footer content.');
+  });
+
+  it('loads full tool schema fields (description, when_to_use, parameters, returns)', async () => {
+    const skillDir = path.join(tmpDir, 'skill-full-tool');
+    createSkillFixture(skillDir);
+    fs.mkdirSync(path.join(skillDir, 'tools'), { recursive: true });
+    fs.writeFileSync(
+      path.join(skillDir, 'tools', 'scenario_model.yaml'),
+      [
+        'name: scenario_model',
+        'description: "Model a negotiation scenario"',
+        'when_to_use: "When analyzing deal structures"',
+        'parameters:',
+        '  parties:',
+        '    type: array',
+        '    description: "List of negotiating parties"',
+        '    required: true',
+        '  scenarios:',
+        '    type: array',
+        '    description: "Possible outcome scenarios"',
+        '    required: true',
+        'returns:',
+        '  type: object',
+        '  description: "Ranked scenarios with recommendations"',
+      ].join('\n')
+    );
+
+    const skill = await loadSkill(skillDir);
+    const tool = skill.tools[0];
+
+    expect(tool.name).toBe('scenario_model');
+    expect(tool.description).toContain('negotiation scenario');
+    expect(tool.when_to_use).toContain('deal structures');
+    expect(tool.parameters.parties.type).toBe('array');
+    expect(tool.parameters.parties.required).toBe(true);
+    expect(tool.returns.type).toBe('object');
+  });
+
+  it('loads multiple tool files and sorts by name', async () => {
+    const skillDir = path.join(tmpDir, 'skill-multi-tools');
+    createSkillFixture(skillDir);
+    fs.mkdirSync(path.join(skillDir, 'tools'), { recursive: true });
+    fs.writeFileSync(
+      path.join(skillDir, 'tools', 'web_search.yaml'),
+      'name: web_search\ndescription: Search\nparameters:\n  query:\n    type: string\n    required: true\n'
+    );
+    fs.writeFileSync(
+      path.join(skillDir, 'tools', 'document_fetch.yaml'),
+      'name: document_fetch\ndescription: Fetch doc\nparameters:\n  url:\n    type: string\n    required: true\n'
+    );
+
+    const skill = await loadSkill(skillDir);
+
+    expect(skill.output_schemas).toHaveLength(2);
+    expect(skill.output_schemas[0].name).toBe('analysis');
+    expect(skill.output_schemas[1].name).toBe('summary');
+  });
+
+  it('ignores non-yaml files in output_schemas/', async () => {
+    const skillDir = path.join(tmpDir, 'schema-ignore-skill');
+    createSkillFixture(skillDir);
+    fs.mkdirSync(path.join(skillDir, 'output_schemas'), { recursive: true });
+    fs.writeFileSync(
+      path.join(skillDir, 'output_schemas', 'report.yaml'),
+      'name: report\ndescription: A report\nformat: json\n'
+    );
+    fs.writeFileSync(path.join(skillDir, 'output_schemas', 'README.md'), '# Schemas');
+
+    const skill = await loadSkill(skillDir);
+
+    expect(skill.output_schemas).toHaveLength(1);
+  });
+
+  it('real skill market-intelligence has output schemas', async () => {
+    const skillDir = new URL('../../skills/market-intelligence', import.meta.url).pathname;
+    const skill = await loadSkill(skillDir);
+    expect(skill.output_schemas.length).toBeGreaterThan(0);
+    const schemaNames = skill.output_schemas.map((s) => s.name);
+    expect(schemaNames).toContain('market_report');
+  });
+
+  it('real skill strategic-negotiator has output schemas', async () => {
+    const skillDir = new URL('../../skills/strategic-negotiator', import.meta.url).pathname;
+    const skill = await loadSkill(skillDir);
+    expect(skill.output_schemas.length).toBeGreaterThan(0);
+    const schemaNames = skill.output_schemas.map((s) => s.name);
+    expect(schemaNames).toContain('negotiation_analysis');
+    expect(skill.tools).toHaveLength(2);
+    const names = skill.tools.map(t => t.name).sort();
+    expect(names).toContain('web_search');
+    expect(names).toContain('document_fetch');
+  });
+
+  it('ignores non-yaml files in tools/ directory', async () => {
+    const skillDir = path.join(tmpDir, 'skill-tools-nonjson');
+    createSkillFixture(skillDir);
+    fs.mkdirSync(path.join(skillDir, 'tools'), { recursive: true });
+    fs.writeFileSync(path.join(skillDir, 'tools', 'README.md'), '# Tools');
+    fs.writeFileSync(
+      path.join(skillDir, 'tools', 'web_search.yaml'),
+      'name: web_search\ndescription: Search\nparameters:\n  query:\n    type: string\n    required: true\n'
+    );
+
+    const skill = await loadSkill(skillDir);
+
+    expect(skill.tools).toHaveLength(1);
+  });
+});
+
+// ============================================================================
+// Tool definitions in real skills
+// ============================================================================
+
+describe('real skills with tool definitions', () => {
+  const SKILLS_DIR = path.resolve('skills');
+
+  it('research-assistant has web_search tool', async () => {
+    const skill = await loadSkill(path.join(SKILLS_DIR, 'research-assistant'));
+    const tool = skill.tools.find(t => t.name === 'web_search');
+    expect(tool).toBeDefined();
+    expect(tool.parameters.query).toBeDefined();
+  });
+
+  it('market-intelligence has fetch_market_data tool', async () => {
+    const skill = await loadSkill(path.join(SKILLS_DIR, 'market-intelligence'));
+    const tool = skill.tools.find(t => t.name === 'fetch_market_data');
+    expect(tool).toBeDefined();
+    expect(tool.parameters).toBeDefined();
+  });
+
+  it('strategic-negotiator has scenario_model tool', async () => {
+    const skill = await loadSkill(path.join(SKILLS_DIR, 'strategic-negotiator'));
+    const tool = skill.tools.find(t => t.name === 'scenario_model');
+    expect(tool).toBeDefined();
+    expect(tool.parameters.parties).toBeDefined();
+  });
+
+  it('devops-sre has query_metrics tool', async () => {
+    const skill = await loadSkill(path.join(SKILLS_DIR, 'devops-sre'));
+    const tool = skill.tools.find(t => t.name === 'query_metrics');
+    expect(tool).toBeDefined();
+    expect(tool.parameters).toBeDefined();
+  });
+
+  it('all tool files have required name and description fields', async () => {
+    const skillNames = ['research-assistant', 'market-intelligence', 'strategic-negotiator', 'devops-sre'];
+    for (const skillName of skillNames) {
+      const skill = await loadSkill(path.join(SKILLS_DIR, skillName));
+      for (const tool of skill.tools) {
+        expect(tool.name, `${skillName}/${tool.name || '(unnamed)'} missing name`).toBeTruthy();
+        expect(tool.description, `${skillName}/${tool.name} missing description`).toBeTruthy();
+        expect(tool.parameters, `${skillName}/${tool.name} missing parameters`).toBeDefined();
+      }
+    }
+  });
 });

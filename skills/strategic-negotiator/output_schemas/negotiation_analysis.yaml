@@ -1,0 +1,54 @@
+name: negotiation_analysis
+description: "Structured negotiation scenario analysis with ranked outcomes and recommended strategy"
+format: json
+schema:
+  type: object
+  required:
+    - ranked_scenarios
+    - recommended_strategy
+    - risk_analysis
+    - walk_away_triggers
+  properties:
+    ranked_scenarios:
+      type: array
+      description: "Outcome scenarios ranked by expected value"
+      items:
+        type: object
+        properties:
+          scenario:
+            type: string
+          expected_value:
+            type: number
+          probability:
+            type: number
+          risk_score:
+            type: number
+          notes:
+            type: string
+    recommended_strategy:
+      type: string
+      description: "Primary negotiation strategy recommendation with rationale"
+    risk_analysis:
+      type: object
+      description: "Risk breakdown across key dimensions"
+      properties:
+        overall_risk:
+          type: string
+        batna_strength:
+          type: string
+        zopa_width:
+          type: string
+        key_risks:
+          type: array
+          items:
+            type: string
+    walk_away_triggers:
+      type: array
+      description: "Specific conditions under which negotiation should be terminated"
+      items:
+        type: string
+    integrative_options:
+      type: array
+      description: "Value-expanding options identified before distributive bargaining"
+      items:
+        type: string

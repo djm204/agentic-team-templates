@@ -1,0 +1,28 @@
+name: analyze_sentiment
+description: "Analyze sentiment and signal classification across a set of text sources for a given topic"
+when_to_use: "When aggregating qualitative signals from news, earnings calls, analyst reports, or social data; when classifying whether signals are bullish, bearish, or neutral"
+parameters:
+  topic:
+    type: string
+    description: "The company, sector, or topic to analyze"
+    required: true
+  sources:
+    type: array
+    description: "List of text excerpts or source URLs to analyze"
+    required: true
+  signal_types:
+    type: array
+    description: "Signal categories to detect: earnings, regulatory, macro, competitive, management"
+    default: []
+returns:
+  type: object
+  description: "Sentiment scores and classified signals by category"
+  properties:
+    overall_sentiment:
+      type: string
+    confidence:
+      type: number
+    signals:
+      type: array
+    summary:
+      type: string

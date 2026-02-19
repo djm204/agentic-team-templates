@@ -15,6 +15,7 @@
 
 import fs from 'fs';
 import path from 'path';
+import { resolveFragments } from './fragments.js';
 
 // ============================================================================
 // Constants
@@ -216,18 +217,24 @@ export function validateManifest(manifest) {
 // Tool loader
 // ============================================================================
 
-function loadTools(skillDir) {
-  const toolsDir = path.join(skillDir, 'tools');
-  if (!fs.existsSync(toolsDir)) return [];
+function loadYamlDir(dirPath) {
+  if (!fs.existsSync(dirPath)) return [];
 
-  const tools = [];
-  for (const file of fs.readdirSync(toolsDir)) {
+  const items = [];
+  for (const file of fs.readdirSync(dirPath).sort()) {
     if (!file.endsWith('.yaml') && !file.endsWith('.yml')) continue;
-    const raw = fs.readFileSync(path.join(toolsDir, file), 'utf8');
-    const tool = parseYaml(raw);
-    tools.push(tool);
+    const raw = fs.readFileSync(path.join(dirPath, file), 'utf8');
+    items.push(parseYaml(raw));
   }
-  return tools;
+  return items;
+}
+
+function loadTools(skillDir) {
+  return loadYamlDir(path.join(skillDir, 'tools'));
+}
+
+function loadOutputSchemas(skillDir) {
+  return loadYamlDir(path.join(skillDir, 'output_schemas'));
 }
 
 // ============================================================================
@@ -240,6 +247,7 @@ function loadTools(skillDir) {
  * @param {string} skillDir - Path to the skill directory
  * @param {object} [options]
  * @param {'minimal'|'standard'|'comprehensive'} [options.tier='standard'] - Prompt tier to use
+ * @param {string|null} [options.fragmentsDir=null] - Optional directory of shared fragment .md files
  * @returns {Promise<SkillPack>}
  *
  * @typedef {object} SkillPack
@@ -255,7 +263,7 @@ function loadTools(skillDir) {
  * @property {object[]} tools
  */
 export async function loadSkill(skillDir, options = {}) {
-  const { tier = 'standard' } = options;
+  const { tier = 'standard', fragmentsDir = null } = options;
 
   // Verify directory exists
   if (!fs.existsSync(skillDir)) {
@@ -276,13 +284,15 @@ export async function loadSkill(skillDir, options = {}) {
     throw new Error(`Invalid skill manifest in ${skillDir}:\n  ${errors.join('\n  ')}`);
   }
 
-  // Load prompt tiers
+  // Load prompt tiers (resolve fragment references if fragmentsDir is provided)
   const promptsDir = path.join(skillDir, 'prompts');
   const prompts = {};
   for (const t of TIER_ORDER) {
     const filePath = path.join(promptsDir, `${t}.md`);
     if (fs.existsSync(filePath)) {
-      prompts[t] = fs.readFileSync(filePath, 'utf8');
+      const raw = fs.readFileSync(filePath, 'utf8');
+      const { text } = resolveFragments(raw, fragmentsDir);
+      prompts[t] = text;
     }
   }
 
@@ -303,8 +313,9 @@ export async function loadSkill(skillDir, options = {}) {
     }
   }
 
-  // Load tools
+  // Load tools and output schemas
   const tools = loadTools(skillDir);
+  const output_schemas = loadOutputSchemas(skillDir);
 
   return {
     name: manifest.name,
@@ -321,5 +332,6 @@ export async function loadSkill(skillDir, options = {}) {
     systemPrompt: systemPrompt || '',
     tierUsed,
     tools,
+    output_schemas,
   };
 }

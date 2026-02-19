@@ -221,4 +221,26 @@ describe('composeSkills', () => {
     const primaryEntry = result.composition.find((e) => e.name === 'skill-a');
     expect(['standard', 'comprehensive']).toContain(primaryEntry.tier);
   });
+
+  it('deduplicates shared fragment blocks across composed skills', async () => {
+    const sharedFragment =
+      '<!-- fragment:ethics -->\nAlways be ethical.\n<!-- /fragment:ethics -->';
+    const skillWithFrag = (name) =>
+      makeSkill({
+        name,
+        prompts: {
+          minimal: `# ${name} Minimal\n${sharedFragment}`,
+          standard: `# ${name} Standard\n${sharedFragment}`,
+          comprehensive: `# ${name} Comprehensive\n${sharedFragment}`,
+        },
+      });
+
+    const result = await composeSkills([skillWithFrag('alpha'), skillWithFrag('beta')], {
+      budget: 8000,
+    });
+
+    const count = (result.systemPrompt.match(/<!-- fragment:ethics -->/g) || []).length;
+    expect(count).toBe(1);
+    expect(result.systemPrompt).toContain('Always be ethical.');
+  });
 });
