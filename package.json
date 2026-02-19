@@ -28,10 +28,15 @@
   "bin": {
     "agent-skills": "bin/cli.js"
   },
+  "exports": {
+    ".": "./src/index.js",
+    "./api": "./src/api/index.js"
+  },
   "files": [
     "bin",
     "src",
     "templates",
+    "skills",
     "README.md"
   ],
   "type": "module",
