@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.3.0](https://github.com/djm204/agent-skills/compare/agent-skills-v1.2.0...agent-skills-v1.3.0) (2026-02-20)
+
+
+### Features
+
+* add --adapter flag for skill-pack pipeline in CLI ([#103](https://github.com/djm204/agent-skills/issues/103)) ([be236c8](https://github.com/djm204/agent-skills/commit/be236c813263bf0c6192f4a19a9da3288ad249ad))
+* add test case YAML spec and deterministic test runner ([#109](https://github.com/djm204/agent-skills/issues/109)) ([c05a498](https://github.com/djm204/agent-skills/commit/c05a49896b9d4fd574b59c078daddc5ac9a73aa6))
+* add tool YAML definitions to 4 skills + extend loader tests ([#104](https://github.com/djm204/agent-skills/issues/104)) ([0c9ac36](https://github.com/djm204/agent-skills/commit/0c9ac36e9d4068be5440b3b1d72ec0ac779ece0b))
+* multi-skill composition CLI — --budget and --primary flags ([#108](https://github.com/djm204/agent-skills/issues/108)) ([f461013](https://github.com/djm204/agent-skills/commit/f461013ff98d6545cd2c7efd4108ca9f05e97834))
+* output schema YAML spec + schemas for 2 skills ([#107](https://github.com/djm204/agent-skills/issues/107)) ([9aee9a6](https://github.com/djm204/agent-skills/commit/9aee9a6736fb5002d7a8e47f62d1d9c89b1fa7b9))
+* remove toon format references from utility-agent templates ([#106](https://github.com/djm204/agent-skills/issues/106)) ([697eaaa](https://github.com/djm204/agent-skills/commit/697eaaa4aa41e449ec7149f28560c82b38fef158))
+* shared fragments system for reusable prompt blocks ([#105](https://github.com/djm204/agent-skills/issues/105)) ([9c64fe7](https://github.com/djm204/agent-skills/commit/9c64fe75230feaa5783bb347607d4abd6252b910))
+* Sprint 6 — TypeScript types, skill authoring guide, python/golang/fullstack skills ([#111](https://github.com/djm204/agent-skills/issues/111)) ([9429f0d](https://github.com/djm204/agent-skills/commit/9429f0d13183c636c15c798b54c5f09a8d4ce90b))
+
+
+### Documentation
+
+* update README for skill pack system and 48 skills ([#112](https://github.com/djm204/agent-skills/issues/112)) ([77c7cf4](https://github.com/djm204/agent-skills/commit/77c7cf4f7e7323458790feda54fb1ccabcae17d0))
+
 ## [1.2.0](https://github.com/djm204/agent-skills/compare/agent-skills-v1.1.0...agent-skills-v1.2.0) (2026-02-19)
 
 
